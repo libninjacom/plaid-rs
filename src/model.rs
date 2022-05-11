@@ -6,16 +6,16 @@ pub struct ItemGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemGetResponse {
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///Information about the last successful and failed transactions update for the Item.
     pub status: Option<ItemStatusNullable>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AuthGetRequest {
@@ -24,7 +24,7 @@ pub struct AuthGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///An optional object to filter `/auth/get` results.
     pub options: AuthGetRequestOptions,
 }
@@ -37,24 +37,24 @@ Note: An error will be returned if a provided `account_id` is not associated wit
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AuthGetResponse {
     ///The `accounts` for which numbers are being retrieved.
-    pub accounts: Option<Vec<AccountBase>>,
+    pub accounts: Vec<AccountBase>,
     ///An object containing identifying numbers used for making electronic transfers to and from the `accounts`. The identifying number type (ACH, EFT, IBAN, or BACS) used will depend on the country of the account. An account may have more than one number type. If a particular identifying number type is not used by any `accounts` for which data has been requested, the array for that type will be empty.
-    pub numbers: Option<AuthGetNumbers>,
+    pub numbers: AuthGetNumbers,
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AuthGetNumbers {
     ///An array of ACH numbers identifying accounts.
-    pub ach: Option<Vec<NumbersACH>>,
+    pub ach: Vec<NumbersACH>,
     ///An array of EFT numbers identifying accounts.
-    pub eft: Option<Vec<NumbersEFT>>,
+    pub eft: Vec<NumbersEFT>,
     ///An array of IBAN numbers identifying accounts.
-    pub international: Option<Vec<NumbersInternational>>,
+    pub international: Vec<NumbersInternational>,
     ///An array of BACS numbers identifying accounts.
-    pub bacs: Option<Vec<NumbersBACS>>,
+    pub bacs: Vec<NumbersBACS>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsGetRequest {
@@ -63,13 +63,13 @@ pub struct TransactionsGetRequest {
     ///An optional object to be used with the request. If specified, `options` must not be `null`.
     pub options: TransactionsGetRequestOptions,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The earliest date for which data should be returned. Dates should be formatted as YYYY-MM-DD.
-    pub start_date: Option<String>,
+    pub start_date: String,
     ///The latest date for which data should be returned. Dates should be formatted as YYYY-MM-DD.
-    pub end_date: Option<String>,
+    pub end_date: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsGetRequestOptions {
@@ -82,65 +82,65 @@ Note: An error will be returned if a provided `account_id` is not associated wit
     ///The number of transactions to skip. The default value is 0.
     pub offset: i64,
     ///Include the raw unparsed transaction description from the financial institution. This field is disabled by default. If you need this information in addition to the parsed data provided, contact your Plaid Account Manager.
-    pub include_original_description: Option<Option<bool>>,
+    pub include_original_description: Option<bool>,
     ///Include the `personal_finance_category` object in the response. This feature is currently in beta – to request access, contact transactions-feedback@plaid.com.
     pub include_personal_finance_category_beta: bool,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsGetResponse {
     ///An array containing the `accounts` associated with the Item for which transactions are being returned. Each transaction can be mapped to its corresponding account via the `account_id` field.
-    pub accounts: Option<Vec<AccountBase>>,
+    pub accounts: Vec<AccountBase>,
     ///An array containing transactions from the account. Transactions are returned in reverse chronological order, with the most recent at the beginning of the array. The maximum number of transactions returned is determined by the `count` parameter.
-    pub transactions: Option<Vec<Transaction>>,
+    pub transactions: Vec<Transaction>,
     ///The total number of transactions available within the date range specified. If `total_transactions` is larger than the size of the `transactions` array, more transactions are available and can be fetched via manipulating the `offset` parameter.
-    pub total_transactions: Option<i64>,
+    pub total_transactions: i64,
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsRefreshRequest {
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
     pub client_id: APIClientID,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsRefreshResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsRecurringGetRequest {
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
     pub client_id: APIClientID,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     /**A list of `account_ids` to retrieve for the Item
 
 Note: An error will be returned if a provided `account_id` is not associated with the Item.*/
-    pub account_ids: Option<Vec<String>>,
+    pub account_ids: Vec<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsRecurringGetResponse {
     ///An array of depository transaction streams.
-    pub inflow_streams: Option<Vec<TransactionStream>>,
+    pub inflow_streams: Vec<TransactionStream>,
     ///An array of expense transaction streams.
-    pub outflow_streams: Option<Vec<TransactionStream>>,
+    pub outflow_streams: Vec<TransactionStream>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsSyncRequest {
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
     pub client_id: APIClientID,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     /**The cursor value represents the last update requested. Providing it will cause the response to only return changes after this update.
@@ -153,17 +153,17 @@ Note: The upper-bound length of this cursor is 256 characters of base64.*/
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsSyncResponse {
     ///Transactions that have been added to the item since `cursor` ordered by ascending last modified time.
-    pub added: Option<Vec<Transaction>>,
+    pub added: Vec<Transaction>,
     ///Transactions that have been modified on the item since `cursor` ordered by ascending last modified time.
-    pub modified: Option<Vec<Transaction>>,
+    pub modified: Vec<Transaction>,
     ///Transactions that have been removed from the item since `cursor` ordered by ascending last modified time.
-    pub removed: Option<Vec<RemovedTransaction>>,
+    pub removed: Vec<RemovedTransaction>,
     ///Cursor used for fetching any future updates after the latest update provided in this response.
-    pub next_cursor: Option<String>,
+    pub next_cursor: String,
     ///Represents if more than requested count of transaction updates exist. If true, the additional updates can be fetched by making an additional request with `cursor` set to `next_cursor`.
-    pub has_more: Option<bool>,
+    pub has_more: bool,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsGetRequest {
@@ -172,25 +172,25 @@ pub struct InstitutionsGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The total number of Institutions to return.
-    pub count: Option<i64>,
+    pub count: i64,
     ///The number of Institutions to skip.
-    pub offset: Option<i64>,
+    pub offset: i64,
     /**Specify an array of Plaid-supported country codes this institution supports, using the ISO-3166-1 alpha-2 country code standard.
 
 In API versions 2019-05-29 and earlier, the `country_codes` parameter is an optional parameter within the `options` object and will default to `[US]` if it is not supplied.
 */
-    pub country_codes: Option<Vec<CountryCode>>,
+    pub country_codes: Vec<CountryCode>,
     ///An optional object to filter `/institutions/get` results.
     pub options: InstitutionsGetRequestOptions,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsGetRequestOptions {
     ///Filter the Institutions based on which products they support.
-    pub products: Option<Option<Vec<Products>>>,
+    pub products: Option<Vec<Products>>,
     ///Specify an array of routing numbers to filter institutions. The response will only return institutions that match all of the routing numbers in the array. Routing number records used for this matching are not comprehensive; failure to match a given routing number to an institution does not mean that the institution is unsupported by Plaid.
-    pub routing_numbers: Option<Option<Vec<String>>>,
+    pub routing_numbers: Option<Vec<String>>,
     ///Limit results to institutions with or without OAuth login flows.
-    pub oauth: Option<Option<bool>>,
+    pub oauth: Option<bool>,
     /**When `true`, return the institution's homepage URL, logo and primary brand color.
 
 Note that Plaid does not own any of the logos shared by the API, and that by accessing or using these logos, you agree that you are doing so at your own risk and will, if necessary, obtain all required permissions from the appropriate rights holders and adhere to any applicable usage guidelines. Plaid disclaims all express or implied warranties with respect to the logos.*/
@@ -203,11 +203,11 @@ Note that Plaid does not own any of the logos shared by the API, and that by acc
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsGetResponse {
     ///A list of Plaid institutions
-    pub institutions: Option<Vec<Institution>>,
+    pub institutions: Vec<Institution>,
     ///The total number of institutions available via this endpoint
-    pub total: Option<i64>,
+    pub total: i64,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsSearchRequest {
@@ -216,39 +216,39 @@ pub struct InstitutionsSearchRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The search query. Institutions with names matching the query are returned
-    pub query: Option<String>,
+    pub query: String,
     ///Filter the Institutions based on whether they support all products listed in `products`. Provide `null` to get institutions regardless of supported products. Note that when `auth` is specified as a product, if you are enabled for Instant Match or Automated Micro-deposits, institutions that support those products will be returned even if `auth` is not present in their product array.
-    pub products: Option<Option<Vec<Products>>>,
+    pub products: Option<Vec<Products>>,
     /**Specify an array of Plaid-supported country codes this institution supports, using the ISO-3166-1 alpha-2 country code standard. In API versions 2019-05-29 and earlier, the `country_codes` parameter is an optional parameter within the `options` object and will default to `[US]` if it is not supplied.
 */
-    pub country_codes: Option<Vec<CountryCode>>,
+    pub country_codes: Vec<CountryCode>,
     ///An optional object to filter `/institutions/search` results.
     pub options: InstitutionsSearchRequestOptions,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsSearchRequestOptions {
     ///Limit results to institutions with or without OAuth login flows.
-    pub oauth: Option<Option<bool>>,
+    pub oauth: Option<bool>,
     ///When true, return the institution's homepage URL, logo and primary brand color.
     pub include_optional_metadata: bool,
     ///When `true`, returns metadata related to the Auth product indicating which auth methods are supported.
-    pub include_auth_metadata: Option<Option<bool>>,
+    pub include_auth_metadata: Option<bool>,
     ///When `true`, returns metadata related to the Payment Initiation product indicating which payment configurations are supported.
-    pub include_payment_initiation_metadata: Option<Option<bool>>,
+    pub include_payment_initiation_metadata: Option<bool>,
     ///Additional options that will be used to filter institutions by various Payment Initiation configurations.
     pub payment_initiation: Option<InstitutionsSearchPaymentInitiationOptions>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsSearchPaymentInitiationOptions {
     ///A unique ID identifying the payment
-    pub payment_id: Option<Option<String>>,
+    pub payment_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsSearchResponse {
     ///An array of institutions matching the search criteria
-    pub institutions: Option<Vec<Institution>>,
+    pub institutions: Vec<Institution>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsGetByIdRequest {
@@ -257,10 +257,10 @@ pub struct InstitutionsGetByIdRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the institution to get details about
-    pub institution_id: Option<String>,
+    pub institution_id: String,
     /**Specify an array of Plaid-supported country codes this institution supports, using the ISO-3166-1 alpha-2 country code standard. In API versions 2019-05-29 and earlier, the `country_codes` parameter is an optional parameter within the `options` object and will default to `[US]` if it is not supplied.
 */
-    pub country_codes: Option<Vec<CountryCode>>,
+    pub country_codes: Vec<CountryCode>,
     ///Specifies optional parameters for `/institutions/get_by_id`. If provided, must not be `null`.
     pub options: InstitutionsGetByIdRequestOptions,
 }
@@ -280,9 +280,9 @@ Note that Plaid does not own any of the logos shared by the API and that by acce
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsGetByIdResponse {
     ///Details relating to a specific financial institution
-    pub institution: Option<Institution>,
+    pub institution: Institution,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemRemoveRequest {
@@ -291,12 +291,12 @@ pub struct ItemRemoveRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemRemoveResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountsGetRequest {
@@ -305,7 +305,7 @@ pub struct AccountsGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///An optional object to filter `/accounts/get` results.
     pub options: AccountsGetRequestOptions,
 }
@@ -318,20 +318,20 @@ pub struct AccountsGetRequestOptions {
 pub struct AccountsGetResponse {
     /**An array of financial institution accounts associated with the Item.
 If `/accounts/balance/get` was called, each account will include real-time balance information.*/
-    pub accounts: Option<Vec<AccountBase>>,
+    pub accounts: Vec<AccountBase>,
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CategoriesGetRequest {}
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CategoriesGetResponse {
     ///An array of all of the transaction categories used by Plaid.
-    pub categories: Option<Vec<Category>>,
+    pub categories: Vec<Category>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxOverridePassword(pub Option<String>);
@@ -344,7 +344,7 @@ pub struct SandboxProcessorTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the institution the Item will be associated with
-    pub institution_id: Option<String>,
+    pub institution_id: String,
     ///An optional set of options to be used when configuring the Item. If specified, must not be `null`.
     pub options: SandboxProcessorTokenCreateRequestOptions,
 }
@@ -358,9 +358,9 @@ pub struct SandboxProcessorTokenCreateRequestOptions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxProcessorTokenCreateResponse {
     ///A processor token that can be used to call the `/processor/` endpoints.
-    pub processor_token: Option<String>,
+    pub processor_token: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxPublicTokenCreateRequest {
@@ -369,9 +369,9 @@ pub struct SandboxPublicTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the institution the Item will be associated with
-    pub institution_id: Option<String>,
+    pub institution_id: String,
     ///The products to initially pull for the Item. May be any products that the specified `institution_id`  supports. This array may not be empty.
-    pub initial_products: Option<Vec<Products>>,
+    pub initial_products: Vec<Products>,
     ///An optional set of options to be used when configuring the Item. If specified, must not be `null`.
     pub options: SandboxPublicTokenCreateRequestOptions,
 }
@@ -396,9 +396,9 @@ pub struct SandboxPublicTokenCreateRequestOptionsTransactions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxPublicTokenCreateResponse {
     ///A public token that can be exchanged for an access token using `/item/public_token/exchange`
-    pub public_token: Option<String>,
+    pub public_token: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxItemFireWebhookRequest {
@@ -407,24 +407,24 @@ pub struct SandboxItemFireWebhookRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     /**The following values for `webhook_code` are supported:
 
 * `DEFAULT_UPDATE`
 * `NEW_ACCOUNTS_AVAILABLE`*/
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxItemFireWebhookResponse {
     ///Value is `true`  if the test` webhook_code`  was successfully fired.
-    pub webhook_fired: Option<bool>,
+    pub webhook_fired: bool,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountsBalanceGetRequest {
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
@@ -454,7 +454,7 @@ pub struct IdentityGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///An optional object to filter `/identity/get` results.
     pub options: IdentityGetRequestOptions,
 }
@@ -467,11 +467,11 @@ Note: An error will be returned if a provided `account_id` is not associated wit
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IdentityGetResponse {
     ///The accounts for which Identity data has been requested
-    pub accounts: Option<Vec<AccountIdentity>>,
+    pub accounts: Vec<AccountIdentity>,
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorAuthGetRequest {
@@ -480,16 +480,16 @@ pub struct ProcessorAuthGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
-    pub processor_token: Option<ProcessorToken>,
+    pub processor_token: ProcessorToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorAuthGetResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
     ///An object containing identifying numbers used for making electronic transfers to and from the `account`. The identifying number type (ACH, EFT, IBAN, or BACS) used will depend on the country of the account. An account may have more than one number type. If a particular identifying number type is not used by the `account` for which auth data has been requested, a null value will be returned.
-    pub numbers: Option<ProcessorNumber>,
+    pub numbers: ProcessorNumber,
     ///A single account at a financial institution.
-    pub account: Option<AccountBase>,
+    pub account: AccountBase,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorBankTransferCreateRequest {
@@ -500,20 +500,20 @@ pub struct ProcessorBankTransferCreateRequest {
     /**A random key provided by the client, per unique bank transfer. Maximum of 50 characters.
 
 The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. For example, if a request to create a bank transfer fails due to a network connection error, you can retry the request with the same idempotency key to guarantee that only a single bank transfer is created.*/
-    pub idempotency_key: Option<BankTransferIdempotencyKey>,
+    pub idempotency_key: BankTransferIdempotencyKey,
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
-    pub processor_token: Option<ProcessorToken>,
+    pub processor_token: ProcessorToken,
     #[serde(rename = "type")]
     ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<BankTransferType>,
+    pub type_: BankTransferType,
     ///The network or rails used for the transfer. Valid options are `ach`, `same-day-ach`, or `wire`.
-    pub network: Option<BankTransferNetwork>,
+    pub network: BankTransferNetwork,
     ///The amount of the bank transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<BankTransferAmount>,
+    pub amount: BankTransferAmount,
     ///The currency of the transfer amount – should be set to "USD".
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
     ///The transfer description. Maximum of 10 characters.
-    pub description: Option<String>,
+    pub description: String,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -547,9 +547,9 @@ The API supports idempotency for safely retrying requests without accidentally p
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     pub ach_class: ACHClass,
     ///The legal name and other information for the account holder.
-    pub user: Option<BankTransferUser>,
+    pub user: BankTransferUser,
     ///An arbitrary string provided by the client for storage with the bank transfer. May be up to 100 characters.
-    pub custom_tag: Option<Option<String>>,
+    pub custom_tag: Option<String>,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 - The JSON values must be Strings (no nested JSON objects allowed)
 - Only ASCII characters may be used
@@ -559,14 +559,14 @@ The API supports idempotency for safely retrying requests without accidentally p
 */
     pub metadata: Option<BankTransferMetadata>,
     ///Plaid’s unique identifier for the origination account for this transfer. If you have more than one origination account, this value must be specified.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorBankTransferCreateResponse {
     ///Represents a bank transfer within the Bank Transfers API.
-    pub bank_transfer: Option<BankTransfer>,
+    pub bank_transfer: BankTransfer,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorNumber {
@@ -586,14 +586,14 @@ pub struct ProcessorIdentityGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
-    pub processor_token: Option<ProcessorToken>,
+    pub processor_token: ProcessorToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorIdentityGetResponse {
     ///Identity information about an account
-    pub account: Option<AccountIdentity>,
+    pub account: AccountIdentity,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorBalanceGetRequest {
@@ -602,7 +602,7 @@ pub struct ProcessorBalanceGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
-    pub processor_token: Option<ProcessorToken>,
+    pub processor_token: ProcessorToken,
     ///An optional object to filter `/processor/balance/get` results.
     pub options: ProcessorBalanceGetRequestOptions,
 }
@@ -618,9 +618,9 @@ This field is only used when the institution is `ins_128026` (Capital One), in w
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorBalanceGetResponse {
     ///A single account at a financial institution.
-    pub account: Option<AccountBase>,
+    pub account: AccountBase,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemWebhookUpdateRequest {
@@ -629,16 +629,16 @@ pub struct ItemWebhookUpdateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The new webhook URL to associate with the Item.
-    pub webhook: Option<Option<String>>,
+    pub webhook: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemWebhookUpdateResponse {
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemAccessTokenInvalidateRequest {
@@ -647,14 +647,14 @@ pub struct ItemAccessTokenInvalidateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemAccessTokenInvalidateResponse {
     ///The access token associated with the Item data is being requested for.
-    pub new_access_token: Option<AccessToken>,
+    pub new_access_token: AccessToken,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WebhookVerificationKeyGetRequest {
@@ -663,36 +663,36 @@ pub struct WebhookVerificationKeyGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The key ID ( `kid` ) from the JWT header.
-    pub key_id: Option<String>,
+    pub key_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WebhookVerificationKeyGetResponse {
     ///A JSON Web Key (JWK) that can be used in conjunction with [JWT libraries](https://jwt.io/#libraries-io) to verify Plaid webhooks
-    pub key: Option<JWKPublicKey>,
+    pub key: JWKPublicKey,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JWKPublicKey {
     ///The alg member identifies the cryptographic algorithm family used with the key.
-    pub alg: Option<String>,
+    pub alg: String,
     ///The crv member identifies the cryptographic curve used with the key.
-    pub crv: Option<String>,
+    pub crv: String,
     ///The kid (Key ID) member can be used to match a specific key. This can be used, for instance, to choose among a set of keys within the JWK during key rollover.
-    pub kid: Option<String>,
+    pub kid: String,
     ///The kty (key type) parameter identifies the cryptographic algorithm family used with the key, such as RSA or EC.
-    pub kty: Option<String>,
+    pub kty: String,
     #[serde(rename = "use")]
     ///The use (public key use) parameter identifies the intended use of the public key.
-    pub use_: Option<String>,
+    pub use_: String,
     ///The x member contains the x coordinate for the elliptic curve point.
-    pub x: Option<String>,
+    pub x: String,
     ///The y member contains the y coordinate for the elliptic curve point.
-    pub y: Option<String>,
+    pub y: String,
     ///The timestamp when the key was created, in Unix time.
-    pub created_at: Option<i64>,
+    pub created_at: i64,
     ///The timestamp when the key expired, in Unix time.
-    pub expired_at: Option<Option<i64>>,
+    pub expired_at: Option<i64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LiabilitiesGetRequest {
@@ -701,7 +701,7 @@ pub struct LiabilitiesGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///An optional object to filter `/liabilities/get` results. If provided, `options` cannot be null.
     pub options: LiabilitiesGetRequestOptions,
 }
@@ -715,13 +715,13 @@ An error will be returned if a provided `account_id` is not associated with the 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LiabilitiesGetResponse {
     ///An array of accounts associated with the Item
-    pub accounts: Option<Vec<AccountBase>>,
+    pub accounts: Vec<AccountBase>,
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///An object containing liability accounts
-    pub liabilities: Option<LiabilitiesObject>,
+    pub liabilities: LiabilitiesObject,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientCreateRequest {
@@ -730,9 +730,9 @@ pub struct PaymentInitiationRecipientCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The name of the recipient
-    pub name: Option<String>,
+    pub name: String,
     ///The International Bank Account Number (IBAN) for the recipient. If BACS data is not provided, an IBAN is required.
-    pub iban: Option<Option<String>>,
+    pub iban: Option<String>,
     ///An object containing a BACS account number and sort code. If an IBAN is not provided or if this recipient needs to accept domestic GBP-denominated payments, BACS data is required.
     pub bacs: Option<RecipientBACSNullable>,
     ///The optional address of the payment recipient. This object is not currently required to make payments from UK institutions and should not be populated, though may be necessary for future European expansion.
@@ -741,14 +741,14 @@ pub struct PaymentInitiationRecipientCreateRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientCreateResponse {
     ///A unique ID identifying the recipient
-    pub recipient_id: Option<String>,
+    pub recipient_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentReverseResponse {
     ///A unique ID identifying the refund
-    pub refund_id: Option<String>,
+    pub refund_id: String,
     /**The status of the refund.
 
 `PROCESSING`: The refund is currently being processed. The refund will automatically exit this state when processing is complete.
@@ -758,9 +758,9 @@ pub struct PaymentInitiationPaymentReverseResponse {
 `EXECUTED`: Indicates that the refund has been successfully executed.
 
 `FAILED`: The refund has failed to be executed. This error is retryable once the root cause is resolved.*/
-    pub status: Option<String>,
+    pub status: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientGetRequest {
@@ -769,24 +769,24 @@ pub struct PaymentInitiationRecipientGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the recipient
-    pub recipient_id: Option<String>,
+    pub recipient_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientGetResponse(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipient {
     ///The ID of the recipient.
-    pub recipient_id: Option<String>,
+    pub recipient_id: String,
     ///The name of the recipient.
-    pub name: Option<String>,
+    pub name: String,
     ///The optional address of the payment recipient. This object is not currently required to make payments from UK institutions and should not be populated, though may be necessary for future European expansion.
     pub address: Option<PaymentInitiationAddress>,
     ///The International Bank Account Number (IBAN) for the recipient.
-    pub iban: Option<Option<String>>,
+    pub iban: Option<String>,
     ///An object containing a BACS account number and sort code. If an IBAN is not provided or if this recipient needs to accept domestic GBP-denominated payments, BACS data is required.
     pub bacs: Option<RecipientBACSNullable>,
     ///The EMI (E-Money Institution) recipient that this recipient is associated with, if any. This EMI recipient is used as an intermediary account to enable Plaid to reconcile the settlement of funds for Payment Initiation requests.
-    pub emi_recipient_id: Option<Option<String>>,
+    pub emi_recipient_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientListRequest {
@@ -798,9 +798,9 @@ pub struct PaymentInitiationRecipientListRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientListResponse {
     ///An array of payment recipients created for Payment Initiation
-    pub recipients: Option<Vec<PaymentInitiationRecipient>>,
+    pub recipients: Vec<PaymentInitiationRecipient>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentCreateRequest {
@@ -809,11 +809,11 @@ pub struct PaymentInitiationPaymentCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the recipient the payment is for.
-    pub recipient_id: Option<String>,
+    pub recipient_id: String,
     ///A reference for the payment. This must be an alphanumeric string with at most 18 characters and must not contain any special characters (since not all institutions support them).
-    pub reference: Option<String>,
+    pub reference: String,
     ///The amount and currency of a payment
-    pub amount: Option<PaymentAmount>,
+    pub amount: PaymentAmount,
     ///The schedule that the payment will be executed on. If a schedule is provided, the payment is automatically set up as a standing order. If no schedule is specified, the payment will be executed only once.
     pub schedule: ExternalPaymentScheduleRequest,
     ///Additional payment options
@@ -826,18 +826,18 @@ pub struct PaymentInitiationPaymentReverseRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the payment to reverse
-    pub payment_id: Option<String>,
+    pub payment_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentCreateResponse {
     ///A unique ID identifying the payment
-    pub payment_id: Option<String>,
+    pub payment_id: String,
     /**For a payment returned by this endpoint, there is only one possible value:
 
 `PAYMENT_STATUS_INPUT_NEEDED`: The initial phase of the payment*/
-    pub status: Option<String>,
+    pub status: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxItemResetLoginRequest {
@@ -846,14 +846,14 @@ pub struct SandboxItemResetLoginRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxItemResetLoginResponse {
     ///`true` if the call succeeded
-    pub reset_login: Option<bool>,
+    pub reset_login: bool,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxItemSetVerificationStatusRequest {
@@ -862,16 +862,16 @@ pub struct SandboxItemSetVerificationStatusRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The `account_id` of the account whose verification status is to be modified
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The verification status to set the account to.
-    pub verification_status: Option<String>,
+    pub verification_status: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxItemSetVerificationStatusResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemPublicTokenExchangeRequest {
@@ -880,16 +880,16 @@ pub struct ItemPublicTokenExchangeRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Your `public_token`, obtained from the Link `onSuccess` callback or `/sandbox/item/public_token/create`.
-    pub public_token: Option<String>,
+    pub public_token: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemPublicTokenExchangeResponse {
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The `item_id` value of the Item associated with the returned `access_token`
-    pub item_id: Option<String>,
+    pub item_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemPublicTokenCreateRequest {
@@ -898,16 +898,16 @@ pub struct ItemPublicTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemPublicTokenCreateResponse {
     ///A `public_token` for the particular Item corresponding to the specified `access_token`
-    pub public_token: Option<String>,
+    pub public_token: String,
     ///
     pub expiration: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentGetRequest {
@@ -916,7 +916,7 @@ pub struct PaymentInitiationPaymentGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The `payment_id` returned from `/payment_initiation/payment/create`.
-    pub payment_id: Option<String>,
+    pub payment_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentGetResponse(pub serde_json::Value);
@@ -925,9 +925,9 @@ pub struct PaymentInitiationPaymentStatus(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPayment {
     ///The ID of the payment. Like all Plaid identifiers, the `payment_id` is case sensitive.
-    pub payment_id: Option<String>,
+    pub payment_id: String,
     ///The amount and currency of a payment
-    pub amount: Option<PaymentAmount>,
+    pub amount: PaymentAmount,
     /**The status of the payment.
 
 `PAYMENT_STATUS_INPUT_NEEDED`: This is the initial state of all payments. It indicates that the payment is waiting on user input to continue processing. A payment may re-enter this state later on if further input is needed.
@@ -958,15 +958,15 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub status: Option<PaymentInitiationPaymentStatus>,
+    pub status: PaymentInitiationPaymentStatus,
     ///The ID of the recipient
-    pub recipient_id: Option<String>,
+    pub recipient_id: String,
     ///A reference for the payment.
-    pub reference: Option<String>,
+    pub reference: String,
     ///The value of the reference sent to the bank after adjustment to pass bank validation rules.
-    pub adjusted_reference: Option<Option<String>>,
+    pub adjusted_reference: Option<String>,
     ///The date and time of the last time the `status` was updated, in IS0 8601 format
-    pub last_status_update: Option<String>,
+    pub last_status_update: String,
     ///The schedule that the payment will be executed on. If a schedule is provided, the payment is automatically set up as a standing order. If no schedule is specified, the payment will be executed only once.
     pub schedule: Option<ExternalPaymentScheduleGet>,
     ///Details about external payment refund
@@ -974,11 +974,11 @@ These statuses will be removed in a future release.
     ///An object containing a BACS account number and sort code. If an IBAN is not provided or if this recipient needs to accept domestic GBP-denominated payments, BACS data is required.
     pub bacs: Option<SenderBACSNullable>,
     ///The International Bank Account Number (IBAN) for the sender, if specified in the `/payment_initiation/payment/create` call.
-    pub iban: Option<Option<String>>,
+    pub iban: Option<String>,
     ///Initiated refunds associated with the payment.
     pub initiated_refunds: Vec<PaymentInitiationRefund>,
     ///The EMI (E-Money Institution) wallet that this payment is associated with, if any. This wallet is used as an intermediary account to enable Plaid to reconcile the settlement of funds for Payment Initiation requests.
-    pub wallet_id: Option<Option<String>>,
+    pub wallet_id: Option<String>,
     /**Payment scheme. If not specified - the default in the region will be used (e.g. `SEPA_CREDIT_TRANSFER` for EU). Using unsupported values will result in a failed payment.
 
 `FASTER_PAYMENTS`: Enables payments to move quickly between UK bank accounts. Default value in the UK.
@@ -999,9 +999,9 @@ These statuses will be removed in a future release.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRefund {
     ///The ID of the refund. Like all Plaid identifiers, the `refund_id` is case sensitive.
-    pub refund_id: Option<String>,
+    pub refund_id: String,
     ///The amount and currency of a payment
-    pub amount: Option<PaymentAmount>,
+    pub amount: PaymentAmount,
     /**The status of the refund.
 
 `PROCESSING`: The refund is currently being processed. The refund will automatically exit this state when processing is complete.
@@ -1011,9 +1011,9 @@ pub struct PaymentInitiationRefund {
 `EXECUTED`: Indicates that the refund has been successfully executed.
 
 `FAILED`: The refund has failed to be executed. This error is retryable once the root cause is resolved.*/
-    pub status: Option<String>,
+    pub status: String,
     ///The date and time of the last time the `status` was updated, in IS0 8601 format
-    pub last_status_update: Option<String>,
+    pub last_status_update: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentTokenCreateRequest {
@@ -1022,16 +1022,16 @@ pub struct PaymentInitiationPaymentTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The `payment_id` returned from `/payment_initiation/payment/create`.
-    pub payment_id: Option<String>,
+    pub payment_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentTokenCreateResponse {
     ///A `payment_token` that can be provided to Link initialization to enter the payment initiation flow
-    pub payment_token: Option<String>,
+    pub payment_token: String,
     ///The date and time at which the token will expire, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format. A `payment_token` expires after 15 minutes.
-    pub payment_token_expiration_time: Option<String>,
+    pub payment_token_expiration_time: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentListRequest {
@@ -1040,18 +1040,18 @@ pub struct PaymentInitiationPaymentListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The maximum number of payments to return. If `count` is not specified, a maximum of 10 payments will be returned, beginning with the most recent payment before the cursor (if specified).
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
     ///A string in RFC 3339 format (i.e. "2019-12-06T22:35:49Z"). Only payments created before the cursor will be returned.
-    pub cursor: Option<Option<String>>,
+    pub cursor: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentListResponse {
     ///An array of payments that have been created, associated with the given `client_id`.
-    pub payments: Option<Vec<PaymentInitiationPayment>>,
+    pub payments: Vec<PaymentInitiationPayment>,
     ///The value that, when used as the optional `cursor` parameter to `/payment_initiation/payment/list`, will return the next unreturned payment as its first payment.
-    pub next_cursor: Option<Option<String>>,
+    pub next_cursor: Option<String>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportCreateRequest {
@@ -1060,29 +1060,29 @@ pub struct AssetReportCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///An array of access tokens corresponding to the Items that will be included in the report. The `assets` product must have been initialized for the Items during link; the Assets product cannot be added after initialization.
-    pub access_tokens: Option<Vec<AccessToken>>,
+    pub access_tokens: Vec<AccessToken>,
     ///The maximum integer number of days of history to include in the Asset Report. If using Fannie Mae Day 1 Certainty, `days_requested` must be at least 61 for new originations or at least 31 for refinancings.
-    pub days_requested: Option<i64>,
+    pub days_requested: i64,
     ///An optional object to filter `/asset_report/create` results. If provided, must be non-`null`. The optional `user` object is required for the report to be eligible for Fannie Mae's Day 1 Certainty program.
     pub options: AssetReportCreateRequestOptions,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportCreateRequestOptions {
     ///Client-generated identifier, which can be used by lenders to track loan applications.
-    pub client_report_id: Option<Option<String>>,
+    pub client_report_id: Option<String>,
     ///URL to which Plaid will send Assets webhooks, for example when the requested Asset Report is ready.
-    pub webhook: Option<Option<String>>,
+    pub webhook: Option<String>,
     ///The user object allows you to provide additional information about the user to be appended to the Asset Report. All fields are optional. The `first_name`, `last_name`, and `ssn` fields are required if you would like the Report to be eligible for Fannie Mae’s Day 1 Certainty™ program.
     pub user: AssetReportUser,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportCreateResponse {
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
     ///A unique ID identifying an Asset Report. Like all Plaid identifiers, this ID is case sensitive.
-    pub asset_report_id: Option<AssetReportId>,
+    pub asset_report_id: AssetReportId,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportRefreshRequest {
@@ -1091,29 +1091,29 @@ pub struct AssetReportRefreshRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The `asset_report_token` returned by the original call to `/asset_report/create`
-    pub asset_report_token: Option<AssetReportRefreshAssetReportToken>,
+    pub asset_report_token: AssetReportRefreshAssetReportToken,
     ///The maximum number of days of history to include in the Asset Report. Must be an integer. If not specified, the value from the original call to `/asset_report/create` will be used.
-    pub days_requested: Option<Option<i64>>,
+    pub days_requested: Option<i64>,
     ///An optional object to filter `/asset_report/refresh` results. If provided, cannot be `null`. If not specified, the `options` from the original call to `/asset_report/create` will be used.
     pub options: AssetReportRefreshRequestOptions,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportRefreshRequestOptions {
     ///Client-generated identifier, which can be used by lenders to track loan applications.
-    pub client_report_id: Option<Option<String>>,
+    pub client_report_id: Option<String>,
     ///URL to which Plaid will send Assets webhooks, for example when the requested Asset Report is ready.
-    pub webhook: Option<Option<String>>,
+    pub webhook: Option<String>,
     ///The user object allows you to provide additional information about the user to be appended to the Asset Report. All fields are optional. The `first_name`, `last_name`, and `ssn` fields are required if you would like the Report to be eligible for Fannie Mae’s Day 1 Certainty™ program.
     pub user: AssetReportUser,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportRefreshResponse {
     ///A unique ID identifying an Asset Report. Like all Plaid identifiers, this ID is case sensitive.
-    pub asset_report_id: Option<AssetReportId>,
+    pub asset_report_id: AssetReportId,
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportRemoveRequest {
@@ -1122,14 +1122,14 @@ pub struct AssetReportRemoveRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportRemoveResponse {
     ///`true` if the Asset Report was successfully removed.
-    pub removed: Option<bool>,
+    pub removed: bool,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportFilterRequest {
@@ -1138,18 +1138,18 @@ pub struct AssetReportFilterRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
     ///The accounts to exclude from the Asset Report, identified by `account_id`.
-    pub account_ids_to_exclude: Option<Vec<String>>,
+    pub account_ids_to_exclude: Vec<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportFilterResponse {
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
     ///A unique ID identifying an Asset Report. Like all Plaid identifiers, this ID is case sensitive.
-    pub asset_report_id: Option<AssetReportId>,
+    pub asset_report_id: AssetReportId,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportGetRequest {
@@ -1158,18 +1158,18 @@ pub struct AssetReportGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
     ///`true` if you would like to retrieve the Asset Report with Insights, `false` otherwise. This field defaults to `false` if omitted.
     pub include_insights: bool,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportGetResponse {
     ///An object representing an Asset Report
-    pub report: Option<AssetReport>,
+    pub report: AssetReport,
     ///If the Asset Report generation was successful but identity information cannot be returned, this array will contain information about the errors causing identity information to be missing
-    pub warnings: Option<Vec<Warning>>,
+    pub warnings: Vec<Warning>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportPDFGetRequest {
@@ -1178,7 +1178,7 @@ pub struct AssetReportPDFGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportPDFGetResponse(pub String);
@@ -1189,16 +1189,16 @@ pub struct AssetReportAuditCopyCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
-    pub asset_report_token: Option<AssetReportToken>,
+    pub asset_report_token: AssetReportToken,
     ///The `auditor_id` of the third party with whom you would like to share the Asset Report.
-    pub auditor_id: Option<String>,
+    pub auditor_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportAuditCopyCreateResponse {
     ///A token that can be shared with a third party auditor to allow them to obtain access to the Asset Report. This token should be stored securely.
-    pub audit_copy_token: Option<String>,
+    pub audit_copy_token: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportAuditCopyRemoveRequest {
@@ -1207,14 +1207,14 @@ pub struct AssetReportAuditCopyRemoveRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The `audit_copy_token` granting access to the Audit Copy you would like to revoke.
-    pub audit_copy_token: Option<String>,
+    pub audit_copy_token: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportAuditCopyRemoveResponse {
     ///`true` if the Audit Copy was successfully removed.
-    pub removed: Option<bool>,
+    pub removed: bool,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentsHoldingsGetRequest {
@@ -1223,7 +1223,7 @@ pub struct InvestmentsHoldingsGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///An optional object to filter `/investments/holdings/get` results. If provided, must not be `null`.
     pub options: InvestmentHoldingsGetRequestOptions,
 }
@@ -1235,15 +1235,15 @@ pub struct InvestmentHoldingsGetRequestOptions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentsHoldingsGetResponse {
     ///The accounts associated with the Item
-    pub accounts: Option<Vec<AccountBase>>,
+    pub accounts: Vec<AccountBase>,
     ///The holdings belonging to investment accounts associated with the Item. Details of the securities in the holdings are provided in the `securities` field.
-    pub holdings: Option<Vec<Holding>>,
+    pub holdings: Vec<Holding>,
     ///Objects describing the securities held in the accounts associated with the Item.
-    pub securities: Option<Vec<Security>>,
+    pub securities: Vec<Security>,
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentsTransactionsGetRequest {
@@ -1252,11 +1252,11 @@ pub struct InvestmentsTransactionsGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The earliest date for which to fetch transaction history. Dates should be formatted as YYYY-MM-DD.
-    pub start_date: Option<String>,
+    pub start_date: String,
     ///The most recent date for which to fetch transaction history. Dates should be formatted as YYYY-MM-DD.
-    pub end_date: Option<String>,
+    pub end_date: String,
     ///An optional object to filter `/investments/transactions/get` results. If provided, must be non-`null`.
     pub options: InvestmentsTransactionsGetRequestOptions,
 }
@@ -1273,17 +1273,17 @@ pub struct InvestmentsTransactionsGetRequestOptions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentsTransactionsGetResponse {
     ///Metadata about the Item.
-    pub item: Option<Item>,
+    pub item: Item,
     ///The accounts for which transaction history is being fetched.
-    pub accounts: Option<Vec<AccountBase>>,
+    pub accounts: Vec<AccountBase>,
     ///All securities for which there is a corresponding transaction being fetched.
-    pub securities: Option<Vec<Security>>,
+    pub securities: Vec<Security>,
     ///The transactions being fetched
-    pub investment_transactions: Option<Vec<InvestmentTransaction>>,
+    pub investment_transactions: Vec<InvestmentTransaction>,
     ///The total number of transactions available within the date range specified. If `total_investment_transactions` is larger than the size of the `transactions` array, more transactions are available and can be fetched via manipulating the `offset` parameter.'
-    pub total_investment_transactions: Option<i64>,
+    pub total_investment_transactions: i64,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorTokenCreateRequest {
@@ -1292,18 +1292,18 @@ pub struct ProcessorTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The `account_id` value obtained from the `onSuccess` callback in Link
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The processor you are integrating with.
-    pub processor: Option<String>,
+    pub processor: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorTokenCreateResponse {
     ///The `processor_token` that can then be used by the Plaid partner to make API requests
-    pub processor_token: Option<String>,
+    pub processor_token: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorStripeBankAccountTokenCreateRequest {
@@ -1312,16 +1312,16 @@ pub struct ProcessorStripeBankAccountTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The `account_id` value obtained from the `onSuccess` callback in Link
-    pub account_id: Option<String>,
+    pub account_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorStripeBankAccountTokenCreateResponse {
     ///A token that can be sent to Stripe for use in making API calls to Plaid
-    pub stripe_bank_account_token: Option<String>,
+    pub stripe_bank_account_token: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorApexProcessorTokenCreateRequest {
@@ -1330,9 +1330,9 @@ pub struct ProcessorApexProcessorTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The `account_id` value obtained from the `onSuccess` callback in Link
-    pub account_id: Option<String>,
+    pub account_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchCreateRequest {
@@ -1341,11 +1341,11 @@ pub struct DepositSwitchCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Access token for the target Item, typically provided in the Import Item response.
-    pub target_access_token: Option<String>,
+    pub target_access_token: String,
     ///Plaid Account ID that specifies the target bank account. This account will become the recipient for a user's direct deposit.
-    pub target_account_id: Option<String>,
+    pub target_account_id: String,
     ///ISO-3166-1 alpha-2 country code standard.
-    pub country_code: Option<Option<String>>,
+    pub country_code: Option<String>,
     ///Options to configure the `/deposit_switch/create` request. If provided, cannot be `null`.
     pub options: DepositSwitchCreateRequestOptions,
 }
@@ -1353,16 +1353,16 @@ pub struct DepositSwitchCreateRequest {
 pub struct DepositSwitchCreateRequestOptions {
     /**The URL registered to receive webhooks when the status of a deposit switch request has changed.
 */
-    pub webhook: Option<Option<String>>,
+    pub webhook: Option<String>,
     ///An array of access tokens corresponding to transaction items to use when attempting to match the user to their Payroll Provider. These tokens must be created by the same client id as the one creating the switch, and have access to the transactions product.
     pub transaction_item_access_tokens: Vec<AccessToken>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchCreateResponse {
     ///ID of the deposit switch. This ID is persisted throughout the lifetime of the deposit switch.
-    pub deposit_switch_id: Option<String>,
+    pub deposit_switch_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemImportRequest {
@@ -1371,9 +1371,9 @@ pub struct ItemImportRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Array of product strings
-    pub products: Option<Vec<Products>>,
+    pub products: Vec<Products>,
     ///Object of user ID and auth token pair, permitting Plaid to aggregate a user’s accounts
-    pub user_auth: Option<ItemImportRequestUserAuth>,
+    pub user_auth: ItemImportRequestUserAuth,
     ///An optional object to configure `/item/import` request.
     pub options: ItemImportRequestOptions,
 }
@@ -1386,16 +1386,16 @@ pub struct ItemImportRequestOptions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemImportRequestUserAuth {
     ///Opaque user identifier
-    pub user_id: Option<String>,
+    pub user_id: String,
     ///Authorization token Plaid will use to aggregate this user’s accounts
-    pub auth_token: Option<String>,
+    pub auth_token: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemImportResponse {
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchTokenCreateRequest {
@@ -1404,16 +1404,16 @@ pub struct DepositSwitchTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the deposit switch
-    pub deposit_switch_id: Option<String>,
+    pub deposit_switch_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchTokenCreateResponse {
     ///Deposit switch token, used to initialize Link for the Deposit Switch product
-    pub deposit_switch_token: Option<String>,
+    pub deposit_switch_token: String,
     ///Expiration time of the token, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format
-    pub deposit_switch_token_expiration_time: Option<String>,
+    pub deposit_switch_token_expiration_time: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenGetRequest {
@@ -1422,7 +1422,7 @@ pub struct LinkTokenGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///A `link_token` from a previous invocation of `/link/token/create`
-    pub link_token: Option<String>,
+    pub link_token: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequest {
@@ -1431,7 +1431,7 @@ pub struct LinkTokenCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The name of your application, as it should be displayed in Link. Maximum length of 30 characters. If a value longer than 30 characters is provided, Link will display "This Application" instead.
-    pub client_name: Option<String>,
+    pub client_name: String,
     /**The language that Link should be displayed in.
 
 Supported languages are:
@@ -1442,7 +1442,7 @@ Supported languages are:
 - German(`'de'`)
 
 When using a Link customization, the language configured here must match the setting in the customization, or the customization will not be applied.*/
-    pub language: Option<String>,
+    pub language: String,
     /**Specify an array of Plaid-supported country codes using the ISO-3166-1 alpha-2 country code standard. Institutions from all listed countries will be shown.  Supported country codes are: `US`, `CA`, `DE`, `ES`, `FR`, `GB`, `IE`, `NL`. For a complete mapping of supported products by country, see https://plaid.com/global/.
 
 If Link is launched with multiple country codes, only products that you are enabled for in all countries will be used by Link. Note that while all countries are enabled by default in Sandbox and Development, in Production only US and Canada are enabled by default. To gain access to European institutions in the Production environment, [file a product access Support ticket](https://dashboard.plaid.com/support/new/product-and-development/product-troubleshooting/request-product-access) via the Plaid dashboard. If you initialize with a European country code, your users will see the European consent panel during the Link flow.
@@ -1450,9 +1450,9 @@ If Link is launched with multiple country codes, only products that you are enab
 If using a Link customization, make sure the country codes in the customization match those specified in `country_codes`. If both `country_codes` and a Link customization are used, the value in `country_codes` may override the value in the customization.
 
 If using the Auth features Instant Match, Same-day Micro-deposits, or Automated Micro-deposits, `country_codes` must be set to `['US']`.*/
-    pub country_codes: Option<Vec<CountryCode>>,
+    pub country_codes: Vec<CountryCode>,
     ///An object specifying information about the end user who will be linking their account.
-    pub user: Option<LinkTokenCreateRequestUser>,
+    pub user: LinkTokenCreateRequestUser,
     /**List of Plaid product(s) you wish to use. If launching Link in update mode, should be omitted; required otherwise.
 
 `balance` is *not* a valid value, the Balance product does not require explicit initialization and will automatically be initialized when any other product is initialized.
@@ -1514,12 +1514,12 @@ pub struct LinkTokenEUConfig {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequestPaymentInitiation {
     ///The `payment_id` provided by the `/payment_initiation/payment/create` endpoint.
-    pub payment_id: Option<String>,
+    pub payment_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequestDepositSwitch {
     ///The `deposit_switch_id` provided by the `/deposit_switch/create` endpoint.
-    pub deposit_switch_id: Option<String>,
+    pub deposit_switch_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequestTransfer {
@@ -1529,12 +1529,12 @@ pub struct LinkTokenCreateRequestTransfer {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequestAuth {
     ///The optional Auth flow to use. Currently only used to enable Flexible Auth.
-    pub flow_type: Option<String>,
+    pub flow_type: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequestUser {
     ///A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the `client_user_id`. It is currently used as a means of searching logs for the given user in the Plaid Dashboard.
-    pub client_user_id: Option<String>,
+    pub client_user_id: String,
     ///The user's full legal name. This is an optional field used in the [returning user experience](https://plaid.com/docs/link/returning-user) to associate Items to the user.
     pub legal_name: String,
     ///The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
@@ -1598,58 +1598,58 @@ pub struct LinkTokenCreateInvestmentFilter {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenGetResponse {
     ///A `link_token`, which can be supplied to Link in order to initialize it and receive a `public_token`, which can be exchanged for an `access_token`.
-    pub link_token: Option<String>,
+    pub link_token: String,
     ///The creation timestamp for the `link_token`, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
-    pub created_at: Option<Option<String>>,
+    pub created_at: Option<String>,
     ///The expiration timestamp for the `link_token`, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
-    pub expiration: Option<Option<String>>,
+    pub expiration: Option<String>,
     ///An object specifying the arguments originally provided to the `/link/token/create` call.
-    pub metadata: Option<LinkTokenGetMetadataResponse>,
+    pub metadata: LinkTokenGetMetadataResponse,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenGetMetadataResponse {
     ///The `products` specified in the `/link/token/create` call.
-    pub initial_products: Option<Vec<Products>>,
+    pub initial_products: Vec<Products>,
     ///The `webhook` specified in the `/link/token/create` call.
-    pub webhook: Option<Option<String>>,
+    pub webhook: Option<String>,
     ///The `country_codes` specified in the `/link/token/create` call.
-    pub country_codes: Option<Vec<CountryCode>>,
+    pub country_codes: Vec<CountryCode>,
     ///The `language` specified in the `/link/token/create` call.
-    pub language: Option<Option<String>>,
+    pub language: Option<String>,
     /**The `account_filters` specified in the original call to `/link/token/create`.
 */
     pub account_filters: AccountFiltersResponse,
     ///The `redirect_uri` specified in the `/link/token/create` call.
-    pub redirect_uri: Option<Option<String>>,
+    pub redirect_uri: Option<String>,
     ///The `client_name` specified in the `/link/token/create` call.
-    pub client_name: Option<Option<String>>,
+    pub client_name: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LinkTokenCreateResponse {
     ///A `link_token`, which can be supplied to Link in order to initialize it and receive a `public_token`, which can be exchanged for an `access_token`.
-    pub link_token: Option<String>,
+    pub link_token: String,
     ///The expiration date for the `link_token`, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format. A `link_token` created to generate a `public_token` that will be exchanged for a new `access_token` expires after 4 hours. A `link_token` created for an existing Item (such as when updating an existing `access_token` by launching Link in update mode) expires after 30 minutes.
-    pub expiration: Option<String>,
+    pub expiration: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Item {
     ///The Plaid Item ID. The `item_id` is always unique; linking the same account at the same institution twice will result in two Items with different `item_id` values. Like all Plaid identifiers, the `item_id` is case-sensitive.
-    pub item_id: Option<String>,
+    pub item_id: String,
     ///The Plaid Institution ID associated with the Item. Field is `null` for Items created via Same Day Micro-deposits.
-    pub institution_id: Option<Option<String>>,
+    pub institution_id: Option<String>,
     ///The URL registered to receive webhooks for the Item.
-    pub webhook: Option<Option<String>>,
+    pub webhook: Option<String>,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: Option<Error>,
     ///A list of products available for the Item that have not yet been accessed.
-    pub available_products: Option<Vec<Products>>,
+    pub available_products: Vec<Products>,
     /**A list of products that have been billed for the Item. Note - `billed_products` is populated in all environments but only requests in Production are billed.
 */
-    pub billed_products: Option<Vec<Products>>,
+    pub billed_products: Vec<Products>,
     /**A list of authorized products for the Item.
 */
     pub products: Vec<Products>,
@@ -1657,28 +1657,28 @@ pub struct Item {
 
 Note - This is only relevant for certain OAuth-based institutions. For all other institutions, this field will be null.
 */
-    pub consent_expiration_time: Option<Option<String>>,
+    pub consent_expiration_time: Option<String>,
     /**Indicates whether an Item requires user interaction to be updated, which can be the case for Items with some forms of two-factor authentication.
 
 `background` - Item can be updated in the background
 
 `user_present_required` - Item requires user interaction to be updated*/
-    pub update_type: Option<String>,
+    pub update_type: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PlaidError(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Error {
     ///A broad categorization of the error. Safe for programmatic use.
-    pub error_type: Option<String>,
+    pub error_type: String,
     ///The particular error code. Safe for programmatic use.
-    pub error_code: Option<String>,
+    pub error_code: String,
     ///A developer-friendly representation of the error code. This may change over time and is not safe for programmatic use.
-    pub error_message: Option<String>,
+    pub error_message: String,
     /**A user-friendly representation of the error code. `null` if the error is not related to user action.
 
 This may change over time and is not safe for programmatic use.*/
-    pub display_message: Option<Option<String>>,
+    pub display_message: Option<String>,
     ///A unique ID identifying the request, to be used for troubleshooting purposes. This field will be omitted in errors provided by webhooks.
     pub request_id: String,
     /**In the Assets product, a request can pertain to more than one Item. If an error is returned for such a request, `causes` will return an array of errors containing a breakdown of these errors on the individual Item level, if any can be identified.
@@ -1686,7 +1686,7 @@ This may change over time and is not safe for programmatic use.*/
 `causes` will only be provided for the `error_type` `ASSET_REPORT_ERROR`. `causes` will also not be populated inside an error nested within a `warning` object.*/
     pub causes: Vec<serde_json::Value>,
     ///The HTTP status code associated with the error. This will only be returned in the response body when the error information is provided via a webhook.
-    pub status: Option<Option<f64>>,
+    pub status: Option<f64>,
     ///The URL of a Plaid documentation page with more information about the error
     pub documentation_url: String,
     ///Suggested steps for resolving the error
@@ -1697,24 +1697,24 @@ pub struct ItemStatusNullable(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemStatusTransactions {
     ///[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of the last successful transactions update for the Item. The status will update each time Plaid successfully connects with the institution, regardless of whether any new data is available in the update.
-    pub last_successful_update: Option<Option<String>>,
+    pub last_successful_update: Option<String>,
     ///[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of the last failed transactions update for the Item. The status will update each time Plaid fails an attempt to connect with the institution, regardless of whether any new data is available in the update.
-    pub last_failed_update: Option<Option<String>>,
+    pub last_failed_update: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemStatusInvestments {
     ///[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of the last successful investments update for the Item. The status will update each time Plaid successfully connects with the institution, regardless of whether any new data is available in the update.
-    pub last_successful_update: Option<Option<String>>,
+    pub last_successful_update: Option<String>,
     ///[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of the last failed investments update for the Item. The status will update each time Plaid fails an attempt to connect with the institution, regardless of whether any new data is available in the update.
-    pub last_failed_update: Option<Option<String>>,
+    pub last_failed_update: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemStatusLastWebhook {
     /**[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of when the webhook was fired.
 */
-    pub sent_at: Option<Option<String>>,
+    pub sent_at: Option<String>,
     ///The last webhook code sent.
-    pub code_sent: Option<Option<String>>,
+    pub code_sent: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemStatus {
@@ -1738,15 +1738,15 @@ The `account_id` can also change if the `access_token` is deleted and the same c
 If an account with a specific `account_id` disappears instead of changing, the account is likely closed. Closed accounts are not returned by the Plaid API.
 
 Like all Plaid identifiers, the `account_id` is case sensitive.*/
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///A set of fields describing the balance for an account. Balance information may be cached unless the balance object was returned by `/accounts/balance/get`.
-    pub balances: Option<AccountBalance>,
+    pub balances: AccountBalance,
     ///The last 2-4 alphanumeric characters of an account's official account number. Note that the mask may be non-unique between an Item's accounts, and it may also not match the mask that the bank displays to the user.
-    pub mask: Option<Option<String>>,
+    pub mask: Option<String>,
     ///The name of the account, either assigned by the user or by the financial institution itself
-    pub name: Option<String>,
+    pub name: String,
     ///The official name of the account as given by the financial institution
-    pub official_name: Option<Option<String>>,
+    pub official_name: Option<String>,
     #[serde(rename = "type")]
     /**`investment:` Investment account. In API versions 2018-05-22 and earlier, this type is called `brokerage` instead.
 
@@ -1761,7 +1761,7 @@ Like all Plaid identifiers, the `account_id` is case sensitive.*/
 `other:` Non-specified account type
 
 See the [Account type schema](https://plaid.com/docs/api/accounts#account-type-schema) for a full listing of account types and corresponding subtypes.*/
-    pub type_: Option<AccountType>,
+    pub type_: AccountType,
     ///See the [Account type schema](https://plaid.com/docs/api/accounts/#account-type-schema) for a full listing of account types and corresponding subtypes.
     pub subtype: Option<AccountSubtype>,
     /**The current verification status of an Auth Item initiated through Automated or Manual micro-deposits.  Returned for Auth Items only.
@@ -1795,7 +1795,7 @@ Note that not all institutions calculate the `available`  balance. In the event 
 Available balance may be cached and is not guaranteed to be up-to-date in realtime unless the value was returned by `/accounts/balance/get`.
 
 If `current` is `null` this field is guaranteed not to be `null`.*/
-    pub available: Option<Option<f64>>,
+    pub available: Option<f64>,
     /**The total amount of funds in or owed by the account.
 
 For `credit`-type accounts, a positive balance indicates the amount owed; a negative amount indicates the lender owing the account holder.
@@ -1807,73 +1807,73 @@ For `investment`-type accounts (or `brokerage`-type accounts for API versions 20
 Note that balance information may be cached unless the value was returned by `/accounts/balance/get`; if the Item is enabled for Transactions, the balance will be at least as recent as the most recent Transaction update. If you require realtime balance information, use the `available` balance as provided by `/accounts/balance/get`.
 
 When returned by `/accounts/balance/get`, this field may be `null`. When this happens, `available` is guaranteed not to be `null`.*/
-    pub current: Option<Option<f64>>,
+    pub current: Option<f64>,
     /**For `credit`-type accounts, this represents the credit limit.
 
 For `depository`-type accounts, this represents the pre-arranged overdraft limit, which is common for current (checking) accounts in Europe.
 
 In North America, this field is typically only available for `credit`-type accounts.*/
-    pub limit: Option<Option<f64>>,
+    pub limit: Option<f64>,
     ///The ISO-4217 currency code of the balance. Always null if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the balance. Always null if `iso_currency_code` is non-null. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `unofficial_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     /**Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDTHH:mm:ssZ`) indicating the last time that the balance for the given account has been updated
 
 This is currently only provided when the `min_last_updated_datetime` is passed when calling `/accounts/balance/get` for `ins_128026` (Capital One).*/
-    pub last_updated_datetime: Option<Option<String>>,
+    pub last_updated_datetime: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountSubtype(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersACH {
     ///The Plaid account ID associated with the account numbers
-    pub account_id: Option<String>,
+    pub account_id: String,
     /**The ACH account number for the account.
 
 Note that when using OAuth with Chase Bank (`ins_56`), Chase will issue "tokenized" routing and account numbers, which are not the user's actual account and routing numbers. These tokenized numbers should work identically to normal account and routing numbers. The digits returned in the `mask` field will continue to reflect the actual account number, rather than the tokenized account number; for this reason, when displaying account numbers to the user to help them identify their account in your UI, always use the `mask` rather than truncating the `account` number. If a user revokes their permissions to your app, the tokenized numbers will continue to work for ACH deposits, but not withdrawals.*/
-    pub account: Option<String>,
+    pub account: String,
     ///The ACH routing number for the account. If the institution is `ins_56`, this may be a tokenized routing number. For more information, see the description of the `account` field.
-    pub routing: Option<String>,
+    pub routing: String,
     ///The wire transfer routing number for the account, if available
-    pub wire_routing: Option<Option<String>>,
+    pub wire_routing: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersACHNullable(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersEFT {
     ///The Plaid account ID associated with the account numbers
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The EFT account number for the account
-    pub account: Option<String>,
+    pub account: String,
     ///The EFT institution number for the account
-    pub institution: Option<String>,
+    pub institution: String,
     ///The EFT branch number for the account
-    pub branch: Option<String>,
+    pub branch: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersEFTNullable(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersInternational {
     ///The Plaid account ID associated with the account numbers
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The International Bank Account Number (IBAN) for the account
-    pub iban: Option<String>,
+    pub iban: String,
     ///The Bank Identifier Code (BIC) for the account
-    pub bic: Option<String>,
+    pub bic: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersInternationalNullable(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersBACS {
     ///The Plaid account ID associated with the account numbers
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The BACS account number for the account
-    pub account: Option<String>,
+    pub account: String,
     ///The BACS sort code for the account
-    pub sort_code: Option<String>,
+    pub sort_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersBACSNullable(pub Option<serde_json::Value>);
@@ -1911,15 +1911,15 @@ pub struct TransactionBase {
 */
     pub transaction_type: String,
     ///The ID of a posted transaction's associated pending transaction, where applicable.
-    pub pending_transaction_id: Option<Option<String>>,
+    pub pending_transaction_id: Option<String>,
     /**The ID of the category to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/#categoriesget).
 
 If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
-    pub category_id: Option<Option<String>>,
+    pub category_id: Option<String>,
     /**A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/#categoriesget).
 
 If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
-    pub category: Option<Option<Vec<String>>>,
+    pub category: Option<Vec<String>>,
     ///A representation of where a transaction took place
     pub location: Location,
     /**Transaction information specific to inter-bank transfers. If the transaction was not an inter-bank transfer, all fields will be `null`.
@@ -1927,79 +1927,79 @@ If the `transactions` object was returned by an Assets endpoint such as `/asset_
 If the `transactions` object was returned by a Transactions endpoint such as `/transactions/get`, the `payment_meta` key will always appear, but no data elements are guaranteed. If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
     pub payment_meta: PaymentMeta,
     ///The name of the account owner. This field is not typically populated and only relevant when dealing with sub-accounts.
-    pub account_owner: Option<Option<String>>,
+    pub account_owner: Option<String>,
     /**The merchant name or transaction description.
 
 If the `transactions` object was returned by a Transactions endpoint such as `/transactions/get`, this field will always appear. If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
     pub name: String,
     ///The string returned by the financial institution to describe the transaction. For transactions returned by `/transactions/get`, this field is in beta and will be omitted unless the client is both enrolled in the closed beta program and has set `options.include_original_description` to `true`.
-    pub original_description: Option<Option<String>>,
+    pub original_description: Option<String>,
     ///The ID of the account in which this transaction occurred.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The settled value of the transaction, denominated in the account's currency, as stated in `iso_currency_code` or `unofficial_currency_code`. Positive values when money moves out of the account; negative values when money moves in. For example, debit card purchases are positive; credit card payments, direct deposits, and refunds are negative.
-    pub amount: Option<f64>,
+    pub amount: f64,
     ///The ISO-4217 currency code of the transaction. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the transaction. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///For pending transactions, the date that the transaction occurred; for posted transactions, the date that the transaction posted. Both dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ( `YYYY-MM-DD` ).
-    pub date: Option<String>,
+    pub date: String,
     ///When `true`, identifies the transaction as pending or unsettled. Pending transaction details (name, type, amount, category ID) may change before they are settled.
-    pub pending: Option<bool>,
+    pub pending: bool,
     ///The unique ID of the transaction. Like all Plaid identifiers, the `transaction_id` is case sensitive.
-    pub transaction_id: Option<String>,
+    pub transaction_id: String,
     ///The merchant name, as extracted by Plaid from the `name` field.
-    pub merchant_name: Option<Option<String>>,
+    pub merchant_name: Option<String>,
     ///The check number of the transaction. This field is only populated for check transactions.
-    pub check_number: Option<Option<String>>,
+    pub check_number: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Transaction(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Location {
     ///The street address where the transaction occurred.
-    pub address: Option<Option<String>>,
+    pub address: Option<String>,
     ///The city where the transaction occurred.
-    pub city: Option<Option<String>>,
+    pub city: Option<String>,
     ///The region or state where the transaction occurred. In API versions 2018-05-22 and earlier, this field is called `state`.
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     ///The postal code where the transaction occurred. In API versions 2018-05-22 and earlier, this field is called `zip`.
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     ///The ISO 3166-1 alpha-2 country code where the transaction occurred.
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
     ///The latitude where the transaction occurred.
-    pub lat: Option<Option<f64>>,
+    pub lat: Option<f64>,
     ///The longitude where the transaction occurred.
-    pub lon: Option<Option<f64>>,
+    pub lon: Option<f64>,
     ///The merchant defined store number where the transaction occurred.
-    pub store_number: Option<Option<String>>,
+    pub store_number: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionStream {
     ///The ID of the account to which the stream belongs
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///A unique id for the stream
-    pub stream_id: Option<String>,
+    pub stream_id: String,
     ///The ID of the category to which this transaction belongs. See [Categories](https://plaid.com/docs/#category-overview).
-    pub category_id: Option<String>,
+    pub category_id: String,
     ///A hierarchical array of the categories to which this transaction belongs. See [Categories](https://plaid.com/docs/#category-overview).
-    pub category: Option<Vec<String>>,
+    pub category: Vec<String>,
     ///A description of the transaction stream.
-    pub description: Option<String>,
+    pub description: String,
     ///The posted date of the earliest transaction in the stream.
-    pub first_date: Option<String>,
+    pub first_date: String,
     ///The posted date of the latest transaction in the stream.
-    pub last_date: Option<String>,
+    pub last_date: String,
     ///describes the frequency of the transaction stream.
-    pub frequency: Option<RecurringTransactionFrequency>,
+    pub frequency: RecurringTransactionFrequency,
     ///An array of Plaid transaction IDs belonging to the stream, sorted by posted date.
-    pub transaction_ids: Option<Vec<String>>,
+    pub transaction_ids: Vec<String>,
     ///Object with data pertaining to an amount on the transaction stream.
-    pub average_amount: Option<TransactionStreamAmount>,
+    pub average_amount: TransactionStreamAmount,
     ///indicates whether the transaction stream is still live.
-    pub is_active: Option<bool>,
+    pub is_active: bool,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionStreamAmount {
@@ -2008,32 +2008,32 @@ pub struct TransactionStreamAmount {
     /**The ISO-4217 currency code of the amount. Always `null` if `unofficial_currency_code` is non-`null`.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     ///The unofficial currency code of the amount. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RecurringTransactionFrequency(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Institution {
     ///Unique identifier for the institution
-    pub institution_id: Option<String>,
+    pub institution_id: String,
     ///The official name of the institution
-    pub name: Option<String>,
+    pub name: String,
     ///A list of the Plaid products supported by the institution. Note that only institutions that support Instant Auth will return `auth` in the product array; institutions that do not list `auth` may still support other Auth methods such as Instant Match or Automated Micro-deposit Verification. To identify institutions that support those methods, use the `auth_metadata` object. For more details, see [Full Auth coverage](https://plaid.com/docs/auth/coverage/).
-    pub products: Option<Vec<Products>>,
+    pub products: Vec<Products>,
     ///A list of the country codes supported by the institution.
-    pub country_codes: Option<Vec<CountryCode>>,
+    pub country_codes: Vec<CountryCode>,
     ///The URL for the institution's website
-    pub url: Option<Option<String>>,
+    pub url: Option<String>,
     ///Hexadecimal representation of the primary color used by the institution
-    pub primary_color: Option<Option<String>>,
+    pub primary_color: Option<String>,
     ///Base64 encoded representation of the institution's logo
-    pub logo: Option<Option<String>>,
+    pub logo: Option<String>,
     ///A partial list of routing numbers associated with the institution. This list is provided for the purpose of looking up institutions by routing number. It is not comprehensive and should never be used as a complete list of routing numbers for an institution.
-    pub routing_numbers: Option<Vec<String>>,
+    pub routing_numbers: Vec<String>,
     ///Indicates that the institution has an OAuth login flow.
-    pub oauth: Option<bool>,
+    pub oauth: bool,
     /**The status of an institution is determined by the health of its Item logins, Transactions updates, Investments updates, Liabilities updates, Auth requests, Balance requests, Identity requests, Investments requests, and Liabilities requests. A login attempt is conducted during the initial Item add in Link. If there is not enough traffic to accurately calculate an institution's status, Plaid will return null rather than potentially inaccurate data.
 
 Institution status is accessible in the Dashboard and via the API using the `/institutions/get_by_id` endpoint with the `include_status` option set to true. Note that institution status is not available in the Sandbox environment.
@@ -2047,15 +2047,15 @@ Institution status is accessible in the Dashboard and via the API using the `/in
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionStatus {
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
-    pub item_logins: Option<ProductStatus>,
+    pub item_logins: ProductStatus,
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
-    pub transactions_updates: Option<ProductStatus>,
+    pub transactions_updates: ProductStatus,
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
-    pub auth: Option<ProductStatus>,
+    pub auth: ProductStatus,
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
-    pub identity: Option<ProductStatus>,
+    pub identity: ProductStatus,
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
-    pub investments_updates: Option<ProductStatus>,
+    pub investments_updates: ProductStatus,
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
     pub liabilities_updates: ProductStatus,
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
@@ -2063,46 +2063,46 @@ pub struct InstitutionStatus {
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
     pub investments: ProductStatus,
     ///Details of recent health incidents associated with the institution.
-    pub health_incidents: Option<Option<Vec<HealthIncident>>>,
+    pub health_incidents: Option<Vec<HealthIncident>>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CountryCode(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentMeta {
     ///The transaction reference number supplied by the financial institution.
-    pub reference_number: Option<Option<String>>,
+    pub reference_number: Option<String>,
     ///The ACH PPD ID for the payer.
-    pub ppd_id: Option<Option<String>>,
+    pub ppd_id: Option<String>,
     ///For transfers, the party that is receiving the transaction.
-    pub payee: Option<Option<String>>,
+    pub payee: Option<String>,
     ///The party initiating a wire transfer. Will be `null` if the transaction is not a wire transfer.
-    pub by_order_of: Option<Option<String>>,
+    pub by_order_of: Option<String>,
     ///For transfers, the party that is paying the transaction.
-    pub payer: Option<Option<String>>,
+    pub payer: Option<String>,
     ///The type of transfer, e.g. 'ACH'
-    pub payment_method: Option<Option<String>>,
+    pub payment_method: Option<String>,
     ///The name of the payment processor
-    pub payment_processor: Option<Option<String>>,
+    pub payment_processor: Option<String>,
     ///The payer-supplied description of the transfer.
-    pub reason: Option<Option<String>>,
+    pub reason: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionCode(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Category {
     ///An identifying number for the category. `category_id` is a Plaid-specific identifier and does not necessarily correspond to merchant category codes.
-    pub category_id: Option<String>,
+    pub category_id: String,
     ///`place` for physical transactions or `special` for other transactions such as bank charges.
-    pub group: Option<String>,
+    pub group: String,
     ///A hierarchical array of the categories to which this `category_id` belongs.
-    pub hierarchy: Option<Vec<String>>,
+    pub hierarchy: Vec<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PersonalFinanceCategory {
     ///A high level category that communicates the broad category of the transaction.
-    pub primary: Option<String>,
+    pub primary: String,
     ///Provides additional granularity to the primary categorization.
-    pub detailed: Option<String>,
+    pub detailed: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccessToken(pub String);
@@ -2119,79 +2119,79 @@ pub struct APIClientID(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionsRemovedWebhook {
     ///`TRANSACTIONS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`TRANSACTIONS_REMOVED`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///An array of `transaction_ids` corresponding to the removed transactions
-    pub removed_transactions: Option<Vec<String>>,
+    pub removed_transactions: Vec<String>,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DefaultUpdateWebhook {
     ///`TRANSACTIONS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`DEFAULT_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///The number of new transactions detected since the last time this webhook was fired.
-    pub new_transactions: Option<f64>,
+    pub new_transactions: f64,
     ///The `item_id` of the Item the webhook relates to.
-    pub item_id: Option<String>,
+    pub item_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HistoricalUpdateWebhook {
     ///`TRANSACTIONS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`HISTORICAL_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///The number of new, unfetched transactions available
-    pub new_transactions: Option<f64>,
+    pub new_transactions: f64,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InitialUpdateWebhook {
     ///`TRANSACTIONS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`INITIAL_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The error code associated with the webhook.
-    pub error: Option<Option<String>>,
+    pub error: Option<String>,
     ///The number of new, unfetched transactions available.
-    pub new_transactions: Option<f64>,
+    pub new_transactions: f64,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PhoneNumber {
     ///The phone number.
-    pub data: Option<String>,
+    pub data: String,
     ///When `true`, identifies the phone number as the primary number on an account.
-    pub primary: Option<bool>,
+    pub primary: bool,
     #[serde(rename = "type")]
     ///The type of phone number.
-    pub type_: Option<String>,
+    pub type_: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Email {
     ///The email address.
-    pub data: Option<String>,
+    pub data: String,
     ///When `true`, identifies the email address as the primary email on an account.
-    pub primary: Option<bool>,
+    pub primary: bool,
     #[serde(rename = "type")]
     ///The type of email account as described by the financial institution.
-    pub type_: Option<String>,
+    pub type_: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Address {
     ///Data about the components comprising an address.
-    pub data: Option<AddressData>,
+    pub data: AddressData,
     ///When `true`, identifies the address as the primary address on an account.
     pub primary: bool,
 }
@@ -2202,259 +2202,259 @@ pub struct AddressDataNullable(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AddressData {
     ///The full city name
-    pub city: Option<String>,
+    pub city: String,
     /**The region or state. In API versions 2018-05-22 and earlier, this field is called `state`.
 Example: `"NC"`*/
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     /**The full street address
 Example: `"564 Main Street, APT 15"`*/
-    pub street: Option<String>,
+    pub street: String,
     ///The postal code. In API versions 2018-05-22 and earlier, this field is called `zip`.
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     ///The ISO 3166-1 alpha-2 country code
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorToken(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HistoricalBalance {
     ///The date of the calculated historical balance, in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD)
-    pub date: Option<String>,
+    pub date: String,
     /**The total amount of funds in the account, calculated from the `current` balance in the `balance` object by subtracting inflows and adding back outflows according to the posted date of each transaction.
 
 If the account has any pending transactions, historical balance amounts on or after the date of the earliest pending transaction may differ if retrieved in subsequent Asset Reports as a result of those pending transactions posting.*/
-    pub current: Option<f64>,
+    pub current: f64,
     ///The ISO-4217 currency code of the balance. Always `null` if `unofficial_currency_code` is non-`null`.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the balance. Always `null` if `iso_currency_code` is non-`null`.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Owner {
     /**A list of names associated with the account by the financial institution. These should always be the names of individuals, even for business accounts. If the name of a business is reported, please contact Plaid Support. In the case of a joint account, Plaid will make a best effort to report the names of all account holders.
 
 If an Item contains multiple accounts with different owner names, some institutions will report all names associated with the Item in each account's `names` array.*/
-    pub names: Option<Vec<String>>,
+    pub names: Vec<String>,
     ///A list of phone numbers associated with the account by the financial institution. May be an empty array if no relevant information is returned from the financial institution.
-    pub phone_numbers: Option<Vec<PhoneNumber>>,
+    pub phone_numbers: Vec<PhoneNumber>,
     ///A list of email addresses associated with the account by the financial institution. May be an empty array if no relevant information is returned from the financial institution.
-    pub emails: Option<Vec<Email>>,
+    pub emails: Vec<Email>,
     ///Data about the various addresses associated with the account by the financial institution. May be an empty array if no relevant information is returned from the financial institution.
-    pub addresses: Option<Vec<Address>>,
+    pub addresses: Vec<Address>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct OwnerOverride {
     ///A list of names associated with the account by the financial institution. These should always be the names of individuals, even for business accounts. Note that the same name data will be used for all accounts associated with an Item.
-    pub names: Option<Vec<String>>,
+    pub names: Vec<String>,
     ///A list of phone numbers associated with the account.
-    pub phone_numbers: Option<Vec<PhoneNumber>>,
+    pub phone_numbers: Vec<PhoneNumber>,
     ///A list of email addresses associated with the account.
-    pub emails: Option<Vec<Email>>,
+    pub emails: Vec<Email>,
     ///Data about the various addresses associated with the account.
-    pub addresses: Option<Vec<Address>>,
+    pub addresses: Vec<Address>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LiabilitiesObject {
     ///The credit accounts returned.
-    pub credit: Option<Option<Vec<CreditCardLiability>>>,
+    pub credit: Option<Vec<CreditCardLiability>>,
     ///The mortgage accounts returned.
-    pub mortgage: Option<Option<Vec<MortgageLiability>>>,
+    pub mortgage: Option<Vec<MortgageLiability>>,
     ///The student loan accounts returned.
-    pub student: Option<Option<Vec<StudentLoan>>>,
+    pub student: Option<Vec<StudentLoan>>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StudentLoan {
     ///The ID of the account that this liability belongs to.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     ///The account number of the loan. For some institutions, this may be a masked version of the number (e.g., the last 4 digits instead of the entire number).
-    pub account_number: Option<Option<String>>,
+    pub account_number: Option<String>,
     ///The dates on which loaned funds were disbursed or will be disbursed. These are often in the past. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub disbursement_dates: Option<Option<Vec<String>>>,
+    pub disbursement_dates: Option<Vec<String>>,
     ///The date when the student loan is expected to be paid off. Availability for this field is limited. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub expected_payoff_date: Option<Option<String>>,
+    pub expected_payoff_date: Option<String>,
     ///The guarantor of the student loan.
-    pub guarantor: Option<Option<String>>,
+    pub guarantor: Option<String>,
     ///The interest rate on the loan as a percentage.
-    pub interest_rate_percentage: Option<f64>,
+    pub interest_rate_percentage: f64,
     ///`true` if a payment is currently overdue. Availability for this field is limited.
-    pub is_overdue: Option<Option<bool>>,
+    pub is_overdue: Option<bool>,
     ///The amount of the last payment.
-    pub last_payment_amount: Option<Option<f64>>,
+    pub last_payment_amount: Option<f64>,
     ///The date of the last payment. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub last_payment_date: Option<Option<String>>,
+    pub last_payment_date: Option<String>,
     ///The date of the last statement. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub last_statement_issue_date: Option<Option<String>>,
+    pub last_statement_issue_date: Option<String>,
     ///The type of loan, e.g., "Consolidation Loans".
-    pub loan_name: Option<Option<String>>,
+    pub loan_name: Option<String>,
     ///An object representing the status of the student loan
-    pub loan_status: Option<StudentLoanStatus>,
+    pub loan_status: StudentLoanStatus,
     /**The minimum payment due for the next billing cycle. There are some exceptions:
 Some institutions require a minimum payment across all loans associated with an account number. Our API presents that same minimum payment amount on each loan. The institutions that do this are: Great Lakes ( `ins_116861`), Firstmark (`ins_116295`), Commonbond Firstmark Services (`ins_116950`), Nelnet (`ins_116528`), EdFinancial Services (`ins_116304`), Granite State (`ins_116308`), and Oklahoma Student Loan Authority (`ins_116945`).
 Firstmark (`ins_116295` ) and Navient (`ins_116248`) will display as $0 if there is an autopay program in effect.*/
-    pub minimum_payment_amount: Option<Option<f64>>,
+    pub minimum_payment_amount: Option<f64>,
     ///The due date for the next payment. The due date is `null` if a payment is not expected. A payment is not expected if `loan_status.type` is `deferment`, `in_school`, `consolidated`, `paid in full`, or `transferred`. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub next_payment_due_date: Option<Option<String>>,
+    pub next_payment_due_date: Option<String>,
     /**The date on which the loan was initially lent. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
 */
-    pub origination_date: Option<Option<String>>,
+    pub origination_date: Option<String>,
     ///The original principal balance of the loan.
-    pub origination_principal_amount: Option<Option<f64>>,
+    pub origination_principal_amount: Option<f64>,
     ///The total dollar amount of the accrued interest balance. For Sallie Mae ( `ins_116944`), this amount is included in the current balance of the loan, so this field will return as `null`.
-    pub outstanding_interest_amount: Option<Option<f64>>,
+    pub outstanding_interest_amount: Option<f64>,
     ///The relevant account number that should be used to reference this loan for payments. In the majority of cases, `payment_reference_number` will match a`ccount_number,` but in some institutions, such as Great Lakes (`ins_116861`), it will be different.
-    pub payment_reference_number: Option<Option<String>>,
+    pub payment_reference_number: Option<String>,
     ///Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned if the institution is Fedloan (`ins_116527`).
-    pub pslf_status: Option<PSLFStatus>,
+    pub pslf_status: PSLFStatus,
     ///An object representing the repayment plan for the student loan
-    pub repayment_plan: Option<StudentRepaymentPlan>,
+    pub repayment_plan: StudentRepaymentPlan,
     ///The sequence number of the student loan. Heartland ECSI (`ins_116948`) does not make this field available.
-    pub sequence_number: Option<Option<String>>,
+    pub sequence_number: Option<String>,
     ///The address of the student loan servicer. This is generally the remittance address to which payments should be sent.
-    pub servicer_address: Option<ServicerAddressData>,
+    pub servicer_address: ServicerAddressData,
     ///The year to date (YTD) interest paid. Availability for this field is limited.
-    pub ytd_interest_paid: Option<Option<f64>>,
+    pub ytd_interest_paid: Option<f64>,
     ///The year to date (YTD) principal paid. Availability for this field is limited.
-    pub ytd_principal_paid: Option<Option<f64>>,
+    pub ytd_principal_paid: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditCardLiability {
     ///The ID of the account that this liability belongs to.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     ///The various interest rates that apply to the account.
-    pub aprs: Option<Vec<APR>>,
+    pub aprs: Vec<APR>,
     ///true if a payment is currently overdue. Availability for this field is limited.
-    pub is_overdue: Option<Option<bool>>,
+    pub is_overdue: Option<bool>,
     ///The amount of the last payment.
-    pub last_payment_amount: Option<f64>,
+    pub last_payment_amount: f64,
     ///The date of the last payment. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). Availability for this field is limited.
-    pub last_payment_date: Option<Option<String>>,
+    pub last_payment_date: Option<String>,
     ///The date of the last statement. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub last_statement_issue_date: Option<String>,
+    pub last_statement_issue_date: String,
     ///The total amount owed as of the last statement issued
-    pub last_statement_balance: Option<f64>,
+    pub last_statement_balance: f64,
     ///The minimum payment due for the next billing cycle.
-    pub minimum_payment_amount: Option<f64>,
+    pub minimum_payment_amount: f64,
     ///The due date for the next payment. The due date is `null` if a payment is not expected. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub next_payment_due_date: Option<Option<String>>,
+    pub next_payment_due_date: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MortgageLiability {
     ///The ID of the account that this liability belongs to.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The account number of the loan.
-    pub account_number: Option<String>,
+    pub account_number: String,
     ///The current outstanding amount charged for late payment.
-    pub current_late_fee: Option<Option<f64>>,
+    pub current_late_fee: Option<f64>,
     ///Total amount held in escrow to pay taxes and insurance on behalf of the borrower.
-    pub escrow_balance: Option<Option<f64>>,
+    pub escrow_balance: Option<f64>,
     ///Indicates whether the borrower has private mortgage insurance in effect.
-    pub has_pmi: Option<Option<bool>>,
+    pub has_pmi: Option<bool>,
     ///Indicates whether the borrower will pay a penalty for early payoff of mortgage.
-    pub has_prepayment_penalty: Option<Option<bool>>,
+    pub has_prepayment_penalty: Option<bool>,
     ///Object containing metadata about the interest rate for the mortgage.
-    pub interest_rate: Option<MortgageInterestRate>,
+    pub interest_rate: MortgageInterestRate,
     ///The amount of the last payment.
-    pub last_payment_amount: Option<Option<f64>>,
+    pub last_payment_amount: Option<f64>,
     ///The date of the last payment. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub last_payment_date: Option<Option<String>>,
+    pub last_payment_date: Option<String>,
     ///Description of the type of loan, for example `conventional`, `fixed`, or `variable`. This field is provided directly from the loan servicer and does not have an enumerated set of possible values.
-    pub loan_type_description: Option<Option<String>>,
+    pub loan_type_description: Option<String>,
     ///Full duration of mortgage as at origination (e.g. `10 year`).
-    pub loan_term: Option<Option<String>>,
+    pub loan_term: Option<String>,
     ///Original date on which mortgage is due in full. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub maturity_date: Option<Option<String>>,
+    pub maturity_date: Option<String>,
     ///The amount of the next payment.
-    pub next_monthly_payment: Option<Option<f64>>,
+    pub next_monthly_payment: Option<f64>,
     ///The due date for the next payment. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub next_payment_due_date: Option<Option<String>>,
+    pub next_payment_due_date: Option<String>,
     ///The date on which the loan was initially lent. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub origination_date: Option<Option<String>>,
+    pub origination_date: Option<String>,
     ///The original principal balance of the mortgage.
-    pub origination_principal_amount: Option<Option<f64>>,
+    pub origination_principal_amount: Option<f64>,
     ///Amount of loan (principal + interest) past due for payment.
-    pub past_due_amount: Option<Option<f64>>,
+    pub past_due_amount: Option<f64>,
     ///Object containing fields describing property address.
-    pub property_address: Option<MortgagePropertyAddress>,
+    pub property_address: MortgagePropertyAddress,
     ///The year to date (YTD) interest paid.
-    pub ytd_interest_paid: Option<Option<f64>>,
+    pub ytd_interest_paid: Option<f64>,
     ///The YTD principal paid.
-    pub ytd_principal_paid: Option<Option<f64>>,
+    pub ytd_principal_paid: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MortgageInterestRate {
     ///Percentage value (interest rate of current mortgage, not APR) of interest payable on a loan.
-    pub percentage: Option<Option<f64>>,
+    pub percentage: Option<f64>,
     #[serde(rename = "type")]
     ///The type of interest charged (fixed or variable).
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MortgagePropertyAddress {
     ///The city name.
-    pub city: Option<Option<String>>,
+    pub city: Option<String>,
     ///The ISO 3166-1 alpha-2 country code.
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
     ///The five or nine digit postal code.
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     ///The region or state (example "NC").
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     ///The full street address (example "564 Main Street, Apt 15").
-    pub street: Option<Option<String>>,
+    pub street: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StudentLoanStatus {
     /**The date until which the loan will be in its current status. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
 */
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     #[serde(rename = "type")]
     ///The status type of the student loan
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StudentRepaymentPlan {
     ///The description of the repayment plan as provided by the servicer.
-    pub description: Option<Option<String>>,
+    pub description: Option<String>,
     #[serde(rename = "type")]
     ///The type of the repayment plan.
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PSLFStatus {
     ///The estimated date borrower will have completed 120 qualifying monthly payments. Returned in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
-    pub estimated_eligibility_date: Option<Option<String>>,
+    pub estimated_eligibility_date: Option<String>,
     ///The number of qualifying payments that have been made.
-    pub payments_made: Option<Option<f64>>,
+    pub payments_made: Option<f64>,
     ///The number of qualifying payments remaining.
-    pub payments_remaining: Option<Option<f64>>,
+    pub payments_remaining: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ServicerAddressData {
     ///The full city name
-    pub city: Option<Option<String>>,
+    pub city: Option<String>,
     /**The region or state
 Example: `"NC"`*/
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     /**The full street address
 Example: `"564 Main Street, APT 15"`*/
-    pub street: Option<Option<String>>,
+    pub street: Option<String>,
     ///The postal code
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     ///The ISO 3166-1 alpha-2 country code
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct APR {
     /**Annual Percentage Rate applied.
 */
-    pub apr_percentage: Option<f64>,
+    pub apr_percentage: f64,
     ///The type of balance to which the APR applies.
-    pub apr_type: Option<String>,
+    pub apr_type: String,
     ///Amount of money that is subjected to the APR if a balance was carried beyond payment due date. How it is calculated can vary by card issuer. It is often calculated as an average daily balance.
-    pub balance_subject_to_apr: Option<Option<f64>>,
+    pub balance_subject_to_apr: Option<f64>,
     ///Amount of money charged due to interest from last statement.
-    pub interest_charge_amount: Option<Option<f64>>,
+    pub interest_charge_amount: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AuthMetadata {
@@ -2464,23 +2464,23 @@ pub struct AuthMetadata {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AuthSupportedMethods {
     ///Indicates if instant auth is supported.
-    pub instant_auth: Option<bool>,
+    pub instant_auth: bool,
     ///Indicates if instant match is supported.
-    pub instant_match: Option<bool>,
+    pub instant_match: bool,
     ///Indicates if automated microdeposits are supported.
-    pub automated_micro_deposits: Option<bool>,
+    pub automated_micro_deposits: bool,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationMetadata {
     ///Indicates whether the institution supports payments from a different country.
-    pub supports_international_payments: Option<bool>,
+    pub supports_international_payments: bool,
     /**A mapping of currency to maximum payment amount (denominated in the smallest unit of currency) supported by the institution.
 
 Example: `{"GBP": "10000"}`
 */
-    pub maximum_payment_amount: Option<PaymentInitiationMaximumPaymentAmount>,
+    pub maximum_payment_amount: PaymentInitiationMaximumPaymentAmount,
     ///Indicates whether the institution supports returning refund details when initiating a payment.
-    pub supports_refund_details: Option<bool>,
+    pub supports_refund_details: bool,
     ///Metadata specifically related to valid Payment Initiation standing order configurations for the institution.
     pub standing_order_metadata: Option<PaymentInitiationStandingOrderMetadata>,
 }
@@ -2489,22 +2489,22 @@ pub struct PaymentInitiationMaximumPaymentAmount {}
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationStandingOrderMetadata {
     ///Indicates whether the institution supports closed-ended standing orders by providing an end date.
-    pub supports_standing_order_end_date: Option<bool>,
+    pub supports_standing_order_end_date: bool,
     ///This is only applicable to `MONTHLY` standing orders. Indicates whether the institution supports negative integers (-1 to -5) for setting up a `MONTHLY` standing order relative to the end of the month.
-    pub supports_standing_order_negative_execution_days: Option<bool>,
+    pub supports_standing_order_negative_execution_days: bool,
     ///A list of the valid standing order intervals supported by the institution.
-    pub valid_standing_order_intervals: Option<Vec<PaymentScheduleInterval>>,
+    pub valid_standing_order_intervals: Vec<PaymentScheduleInterval>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationAddress {
     ///An array of length 1-2 representing the street address where the recipient is located. Maximum of 70 characters.
-    pub street: Option<Vec<String>>,
+    pub street: Vec<String>,
     ///The city where the recipient is located. Maximum of 35 characters.
-    pub city: Option<String>,
+    pub city: String,
     ///The postal code where the recipient is located. Maximum of 16 characters.
-    pub postal_code: Option<String>,
+    pub postal_code: String,
     ///The ISO 3166-1 alpha-2 country code where the recipient is located.
-    pub country: Option<String>,
+    pub country: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ExternalPaymentScheduleBase {
@@ -2522,9 +2522,9 @@ If the first `interval_execution_day` on or after the start date is also the sam
     pub start_date: String,
     /**A date in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). Standing order payments will end on the last `interval_execution_day` on or before the `end_date`.
 If the only `interval_execution_day` between the start date and the end date (inclusive) is also the same day that `/payment_initiation/payment/create` was called, the bank *may* make a payment on that day, but it is not guaranteed to do so.*/
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///The start date sent to the bank after adjusting for holidays or weekends.  Will be provided in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). If the start date did not require adjustment, this field will be `null`.
-    pub adjusted_start_date: Option<Option<String>>,
+    pub adjusted_start_date: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ExternalPaymentScheduleRequest(pub serde_json::Value);
@@ -2535,13 +2535,13 @@ pub struct PaymentScheme(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ExternalPaymentOptions {
     ///When `true`, Plaid will attempt to request refund details from the payee's financial institution.  Support varies between financial institutions and will not always be available.  If refund details could be retrieved, they will be available in the `/payment_initiation/payment/get` response.
-    pub request_refund_details: Option<Option<bool>>,
+    pub request_refund_details: Option<bool>,
     ///The International Bank Account Number (IBAN) for the payer's account. If provided, the end user will be able to send payments only from the specified bank account.
-    pub iban: Option<Option<String>>,
+    pub iban: Option<String>,
     ///An optional object used to restrict the accounts used for payments. If provided, the end user will be able to send payments only from the specified bank account.
     pub bacs: Option<PaymentInitiationOptionalRestrictionBacs>,
     ///The EMI (E-Money Institution) wallet that this payment is associated with, if any. This wallet is used as an intermediary account to enable Plaid to reconcile the settlement of funds for Payment Initiation requests.
-    pub wallet_id: Option<Option<String>>,
+    pub wallet_id: Option<String>,
     /**Payment scheme. If not specified - the default in the region will be used (e.g. `SEPA_CREDIT_TRANSFER` for EU). Using unsupported values will result in a failed payment.
 
 `FASTER_PAYMENTS`: Enables payments to move quickly between UK bank accounts. Default value in the UK.
@@ -2554,9 +2554,9 @@ pub struct ExternalPaymentOptions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ExternalPaymentRefundDetails {
     ///The name of the account holder.
-    pub name: Option<String>,
+    pub name: String,
     ///The International Bank Account Number (IBAN) for the account.
-    pub iban: Option<Option<String>>,
+    pub iban: Option<String>,
     ///An object containing a BACS account number and sort code. If an IBAN is not provided or if this recipient needs to accept domestic GBP-denominated payments, BACS data is required.
     pub bacs: Option<RecipientBACSNullable>,
 }
@@ -2571,39 +2571,39 @@ pub struct ProductStatus {
 `HEALTHY`: the majority of requests are successful
 `DEGRADED`: only some requests are successful
 `DOWN`: all requests are failing*/
-    pub status: Option<String>,
+    pub status: String,
     /**[ISO 8601](https://wikipedia.org/wiki/ISO_8601) formatted timestamp of the last status change for the institution.
 */
-    pub last_status_change: Option<String>,
+    pub last_status_change: String,
     ///A detailed breakdown of the institution's performance for a request type. The values for `success`, `error_plaid`, and `error_institution` sum to 1.
-    pub breakdown: Option<ProductStatusBreakdown>,
+    pub breakdown: ProductStatusBreakdown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProductStatusBreakdown {
     ///The percentage of login attempts that are successful, expressed as a decimal.
-    pub success: Option<f64>,
+    pub success: f64,
     /**The percentage of logins that are failing due to an internal Plaid issue, expressed as a decimal.
 */
-    pub error_plaid: Option<f64>,
+    pub error_plaid: f64,
     ///The percentage of logins that are failing due to an issue in the institution's system, expressed as a decimal.
-    pub error_institution: Option<f64>,
+    pub error_institution: f64,
     ///The `refresh_interval` may be `DELAYED` or `STOPPED` even when the success rate is high. This value is only returned for Transactions status breakdowns.
     pub refresh_interval: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserCustomPassword {
     ///The version of the password schema to use, possible values are 1 or 2. The default value is 2. You should only specify 1 if you know it is necessary for your test suite.
-    pub version: Option<Option<String>>,
+    pub version: Option<String>,
     /**A seed, in the form of a string, that will be used to randomly generate account and transaction data, if this data is not specified using the `override_accounts` argument. If no seed is specified, the randomly generated data will be different each time.
 
 Note that transactions data is generated relative to the Item's creation date. Different Items created on different dates with the same seed for transactions data will have different dates for the transactions. The number of days between each transaction and the Item creation will remain constant. For example, an Item created on December 15 might show a transaction on December 14. An Item created on December 20, using the same seed, would show that same transaction occurring on December 19.*/
-    pub seed: Option<String>,
+    pub seed: String,
     ///An array of account overrides to configure the accounts for the Item. By default, if no override is specified, transactions and account data will be randomly generated based on the account type and subtype, and other products will have fixed or empty data.
-    pub override_accounts: Option<Vec<OverrideAccounts>>,
+    pub override_accounts: Vec<OverrideAccounts>,
     ///Specifies the multi-factor authentication settings to use with this test account
-    pub mfa: Option<MFA>,
+    pub mfa: MFA,
     ///You may trigger a reCAPTCHA in Plaid Link in the Sandbox environment by using the recaptcha field. Possible values are `good` or `bad`. A value of `good` will result in successful Item creation and `bad` will result in a `RECAPTCHA_BAD` error to simulate a failed reCAPTCHA. Both values require the reCAPTCHA to be manually solved within Plaid Link.
-    pub recaptcha: Option<String>,
+    pub recaptcha: String,
     /**An error code to force on Item creation. Possible values are:
 
 `"INSTITUTION_NOT_RESPONDING"`
@@ -2619,7 +2619,7 @@ Note that transactions data is generated relative to the Item's creation date. D
 `"PLAID_ERROR"`
 `"PRODUCTS_NOT_SUPPORTED"`
 `"USER_SETUP_REQUIRED"`*/
-    pub force_error: Option<String>,
+    pub force_error: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MFA {
@@ -2631,16 +2631,16 @@ If value is `device`, the MFA answer is `1234`.
 If value is `selections`, the MFA answer is always the first option.
 
 If value is `questions`, the MFA answer is  `answer_<i>_<j>` for the j-th question in the i-th round, starting from 0. For example, the answer to the first question in the second round is `answer_1_0`.*/
-    pub type_: Option<String>,
+    pub type_: String,
     ///Number of rounds of questions. Required if value of `type` is `questions`.
-    pub question_rounds: Option<f64>,
+    pub question_rounds: f64,
     ///Number of questions per round. Required if value of `type` is `questions`. If value of type is `selections`, default value is 2.
-    pub questions_per_round: Option<f64>,
+    pub questions_per_round: f64,
     ///Number of rounds of selections, used if `type` is `selections`. Defaults to 1.
-    pub selection_rounds: Option<f64>,
+    pub selection_rounds: f64,
     /**Number of available answers per question, used if `type` is `selection`. Defaults to 2.
 */
-    pub selections_per_question: Option<f64>,
+    pub selections_per_question: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct OverrideAccounts {
@@ -2658,43 +2658,43 @@ pub struct OverrideAccounts {
 `other:` Non-specified account type
 
 See the [Account type schema](https://plaid.com/docs/api/accounts#account-type-schema) for a full listing of account types and corresponding subtypes.*/
-    pub type_: Option<OverrideAccountType>,
+    pub type_: OverrideAccountType,
     ///See the [Account type schema](https://plaid.com/docs/api/accounts/#account-type-schema) for a full listing of account types and corresponding subtypes.
     pub subtype: Option<AccountSubtype>,
     /**If provided, the account will start with this amount as the current balance.
 */
-    pub starting_balance: Option<f64>,
+    pub starting_balance: f64,
     ///If provided, the account will always have this amount as its  available balance, regardless of current balance or changes in transactions over time.
-    pub force_available_balance: Option<f64>,
+    pub force_available_balance: f64,
     ///ISO-4217 currency code. If provided, the account will be denominated in the given currency. Transactions will also be in this currency by default.
-    pub currency: Option<String>,
+    pub currency: String,
     ///Allows specifying the metadata of the test account
-    pub meta: Option<Meta>,
+    pub meta: Meta,
     ///Account and bank identifier number data used to configure the test account. All values are optional.
-    pub numbers: Option<Numbers>,
+    pub numbers: Numbers,
     ///Specify the list of transactions on the account.
-    pub transactions: Option<Vec<TransactionOverride>>,
+    pub transactions: Vec<TransactionOverride>,
     ///Specify the holdings on the account.
     pub holdings: HoldingsOverride,
     ///Specify the list of investments transactions on the account.
     pub investment_transactions: Investments_TransactionsOverride,
     ///Data about the owner or owners of an account. Any fields not specified will be filled in with default Sandbox information.
-    pub identity: Option<OwnerOverride>,
+    pub identity: OwnerOverride,
     ///Used to configure Sandbox test data for the Liabilities product
-    pub liability: Option<LiabilityOverride>,
+    pub liability: LiabilityOverride,
     ///The `inflow_model` allows you to foo a test account that receives regular income or make regular payments on a loan. Any transactions generated by the `inflow_model` will appear in addition to randomly generated test data or transactions specified by `override_accounts`.
-    pub inflow_model: Option<InflowModel>,
+    pub inflow_model: InflowModel,
     ///Specify payroll data on the account.
     pub income: IncomeOverride,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Meta {
     ///The account's name
-    pub name: Option<String>,
+    pub name: String,
     ///The account's official name
-    pub official_name: Option<String>,
+    pub official_name: String,
     ///The account's limit
-    pub limit: Option<f64>,
+    pub limit: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Numbers {
@@ -2718,13 +2718,13 @@ pub struct Numbers {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionOverride {
     ///The date of the transaction, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format. Transactions in Sandbox will move from pending to posted once their transaction date has been reached. If a `date_transacted` is not provided by the institution, a transaction date may be available in the [`authorized_date`](https://plaid.com/docs/api/products/#transactions-get-response-transactions-authorized-date) field.
-    pub date_transacted: Option<String>,
+    pub date_transacted: String,
     ///The date the transaction posted, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format. Posted dates in the past or present will result in posted transactions; posted dates in the future will result in pending transactions.
-    pub date_posted: Option<String>,
+    pub date_posted: String,
     ///The transaction amount. Can be negative.
-    pub amount: Option<f64>,
+    pub amount: f64,
     ///The transaction description.
-    pub description: Option<String>,
+    pub description: String,
     ///The ISO-4217 format currency code for the transaction.
     pub currency: String,
 }
@@ -2746,28 +2746,28 @@ pub struct SecurityOverride {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HoldingsOverride {
     ///The last price given by the institution for this security
-    pub institution_price: Option<f64>,
+    pub institution_price: f64,
     ///The date at which `institution_price` was current. Must be formatted as an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) date.
     pub institution_price_as_of: String,
     ///The average original value of the holding. Multiple cost basis values for the same security purchased at different prices are not supported.
     pub cost_basis: f64,
     ///The total quantity of the asset held, as reported by the financial institution.
-    pub quantity: Option<f64>,
+    pub quantity: f64,
     ///Either a valid `iso_currency_code` or `unofficial_currency_code`
-    pub currency: Option<String>,
+    pub currency: String,
     ///Specify the security associated with the holding or investment transaction. When inputting custom security data to the Sandbox, Plaid will perform post-data-retrieval normalization and enrichment. These processes may cause the data returned by the Sandbox to be slightly different from the data you input. An ISO-4217 currency code and a security identifier (`ticker_symbol`, `cusip`, `isin`, or `sedol`) are required.
-    pub security: Option<SecurityOverride>,
+    pub security: SecurityOverride,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Investments_TransactionsOverride {
     ///Posting date for the transaction. Must be formatted as an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) date.
-    pub date: Option<String>,
+    pub date: String,
     ///The institution's description of the transaction.
-    pub name: Option<String>,
+    pub name: String,
     ///The number of units of the security involved in this transaction. Must be positive if the type is a buy and negative if the type is a sell.
-    pub quantity: Option<f64>,
+    pub quantity: f64,
     ///The price of the security at which this transaction occurred.
-    pub price: Option<f64>,
+    pub price: f64,
     ///The combined value of all fees applied to this transaction.
     pub fees: f64,
     #[serde(rename = "type")]
@@ -2777,9 +2777,9 @@ pub struct Investments_TransactionsOverride {
 `cash`: Activity that modifies a cash position
 `fee`: A fee on the account
 `transfer`: Activity that modifies a position, but not through buy/sell activity e.g. options exercise, portfolio transfer*/
-    pub type_: Option<String>,
+    pub type_: String,
     ///Either a valid `iso_currency_code` or `unofficial_currency_code`
-    pub currency: Option<String>,
+    pub currency: String,
     ///Specify the security associated with the holding or investment transaction. When inputting custom security data to the Sandbox, Plaid will perform post-data-retrieval normalization and enrichment. These processes may cause the data returned by the Sandbox to be slightly different from the data you input. An ISO-4217 currency code and a security identifier (`ticker_symbol`, `cusip`, `isin`, or `sedol`) are required.
     pub security: SecurityOverride,
 }
@@ -2787,63 +2787,63 @@ pub struct Investments_TransactionsOverride {
 pub struct LiabilityOverride {
     #[serde(rename = "type")]
     ///The type of the liability object, either `credit` or `student`. Mortgages are not currently supported in the custom Sandbox.
-    pub type_: Option<String>,
+    pub type_: String,
     ///The purchase APR percentage value. For simplicity, this is the only interest rate used to calculate interest charges. Can only be set if `type` is `credit`.
-    pub purchase_apr: Option<f64>,
+    pub purchase_apr: f64,
     ///The cash APR percentage value. Can only be set if `type` is `credit`.
-    pub cash_apr: Option<f64>,
+    pub cash_apr: f64,
     ///The balance transfer APR percentage value. Can only be set if `type` is `credit`. Can only be set if `type` is `credit`.
-    pub balance_transfer_apr: Option<f64>,
+    pub balance_transfer_apr: f64,
     ///The special APR percentage value. Can only be set if `type` is `credit`.
-    pub special_apr: Option<f64>,
+    pub special_apr: f64,
     ///Override the `last_payment_amount` field. Can only be set if `type` is `credit`.
-    pub last_payment_amount: Option<f64>,
+    pub last_payment_amount: f64,
     ///Override the `minimum_payment_amount` field. Can only be set if `type` is `credit` or `student`.
-    pub minimum_payment_amount: Option<f64>,
+    pub minimum_payment_amount: f64,
     ///Override the `is_overdue` field
-    pub is_overdue: Option<bool>,
+    pub is_overdue: bool,
     ///The date on which the loan was initially lent, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format. Can only be set if `type` is `student`.
-    pub origination_date: Option<String>,
+    pub origination_date: String,
     ///The original loan principal. Can only be set if `type` is `student`.
-    pub principal: Option<f64>,
+    pub principal: f64,
     ///The interest rate on the loan as a percentage. Can only be set if `type` is `student`.
-    pub nominal_apr: Option<f64>,
+    pub nominal_apr: f64,
     ///If set, interest capitalization begins at the given number of months after loan origination. By default interest is never capitalized. Can only be set if `type` is `student`.
-    pub interest_capitalization_grace_period_months: Option<f64>,
+    pub interest_capitalization_grace_period_months: f64,
     ///Student loan repayment information used to configure Sandbox test data for the Liabilities product
-    pub repayment_model: Option<StudentLoanRepaymentModel>,
+    pub repayment_model: StudentLoanRepaymentModel,
     ///Override the `expected_payoff_date` field. Can only be set if `type` is `student`.
-    pub expected_payoff_date: Option<String>,
+    pub expected_payoff_date: String,
     ///Override the `guarantor` field. Can only be set if `type` is `student`.
-    pub guarantor: Option<String>,
+    pub guarantor: String,
     ///Override the `is_federal` field. Can only be set if `type` is `student`.
-    pub is_federal: Option<bool>,
+    pub is_federal: bool,
     ///Override the `loan_name` field. Can only be set if `type` is `student`.
-    pub loan_name: Option<String>,
+    pub loan_name: String,
     ///An object representing the status of the student loan
-    pub loan_status: Option<StudentLoanStatus>,
+    pub loan_status: StudentLoanStatus,
     ///Override the `payment_reference_number` field. Can only be set if `type` is `student`.
-    pub payment_reference_number: Option<String>,
+    pub payment_reference_number: String,
     ///Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned if the institution is Fedloan (`ins_116527`).
-    pub pslf_status: Option<PSLFStatus>,
+    pub pslf_status: PSLFStatus,
     ///Override the `repayment_plan.description` field. Can only be set if `type` is `student`.
-    pub repayment_plan_description: Option<String>,
+    pub repayment_plan_description: String,
     ///Override the `repayment_plan.type` field. Can only be set if `type` is `student`. Possible values are: `"extended graduated"`, `"extended standard"`, `"graduated"`, `"income-contingent repayment"`, `"income-based repayment"`, `"interest only"`, `"other"`, `"pay as you earn"`, `"revised pay as you earn"`, or `"standard"`.
-    pub repayment_plan_type: Option<String>,
+    pub repayment_plan_type: String,
     ///Override the `sequence_number` field. Can only be set if `type` is `student`.
-    pub sequence_number: Option<String>,
+    pub sequence_number: String,
     ///A physical mailing address.
-    pub servicer_address: Option<Address>,
+    pub servicer_address: Address,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StudentLoanRepaymentModel {
     #[serde(rename = "type")]
     ///The only currently supported value for this field is `standard`.
-    pub type_: Option<String>,
+    pub type_: String,
     ///Configures the number of months before repayment starts.
-    pub non_repayment_months: Option<f64>,
+    pub non_repayment_months: f64,
     ///Configures the number of months of repayments before the loan is paid off.
-    pub repayment_months: Option<f64>,
+    pub repayment_months: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InflowModel {
@@ -2857,15 +2857,15 @@ pub struct InflowModel {
 `monthly-interest-only-payment`: Makes an interest-only payment on a liability account at the given statement day of month.
 
 Note that account types supported by Liabilities will accrue interest in the Sandbox. The types impacted are account type `credit` with subtype `credit` or `paypal`, and account type `loan` with subtype `student` or `mortgage`.*/
-    pub type_: Option<String>,
+    pub type_: String,
     ///Amount of income per month. This value is required if `type` is `monthly-income`.
-    pub income_amount: Option<f64>,
+    pub income_amount: f64,
     ///Number between 1 and 28, or `last` meaning the last day of the month. The day of the month on which the income transaction will appear. The name of the income transaction. This field is required if `type` is `monthly-income`, `monthly-balance-payment` or `monthly-interest-only-payment`.
-    pub payment_day_of_month: Option<f64>,
+    pub payment_day_of_month: f64,
     ///The name of the income transaction. This field is required if `type` is `monthly-income`, `monthly-balance-payment` or `monthly-interest-only-payment`.
-    pub transaction_name: Option<String>,
+    pub transaction_name: String,
     ///Number between 1 and 28, or `last` meaning the last day of the month. The day of the month on which the balance is calculated for the next payment. The name of the income transaction. This field is required if `type` is `monthly-balance-payment` or `monthly-interest-only-payment`.
-    pub statement_day_of_month: Option<String>,
+    pub statement_day_of_month: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeOverride {
@@ -2915,215 +2915,213 @@ pub struct ItemId(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AutomaticallyVerifiedWebhook {
     ///`AUTH`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`AUTOMATICALLY_VERIFIED`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `account_id` of the account associated with the webhook
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JWTHeader {
     ///
-    pub id: Option<String>,
+    pub id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct VerificationExpiredWebhook {
     ///`AUTH`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`VERIFICATION_EXPIRED`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///The `account_id` of the account associated with the webhook
-    pub account_id: Option<String>,
+    pub account_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WebhookUpdateAcknowledgedWebhook {
     ///`ITEM`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`WEBHOOK_UPDATE_ACKNOWLEDGED`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///The new webhook URL
-    pub new_webhook_url: Option<String>,
+    pub new_webhook_url: String,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PendingExpirationWebhook {
     ///`ITEM`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`PENDING_EXPIRATION`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///The date and time at which the Item's access consent will expire, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format
-    pub consent_expiration_time: Option<String>,
+    pub consent_expiration_time: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemErrorWebhook {
     ///`ITEM`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`ERROR`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
-    pub error: Option<PlaidError>,
+    pub error: PlaidError,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemProductReadyWebhook {
     ///`INCOME`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`PRODUCT_READY`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Recaptcha_RequiredError {
     ///RECAPTCHA_ERROR
-    pub error_type: Option<String>,
+    pub error_type: String,
     ///RECAPTCHA_REQUIRED
-    pub error_code: Option<String>,
+    pub error_code: String,
     ///
-    pub display_message: Option<String>,
+    pub display_message: String,
     ///400
-    pub http_code: Option<String>,
+    pub http_code: String,
     ///Your user will be prompted to solve a Google reCAPTCHA challenge in the Link Recaptcha pane. If they solve the challenge successfully, the user's request is resubmitted and they are directed to the next Item creation step.
-    pub link_user_experience: Option<String>,
+    pub link_user_experience: String,
     ///Plaid's fraud system detects abusive traffic and considers a variety of parameters throughout Item creation requests. When a request is considered risky or possibly fraudulent, Link presents a reCAPTCHA for the user to solve.
-    pub common_causes: Option<String>,
+    pub common_causes: String,
     /**Link will automatically guide your user through reCAPTCHA verification. As a general rule, we recommend instrumenting basic fraud monitoring to detect and protect your website from spam and abuse.
 
 If your user cannot verify their session, please submit a Support ticket with the following identifiers: `link_session_id` or `request_id`*/
-    pub troubleshooting_steps: Option<String>,
+    pub troubleshooting_steps: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransfersEventsUpdateWebhook {
     ///`BANK_TRANSFERS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`BANK_TRANSFERS_EVENTS_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentsDefaultUpdateWebhook {
     ///`INVESTMENTS_TRANSACTIONS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`DEFAULT_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///The number of new transactions reported since the last time this webhook was fired.
-    pub new_investments_transactions: Option<f64>,
+    pub new_investments_transactions: f64,
     ///The number of canceled transactions reported since the last time this webhook was fired.
-    pub canceled_investments_transactions: Option<f64>,
+    pub canceled_investments_transactions: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HoldingsDefaultUpdateWebhook {
     ///`HOLDINGS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`DEFAULT_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///The number of new holdings reported since the last time this webhook was fired.
-    pub new_holdings: Option<f64>,
+    pub new_holdings: f64,
     ///The number of updated holdings reported since the last time this webhook was fired.
-    pub updated_holdings: Option<f64>,
+    pub updated_holdings: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LiabilitiesDefaultUpdateWebhook {
     ///`LIABILITIES`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`DEFAULT_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
-    pub error: Option<PlaidError>,
+    pub error: PlaidError,
     ///An array of `account_id`'s for accounts that contain new liabilities.'
-    pub account_ids_with_new_liabilities: Option<Vec<String>>,
+    pub account_ids_with_new_liabilities: Vec<String>,
     /**An object with keys of `account_id`'s that are mapped to their respective liabilities fields that changed.
 
 Example: `{ "XMBvvyMGQ1UoLbKByoMqH3nXMj84ALSdE5B58": ["past_amount_due"] }`
 */
-    pub account_ids_with_updated_liabilities: Option<
-        LiabilitiesAccountIdsWithUpdatedLiabilities,
-    >,
+    pub account_ids_with_updated_liabilities: LiabilitiesAccountIdsWithUpdatedLiabilities,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LiabilitiesAccountIdsWithUpdatedLiabilities {}
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetsProductReadyWebhook {
     ///`ASSETS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`PRODUCT_READY`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `asset_report_id` that can be provided to `/asset_report/get` to retrieve the Asset Report.
-    pub asset_report_id: Option<String>,
+    pub asset_report_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetsErrorWebhook {
     ///`ASSETS`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`ERROR`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
-    pub error: Option<PlaidError>,
+    pub error: PlaidError,
     ///The ID associated with the Asset Report.
-    pub asset_report_id: Option<String>,
+    pub asset_report_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Cause {
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
-    pub error: Option<PlaidError>,
+    pub error: PlaidError,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Warning {
     ///The warning type, which will always be `ASSET_REPORT_WARNING`
-    pub warning_type: Option<String>,
+    pub warning_type: String,
     ///The warning code identifies a specific kind of warning. Currently, the only possible warning code is `OWNERS_UNAVAILABLE`, which indicates that account-owner information is not available.
-    pub warning_code: Option<String>,
+    pub warning_code: String,
     ///An error object and associated `item_id` used to identify a specific Item and error when a batch operation operating on multiple Items has encountered an error in one of the Items.
-    pub cause: Option<Cause>,
+    pub cause: Cause,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentAmount {
     ///The ISO-4217 currency code of the payment. For standing orders, `"GBP"` must be used.
-    pub currency: Option<String>,
+    pub currency: String,
     ///The amount of the payment. Must contain at most two digits of precision e.g. `1.23`. Minimum accepted value is `1`.
-    pub value: Option<f64>,
+    pub value: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportUser {
     ///An identifier you determine and submit for the user.
-    pub client_user_id: Option<Option<String>>,
+    pub client_user_id: Option<String>,
     ///The user's first name. Required for the Fannie Mae Day 1 Certainty™ program.
-    pub first_name: Option<Option<String>>,
+    pub first_name: Option<String>,
     ///The user's middle name
-    pub middle_name: Option<Option<String>>,
+    pub middle_name: Option<String>,
     ///The user's last name.  Required for the Fannie Mae Day 1 Certainty™ program.
-    pub last_name: Option<Option<String>>,
+    pub last_name: Option<String>,
     /**The user's Social Security Number. Required for the Fannie Mae Day 1 Certainty™ program.
 
 Format: "ddd-dd-dddd"*/
-    pub ssn: Option<Option<String>>,
+    pub ssn: Option<String>,
     ///The user's phone number, in E.164 format: +{countrycode}{number}. For example: "+14151234567". Phone numbers provided in other formats will be parsed on a best-effort basis.
-    pub phone_number: Option<Option<String>>,
+    pub phone_number: Option<String>,
     ///The user's email address.
-    pub email: Option<Option<String>>,
+    pub email: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportId(pub String);
@@ -3134,24 +3132,24 @@ pub struct AssetReportRefreshAssetReportToken(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StandaloneCurrencyCodeList {
     ///Plaid supports all ISO 4217 currency codes.
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
     ///List of unofficial currency codes
-    pub unofficial_currency_code: Option<UnofficialCurrencyCodeList>,
+    pub unofficial_currency_code: UnofficialCurrencyCodeList,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UnofficialCurrencyCodeList(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StandaloneAccountType {
     ///An account type holding cash, in which funds are deposited. Supported products for `depository` accounts are: Auth (`checking` and `savings` types only), Balance, Transactions, Identity, Payment Initiation, and Assets.
-    pub depository: Option<DepositoryAccount>,
+    pub depository: DepositoryAccount,
     ///A credit card type account. Supported products for `credit` accounts are: Balance, Transactions, Identity, and Liabilities.
-    pub credit: Option<CreditAccount>,
+    pub credit: CreditAccount,
     ///A loan type account. Supported products for `loan` accounts are: Balance, Liabilities, and Transactions.
-    pub loan: Option<LoanAccount>,
+    pub loan: LoanAccount,
     ///An investment account. Supported products for `investment` accounts are: Balance and Investments. In API versions 2018-05-22 and earlier, this type is called `brokerage`.
-    pub investment: Option<InvestmentAccountSubtypeStandalone>,
+    pub investment: InvestmentAccountSubtypeStandalone,
     ///Other or unknown account type. Supported products for `other` accounts are: Balance, Transactions, Identity, and Assets.
-    pub other: Option<String>,
+    pub other: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositoryAccount(pub String);
@@ -3164,39 +3162,39 @@ pub struct InvestmentAccountSubtypeStandalone(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReport {
     ///A unique ID identifying an Asset Report. Like all Plaid identifiers, this ID is case sensitive.
-    pub asset_report_id: Option<AssetReportId>,
+    pub asset_report_id: AssetReportId,
     ///An identifier you determine and submit for the Asset Report.
-    pub client_report_id: Option<Option<String>>,
+    pub client_report_id: Option<String>,
     ///The date and time when the Asset Report was created, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (e.g. "2018-04-12T03:32:11Z").
-    pub date_generated: Option<String>,
+    pub date_generated: String,
     ///The duration of transaction history you requested
-    pub days_requested: Option<f64>,
+    pub days_requested: f64,
     ///The user object allows you to provide additional information about the user to be appended to the Asset Report. All fields are optional. The `first_name`, `last_name`, and `ssn` fields are required if you would like the Report to be eligible for Fannie Mae’s Day 1 Certainty™ program.
-    pub user: Option<AssetReportUser>,
+    pub user: AssetReportUser,
     ///Data returned by Plaid about each of the Items included in the Asset Report.
-    pub items: Option<Vec<AssetReportItem>>,
+    pub items: Vec<AssetReportItem>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportItem {
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///The full financial institution name associated with the Item.
-    pub institution_name: Option<String>,
+    pub institution_name: String,
     ///The id of the financial institution associated with the Item.
-    pub institution_id: Option<String>,
+    pub institution_id: String,
     ///The date and time when this Item’s data was last retrieved from the financial institution, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
-    pub date_last_updated: Option<String>,
+    pub date_last_updated: String,
     ///Data about each of the accounts open on the Item.
-    pub accounts: Option<Vec<AccountAssets>>,
+    pub accounts: Vec<AccountAssets>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentStatusUpdateWebhook {
     ///`PAYMENT_INITIATION`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`PAYMENT_STATUS_UPDATE`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `payment_id` for the payment being updated
-    pub payment_id: Option<String>,
+    pub payment_id: String,
     /**The status of the payment.
 
 `PAYMENT_STATUS_INPUT_NEEDED`: This is the initial state of all payments. It indicates that the payment is waiting on user input to continue processing. A payment may re-enter this state later on if further input is needed.
@@ -3227,7 +3225,7 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub new_payment_status: Option<PaymentInitiationPaymentStatus>,
+    pub new_payment_status: PaymentInitiationPaymentStatus,
     /**The status of the payment.
 
 `PAYMENT_STATUS_INPUT_NEEDED`: This is the initial state of all payments. It indicates that the payment is waiting on user input to continue processing. A payment may re-enter this state later on if further input is needed.
@@ -3258,66 +3256,66 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub old_payment_status: Option<PaymentInitiationPaymentStatus>,
+    pub old_payment_status: PaymentInitiationPaymentStatus,
     ///The original value of the reference when creating the payment.
-    pub original_reference: Option<Option<String>>,
+    pub original_reference: Option<String>,
     ///The value of the reference sent to the bank after adjustment to pass bank validation rules.
-    pub adjusted_reference: Option<Option<String>>,
+    pub adjusted_reference: Option<String>,
     ///The original value of the `start_date` provided during the creation of a standing order. If the payment is not a standing order, this field will be `null`.
-    pub original_start_date: Option<Option<String>>,
+    pub original_start_date: Option<String>,
     ///The start date sent to the bank after adjusting for holidays or weekends.  Will be provided in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). If the start date did not require adjustment, or if the payment is not a standing order, this field will be `null`.
-    pub adjusted_start_date: Option<Option<String>>,
+    pub adjusted_start_date: Option<String>,
     ///The timestamp of the update, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format, e.g. `"2017-09-14T14:42:19.350Z"`
-    pub timestamp: Option<String>,
+    pub timestamp: String,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Holding {
     ///The Plaid `account_id` associated with the holding.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The Plaid `security_id` associated with the holding.
-    pub security_id: Option<String>,
+    pub security_id: String,
     ///The last price given by the institution for this security.
-    pub institution_price: Option<f64>,
+    pub institution_price: f64,
     ///The date at which `institution_price` was current.
-    pub institution_price_as_of: Option<Option<String>>,
+    pub institution_price_as_of: Option<String>,
     ///The value of the holding, as reported by the institution.
-    pub institution_value: Option<f64>,
+    pub institution_value: f64,
     ///The cost basis of the holding.
-    pub cost_basis: Option<Option<f64>>,
+    pub cost_basis: Option<f64>,
     ///The total quantity of the asset held, as reported by the financial institution. If the security is an option, `quantity` will reflect the total number of options (typically the number of contracts multiplied by 100), not the number of contracts.
-    pub quantity: Option<f64>,
+    pub quantity: f64,
     ///The ISO-4217 currency code of the holding. Always `null` if `unofficial_currency_code` is non-`null`.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the holding. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.
 */
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Security {
     ///A unique, Plaid-specific identifier for the security, used to associate securities with holdings. Like all Plaid identifiers, the `security_id` is case sensitive.
-    pub security_id: Option<String>,
+    pub security_id: String,
     ///12-character ISIN, a globally unique securities identifier.
-    pub isin: Option<Option<String>>,
+    pub isin: Option<String>,
     ///9-character CUSIP, an identifier assigned to North American securities.
-    pub cusip: Option<Option<String>>,
+    pub cusip: Option<String>,
     ///7-character SEDOL, an identifier assigned to securities in the UK.
-    pub sedol: Option<Option<String>>,
+    pub sedol: Option<String>,
     ///An identifier given to the security by the institution
-    pub institution_security_id: Option<Option<String>>,
+    pub institution_security_id: Option<String>,
     ///If `institution_security_id` is present, this field indicates the Plaid `institution_id` of the institution to whom the identifier belongs.
-    pub institution_id: Option<Option<String>>,
+    pub institution_id: Option<String>,
     ///In certain cases, Plaid will provide the ID of another security whose performance resembles this security, typically when the original security has low volume, or when a private security can be modeled with a publicly traded security.
-    pub proxy_security_id: Option<Option<String>>,
+    pub proxy_security_id: Option<String>,
     ///A descriptive name for the security, suitable for display.
-    pub name: Option<Option<String>>,
+    pub name: Option<String>,
     ///The security’s trading symbol for publicly traded securities, and otherwise a short identifier if available.
-    pub ticker_symbol: Option<Option<String>>,
+    pub ticker_symbol: Option<String>,
     ///Indicates that a security is a highly liquid asset and can be treated like cash.
-    pub is_cash_equivalent: Option<Option<bool>>,
+    pub is_cash_equivalent: Option<bool>,
     #[serde(rename = "type")]
     /**The security type of the holding. Valid security types are:
 
@@ -3336,40 +3334,40 @@ pub struct Security {
 `mutual fund`: Open- and closed-end vehicles pooling funds of multiple investors.
 
 `other`: Unknown or other investment types*/
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
     ///Price of the security at the close of the previous trading session. `null` for non-public securities. If the security is a foreign currency or a cryptocurrency this field will be updated daily and will be priced in USD.
-    pub close_price: Option<Option<f64>>,
+    pub close_price: Option<f64>,
     ///Date for which `close_price` is accurate. Always `null` if `close_price` is `null`.
-    pub close_price_as_of: Option<Option<String>>,
+    pub close_price_as_of: Option<String>,
     ///The ISO-4217 currency code of the price given. Always `null` if `unofficial_currency_code` is non-`null`.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the security. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentTransaction {
     ///The ID of the Investment transaction, unique across all Plaid transactions. Like all Plaid identifiers, the `investment_transaction_id` is case sensitive.
-    pub investment_transaction_id: Option<String>,
+    pub investment_transaction_id: String,
     ///A legacy field formerly used internally by Plaid to identify certain canceled transactions.
-    pub cancel_transaction_id: Option<Option<String>>,
+    pub cancel_transaction_id: Option<String>,
     ///The `account_id` of the account against which this transaction posted.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The `security_id` to which this transaction is related.
-    pub security_id: Option<Option<String>>,
+    pub security_id: Option<String>,
     ///The [ISO 8601](https://wikipedia.org/wiki/ISO_8601) posting date for the transaction.
-    pub date: Option<String>,
+    pub date: String,
     ///The institution’s description of the transaction.
-    pub name: Option<String>,
+    pub name: String,
     ///The number of units of the security involved in this transaction.
-    pub quantity: Option<f64>,
+    pub quantity: f64,
     ///The complete value of the transaction. Positive values when cash is debited, e.g. purchases of stock; negative values when cash is credited, e.g. sales of stock. Treatment remains the same for cash-only movements unassociated with securities.
-    pub amount: Option<f64>,
+    pub amount: f64,
     ///The price of the security at which this transaction occurred.
-    pub price: Option<f64>,
+    pub price: f64,
     ///The combined value of all fees applied to this transaction
-    pub fees: Option<Option<f64>>,
+    pub fees: Option<f64>,
     #[serde(rename = "type")]
     /**Value is one of the following:
 `buy`: Buying an investment
@@ -3380,30 +3378,30 @@ pub struct InvestmentTransaction {
 `transfer`: Activity which modifies a position, but not through buy/sell activity e.g. options exercise, portfolio transfer
 
 For descriptions of possible transaction types and subtypes, see the [Investment transaction types schema](https://plaid.com/docs/api/accounts/#investment-transaction-types-schema).*/
-    pub type_: Option<String>,
+    pub type_: String,
     ///For descriptions of possible transaction types and subtypes, see the [Investment transaction types schema](https://plaid.com/docs/api/accounts/#investment-transaction-types-schema).
-    pub subtype: Option<String>,
+    pub subtype: String,
     ///The ISO-4217 currency code of the transaction. Always `null` if `unofficial_currency_code` is non-`null`.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the holding. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StandaloneInvestmentTransactionType {
     ///Buying an investment
-    pub buy: Option<StandaloneInvestmentTransactionBuyType>,
+    pub buy: StandaloneInvestmentTransactionBuyType,
     ///Selling an investment
-    pub sell: Option<StandaloneInvestmentTransactionSellType>,
+    pub sell: StandaloneInvestmentTransactionSellType,
     ///A cancellation of a pending transaction
-    pub cancel: Option<String>,
+    pub cancel: String,
     ///Activity that modifies a cash position
-    pub cash: Option<StandaloneInvestmentTransactionCashType>,
+    pub cash: StandaloneInvestmentTransactionCashType,
     ///Fees on the account, e.g. commission, bookkeeping, options-related.
-    pub fee: Option<StandaloneInvestmentTransactionFeeType>,
+    pub fee: StandaloneInvestmentTransactionFeeType,
     ///Activity that modifies a position, but not through buy/sell activity e.g. options exercise, portfolio transfer
-    pub transfer: Option<StandaloneInvestmentTransactionTransferType>,
+    pub transfer: StandaloneInvestmentTransactionTransferType,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StandaloneInvestmentTransactionBuyType(pub String);
@@ -3420,11 +3418,11 @@ pub struct AccountSubtypes(pub Vec<AccountSubtype>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserPermissionRevokedWebhook {
     ///`ITEM`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`USER_PERMISSION_REVOKED`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `item_id` of the Item associated with this webhook, warning, or error
-    pub item_id: Option<ItemId>,
+    pub item_id: ItemId,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
 }
@@ -3435,16 +3433,16 @@ pub struct DepositSwitchGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the deposit switch
-    pub deposit_switch_id: Option<String>,
+    pub deposit_switch_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchGetResponse {
     ///The ID of the deposit switch.
-    pub deposit_switch_id: Option<String>,
+    pub deposit_switch_id: String,
     ///The ID of the bank account the direct deposit was switched to.
-    pub target_account_id: Option<Option<String>>,
+    pub target_account_id: Option<String>,
     ///The ID of the Item the direct deposit was switched to.
-    pub target_item_id: Option<Option<String>>,
+    pub target_item_id: Option<String>,
     /**
 The state, or status, of the deposit switch.
 
@@ -3455,7 +3453,7 @@ The state, or status, of the deposit switch.
 - `completed` – The user's employer has fulfilled the deposit switch request.
 
 - `error` – There was an error processing the deposit switch request.*/
-    pub state: Option<String>,
+    pub state: String,
     /**The method used to make the deposit switch.
 
 - `instant` – User instantly switched their direct deposit to a new or existing bank account by connecting their payroll or employer account.
@@ -3463,31 +3461,31 @@ The state, or status, of the deposit switch.
 - `mail` – User requested that Plaid contact their employer by mail to make the direct deposit switch.
 
 - `pdf` – User generated a PDF or email to be sent to their employer with the information necessary to make the deposit switch.'*/
-    pub switch_method: Option<Option<String>>,
+    pub switch_method: Option<String>,
     ///When `true`, user’s direct deposit goes to multiple banks. When false, user’s direct deposit only goes to the target account. Always `null` if the deposit switch has not been completed.
-    pub account_has_multiple_allocations: Option<Option<bool>>,
+    pub account_has_multiple_allocations: Option<bool>,
     ///When `true`, the target account is allocated the remainder of direct deposit after all other allocations have been deducted. When `false`, user’s direct deposit is allocated as a percent or amount. Always `null` if the deposit switch has not been completed.
-    pub is_allocated_remainder: Option<Option<bool>>,
+    pub is_allocated_remainder: Option<bool>,
     ///The percentage of direct deposit allocated to the target account. Always `null` if the target account is not allocated a percentage or if the deposit switch has not been completed or if `is_allocated_remainder` is true.
-    pub percent_allocated: Option<Option<f64>>,
+    pub percent_allocated: Option<f64>,
     ///The dollar amount of direct deposit allocated to the target account. Always `null` if the target account is not allocated an amount or if the deposit switch has not been completed.
-    pub amount_allocated: Option<Option<f64>>,
+    pub amount_allocated: Option<f64>,
     ///The name of the employer selected by the user. If the user did not select an employer, the value returned is `null`.
-    pub employer_name: Option<Option<String>>,
+    pub employer_name: Option<String>,
     ///The ID of the employer selected by the user. If the user did not select an employer, the value returned is `null`.
-    pub employer_id: Option<Option<String>>,
+    pub employer_id: Option<String>,
     ///The name of the institution selected by the user. If the user did not select an institution, the value returned is `null`.
-    pub institution_name: Option<Option<String>>,
+    pub institution_name: Option<String>,
     ///The ID of the institution selected by the user. If the user did not select an institution, the value returned is `null`.
-    pub institution_id: Option<Option<String>>,
+    pub institution_id: Option<String>,
     /**[ISO 8601](https://wikipedia.org/wiki/ISO_8601) date the deposit switch was created.
 */
-    pub date_created: Option<String>,
+    pub date_created: String,
     /**[ISO 8601](https://wikipedia.org/wiki/ISO_8601) date the deposit switch was completed. Always `null` if the deposit switch has not been completed.
 */
-    pub date_completed: Option<Option<String>>,
+    pub date_completed: Option<String>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchStateUpdateWebhook {
@@ -3518,7 +3516,7 @@ pub struct AssetReportAuditCopyGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The `audit_copy_token` granting access to the Audit Copy you would like to get.
-    pub audit_copy_token: Option<String>,
+    pub audit_copy_token: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferGetRequest {
@@ -3527,7 +3525,7 @@ pub struct TransferGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a transfer.
-    pub transfer_id: Option<TransferID>,
+    pub transfer_id: TransferID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferGetRequest {
@@ -3536,21 +3534,21 @@ pub struct BankTransferGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a bank transfer.
-    pub bank_transfer_id: Option<BankTransferID>,
+    pub bank_transfer_id: BankTransferID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferGetResponse {
     ///Represents a transfer within the Transfers API.
-    pub transfer: Option<Transfer>,
+    pub transfer: Transfer,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferGetResponse {
     ///Represents a bank transfer within the Bank Transfers API.
-    pub bank_transfer: Option<BankTransfer>,
+    pub bank_transfer: BankTransfer,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferID(pub String);
@@ -3563,7 +3561,7 @@ pub struct BankTransferID(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Transfer {
     ///Plaid’s unique identifier for a transfer.
-    pub id: Option<TransferID>,
+    pub id: TransferID,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -3595,22 +3593,22 @@ pub struct Transfer {
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
+    pub ach_class: ACHClass,
     ///The account ID that should be credited/debited for this transfer.
-    pub account_id: Option<String>,
+    pub account_id: String,
     #[serde(rename = "type")]
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<TransferType>,
+    pub type_: TransferType,
     ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInResponse>,
+    pub user: TransferUserInResponse,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
+    pub amount: TransferAmount,
     ///The description of the transfer.
-    pub description: Option<String>,
+    pub description: String,
     ///The datetime when this transfer was created. This will be of the form `2006-01-02T15:04:05Z`
-    pub created: Option<String>,
+    pub created: String,
     ///The status of the transfer.
-    pub status: Option<TransferStatus>,
+    pub status: TransferStatus,
     /**The status of the sweep for the transfer.
 `unswept`: The transfer hasn't been swept yet.
 `swept`: The transfer was swept to the sweep account.
@@ -3618,9 +3616,9 @@ pub struct Transfer {
 `null`: The transfer will never be swept (e.g. if the transfer is cancelled or reversed before being swept)*/
     pub sweep_status: Option<TransferSweepStatus>,
     ///The network or rails used for the transfer. Valid options are `ach` or `same-day-ach`.
-    pub network: Option<TransferNetwork>,
+    pub network: TransferNetwork,
     ///When `true`, you can still cancel this transfer.
-    pub cancellable: Option<bool>,
+    pub cancellable: bool,
     ///The failure reason if the event type for a transfer is `"failed"` or `"reversed"`. Null value otherwise.
     pub failure_reason: Option<TransferFailure>,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
@@ -3632,7 +3630,7 @@ pub struct Transfer {
 */
     pub metadata: Option<TransferMetadata>,
     ///Plaid’s unique identifier for the origination account that was used for this transfer.
-    pub origination_account_id: Option<String>,
+    pub origination_account_id: String,
     ///Indicates whether the transfer is guaranteed by Plaid (Guaranteed ACH customers only). This field will contain either `GUARANTEED` or `NOT_GUARANTEED` indicating whether Plaid will guarantee the transfer. If the transfer is not guaranteed, additional information will be provided in the `guarantee_decision_rationale` field. Refer to the `code` field in `guarantee_decision_rationale` for details.
     pub guarantee_decision: Option<TransferAuthorizationGuaranteeDecision>,
     ///The rationale for Plaid's decision to not guarantee a transfer. Will be `null` unless `guarantee_decision` is `NOT_GUARANTEED`.
@@ -3640,12 +3638,12 @@ pub struct Transfer {
         TransferAuthorizationGuaranteeDecisionRationale,
     >,
     ///The currency of the transfer amount, e.g. "USD"
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransfer {
     ///Plaid’s unique identifier for a bank transfer.
-    pub id: Option<BankTransferID>,
+    pub id: BankTransferID,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -3677,32 +3675,32 @@ pub struct BankTransfer {
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
+    pub ach_class: ACHClass,
     ///The account ID that should be credited/debited for this bank transfer.
-    pub account_id: Option<String>,
+    pub account_id: String,
     #[serde(rename = "type")]
     ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<BankTransferType>,
+    pub type_: BankTransferType,
     ///The legal name and other information for the account holder.
-    pub user: Option<BankTransferUser>,
+    pub user: BankTransferUser,
     ///The amount of the bank transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<BankTransferAmount>,
+    pub amount: BankTransferAmount,
     ///The currency of the transfer amount, e.g. "USD"
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
     ///The description of the transfer.
-    pub description: Option<String>,
+    pub description: String,
     ///The datetime when this bank transfer was created. This will be of the form `2006-01-02T15:04:05Z`
-    pub created: Option<String>,
+    pub created: String,
     ///The status of the transfer.
-    pub status: Option<BankTransferStatus>,
+    pub status: BankTransferStatus,
     ///The network or rails used for the transfer. Valid options are `ach`, `same-day-ach`, or `wire`.
-    pub network: Option<BankTransferNetwork>,
+    pub network: BankTransferNetwork,
     ///When `true`, you can still cancel this bank transfer.
-    pub cancellable: Option<bool>,
+    pub cancellable: bool,
     ///The failure reason if the type of this transfer is `"failed"` or `"reversed"`. Null value otherwise.
     pub failure_reason: Option<BankTransferFailure>,
     ///A string containing the custom tag provided by the client in the create request. Will be null if not provided.
-    pub custom_tag: Option<Option<String>>,
+    pub custom_tag: Option<String>,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 - The JSON values must be Strings (no nested JSON objects allowed)
 - Only ASCII characters may be used
@@ -3712,7 +3710,7 @@ pub struct BankTransfer {
 */
     pub metadata: Option<BankTransferMetadata>,
     ///Plaid’s unique identifier for the origination account that was used for this transfer.
-    pub origination_account_id: Option<String>,
+    pub origination_account_id: String,
     ///Indicates the direction of the transfer: `outbound` for API-initiated transfers, or `inbound` for payments received by the FBO account.
     pub direction: Option<BankTransferDirection>,
 }
@@ -3744,7 +3742,7 @@ pub struct BankTransferIdempotencyKey(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferUserInRequest {
     ///The user's legal name.
-    pub legal_name: Option<String>,
+    pub legal_name: String,
     ///The user's phone number.
     pub phone_number: String,
     ///The user's email address.
@@ -3755,11 +3753,11 @@ pub struct TransferUserInRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferUserInResponse {
     ///The user's legal name.
-    pub legal_name: Option<String>,
+    pub legal_name: String,
     ///The user's phone number.
-    pub phone_number: Option<Option<String>>,
+    pub phone_number: Option<String>,
     ///The user's email address.
-    pub email_address: Option<Option<String>>,
+    pub email_address: Option<String>,
     ///The address associated with the account holder.
     pub address: Option<TransferUserAddressInResponse>,
 }
@@ -3779,22 +3777,22 @@ pub struct TransferUserAddressInRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferUserAddressInResponse {
     ///The street number and name (i.e., "100 Market St.").
-    pub street: Option<Option<String>>,
+    pub street: Option<String>,
     ///Ex. "San Francisco"
-    pub city: Option<Option<String>>,
+    pub city: Option<String>,
     ///The state or province (e.g., "California").
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     ///The postal code (e.g., "94103").
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     ///A two-letter country code (e.g., "US").
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferUser {
     ///The account holder’s full legal name. If the transfer `ach_class` is `ccd`, this should be the business name of the account holder.
-    pub legal_name: Option<String>,
+    pub legal_name: String,
     ///The account holder’s email.
-    pub email_address: Option<Option<String>>,
+    pub email_address: Option<String>,
     ///The account holder's routing number. This field is only used in response data. Do not provide this field when making requests.
     pub routing_number: String,
 }
@@ -3811,9 +3809,9 @@ pub struct TransferAuthorizationDecisionRationale {
 `LOGIN_REQUIRED` – Unable to collect the account information required for an authorization decision due to Item staleness. Can be rectified using Link update mode.
 
 `ERROR` – Unable to collect the account information required for an authorization decision due to an error.*/
-    pub code: Option<String>,
+    pub code: String,
     ///A human-readable description of the code associated with a permitted transfer or transfer decline.
-    pub description: Option<String>,
+    pub description: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferAuthorizationGuaranteeDecision(pub Option<String>);
@@ -3828,9 +3826,9 @@ pub struct TransferAuthorizationGuaranteeDecisionRationale {
 `GUARANTEE_LIMIT_REACHED`: This transfer is low-risk, but Guaranteed ACH has exhausted an internal limit on the number or rate of guarantees that applies to this transfer.
 
 `RISK_ESTIMATE_UNAVAILABLE`: A risk estimate is unavailable for this Item.*/
-    pub code: Option<String>,
+    pub code: String,
     ///A human-readable description of why the transfer cannot be guaranteed.
-    pub description: Option<String>,
+    pub description: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferAuthorizationProposedTransfer {
@@ -3865,22 +3863,22 @@ pub struct TransferAuthorizationProposedTransfer {
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
+    pub ach_class: ACHClass,
     ///The Plaid `account_id` for the account that will be debited or credited.
-    pub account_id: Option<String>,
+    pub account_id: String,
     #[serde(rename = "type")]
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<TransferType>,
+    pub type_: TransferType,
     ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInResponse>,
+    pub user: TransferUserInResponse,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
+    pub amount: TransferAmount,
     ///The network or rails used for the transfer.
-    pub network: Option<String>,
+    pub network: String,
     ///Plaid's unique identifier for the origination account that was used for this transfer.
-    pub origination_account_id: Option<String>,
+    pub origination_account_id: String,
     ///The currency of the transfer amount. The default value is "USD".
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferAuthorizationDevice {
@@ -3910,14 +3908,14 @@ pub struct BankTransferNetwork(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferFailure {
     ///The ACH return code, e.g. `R01`.  A return code will be provided if and only if the transfer status is `reversed`. For a full listing of ACH return codes, see [Transfer errors](https://plaid.com/docs/errors/transfer/#ach-return-codes).
-    pub ach_return_code: Option<Option<String>>,
+    pub ach_return_code: Option<String>,
     ///A human-readable description of the reason for the failure or reversal.
     pub description: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferFailure {
     ///The ACH return code, e.g. `R01`.  A return code will be provided if and only if the transfer status is `reversed`. For a full listing of ACH return codes, see [Bank Transfers errors](https://plaid.com/docs/errors/bank-transfers/#ach-return-codes).
-    pub ach_return_code: Option<Option<String>>,
+    pub ach_return_code: Option<String>,
     ///A human-readable description of the reason for the failure or reversal.
     pub description: String,
 }
@@ -3928,156 +3926,16 @@ pub struct TransferAuthorizationCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The Plaid `access_token` for the account that will be debited or credited.
-    pub access_token: Option<TransferAccessToken>,
+    pub access_token: TransferAccessToken,
     ///The Plaid `account_id` for the account that will be debited or credited.
-    pub account_id: Option<String>,
+    pub account_id: String,
     #[serde(rename = "type")]
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<TransferType>,
+    pub type_: TransferType,
     ///The network or rails used for the transfer. Valid options are `ach` or `same-day-ach`.
-    pub network: Option<TransferNetwork>,
+    pub network: TransferNetwork,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
-    /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
-
-`"arc"` - Accounts Receivable Entry
-
-`"cbr`" - Cross Border Entry
-
-`"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
-
-`"cie"` - Customer Initiated Entry
-
-`"cor"` - Automated Notification of Change
-
-`"ctx"` - Corporate Trade Exchange
-
-`"iat"` - International
-
-`"mte"` - Machine Transfer Entry
-
-`"pbr"` - Cross Border Entry
-
-`"pop"` - Point-of-Purchase Entry
-
-`"pos"` - Point-of-Sale Entry
-
-`"ppd"` - Prearranged Payment or Deposit - the transfer is part of a pre-existing relationship with a consumer, eg. bill payment
-
-`"rck"` - Re-presented Check Entry
-
-`"tel"` - Telephone-Initiated Entry
-
-`"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
-    ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInRequest>,
-    ///Information about the device being used to initiate the authorization.
-    pub device: TransferAuthorizationDevice,
-    ///Plaid's unique identifier for the origination account for this authorization. If not specified, the default account will be used.
-    pub origination_account_id: String,
-    ///The currency of the transfer amount. The default value is "USD".
-    pub iso_currency_code: String,
-}
-#[derive(Debug, Serialize, Deserialize)]
-pub struct TransferCreateRequest {
-    ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
-    pub client_id: APIClientID,
-    ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
-    pub secret: APISecret,
-    /**Deprecated. `authorization_id` is now for used idempotency instead.
-
-A random key provided by the client, per unique transfer. Maximum of 50 characters.
-
-The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. For example, if a request to create a transfer fails due to a network connection error, you can retry the request with the same idempotency key to guarantee that only a single transfer is created.*/
-    pub idempotency_key: TransferCreateIdempotencyKey,
-    ///The Plaid `access_token` for the account that will be debited or credited.
-    pub access_token: Option<TransferAccessToken>,
-    ///The Plaid `account_id` for the account that will be debited or credited.
-    pub account_id: Option<String>,
-    ///Plaid’s unique identifier for a transfer authorization. This parameter also serves the purpose of acting as an idempotency identifier.
-    pub authorization_id: Option<String>,
-    #[serde(rename = "type")]
-    ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<TransferType>,
-    ///The network or rails used for the transfer. Valid options are `ach` or `same-day-ach`.
-    pub network: Option<TransferNetwork>,
-    ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
-    ///The transfer description. Maximum of 10 characters.
-    pub description: Option<String>,
-    /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
-
-`"arc"` - Accounts Receivable Entry
-
-`"cbr`" - Cross Border Entry
-
-`"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
-
-`"cie"` - Customer Initiated Entry
-
-`"cor"` - Automated Notification of Change
-
-`"ctx"` - Corporate Trade Exchange
-
-`"iat"` - International
-
-`"mte"` - Machine Transfer Entry
-
-`"pbr"` - Cross Border Entry
-
-`"pop"` - Point-of-Purchase Entry
-
-`"pos"` - Point-of-Sale Entry
-
-`"ppd"` - Prearranged Payment or Deposit - the transfer is part of a pre-existing relationship with a consumer, eg. bill payment
-
-`"rck"` - Re-presented Check Entry
-
-`"tel"` - Telephone-Initiated Entry
-
-`"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
-    ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInRequest>,
-    /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
-- The JSON values must be Strings (no nested JSON objects allowed)
-- Only ASCII characters may be used
-- Maximum of 50 key/value pairs
-- Maximum key length of 40 characters
-- Maximum value length of 500 characters
-*/
-    pub metadata: Option<TransferMetadata>,
-    ///Plaid’s unique identifier for the origination account for this transfer. If you have more than one origination account, this value must be specified. Otherwise, this field should be left blank.
-    pub origination_account_id: Option<Option<String>>,
-    ///The currency of the transfer amount. The default value is "USD".
-    pub iso_currency_code: String,
-}
-#[derive(Debug, Serialize, Deserialize)]
-pub struct BankTransferCreateRequest {
-    ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
-    pub client_id: APIClientID,
-    ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
-    pub secret: APISecret,
-    /**A random key provided by the client, per unique bank transfer. Maximum of 50 characters.
-
-The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. For example, if a request to create a bank transfer fails due to a network connection error, you can retry the request with the same idempotency key to guarantee that only a single bank transfer is created.*/
-    pub idempotency_key: Option<BankTransferIdempotencyKey>,
-    ///The Plaid `access_token` for the account that will be debited or credited.
-    pub access_token: Option<BankTransferAccessToken>,
-    ///The Plaid `account_id` for the account that will be debited or credited.
-    pub account_id: Option<String>,
-    #[serde(rename = "type")]
-    ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub type_: Option<BankTransferType>,
-    ///The network or rails used for the transfer. Valid options are `ach`, `same-day-ach`, or `wire`.
-    pub network: Option<BankTransferNetwork>,
-    ///The amount of the bank transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<BankTransferAmount>,
-    ///The currency of the transfer amount – should be set to "USD".
-    pub iso_currency_code: Option<String>,
-    ///The transfer description. Maximum of 10 characters.
-    pub description: Option<String>,
+    pub amount: TransferAmount,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -4111,9 +3969,149 @@ The API supports idempotency for safely retrying requests without accidentally p
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     pub ach_class: ACHClass,
     ///The legal name and other information for the account holder.
-    pub user: Option<BankTransferUser>,
+    pub user: TransferUserInRequest,
+    ///Information about the device being used to initiate the authorization.
+    pub device: TransferAuthorizationDevice,
+    ///Plaid's unique identifier for the origination account for this authorization. If not specified, the default account will be used.
+    pub origination_account_id: String,
+    ///The currency of the transfer amount. The default value is "USD".
+    pub iso_currency_code: String,
+}
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TransferCreateRequest {
+    ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
+    pub client_id: APIClientID,
+    ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
+    pub secret: APISecret,
+    /**Deprecated. `authorization_id` is now for used idempotency instead.
+
+A random key provided by the client, per unique transfer. Maximum of 50 characters.
+
+The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. For example, if a request to create a transfer fails due to a network connection error, you can retry the request with the same idempotency key to guarantee that only a single transfer is created.*/
+    pub idempotency_key: TransferCreateIdempotencyKey,
+    ///The Plaid `access_token` for the account that will be debited or credited.
+    pub access_token: TransferAccessToken,
+    ///The Plaid `account_id` for the account that will be debited or credited.
+    pub account_id: String,
+    ///Plaid’s unique identifier for a transfer authorization. This parameter also serves the purpose of acting as an idempotency identifier.
+    pub authorization_id: String,
+    #[serde(rename = "type")]
+    ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
+    pub type_: TransferType,
+    ///The network or rails used for the transfer. Valid options are `ach` or `same-day-ach`.
+    pub network: TransferNetwork,
+    ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
+    pub amount: TransferAmount,
+    ///The transfer description. Maximum of 10 characters.
+    pub description: String,
+    /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
+
+`"arc"` - Accounts Receivable Entry
+
+`"cbr`" - Cross Border Entry
+
+`"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
+
+`"cie"` - Customer Initiated Entry
+
+`"cor"` - Automated Notification of Change
+
+`"ctx"` - Corporate Trade Exchange
+
+`"iat"` - International
+
+`"mte"` - Machine Transfer Entry
+
+`"pbr"` - Cross Border Entry
+
+`"pop"` - Point-of-Purchase Entry
+
+`"pos"` - Point-of-Sale Entry
+
+`"ppd"` - Prearranged Payment or Deposit - the transfer is part of a pre-existing relationship with a consumer, eg. bill payment
+
+`"rck"` - Re-presented Check Entry
+
+`"tel"` - Telephone-Initiated Entry
+
+`"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
+    pub ach_class: ACHClass,
+    ///The legal name and other information for the account holder.
+    pub user: TransferUserInRequest,
+    /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
+- The JSON values must be Strings (no nested JSON objects allowed)
+- Only ASCII characters may be used
+- Maximum of 50 key/value pairs
+- Maximum key length of 40 characters
+- Maximum value length of 500 characters
+*/
+    pub metadata: Option<TransferMetadata>,
+    ///Plaid’s unique identifier for the origination account for this transfer. If you have more than one origination account, this value must be specified. Otherwise, this field should be left blank.
+    pub origination_account_id: Option<String>,
+    ///The currency of the transfer amount. The default value is "USD".
+    pub iso_currency_code: String,
+}
+#[derive(Debug, Serialize, Deserialize)]
+pub struct BankTransferCreateRequest {
+    ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
+    pub client_id: APIClientID,
+    ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
+    pub secret: APISecret,
+    /**A random key provided by the client, per unique bank transfer. Maximum of 50 characters.
+
+The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. For example, if a request to create a bank transfer fails due to a network connection error, you can retry the request with the same idempotency key to guarantee that only a single bank transfer is created.*/
+    pub idempotency_key: BankTransferIdempotencyKey,
+    ///The Plaid `access_token` for the account that will be debited or credited.
+    pub access_token: BankTransferAccessToken,
+    ///The Plaid `account_id` for the account that will be debited or credited.
+    pub account_id: String,
+    #[serde(rename = "type")]
+    ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
+    pub type_: BankTransferType,
+    ///The network or rails used for the transfer. Valid options are `ach`, `same-day-ach`, or `wire`.
+    pub network: BankTransferNetwork,
+    ///The amount of the bank transfer (decimal string with two digits of precision e.g. "10.00").
+    pub amount: BankTransferAmount,
+    ///The currency of the transfer amount – should be set to "USD".
+    pub iso_currency_code: String,
+    ///The transfer description. Maximum of 10 characters.
+    pub description: String,
+    /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
+
+`"arc"` - Accounts Receivable Entry
+
+`"cbr`" - Cross Border Entry
+
+`"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
+
+`"cie"` - Customer Initiated Entry
+
+`"cor"` - Automated Notification of Change
+
+`"ctx"` - Corporate Trade Exchange
+
+`"iat"` - International
+
+`"mte"` - Machine Transfer Entry
+
+`"pbr"` - Cross Border Entry
+
+`"pop"` - Point-of-Purchase Entry
+
+`"pos"` - Point-of-Sale Entry
+
+`"ppd"` - Prearranged Payment or Deposit - the transfer is part of a pre-existing relationship with a consumer, eg. bill payment
+
+`"rck"` - Re-presented Check Entry
+
+`"tel"` - Telephone-Initiated Entry
+
+`"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
+    pub ach_class: ACHClass,
+    ///The legal name and other information for the account holder.
+    pub user: BankTransferUser,
     ///An arbitrary string provided by the client for storage with the bank transfer. May be up to 100 characters.
-    pub custom_tag: Option<Option<String>>,
+    pub custom_tag: Option<String>,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 - The JSON values must be Strings (no nested JSON objects allowed)
 - Only ASCII characters may be used
@@ -4123,21 +4121,21 @@ The API supports idempotency for safely retrying requests without accidentally p
 */
     pub metadata: Option<BankTransferMetadata>,
     ///Plaid’s unique identifier for the origination account for this transfer. If you have more than one origination account, this value must be specified. Otherwise, this field should be left blank.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferAuthorizationCreateResponse {
     ///Contains the authorization decision for a proposed transfer
-    pub authorization: Option<TransferAuthorization>,
+    pub authorization: TransferAuthorization,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferAuthorization {
     ///Plaid’s unique identifier for a transfer authorization.
-    pub id: Option<TransferAuthorizationID>,
+    pub id: TransferAuthorizationID,
     ///The datetime representing when the authorization was created, in the format `2006-01-02T15:04:05Z`.
-    pub created: Option<String>,
+    pub created: String,
     /**
 A decision regarding the proposed transfer.
 
@@ -4146,7 +4144,7 @@ A decision regarding the proposed transfer.
 `permitted` – Plaid was unable to fetch the information required to approve or decline the proposed transfer. You may proceed with the transfer, but further review is recommended. Plaid is awaiting further instructions from the client.
 
 `declined` – Plaid reviewed the proposed transfer and declined processing. Refer to the `code` field in the `decision_rationale` object for details.*/
-    pub decision: Option<String>,
+    pub decision: String,
     ///The rationale for Plaid's decision regarding a proposed transfer. Will be null for `approved` decisions.
     pub decision_rationale: Option<TransferAuthorizationDecisionRationale>,
     ///Indicates whether the transfer is guaranteed by Plaid (Guaranteed ACH customers only). This field will contain either `GUARANTEED` or `NOT_GUARANTEED` indicating whether Plaid will guarantee the transfer. If the transfer is not guaranteed, additional information will be provided in the `guarantee_decision_rationale` field. Refer to the `code` field in `guarantee_decision_rationale` for details.
@@ -4156,21 +4154,21 @@ A decision regarding the proposed transfer.
         TransferAuthorizationGuaranteeDecisionRationale,
     >,
     ///Details regarding the proposed transfer.
-    pub proposed_transfer: Option<TransferAuthorizationProposedTransfer>,
+    pub proposed_transfer: TransferAuthorizationProposedTransfer,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferCreateResponse {
     ///Represents a transfer within the Transfers API.
-    pub transfer: Option<Transfer>,
+    pub transfer: Transfer,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferCreateResponse {
     ///Represents a bank transfer within the Bank Transfers API.
-    pub bank_transfer: Option<BankTransfer>,
+    pub bank_transfer: BankTransfer,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferListRequest {
@@ -4179,15 +4177,15 @@ pub struct TransferListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The start datetime of transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///The end datetime of transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///The maximum number of transfers to return.
     pub count: i64,
     ///The number of transfers to skip before returning results.
     pub offset: i64,
     ///Filter transfers to only those originated through the specified origination account.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferListRequest {
@@ -4196,31 +4194,31 @@ pub struct BankTransferListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The start datetime of bank transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///The end datetime of bank transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///The maximum number of bank transfers to return.
     pub count: i64,
     ///The number of bank transfers to skip before returning results.
     pub offset: i64,
     ///Filter bank transfers to only those originated through the specified origination account.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     ///Indicates the direction of the transfer: `outbound` for API-initiated transfers, or `inbound` for payments received by the FBO account.
     pub direction: Option<BankTransferDirection>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferListResponse {
     ///
-    pub transfers: Option<Vec<Transfer>>,
+    pub transfers: Vec<Transfer>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferListResponse {
     ///
-    pub bank_transfers: Option<Vec<BankTransfer>>,
+    pub bank_transfers: Vec<BankTransfer>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferDirection(pub Option<String>);
@@ -4231,7 +4229,7 @@ pub struct TransferCancelRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a transfer.
-    pub transfer_id: Option<TransferID>,
+    pub transfer_id: TransferID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferCancelRequest {
@@ -4240,17 +4238,17 @@ pub struct BankTransferCancelRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a bank transfer.
-    pub bank_transfer_id: Option<BankTransferID>,
+    pub bank_transfer_id: BankTransferID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferCancelResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferCancelResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferEventListRequest {
@@ -4259,25 +4257,25 @@ pub struct TransferEventListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The start datetime of transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///The end datetime of transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///Plaid’s unique identifier for a transfer.
-    pub transfer_id: Option<Option<String>>,
+    pub transfer_id: Option<String>,
     ///The account ID to get events for all transactions to/from an account.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into your origination account; a `credit` indicates a transfer of money out of your origination account.
-    pub transfer_type: Option<Option<String>>,
+    pub transfer_type: Option<String>,
     ///Filter events by event type.
     pub event_types: Vec<TransferEventType>,
     ///Plaid’s unique identifier for a sweep.
     pub sweep_id: String,
     ///The maximum number of transfer events to return. If the number of events matching the above parameters is greater than `count`, the most recent events will be returned.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
     ///The offset into the list of transfer events. When `count`=25 and `offset`=0, the first 25 events will be returned. When `count`=25 and `offset`=25, the next 25 bank transfer events will be returned.
-    pub offset: Option<Option<i64>>,
+    pub offset: Option<i64>,
     ///The origination account ID to get events for transfers from a specific origination account.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferEventListRequest {
@@ -4286,26 +4284,26 @@ pub struct BankTransferEventListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The start datetime of bank transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///The end datetime of bank transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///Plaid’s unique identifier for a bank transfer.
-    pub bank_transfer_id: Option<Option<String>>,
+    pub bank_transfer_id: Option<String>,
     ///The account ID to get events for all transactions to/from an account.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into your origination account; a `credit` indicates a transfer of money out of your origination account.
-    pub bank_transfer_type: Option<Option<String>>,
+    pub bank_transfer_type: Option<String>,
     ///Filter events by event type.
     pub event_types: Vec<BankTransferEventType>,
     ///The maximum number of bank transfer events to return. If the number of events matching the above parameters is greater than `count`, the most recent events will be returned.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
     ///The offset into the list of bank transfer events. When `count`=25 and `offset`=0, the first 25 events will be returned. When `count`=25 and `offset`=25, the next 25 bank transfer events will be returned.
-    pub offset: Option<Option<i64>>,
+    pub offset: Option<i64>,
     ///The origination account ID to get events for transfers from a specific origination account.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     /**Indicates the direction of the transfer: `outbound`: for API-initiated transfers
 `inbound`: for payments received by the FBO account.*/
-    pub direction: Option<Option<String>>,
+    pub direction: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferEventType(pub String);
@@ -4314,9 +4312,9 @@ pub struct BankTransferEventType(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferEvent {
     ///Plaid’s unique identifier for this event. IDs are sequential unsigned 64-bit integers.
-    pub event_id: Option<i64>,
+    pub event_id: i64,
     ///The datetime when this event occurred. This will be of the form `2006-01-02T15:04:05Z`.
-    pub timestamp: Option<String>,
+    pub timestamp: String,
     /**The type of event that this transfer represents.
 
 `pending`: A new transfer was created; it is in the pending state.
@@ -4332,17 +4330,17 @@ pub struct TransferEvent {
 `swept`: The transfer was swept to / from the sweep account.
 
 `reverse_swept`: Due to the transfer reversing, funds were pulled from or pushed back to the sweep account.*/
-    pub event_type: Option<TransferEventType>,
+    pub event_type: TransferEventType,
     ///The account ID associated with the transfer.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///Plaid’s unique identifier for a transfer.
-    pub transfer_id: Option<TransferID>,
+    pub transfer_id: TransferID,
     ///The ID of the origination account that this balance belongs to.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub transfer_type: Option<TransferType>,
+    pub transfer_type: TransferType,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub transfer_amount: Option<TransferAmount>,
+    pub transfer_amount: TransferAmount,
     ///The failure reason if the event type for a transfer is `"failed"` or `"reversed"`. Null value otherwise.
     pub failure_reason: Option<TransferFailure>,
     ///Plaid’s unique identifier for a sweep.
@@ -4353,9 +4351,9 @@ pub struct TransferEvent {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferEvent {
     ///Plaid’s unique identifier for this event. IDs are sequential unsigned 64-bit integers.
-    pub event_id: Option<i64>,
+    pub event_id: i64,
     ///The datetime when this event occurred. This will be of the form `2006-01-02T15:04:05Z`.
-    pub timestamp: Option<String>,
+    pub timestamp: String,
     /**The type of event that this bank transfer represents.
 
 `pending`: A new transfer was created; it is in the pending state.
@@ -4367,19 +4365,19 @@ pub struct BankTransferEvent {
 `posted`: The transfer has been successfully submitted to the payment network.
 
 `reversed`: A posted transfer was reversed.*/
-    pub event_type: Option<BankTransferEventType>,
+    pub event_type: BankTransferEventType,
     ///The account ID associated with the bank transfer.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///Plaid’s unique identifier for a bank transfer.
-    pub bank_transfer_id: Option<BankTransferID>,
+    pub bank_transfer_id: BankTransferID,
     ///The ID of the origination account that this balance belongs to.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub bank_transfer_type: Option<BankTransferType>,
+    pub bank_transfer_type: BankTransferType,
     ///The bank transfer amount.
-    pub bank_transfer_amount: Option<String>,
+    pub bank_transfer_amount: String,
     ///The currency of the bank transfer amount.
-    pub bank_transfer_iso_currency_code: Option<String>,
+    pub bank_transfer_iso_currency_code: String,
     ///The failure reason if the type of this transfer is `"failed"` or `"reversed"`. Null value otherwise.
     pub failure_reason: Option<BankTransferFailure>,
     ///Indicates the direction of the transfer: `outbound` for API-initiated transfers, or `inbound` for payments received by the FBO account.
@@ -4388,16 +4386,16 @@ pub struct BankTransferEvent {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferEventListResponse {
     ///
-    pub transfer_events: Option<Vec<TransferEvent>>,
+    pub transfer_events: Vec<TransferEvent>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferEventListResponse {
     ///
-    pub bank_transfer_events: Option<Vec<BankTransferEvent>>,
+    pub bank_transfer_events: Vec<BankTransferEvent>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferEventSyncRequest {
@@ -4406,9 +4404,9 @@ pub struct BankTransferEventSyncRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The latest (largest) `event_id` fetched via the sync endpoint, or 0 initially.
-    pub after_id: Option<i64>,
+    pub after_id: i64,
     ///The maximum number of bank transfer events to return.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferEventSyncRequest {
@@ -4417,23 +4415,23 @@ pub struct TransferEventSyncRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The latest (largest) `event_id` fetched via the sync endpoint, or 0 initially.
-    pub after_id: Option<i64>,
+    pub after_id: i64,
     ///The maximum number of transfer events to return.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferEventSyncResponse {
     ///
-    pub bank_transfer_events: Option<Vec<BankTransferEvent>>,
+    pub bank_transfer_events: Vec<BankTransferEvent>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferEventSyncResponse {
     ///
-    pub transfer_events: Option<Vec<TransferEvent>>,
+    pub transfer_events: Vec<TransferEvent>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferSweepGetRequest {
@@ -4442,7 +4440,7 @@ pub struct BankTransferSweepGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Identifier of the sweep.
-    pub sweep_id: Option<String>,
+    pub sweep_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferSweepGetRequest {
@@ -4451,14 +4449,14 @@ pub struct TransferSweepGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a sweep.
-    pub sweep_id: Option<String>,
+    pub sweep_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferSweepGetResponse {
     ///BankTransferSweep describes a sweep transfer.
-    pub sweep: Option<BankTransferSweep>,
+    pub sweep: BankTransferSweep,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferSweepGetResponse {
@@ -4469,9 +4467,9 @@ A sweep is associated with many sweep events (events of type `swept` or `reverse
 `swept` events occur when the transfer amount is credited or debited from your sweep account, depending on the `type` of the transfer. `reverse_swept` events occur when a transfer is reversed and Plaid undoes the credit or debit.
 
 The total sum of the `swept` and `reverse_swept` events is equal to the `amount` of the sweep Plaid creates and matches the amount of the entry on your sweep account ledger.*/
-    pub sweep: Option<TransferSweep>,
+    pub sweep: TransferSweep,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferSweepListRequest {
@@ -4480,13 +4478,13 @@ pub struct BankTransferSweepListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///If multiple origination accounts are available, `origination_account_id` must be used to specify the account that the sweeps belong to.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     ///The start datetime of sweeps to return (RFC 3339 format).
-    pub start_time: Option<Option<String>>,
+    pub start_time: Option<String>,
     ///The end datetime of sweeps to return (RFC 3339 format).
-    pub end_time: Option<Option<String>>,
+    pub end_time: Option<String>,
     ///The maximum number of sweeps to return.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferSweepListRequest {
@@ -4495,51 +4493,51 @@ pub struct TransferSweepListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The start datetime of sweeps to return (RFC 3339 format).
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///The end datetime of sweeps to return (RFC 3339 format).
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///The maximum number of sweeps to return.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
     ///The number of sweeps to skip before returning results.
     pub offset: i64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferSweepListResponse {
     ///
-    pub sweeps: Option<Vec<TransferSweep>>,
+    pub sweeps: Vec<TransferSweep>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferSweepListResponse {
     ///
-    pub sweeps: Option<Vec<BankTransferSweep>>,
+    pub sweeps: Vec<BankTransferSweep>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferSweep {
     ///Identifier of the sweep.
-    pub id: Option<String>,
+    pub id: String,
     ///The datetime when the sweep occurred, in RFC 3339 format.
-    pub created_at: Option<String>,
+    pub created_at: String,
     ///The amount of the sweep.
-    pub amount: Option<String>,
+    pub amount: String,
     ///The currency of the sweep, e.g. "USD".
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferSweep {
     ///Identifier of the sweep.
-    pub id: Option<String>,
+    pub id: String,
     ///The datetime when the sweep occurred, in RFC 3339 format.
-    pub created: Option<String>,
+    pub created: String,
     /**Signed decimal amount of the sweep as it appears on your sweep account ledger (e.g. "-10.00")
 
 If amount is not present, the sweep was net-settled to zero and outstanding debits and credits between the sweep account and Plaid are balanced.*/
-    pub amount: Option<String>,
+    pub amount: String,
     ///The currency of the sweep, e.g. "USD".
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SimulatedTransferSweep {}
@@ -4550,23 +4548,23 @@ pub struct BankTransferBalanceGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///If multiple origination accounts are available, `origination_account_id` must be used to specify the account for which balance will be returned.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferBalanceGetResponse {
     ///Information about the balance of a bank transfer
-    pub balance: Option<BankTransferBalance>,
+    pub balance: BankTransferBalance,
     ///The ID of the origination account that this balance belongs to.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferBalance {
     ///The total available balance - the sum of all successful debit transfer amounts minus all credit transfer amounts.
-    pub available: Option<String>,
+    pub available: String,
     ///The transactable balance shows the amount in your account that you are able to use for transfers, and is essentially your available balance minus your minimum balance.
-    pub transactable: Option<String>,
+    pub transactable: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferMigrateAccountRequest {
@@ -4575,20 +4573,20 @@ pub struct BankTransferMigrateAccountRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The user's account number.
-    pub account_number: Option<String>,
+    pub account_number: String,
     ///The user's routing number.
-    pub routing_number: Option<String>,
+    pub routing_number: String,
     ///The type of the bank account (`checking` or `savings`).
-    pub account_type: Option<String>,
+    pub account_type: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferMigrateAccountResponse {
     ///The Plaid `access_token` for the newly created Item.
-    pub access_token: Option<String>,
+    pub access_token: String,
     ///The Plaid `account_id` for the newly created Item.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferRepaymentListRequest {
@@ -4597,31 +4595,31 @@ pub struct TransferRepaymentListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The start datetime of repayments to return (RFC 3339 format).
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///The end datetime of repayments to return (RFC 3339 format).
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///The maximum number of repayments to return.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
     ///The number of repayments to skip before returning results.
     pub offset: i64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferRepaymentListResponse {
     ///
-    pub repayments: Option<Vec<TransferRepayment>>,
+    pub repayments: Vec<TransferRepayment>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferRepayment {
     ///Identifier of the repayment.
-    pub repayment_id: Option<String>,
+    pub repayment_id: String,
     ///The datetime when the repayment occurred, in RFC 3339 format.
-    pub created: Option<String>,
+    pub created: String,
     ///Decimal amount of the repayment as it appears on your account ledger.
-    pub amount: Option<String>,
+    pub amount: String,
     ///The currency of the repayment, e.g. "USD".
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferRepaymentReturnListRequest {
@@ -4630,48 +4628,48 @@ pub struct TransferRepaymentReturnListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Identifier of the repayment to query.
-    pub repayment_id: Option<String>,
+    pub repayment_id: String,
     ///The maximum number of repayments to return.
-    pub count: Option<Option<i64>>,
+    pub count: Option<i64>,
     ///The number of repayments to skip before returning results.
     pub offset: i64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferRepaymentReturnListResponse {
     ///
-    pub repayment_returns: Option<Vec<TransferRepaymentReturn>>,
+    pub repayment_returns: Vec<TransferRepaymentReturn>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferRepaymentReturn {
     ///The unique identifier of the guaranteed transfer that was returned.
-    pub transfer_id: Option<String>,
+    pub transfer_id: String,
     ///The unique identifier of the corresponding `reversed` transfer event.
-    pub event_id: Option<i64>,
+    pub event_id: i64,
     ///The value of the returned transfer.
-    pub amount: Option<String>,
+    pub amount: String,
     ///The currency of the repayment, e.g. "USD".
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferIntentCreateRequest {
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
-    pub client_id: Option<APIClientID>,
+    pub client_id: APIClientID,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
-    pub secret: Option<APISecret>,
+    pub secret: APISecret,
     ///The Plaid `account_id` for the account that will be debited or credited.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     /**The direction of the flow of transfer funds.
 
 - `PAYMENT` – Transfers funds from an end user's account to your business account.
 
 - `DISBURSEMENT` – Transfers funds from your business account to an end user's account.*/
-    pub mode: Option<TransferIntentCreateMode>,
+    pub mode: TransferIntentCreateMode,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
+    pub amount: TransferAmount,
     ///A description for the underlying transfer. Maximum of 8 characters.
-    pub description: Option<String>,
+    pub description: String,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -4703,11 +4701,11 @@ pub struct TransferIntentCreateRequest {
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
+    pub ach_class: ACHClass,
     ///Plaid’s unique identifier for the origination account for the intent. If not provided, the default account will be used.
-    pub origination_account_id: Option<Option<String>>,
+    pub origination_account_id: Option<String>,
     ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInRequest>,
+    pub user: TransferUserInRequest,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 - The JSON values must be Strings (no nested JSON objects allowed)
 - Only ASCII characters may be used
@@ -4722,27 +4720,27 @@ pub struct TransferIntentCreateRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferIntentCreate {
     ///Plaid's unique identifier for the transfer intent object.
-    pub id: Option<String>,
+    pub id: String,
     ///The datetime the transfer was created. This will be of the form `2006-01-02T15:04:05Z`.
-    pub created: Option<String>,
+    pub created: String,
     /**The status of the transfer intent.
 
 - `PENDING` – The transfer intent is pending.
 - `SUCCEEDED` – The transfer intent was successfully created.
 - `FAILED` – The transfer intent was unable to be created.*/
-    pub status: Option<String>,
+    pub status: String,
     ///The Plaid `account_id` for the account that will be debited or credited. Returned only if `account_id` was set on intent creation.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     ///Plaid’s unique identifier for the origination account for the intent. If not provided, the default account will be used.
-    pub origination_account_id: Option<String>,
+    pub origination_account_id: String,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
+    pub amount: TransferAmount,
     /**The direction of the flow of transfer funds.
 
 - `PAYMENT` – Transfers funds from an end user's account to your business account.
 
 - `DISBURSEMENT` – Transfers funds from your business account to an end user's account.*/
-    pub mode: Option<TransferIntentCreateMode>,
+    pub mode: TransferIntentCreateMode,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -4774,11 +4772,11 @@ pub struct TransferIntentCreate {
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
+    pub ach_class: ACHClass,
     ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInResponse>,
+    pub user: TransferUserInResponse,
     ///A description for the underlying transfer. Maximum of 8 characters.
-    pub description: Option<String>,
+    pub description: String,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 - The JSON values must be Strings (no nested JSON objects allowed)
 - Only ASCII characters may be used
@@ -4788,38 +4786,38 @@ pub struct TransferIntentCreate {
 */
     pub metadata: Option<TransferMetadata>,
     ///The currency of the transfer amount, e.g. "USD"
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferIntentCreateResponse {
     ///Represents a transfer intent within Transfer UI.
-    pub transfer_intent: Option<TransferIntentCreate>,
+    pub transfer_intent: TransferIntentCreate,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferIntentGetRequest {
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
-    pub client_id: Option<APIClientID>,
+    pub client_id: APIClientID,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
-    pub secret: Option<APISecret>,
+    pub secret: APISecret,
     ///Plaid's unique identifier for a transfer intent object.
-    pub transfer_intent_id: Option<String>,
+    pub transfer_intent_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferIntentGet {
     ///Plaid's unique identifier for a transfer intent object.
-    pub id: Option<String>,
+    pub id: String,
     ///The datetime the transfer was created. This will be of the form `2006-01-02T15:04:05Z`.
-    pub created: Option<String>,
+    pub created: String,
     /**The status of the transfer intent.
 
 - `PENDING` – The transfer intent is pending.
 - `SUCCEEDED` – The transfer intent was successfully created.
 - `FAILED` – The transfer intent was unable to be created.*/
-    pub status: Option<String>,
+    pub status: String,
     ///Plaid's unique identifier for the transfer created through the UI. Returned only if the transfer was successfully created. Null value otherwise.
-    pub transfer_id: Option<Option<String>>,
+    pub transfer_id: Option<String>,
     ///The reason for a failed transfer intent. Returned only if the transfer intent status is `failed`. Null otherwise.
     pub failure_reason: Option<TransferIntentGetFailureReason>,
     /**
@@ -4830,21 +4828,21 @@ A decision regarding the proposed transfer.
 `PERMITTED` – Plaid was unable to fetch the information required to approve or decline the proposed transfer. You may proceed with the transfer, but further review is recommended. Plaid is awaiting further instructions from the client.
 
 `DECLINED` – Plaid reviewed the proposed transfer and declined processing. Refer to the `code` field in the `decision_rationale` object for details. Null value otherwise.*/
-    pub authorization_decision: Option<Option<String>>,
+    pub authorization_decision: Option<String>,
     ///The rationale for Plaid's decision regarding a proposed transfer. Will be null for `approved` decisions.
     pub authorization_decision_rationale: Option<TransferAuthorizationDecisionRationale>,
     ///The Plaid `account_id` for the account that will be debited or credited. Returned only if `account_id` was set on intent creation.
-    pub account_id: Option<Option<String>>,
+    pub account_id: Option<String>,
     ///Plaid’s unique identifier for the origination account used for the transfer.
-    pub origination_account_id: Option<String>,
+    pub origination_account_id: String,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00").
-    pub amount: Option<TransferAmount>,
+    pub amount: TransferAmount,
     /**The direction of the flow of transfer funds.
 
 - `PAYMENT` – Transfers funds from an end user's account to your business account.
 
 - `DISBURSEMENT` – Transfers funds from your business account to an end user's account.*/
-    pub mode: Option<TransferIntentCreateMode>,
+    pub mode: TransferIntentCreateMode,
     /**Specifies the use case of the transfer.  Required for transfers on an ACH network. In Sandbox, only `ccd`, `ppd`, or `web` can be used.
 
 `"arc"` - Accounts Receivable Entry
@@ -4876,11 +4874,11 @@ A decision regarding the proposed transfer.
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: Option<ACHClass>,
+    pub ach_class: ACHClass,
     ///The legal name and other information for the account holder.
-    pub user: Option<TransferUserInResponse>,
+    pub user: TransferUserInResponse,
     ///A description for the underlying transfer. Maximum of 8 characters.
-    pub description: Option<String>,
+    pub description: String,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 - The JSON values must be Strings (no nested JSON objects allowed)
 - Only ASCII characters may be used
@@ -4890,14 +4888,14 @@ A decision regarding the proposed transfer.
 */
     pub metadata: Option<TransferMetadata>,
     ///The currency of the transfer amount, e.g. "USD"
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferIntentGetResponse {
     ///Represents a transfer intent within Transfer UI.
-    pub transfer_intent: Option<TransferIntentGet>,
+    pub transfer_intent: TransferIntentGet,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxBankTransferSimulateRequest {
@@ -4906,7 +4904,7 @@ pub struct SandboxBankTransferSimulateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a bank transfer.
-    pub bank_transfer_id: Option<BankTransferID>,
+    pub bank_transfer_id: BankTransferID,
     /**The asynchronous event to be simulated. May be: `posted`, `failed`, or `reversed`.
 
 An error will be returned if the event type is incompatible with the current transfer status. Compatible status --> event type transitions include:
@@ -4917,7 +4915,7 @@ An error will be returned if the event type is incompatible with the current tra
 
 `posted` --> `reversed`
 */
-    pub event_type: Option<String>,
+    pub event_type: String,
     ///The failure reason if the type of this transfer is `"failed"` or `"reversed"`. Null value otherwise.
     pub failure_reason: Option<BankTransferFailure>,
 }
@@ -4928,7 +4926,7 @@ pub struct SandboxTransferSimulateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Plaid’s unique identifier for a transfer.
-    pub transfer_id: Option<TransferID>,
+    pub transfer_id: TransferID,
     /**The asynchronous event to be simulated. May be: `posted`, `failed`, or `reversed`.
 
 An error will be returned if the event type is incompatible with the current transfer status. Compatible status --> event type transitions include:
@@ -4939,7 +4937,7 @@ An error will be returned if the event type is incompatible with the current tra
 
 `posted` --> `reversed`
 */
-    pub event_type: Option<String>,
+    pub event_type: String,
     ///The failure reason if the event type for a transfer is `"failed"` or `"reversed"`. Null value otherwise.
     pub failure_reason: Option<TransferFailure>,
 }
@@ -4953,12 +4951,12 @@ pub struct SandboxTransferSweepSimulateRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxBankTransferSimulateResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxTransferSimulateResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxTransferSweepSimulateResponse {
@@ -4966,7 +4964,7 @@ pub struct SandboxTransferSweepSimulateResponse {
 Can be null if there are no transfers to include in a sweep.*/
     pub sweep: SimulatedTransferSweep,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxTransferRepaymentSimulateRequest {
@@ -4978,7 +4976,7 @@ pub struct SandboxTransferRepaymentSimulateRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxTransferRepaymentSimulateResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountFiltersResponse {
@@ -5009,22 +5007,22 @@ pub struct AccountAssets(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositoryFilter {
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<DepositoryAccountSubtypes>,
+    pub account_subtypes: DepositoryAccountSubtypes,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditFilter {
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<CreditAccountSubtypes>,
+    pub account_subtypes: CreditAccountSubtypes,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LoanFilter {
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<LoanAccountSubtypes>,
+    pub account_subtypes: LoanAccountSubtypes,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InvestmentFilter {
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<InvestmentAccountSubtypes>,
+    pub account_subtypes: InvestmentAccountSubtypes,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositoryAccountSubtypes(pub Vec<DepositoryAccountSubtype>);
@@ -5049,27 +5047,27 @@ pub struct EmployersSearchRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The employer name to be searched for.
-    pub query: Option<String>,
+    pub query: String,
     ///The Plaid products the returned employers should support. Currently, this field must be set to `"deposit_switch"`.
-    pub products: Option<Vec<String>>,
+    pub products: Vec<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmployersSearchResponse {
     ///A list of employers matching the search criteria.
-    pub employers: Option<Vec<Employer>>,
+    pub employers: Vec<Employer>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Employer {
     ///Plaid's unique identifier for the employer.
-    pub employer_id: Option<String>,
+    pub employer_id: String,
     ///The name of the employer
-    pub name: Option<String>,
+    pub name: String,
     ///Data about the components comprising an address.
     pub address: Option<AddressDataNullable>,
     ///A number from 0 to 1 indicating Plaid's level of confidence in the pairing between the employer and the institution (not yet implemented).
-    pub confidence_score: Option<f64>,
+    pub confidence_score: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationCreateRequest {
@@ -5078,7 +5076,7 @@ pub struct IncomeVerificationCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The URL endpoint to which Plaid should send webhooks related to the progress of the income verification process.
-    pub webhook: Option<String>,
+    pub webhook: String,
     ///The ID of a precheck created with `/income/verification/precheck`. Will be used to improve conversion of the income verification flow.
     pub precheck_id: String,
     ///Optional arguments for `/income/verification/create`
@@ -5092,9 +5090,9 @@ pub struct IncomeVerificationCreateRequestOptions {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationCreateResponse {
     ///ID of the verification. This ID is persisted throughout the lifetime of the verification.
-    pub income_verification_id: Option<String>,
+    pub income_verification_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckRequest {
@@ -5116,13 +5114,13 @@ pub struct IncomeVerificationPrecheckRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckEmployer {
     ///The employer's name
-    pub name: Option<Option<String>>,
+    pub name: Option<String>,
     ///The address of the employer
     pub address: Option<IncomeVerificationPrecheckEmployerAddress>,
     ///The employer's tax id
-    pub tax_id: Option<Option<String>>,
+    pub tax_id: Option<String>,
     ///The URL for the employer's public website
-    pub url: Option<Option<String>>,
+    pub url: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckEmployerAddress {}
@@ -5144,27 +5142,27 @@ Example: `"564 Main Street, APT 15"`*/
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckMilitaryInfo {
     ///Is the user currently active duty in the US military
-    pub is_active_duty: Option<Option<bool>>,
+    pub is_active_duty: Option<bool>,
     ///If the user is currently serving in the US military, the branch of the military they are serving in
-    pub branch: Option<Option<String>>,
+    pub branch: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckUser {
     ///The user's first name
-    pub first_name: Option<Option<String>>,
+    pub first_name: Option<String>,
     ///The user's last name
-    pub last_name: Option<Option<String>>,
+    pub last_name: Option<String>,
     ///The user's email address
-    pub email_address: Option<Option<String>>,
+    pub email_address: Option<String>,
     ///Data about the components comprising an address.
     pub home_address: Option<SignalAddressData>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckResponse {
     ///ID of the precheck. Provide this value when calling `/link/token/create` in order to optimize Link conversion.
-    pub precheck_id: Option<String>,
+    pub precheck_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
     /**The confidence that Plaid can support the user in the digital income verification flow instead of requiring a manual paystub upload. One of the following:
 
 `"HIGH"`: It is very likely that this user can use the digital income verification flow.
@@ -5172,7 +5170,7 @@ pub struct IncomeVerificationPrecheckResponse {
 "`LOW`": It is unlikely that this user can use the digital income verification flow.
 
 `"UNKNOWN"`: It was not possible to determine if the user is supportable with the information passed.*/
-    pub confidence: Option<IncomeVerificationPrecheckConfidence>,
+    pub confidence: IncomeVerificationPrecheckConfidence,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckConfidence(pub String);
@@ -5190,19 +5188,19 @@ pub struct LinkTokenCreateRequestIncomeVerification {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationStatusWebhook {
     ///`"INCOME"`
-    pub webhook_type: Option<String>,
+    pub webhook_type: String,
     ///`income_verification`
-    pub webhook_code: Option<String>,
+    pub webhook_code: String,
     ///The `income_verification_id` of the verification instance whose status is being reported.
-    pub income_verification_id: Option<String>,
+    pub income_verification_id: String,
     ///The Item ID associated with the verification.
-    pub item_id: Option<String>,
+    pub item_id: String,
     /**`VERIFICATION_STATUS_PROCESSING_COMPLETE`: The income verification status processing has completed. If the user uploaded multiple documents, this webhook will fire when all documents have finished processing. Call the `/income/verification/paystubs/get` endpoint and check the document metadata to see which documents were successfully parsed.
 
 `VERIFICATION_STATUS_PROCESSING_FAILED`: A failure occurred when attempting to process the verification documentation.
 
 `VERIFICATION_STATUS_PENDING_APPROVAL`: The income verification has been sent to the user for review.*/
-    pub verification_status: Option<String>,
+    pub verification_status: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationSummaryGetRequest {
@@ -5211,18 +5209,18 @@ pub struct IncomeVerificationSummaryGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification.
-    pub income_verification_id: Option<Option<String>>,
+    pub income_verification_id: Option<String>,
     ///The access token associated with the Item data is being requested for.
     pub access_token: Option<AccessTokenNullable>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationSummaryGetResponse {
     ///A list of income summaries.
-    pub income_summaries: Option<Vec<IncomeSummary>>,
+    pub income_summaries: Vec<IncomeSummary>,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationRefreshRequest {
@@ -5231,55 +5229,55 @@ pub struct IncomeVerificationRefreshRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification.
-    pub income_verification_id: Option<Option<String>>,
+    pub income_verification_id: Option<String>,
     ///The access token associated with the Item data is being requested for.
     pub access_token: Option<AccessTokenNullable>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationRefreshResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
     /**The verification refresh status. One of the following:
 
 `"VERIFICATION_REFRESH_STATUS_USER_PRESENCE_REQUIRED"` User presence is required to refresh an income verification.
 `"VERIFICATION_REFRESH_SUCCESSFUL"` The income verification refresh was successful.
 `"VERIFICATION_REFRESH_NOT_FOUND"` No new data was found after the income verification refresh.*/
-    pub verification_refresh_status: Option<VerificationRefreshStatus>,
+    pub verification_refresh_status: VerificationRefreshStatus,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeSummary {
     ///The name of the employer, as reported on the paystub.
-    pub employer_name: Option<EmployerIncomeSummaryFieldString>,
+    pub employer_name: EmployerIncomeSummaryFieldString,
     ///The name of the employee, as reported on the paystub.
-    pub employee_name: Option<EmployeeIncomeSummaryFieldString>,
+    pub employee_name: EmployeeIncomeSummaryFieldString,
     ///Year-to-date pre-tax earnings, as reported on the paystub.
-    pub ytd_gross_income: Option<YTDGrossIncomeSummaryFieldNumber>,
+    pub ytd_gross_income: YTDGrossIncomeSummaryFieldNumber,
     ///Year-to-date earnings after any tax withholdings, benefit payments or deductions, as reported on the paystub.
-    pub ytd_net_income: Option<YTDNetIncomeSummaryFieldNumber>,
+    pub ytd_net_income: YTDNetIncomeSummaryFieldNumber,
     ///The frequency of the pay period.
     pub pay_frequency: Option<PayFrequency>,
     ///The employee's estimated annual salary, as derived from information reported on the paystub.
-    pub projected_wage: Option<ProjectedIncomeSummaryFieldNumber>,
+    pub projected_wage: ProjectedIncomeSummaryFieldNumber,
     ///Information about the matched direct deposit transaction used to verify a user's payroll information.
     pub verified_transaction: Option<TransactionData>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransactionData {
     ///The description of the transaction.
-    pub description: Option<String>,
+    pub description: String,
     ///The amount of the transaction.
-    pub amount: Option<f64>,
+    pub amount: f64,
     ///The date of the transaction, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ("yyyy-mm-dd").
-    pub date: Option<String>,
+    pub date: String,
     ///A unique identifier for the end user's account.
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///A unique identifier for the transaction.
-    pub transaction_id: Option<String>,
+    pub transaction_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeSummaryFieldString {
     ///The value of the field.
-    pub value: Option<String>,
+    pub value: String,
     /**The verification status. One of the following:
 
 `"VERIFIED"`: The information was successfully verified.
@@ -5291,7 +5289,7 @@ pub struct IncomeSummaryFieldString {
 "`UNABLE_TO_VERIFY`": The verification was performed and the information could not be verified.
 
 `"UNKNOWN"`: The verification status is unknown.*/
-    pub verification_status: Option<VerificationStatus>,
+    pub verification_status: VerificationStatus,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmployerIncomeSummaryFieldString(pub serde_json::Value);
@@ -5300,7 +5298,7 @@ pub struct EmployeeIncomeSummaryFieldString(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeSummaryFieldNumber {
     ///The value of the field.
-    pub value: Option<f64>,
+    pub value: f64,
     /**The verification status. One of the following:
 
 `"VERIFIED"`: The information was successfully verified.
@@ -5312,7 +5310,7 @@ pub struct IncomeSummaryFieldNumber {
 "`UNABLE_TO_VERIFY`": The verification was performed and the information could not be verified.
 
 `"UNKNOWN"`: The verification status is unknown.*/
-    pub verification_status: Option<VerificationStatus>,
+    pub verification_status: VerificationStatus,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct YTDGrossIncomeSummaryFieldNumber(pub serde_json::Value);
@@ -5323,7 +5321,7 @@ pub struct ProjectedIncomeSummaryFieldNumber(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PayFrequency {
     ///The frequency of the pay period.
-    pub value: Option<PayFrequencyValue>,
+    pub value: PayFrequencyValue,
     /**The verification status. One of the following:
 
 `"VERIFIED"`: The information was successfully verified.
@@ -5335,7 +5333,7 @@ pub struct PayFrequency {
 "`UNABLE_TO_VERIFY`": The verification was performed and the information could not be verified.
 
 `"UNKNOWN"`: The verification status is unknown.*/
-    pub verification_status: Option<VerificationStatus>,
+    pub verification_status: VerificationStatus,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PayFrequencyValue(pub String);
@@ -5350,18 +5348,18 @@ pub struct IncomeVerificationPaystubGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification for which to get paystub information.
-    pub income_verification_id: Option<Option<String>>,
+    pub income_verification_id: Option<String>,
     ///The access token associated with the Item data is being requested for.
     pub access_token: Option<AccessTokenNullable>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPaystubGetResponse {
     ///An object representing data extracted from the end user's paystub.
-    pub paystub: Option<Paystub>,
+    pub paystub: Paystub,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPaystubsGetRequest {
@@ -5370,7 +5368,7 @@ pub struct IncomeVerificationPaystubsGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification for which to get paystub information.
-    pub income_verification_id: Option<Option<String>>,
+    pub income_verification_id: Option<String>,
     ///The access token associated with the Item data is being requested for.
     pub access_token: Option<AccessTokenNullable>,
 }
@@ -5379,11 +5377,11 @@ pub struct IncomeVerificationPaystubsGetResponse {
     ///Metadata for an income document.
     pub document_metadata: Vec<DocumentMetadata>,
     ///
-    pub paystubs: Option<Vec<Paystub>>,
+    pub paystubs: Vec<Paystub>,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DocumentMetadata {
@@ -5419,21 +5417,21 @@ pub struct DocType(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Paystub {
     ///An object with the deduction information found on a paystub.
-    pub deductions: Option<Deductions>,
+    pub deductions: Deductions,
     ///An identifier of the document referenced by the document metadata.
-    pub doc_id: Option<String>,
+    pub doc_id: String,
     ///An object representing both a breakdown of earnings on a paystub and the total earnings.
-    pub earnings: Option<Earnings>,
+    pub earnings: Earnings,
     ///Data about the employee.
-    pub employee: Option<Employee>,
+    pub employee: Employee,
     ///Information about the employer on the paystub
-    pub employer: Option<PaystubEmployer>,
+    pub employer: PaystubEmployer,
     ///An object representing employment details found on a paystub.
     pub employment_details: EmploymentDetails,
     ///An object representing information about the net pay amount on the paystub.
-    pub net_pay: Option<NetPay>,
+    pub net_pay: NetPay,
     ///Details about the pay period.
-    pub pay_period_details: Option<PayPeriodDetails>,
+    pub pay_period_details: PayPeriodDetails,
     ///An object representing details that can be found on the paystub.
     pub paystub_details: PaystubDetails,
     ///
@@ -5448,46 +5446,46 @@ pub struct Deductions {
     ///
     pub subtotals: Vec<Total>,
     ///
-    pub breakdown: Option<Vec<DeductionsBreakdown>>,
+    pub breakdown: Vec<DeductionsBreakdown>,
     ///
     pub totals: Vec<Total>,
     ///An object representing the total deductions for the pay period
-    pub total: Option<DeductionsTotal>,
+    pub total: DeductionsTotal,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DeductionsBreakdown {
     ///Raw amount of the deduction
-    pub current_amount: Option<Option<f64>>,
+    pub current_amount: Option<f64>,
     ///Description of the deduction line item
-    pub description: Option<Option<String>>,
+    pub description: Option<String>,
     ///The ISO-4217 currency code of the line item. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the line item. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///The year-to-date amount of the deduction
-    pub ytd_amount: Option<Option<f64>>,
+    pub ytd_amount: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DeductionsTotal {
     ///Raw amount of the deduction
-    pub current_amount: Option<Option<f64>>,
+    pub current_amount: Option<f64>,
     ///The ISO-4217 currency code of the line item. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the line item. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///The year-to-date total amount of the deductions
-    pub ytd_amount: Option<Option<f64>>,
+    pub ytd_amount: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Total {
     ///Commonly used term to describe the line item.
     pub canonical_description: Option<TotalCanonicalDescription>,
     ///Text of the line item as printed on the paystub.
-    pub description: Option<Option<String>>,
+    pub description: Option<String>,
     ///An object representing a monetary amount.
     pub current_pay: Pay,
     ///An object representing a monetary amount.
@@ -5498,9 +5496,9 @@ pub struct TotalCanonicalDescription(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Pay {
     ///A numerical amount of a specific currency.
-    pub amount: Option<Option<f64>>,
+    pub amount: Option<f64>,
     ///Currency code, e.g. USD
-    pub currency: Option<Option<String>>,
+    pub currency: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Earnings {
@@ -5518,77 +5516,77 @@ pub struct EarningsBreakdown {
     ///Commonly used term to describe the earning line item.
     pub canonical_description: Option<EarningsBreakdownCanonicalDescription>,
     ///Raw amount of the earning line item.
-    pub current_amount: Option<Option<f64>>,
+    pub current_amount: Option<f64>,
     ///Description of the earning line item.
-    pub description: Option<Option<String>>,
+    pub description: Option<String>,
     ///Number of hours applicable for this earning.
-    pub hours: Option<Option<f64>>,
+    pub hours: Option<f64>,
     ///The ISO-4217 currency code of the line item. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     ///Hourly rate applicable for this earning.
-    pub rate: Option<Option<f64>>,
+    pub rate: Option<f64>,
     /**The unofficial currency code associated with the line item. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///The year-to-date amount of the deduction.
-    pub ytd_amount: Option<Option<f64>>,
+    pub ytd_amount: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EarningsBreakdownCanonicalDescription(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EarningsTotal {
     ///Total amount of the earnings for this pay period
-    pub current_amount: Option<Option<f64>>,
+    pub current_amount: Option<f64>,
     ///An object representing a monetary amount.
     pub current_pay: Pay,
     ///An object representing a monetary amount.
     pub ytd_pay: Pay,
     ///Total number of hours worked for this pay period
-    pub hours: Option<Option<f64>>,
+    pub hours: Option<f64>,
     ///The ISO-4217 currency code of the line item. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the security. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///The total year-to-date amount of the earnings
-    pub ytd_amount: Option<Option<f64>>,
+    pub ytd_amount: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmploymentDetails {
     ///An object representing a monetary amount.
     pub annual_salary: Pay,
     ///Date on which the employee was hired, in the YYYY-MM-DD format.
-    pub hire_date: Option<Option<String>>,
+    pub hire_date: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NetPay {
     ///Raw amount of the net pay for the pay period
-    pub current_amount: Option<Option<f64>>,
+    pub current_amount: Option<f64>,
     ///Description of the net pay
-    pub description: Option<Option<String>>,
+    pub description: Option<String>,
     ///The ISO-4217 currency code of the net pay. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     /**The unofficial currency code associated with the net pay. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///The year-to-date amount of the net pay
-    pub ytd_amount: Option<Option<f64>>,
+    pub ytd_amount: Option<f64>,
     ///An object representing both the current pay period and year to date amount for a category.
     pub total: Total,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaystubDetails {
     ///Beginning date of the pay period on the paystub in the 'YYYY-MM-DD' format.
-    pub pay_period_start_date: Option<Option<String>>,
+    pub pay_period_start_date: Option<String>,
     ///Ending date of the pay period on the paystub in the 'YYYY-MM-DD' format.
-    pub pay_period_end_date: Option<Option<String>>,
+    pub pay_period_end_date: Option<String>,
     ///Pay date on the paystub in the 'YYYY-MM-DD' format.
-    pub pay_date: Option<Option<String>>,
+    pub pay_date: Option<String>,
     ///The name of the payroll provider that generated the paystub, e.g. ADP
-    pub paystub_provider: Option<Option<String>>,
+    pub paystub_provider: Option<String>,
     ///The frequency at which the employee is paid. Possible values: `MONTHLY`, `BI-WEEKLY`, `WEEKLY`, `SEMI-MONTHLY`.
     pub pay_frequency: Option<PaystubPayFrequency>,
 }
@@ -5603,100 +5601,100 @@ pub struct IncomeBreakdown {
   `"bonus"`: bonus income*/
     pub type_: Option<IncomeBreakdownType>,
     ///The hourly rate at which the income is paid.
-    pub rate: Option<Option<f64>>,
+    pub rate: Option<f64>,
     ///The number of hours logged for this income for this pay period.
-    pub hours: Option<Option<f64>>,
+    pub hours: Option<f64>,
     ///The total pay for this pay period.
-    pub total: Option<Option<f64>>,
+    pub total: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeBreakdownType(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Employee {
     ///Address on the paystub
-    pub address: Option<PaystubAddress>,
+    pub address: PaystubAddress,
     ///The name of the employee.
-    pub name: Option<Option<String>>,
+    pub name: Option<String>,
     ///Marital status of the employee - either `single` or `married`.
-    pub marital_status: Option<Option<String>>,
+    pub marital_status: Option<String>,
     ///Taxpayer ID of the individual receiving the paystub.
     pub taxpayer_id: TaxpayerID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TaxpayerID {
     ///Type of ID, e.g. 'SSN'
-    pub id_type: Option<Option<String>>,
+    pub id_type: Option<String>,
     ///ID mask; i.e. last 4 digits of the taxpayer ID
-    pub id_mask: Option<Option<String>>,
+    pub id_mask: Option<String>,
     ///Last 4 digits of unique number of ID.
-    pub last_4_digits: Option<Option<String>>,
+    pub last_4_digits: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaystubEmployer {
     ///Address on the paystub
     pub address: PaystubAddress,
     ///The name of the employer on the paystub.
-    pub name: Option<Option<String>>,
+    pub name: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaystubAddress {
     ///The full city name.
-    pub city: Option<Option<String>>,
+    pub city: Option<String>,
     ///The ISO 3166-1 alpha-2 country code.
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
     ///The postal code of the address.
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     /**The region or state
 Example: `"NC"`*/
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     ///The full street address.
-    pub street: Option<Option<String>>,
+    pub street: Option<String>,
     ///Street address line 1.
-    pub line1: Option<Option<String>>,
+    pub line1: Option<String>,
     ///Street address line 2.
-    pub line2: Option<Option<String>>,
+    pub line2: Option<String>,
     /**The region or state
 Example: `"NC"`*/
-    pub state_code: Option<Option<String>>,
+    pub state_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PayPeriodDetails {
     ///The amount of the paycheck.
-    pub check_amount: Option<Option<f64>>,
+    pub check_amount: Option<f64>,
     ///
     pub distribution_breakdown: Vec<DistributionBreakdown>,
     ///The pay period end date, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format: "yyyy-mm-dd".
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///Total earnings before tax/deductions.
-    pub gross_earnings: Option<Option<f64>>,
+    pub gross_earnings: Option<f64>,
     ///The date on which the paystub was issued, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ("yyyy-mm-dd").
-    pub pay_date: Option<Option<String>>,
+    pub pay_date: Option<String>,
     ///The frequency at which an individual is paid.
-    pub pay_frequency: Option<Option<String>>,
+    pub pay_frequency: Option<String>,
     ///The date on which the paystub was issued, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ("yyyy-mm-dd").
-    pub pay_day: Option<Option<String>>,
+    pub pay_day: Option<String>,
     ///The pay period start date, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format: "yyyy-mm-dd".
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DistributionBreakdown {
     ///Name of the account for the given distribution.
-    pub account_name: Option<Option<String>>,
+    pub account_name: Option<String>,
     ///The name of the bank that the payment is being deposited to.
-    pub bank_name: Option<Option<String>>,
+    pub bank_name: Option<String>,
     ///The amount distributed to this account.
-    pub current_amount: Option<Option<f64>>,
+    pub current_amount: Option<f64>,
     ///The ISO-4217 currency code of the net pay. Always `null` if `unofficial_currency_code` is non-null.
-    pub iso_currency_code: Option<Option<String>>,
+    pub iso_currency_code: Option<String>,
     ///The last 2-4 alphanumeric characters of an account's official account number.
-    pub mask: Option<Option<String>>,
+    pub mask: Option<String>,
     #[serde(rename = "type")]
     ///Type of the account that the paystub was sent to (e.g. 'checking').
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
     /**The unofficial currency code associated with the net pay. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
-    pub unofficial_currency_code: Option<Option<String>>,
+    pub unofficial_currency_code: Option<String>,
     ///An object representing a monetary amount.
     pub current_pay: Pay,
 }
@@ -5704,25 +5702,25 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
 pub struct PaystubDeduction {
     #[serde(rename = "type")]
     ///The description of the deduction, as provided on the paystub. For example: `"401(k)"`, `"FICA MED TAX"`.
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
     ///`true` if the deduction is pre-tax; `false` otherwise.
-    pub is_pretax: Option<Option<bool>>,
+    pub is_pretax: Option<bool>,
     ///The amount of the deduction.
-    pub total: Option<Option<f64>>,
+    pub total: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaystubYTDDetails {
     ///Year-to-date gross earnings.
-    pub gross_earnings: Option<Option<f64>>,
+    pub gross_earnings: Option<f64>,
     ///Year-to-date net (take home) earnings.
-    pub net_earnings: Option<Option<f64>>,
+    pub net_earnings: Option<f64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaystubVerification {
     ///Derived verification status.
     pub verification_status: Option<PaystubVerificationStatus>,
     ///
-    pub verification_attributes: Option<Vec<VerificationAttribute>>,
+    pub verification_attributes: Vec<VerificationAttribute>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaystubVerificationStatus(pub Option<String>);
@@ -5730,7 +5728,7 @@ pub struct PaystubVerificationStatus(pub Option<String>);
 pub struct VerificationAttribute {
     #[serde(rename = "type")]
     ///Message indicating the reason as to why the verification failed
-    pub type_: Option<Option<String>>,
+    pub type_: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationDocumentsDownloadRequest {
@@ -5739,11 +5737,11 @@ pub struct IncomeVerificationDocumentsDownloadRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification.
-    pub income_verification_id: Option<Option<String>>,
+    pub income_verification_id: Option<String>,
     ///The access token associated with the Item data is being requested for.
     pub access_token: Option<AccessTokenNullable>,
     ///The document ID to download. If passed, a single document will be returned in the resulting zip file, rather than all document
-    pub document_id: Option<Option<String>>,
+    pub document_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationTaxformsGetRequest {
@@ -5752,7 +5750,7 @@ pub struct IncomeVerificationTaxformsGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification.
-    pub income_verification_id: Option<Option<String>>,
+    pub income_verification_id: Option<String>,
     ///The access token associated with the Item data is being requested for.
     pub access_token: Option<AccessTokenNullable>,
 }
@@ -5761,9 +5759,9 @@ pub struct IncomeVerificationTaxformsGetResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: RequestID,
     ///
-    pub document_metadata: Option<Vec<DocumentMetadata>>,
+    pub document_metadata: Vec<DocumentMetadata>,
     ///A list of forms.
-    pub taxforms: Option<Vec<Taxform>>,
+    pub taxforms: Vec<Taxform>,
     ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues.  Error fields will be `null` if no error has occurred.
     pub error: PlaidError,
 }
@@ -5772,7 +5770,7 @@ pub struct Taxform {
     ///An identifier of the document referenced by the document metadata.
     pub doc_id: String,
     ///The type of tax document. Currently, the only supported value is `w2`.
-    pub document_type: Option<String>,
+    pub document_type: String,
     ///W2 is an object that represents income data taken from a W2 tax document.
     pub w2: W2,
 }
@@ -5783,72 +5781,72 @@ pub struct W2 {
     ///Data about the employee.
     pub employee: Employee,
     ///The tax year of the W2 document.
-    pub tax_year: Option<Option<String>>,
+    pub tax_year: Option<String>,
     ///An employee identification number or EIN.
-    pub employer_id_number: Option<Option<String>>,
+    pub employer_id_number: Option<String>,
     ///Wages from tips and other compensation.
-    pub wages_tips_other_comp: Option<Option<String>>,
+    pub wages_tips_other_comp: Option<String>,
     ///Federal income tax withheld for the tax year.
-    pub federal_income_tax_withheld: Option<Option<String>>,
+    pub federal_income_tax_withheld: Option<String>,
     ///Wages from social security.
-    pub social_security_wages: Option<Option<String>>,
+    pub social_security_wages: Option<String>,
     ///Social security tax withheld for the tax year.
-    pub social_security_tax_withheld: Option<Option<String>>,
+    pub social_security_tax_withheld: Option<String>,
     ///Wages and tips from medicare.
-    pub medicare_wages_and_tips: Option<Option<String>>,
+    pub medicare_wages_and_tips: Option<String>,
     ///Medicare tax withheld for the tax year.
-    pub medicare_tax_withheld: Option<Option<String>>,
+    pub medicare_tax_withheld: Option<String>,
     ///Tips from social security.
-    pub social_security_tips: Option<Option<String>>,
+    pub social_security_tips: Option<String>,
     ///Allocated tips.
-    pub allocated_tips: Option<Option<String>>,
+    pub allocated_tips: Option<String>,
     ///Contents from box 9 on the W2.
-    pub box_9: Option<Option<String>>,
+    pub box_9: Option<String>,
     ///Dependent care benefits.
-    pub dependent_care_benefits: Option<Option<String>>,
+    pub dependent_care_benefits: Option<String>,
     ///Nonqualified plans.
-    pub nonqualified_plans: Option<Option<String>>,
+    pub nonqualified_plans: Option<String>,
     ///
     pub box_12: Vec<W2Box12>,
     ///Statutory employee.
-    pub statutory_employee: Option<Option<String>>,
+    pub statutory_employee: Option<String>,
     ///Retirement plan.
-    pub retirement_plan: Option<Option<String>>,
+    pub retirement_plan: Option<String>,
     ///Third party sick pay.
-    pub third_party_sick_pay: Option<Option<String>>,
+    pub third_party_sick_pay: Option<String>,
     ///Other.
-    pub other: Option<Option<String>>,
+    pub other: Option<String>,
     ///
     pub state_and_local_wages: Vec<W2StateAndLocalWages>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct W2Box12 {
     ///W2 Box 12 code.
-    pub code: Option<Option<String>>,
+    pub code: Option<String>,
     ///W2 Box 12 amount.
-    pub amount: Option<Option<String>>,
+    pub amount: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct W2StateAndLocalWages {
     ///State associated with the wage.
-    pub state: Option<Option<String>>,
+    pub state: Option<String>,
     ///State identification number of the employer.
-    pub employer_state_id_number: Option<Option<String>>,
+    pub employer_state_id_number: Option<String>,
     ///Wages and tips from the specified state.
-    pub state_wages_tips: Option<Option<String>>,
+    pub state_wages_tips: Option<String>,
     ///Income tax from the specified state.
-    pub state_income_tax: Option<Option<String>>,
+    pub state_income_tax: Option<String>,
     ///Wages and tips from the locality.
-    pub local_wages_tips: Option<Option<String>>,
+    pub local_wages_tips: Option<String>,
     ///Income tax from the locality.
-    pub local_income_tax: Option<Option<String>>,
+    pub local_income_tax: Option<String>,
     ///Name of the locality.
-    pub locality_name: Option<Option<String>>,
+    pub locality_name: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationWebhookStatus {
     ///
-    pub id: Option<String>,
+    pub id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmploymentVerificationGetRequest {
@@ -5857,27 +5855,27 @@ pub struct EmploymentVerificationGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmploymentVerificationGetResponse {
     ///A list of employment verification summaries.
-    pub employments: Option<Vec<EmploymentVerification>>,
+    pub employments: Vec<EmploymentVerification>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmploymentVerification {
     ///Current employment status.
     pub status: Option<EmploymentVerificationStatus>,
     ///Start of employment in ISO 8601 format (YYYY-MM-DD).
-    pub start_date: Option<Option<String>>,
+    pub start_date: Option<String>,
     ///End of employment, if applicable. Provided in ISO 8601 format (YYY-MM-DD).
-    pub end_date: Option<Option<String>>,
+    pub end_date: Option<String>,
     ///An object containing employer data.
     pub employer: EmployerVerification,
     ///Current title of employee.
-    pub title: Option<Option<String>>,
+    pub title: Option<String>,
     ///An object containing a set of ids related to an employee
     pub platform_ids: PlatformIds,
 }
@@ -5886,29 +5884,29 @@ pub struct EmploymentVerificationStatus(pub Option<String>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmployerVerification {
     ///Name of employer.
-    pub name: Option<Option<String>>,
+    pub name: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PlatformIds {
     ///The ID of an employee as given by their employer
-    pub employee_id: Option<Option<String>>,
+    pub employee_id: Option<String>,
     ///The ID of an employee as given by their payroll
-    pub payroll_id: Option<Option<String>>,
+    pub payroll_id: Option<String>,
     ///The ID of the position of the employee
-    pub position_id: Option<Option<String>>,
+    pub position_id: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportTransaction(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HealthIncident {
     ///The start date of the incident, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format, e.g. `"2020-10-30T15:26:48Z"`.
-    pub start_date: Option<String>,
+    pub start_date: String,
     ///The end date of the incident, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format, e.g. `"2020-10-30T15:26:48Z"`.
     pub end_date: String,
     ///The title of the incident
-    pub title: Option<String>,
+    pub title: String,
     ///Updates on the health incident.
-    pub incident_updates: Option<Vec<IncidentUpdate>>,
+    pub incident_updates: Vec<IncidentUpdate>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncidentUpdate {
@@ -5926,42 +5924,42 @@ pub struct DepositSwitchAltCreateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The deposit switch destination account
-    pub target_account: Option<DepositSwitchTargetAccount>,
+    pub target_account: DepositSwitchTargetAccount,
     ///The deposit switch target user
-    pub target_user: Option<DepositSwitchTargetUser>,
+    pub target_user: DepositSwitchTargetUser,
     ///Options to configure the `/deposit_switch/create` request. If provided, cannot be `null`.
     pub options: DepositSwitchCreateRequestOptions,
     ///ISO-3166-1 alpha-2 country code standard.
-    pub country_code: Option<Option<String>>,
+    pub country_code: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchAltCreateResponse {
     ///ID of the deposit switch. This ID is persisted throughout the lifetime of the deposit switch.
-    pub deposit_switch_id: Option<String>,
+    pub deposit_switch_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchTargetAccount {
     ///Account number for deposit switch destination
-    pub account_number: Option<String>,
+    pub account_number: String,
     ///Routing number for deposit switch destination
-    pub routing_number: Option<String>,
+    pub routing_number: String,
     ///The name of the deposit switch destination account, as it will be displayed to the end user in the Deposit Switch interface. It is not required to match the name used in online banking.
-    pub account_name: Option<String>,
+    pub account_name: String,
     ///The account subtype of the account, either `checking` or `savings`.
-    pub account_subtype: Option<String>,
+    pub account_subtype: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchTargetUser {
     ///The given name (first name) of the user.
-    pub given_name: Option<String>,
+    pub given_name: String,
     ///The family name (last name) of the user.
-    pub family_name: Option<String>,
+    pub family_name: String,
     ///The phone number of the user. The endpoint can accept a variety of phone number formats, including E.164.
-    pub phone: Option<String>,
+    pub phone: String,
     ///The email address of the user.
-    pub email: Option<String>,
+    pub email: String,
     ///The user's address.
     pub address: DepositSwitchAddressData,
     ///The taxpayer ID of the user, generally their SSN, EIN, or TIN.
@@ -5970,17 +5968,17 @@ pub struct DepositSwitchTargetUser {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DepositSwitchAddressData {
     ///The full city name
-    pub city: Option<String>,
+    pub city: String,
     /**The region or state
 Example: `"NC"`*/
-    pub region: Option<String>,
+    pub region: String,
     /**The full street address
 Example: `"564 Main Street, APT 15"`*/
-    pub street: Option<String>,
+    pub street: String,
     ///The postal code
-    pub postal_code: Option<String>,
+    pub postal_code: String,
     ///The ISO 3166-1 alpha-2 country code
-    pub country: Option<String>,
+    pub country: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxBankTransferFireWebhookRequest {
@@ -5989,65 +5987,65 @@ pub struct SandboxBankTransferFireWebhookRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The URL to which the webhook should be sent.
-    pub webhook: Option<String>,
+    pub webhook: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxBankTransferFireWebhookResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ApplicationID(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Application {
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
-    pub application_id: Option<ApplicationID>,
+    pub application_id: ApplicationID,
     ///The name of the application
-    pub name: Option<String>,
+    pub name: String,
     ///The date this application was linked in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format in UTC.
     pub created_at: String,
     ///The date this application was granted production access at Plaid in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format in UTC.
-    pub join_date: Option<String>,
+    pub join_date: String,
     ///A URL that links to the application logo image.
-    pub logo_url: Option<Option<String>>,
+    pub logo_url: Option<String>,
     ///The URL for the application's website
-    pub application_url: Option<Option<String>>,
+    pub application_url: Option<String>,
     ///A string provided by the connected app stating why they use their respective enabled products.
-    pub reason_for_access: Option<Option<String>>,
+    pub reason_for_access: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ApplicationGetRequest {
     ///Your Plaid API `client_id`. The `client_id` is required and may be provided either in the `PLAID-CLIENT-ID` header or as part of a request body.
-    pub client_id: Option<APIClientID>,
+    pub client_id: APIClientID,
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
-    pub secret: Option<APISecret>,
+    pub secret: APISecret,
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
-    pub application_id: Option<ApplicationID>,
+    pub application_id: ApplicationID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ApplicationGetResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
     ///Metadata about the application
-    pub application: Option<Application>,
+    pub application: Application,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProductAccess {
     ///Allow access to statements. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub statements: Option<Option<bool>>,
+    pub statements: Option<bool>,
     ///Allow access to the Identity product (name, email, phone, address). Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub identity: Option<Option<bool>>,
+    pub identity: Option<bool>,
     ///Allow access to account number details. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub auth: Option<Option<bool>>,
+    pub auth: Option<bool>,
     ///Allow access to transaction details. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub transactions: Option<Option<bool>>,
+    pub transactions: Option<bool>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountAccess {
     ///The unique account identifier for this account. This value must match that returned by the data access API for this account.
-    pub unique_id: Option<String>,
+    pub unique_id: String,
     ///Allow the application to see this account (and associated details, including balance) in the list of accounts  If unset, defaults to `true`.
-    pub authorized: Option<Option<bool>>,
+    pub authorized: Option<bool>,
     ///Allow the application to access specific products on this account
     pub account_product_access: Option<AccountProductAccessNullable>,
 }
@@ -6056,11 +6054,11 @@ pub struct AccountProductAccessNullable(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountProductAccess {
     ///Allow the application to access account data. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub account_data: Option<Option<bool>>,
+    pub account_data: Option<bool>,
     ///Allow the application to access bank statements. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub statements: Option<Option<bool>>,
+    pub statements: Option<bool>,
     ///Allow the application to access tax documents. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
-    pub tax_documents: Option<Option<bool>>,
+    pub tax_documents: Option<bool>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScopesNullable(pub Option<serde_json::Value>);
@@ -6071,7 +6069,7 @@ pub struct Scopes {
     ///
     pub accounts: Vec<AccountAccess>,
     ///Allow access to newly opened accounts as they are opened. If unset, defaults to `true`.
-    pub new_accounts: Option<Option<bool>>,
+    pub new_accounts: Option<bool>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RequestedScopes {
@@ -6081,7 +6079,7 @@ pub struct RequestedScopes {
 `MULTI_SELECT`: indicates that the user should be allowed to pick multiple accounts.
 `SINGLE_SELECT`: indicates that the user should be allowed to pick only a single account.
 `ALL`: indicates that the user must share all of their accounts and should not be given the opportunity to de-select*/
-    pub account_selection_cardinality: Option<AccountSelectionCardinality>,
+    pub account_selection_cardinality: AccountSelectionCardinality,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScopesState(pub String);
@@ -6094,20 +6092,20 @@ pub struct ItemApplicationScopesUpdateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
-    pub application_id: Option<ApplicationID>,
+    pub application_id: ApplicationID,
     ///The scopes object
-    pub scopes: Option<Scopes>,
+    pub scopes: Scopes,
     ///When scopes are updated during enrollment, this field must be populated with the state sent to the partner in the OAuth Login URI. This field is required when the context is `ENROLLMENT`.
     pub state: ScopesState,
     ///An indicator for when scopes are being updated. When scopes are updated via enrollment (i.e. OAuth), the partner must send `ENROLLMENT`. When scopes are updated in a post-enrollment view, the partner must send `PORTAL`.
-    pub context: Option<ScopesContext>,
+    pub context: ScopesContext,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemApplicationScopesUpdateResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemApplicationListRequest {
@@ -6123,28 +6121,28 @@ pub struct ItemApplicationListResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: RequestID,
     ///A list of connected applications.
-    pub applications: Option<Vec<ConnectedApplication>>,
+    pub applications: Vec<ConnectedApplication>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ConnectedApplication {
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
-    pub application_id: Option<ApplicationID>,
+    pub application_id: ApplicationID,
     ///The name of the application
-    pub name: Option<String>,
+    pub name: String,
     ///A URL that links to the application logo image (will be deprecated in the future, please use logo_url).
-    pub logo: Option<Option<String>>,
+    pub logo: Option<String>,
     ///A URL that links to the application logo image.
-    pub logo_url: Option<Option<String>>,
+    pub logo_url: Option<String>,
     ///The URL for the application's website
-    pub application_url: Option<Option<String>>,
+    pub application_url: Option<String>,
     ///A string provided by the connected app stating why they use their respective enabled products.
-    pub reason_for_access: Option<Option<String>>,
+    pub reason_for_access: Option<String>,
     ///The date this application was linked in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format in UTC.
-    pub created_at: Option<String>,
+    pub created_at: String,
     ///The date this application was granted production access at Plaid in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format in UTC.
-    pub join_date: Option<String>,
+    pub join_date: String,
     ///(Deprecated) A list of enums representing the data collected and products enabled for this connected application.
-    pub product_data_types: Option<Vec<String>>,
+    pub product_data_types: Vec<String>,
     ///The scopes object
     pub scopes: Option<ScopesNullable>,
     ///Scope of required and optional account features or content from a ConnectedApplication.
@@ -6172,29 +6170,29 @@ pub struct SandboxIncomeFireWebhookRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the verification.
-    pub income_verification_id: Option<String>,
+    pub income_verification_id: String,
     ///The Item ID associated with the verification.
-    pub item_id: Option<String>,
+    pub item_id: String,
     ///The URL to which the webhook should be sent.
-    pub webhook: Option<String>,
+    pub webhook: String,
     /**`VERIFICATION_STATUS_PROCESSING_COMPLETE`: The income verification status processing has completed. If the user uploaded multiple documents, this webhook will fire when all documents have finished processing. Call the `/income/verification/paystubs/get` endpoint and check the document metadata to see which documents were successfully parsed.
 
 `VERIFICATION_STATUS_PROCESSING_FAILED`: A failure occurred when attempting to process the verification documentation.
 
 `VERIFICATION_STATUS_PENDING_APPROVAL`: The income verification has been sent to the user for review.*/
-    pub verification_status: Option<String>,
+    pub verification_status: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxIncomeFireWebhookResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ItemApplicationListUserAuth {
     ///Account username.
-    pub user_id: Option<Option<String>>,
+    pub user_id: Option<String>,
     ///Account username hashed by FI.
-    pub fi_username_hash: Option<Option<String>>,
+    pub fi_username_hash: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalEvaluateRequest {
@@ -6203,15 +6201,15 @@ pub struct SignalEvaluateRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The access token associated with the Item data is being requested for.
-    pub access_token: Option<AccessToken>,
+    pub access_token: AccessToken,
     ///The `account_id` of the account whose verification status is to be modified
-    pub account_id: Option<String>,
+    pub account_id: String,
     ///The unique ID that you would like to use to refer to this transaction. For your convenience mapping your internal data, you could use your internal ID/identifier for this transaction. The max length for this field is 36 characters.
-    pub client_transaction_id: Option<String>,
+    pub client_transaction_id: String,
     ///The transaction amount, in USD (e.g. `102.05`)
-    pub amount: Option<f64>,
+    pub amount: f64,
     ///`true` if the end user is present while initiating the ACH transfer and the endpoint is being called; `false` otherwise (for example, when the ACH transfer is scheduled and the end user is not present, or you call this endpoint after the ACH transfer but before submitting the Nacha file for ACH processing).
-    pub user_present: Option<Option<bool>>,
+    pub user_present: Option<bool>,
     ///A unique ID that identifies the end user in your system. This ID is used to correlate requests by a user with multiple Items. The max length for this field is 36 characters.
     pub client_user_id: String,
     ///Details about the end user initiating the transaction (i.e., the account holder).
@@ -6224,24 +6222,24 @@ pub struct SignalUser {
     ///The user's legal name
     pub name: Option<SignalPersonName>,
     ///The user's phone number, in E.164 format: +{countrycode}{number}. For example: "+14151234567"
-    pub phone_number: Option<Option<String>>,
+    pub phone_number: Option<String>,
     ///The user's email address.
-    pub email_address: Option<Option<String>>,
+    pub email_address: Option<String>,
     ///Data about the components comprising an address.
     pub address: Option<SignalAddressData>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalPersonName {
     ///The user's name prefix (e.g. "Mr.")
-    pub prefix: Option<Option<String>>,
+    pub prefix: Option<String>,
     ///The user's given name. If the user has a one-word name, it should be provided in this field.
-    pub given_name: Option<Option<String>>,
+    pub given_name: Option<String>,
     ///The user's middle name
-    pub middle_name: Option<Option<String>>,
+    pub middle_name: Option<String>,
     ///The user's family name / surname
-    pub family_name: Option<Option<String>>,
+    pub family_name: Option<String>,
     ///The user's name suffix (e.g. "II")
-    pub suffix: Option<Option<String>>,
+    pub suffix: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalAddressData {
@@ -6249,28 +6247,28 @@ pub struct SignalAddressData {
     pub city: String,
     /**The region or state
 Example: `"NC"`*/
-    pub region: Option<Option<String>>,
+    pub region: Option<String>,
     /**The full street address
 Example: `"564 Main Street, APT 15"`*/
     pub street: String,
     ///The postal code
-    pub postal_code: Option<Option<String>>,
+    pub postal_code: Option<String>,
     ///The ISO 3166-1 alpha-2 country code
-    pub country: Option<Option<String>>,
+    pub country: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalDevice {
     ///The IP address of the device that initiated the transaction
-    pub ip_address: Option<Option<String>>,
+    pub ip_address: Option<String>,
     ///The user agent of the device that initiated the transaction (e.g. "Mozilla/5.0")
-    pub user_agent: Option<Option<String>>,
+    pub user_agent: Option<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalEvaluateResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
     ///Risk scoring details broken down by risk category.
-    pub scores: Option<SignalScores>,
+    pub scores: SignalScores,
     /**The core attributes object contains additional data that can be used to assess the ACH return risk. Examples of data include:
 
 `days_since_first_plaid_connection`: The number of days since the first time the Item was connected to an application via Plaid
@@ -6296,7 +6294,7 @@ pub struct CustomerInitiatedRiskTier(pub i64);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CustomerInitiatedReturnRisk {
     ///A score from 0-99 that indicates the transaction return risk: a higher risk score suggests a higher return likelihood.
-    pub score: Option<SignalScore>,
+    pub score: SignalScore,
     /**A tier corresponding to the projected likelihood that the transaction, if initiated, will be subject to a return.
 
 In the `customer_initiated_return_risk` object, there are five risk tiers corresponding to the scores:
@@ -6306,14 +6304,14 @@ In the `customer_initiated_return_risk` object, there are five risk tiers corres
   4: Predicted customer-initiated return incidence rate between 0.1% - 0.5%
   5: Predicted customer-initiated return incidence rate greater than 0.5%
 */
-    pub risk_tier: Option<CustomerInitiatedRiskTier>,
+    pub risk_tier: CustomerInitiatedRiskTier,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankInitiatedRiskTier(pub i64);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankInitiatedReturnRisk {
     ///A score from 0-99 that indicates the transaction return risk: a higher risk score suggests a higher return likelihood.
-    pub score: Option<SignalScore>,
+    pub score: SignalScore,
     /**In the `bank_initiated_return_risk` object, there are eight risk tiers corresponding to the scores:
   1: Predicted bank-initiated return incidence rate between 0.0% - 0.5%
   2: Predicted bank-initiated return incidence rate between 0.5% - 1.5%
@@ -6324,7 +6322,7 @@ pub struct BankInitiatedReturnRisk {
   7: Predicted bank-initiated return incidence rate between 15% and 50%
   8: Predicted bank-initiated return incidence rate greater than 50%
 */
-    pub risk_tier: Option<BankInitiatedRiskTier>,
+    pub risk_tier: BankInitiatedRiskTier,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalEvaluateCoreAttributes {
@@ -6345,13 +6343,13 @@ pub struct SignalEvaluateCoreAttributes {
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to non-sufficient funds/overdrafts over the past 90 days from the account that will be debited.
     pub nsf_overdraft_transactions_count_90d: i64,
     ///The number of days since the first time the Item was connected to an application via Plaid
-    pub days_since_first_plaid_connection: Option<Option<i64>>,
+    pub days_since_first_plaid_connection: Option<i64>,
     ///The number of times the Item has been connected to applications via Plaid over the past 7 days
-    pub plaid_connections_count_7d: Option<Option<i64>>,
+    pub plaid_connections_count_7d: Option<i64>,
     ///The number of times the Item has been connected to applications via Plaid over the past 30 days
-    pub plaid_connections_count_30d: Option<Option<i64>>,
+    pub plaid_connections_count_30d: Option<i64>,
     ///The total number of times the Item has been connected to applications via Plaid
-    pub total_plaid_connections_count: Option<Option<i64>>,
+    pub total_plaid_connections_count: Option<i64>,
     ///Indicates if the ACH transaction funding account is a savings/money market account
     pub is_savings_or_money_market_account: bool,
     ///The total credit (inflow) transaction amount over the past 10 days from the account that will be debited
@@ -6359,45 +6357,45 @@ pub struct SignalEvaluateCoreAttributes {
     ///The total debit (outflow) transaction amount over the past 10 days from the account that will be debited
     pub total_debit_transactions_amount_10d: f64,
     ///The 50th percentile of all credit (inflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p50_credit_transactions_amount_28d: Option<Option<f64>>,
+    pub p50_credit_transactions_amount_28d: Option<f64>,
     ///The 50th percentile of all debit (outflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p50_debit_transactions_amount_28d: Option<Option<f64>>,
+    pub p50_debit_transactions_amount_28d: Option<f64>,
     ///The 95th percentile of all credit (inflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p95_credit_transactions_amount_28d: Option<Option<f64>>,
+    pub p95_credit_transactions_amount_28d: Option<f64>,
     ///The 95th percentile of all debit (outflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p95_debit_transactions_amount_28d: Option<Option<f64>>,
+    pub p95_debit_transactions_amount_28d: Option<f64>,
     ///The number of days within the past 90 days when the account that will be debited had a negative end-of-day available balance
-    pub days_with_negative_balance_count_90d: Option<Option<i64>>,
+    pub days_with_negative_balance_count_90d: Option<i64>,
     ///The 90th percentile of the end-of-day available balance over the past 30 days of the account that will be debited
-    pub p90_eod_balance_30d: Option<Option<f64>>,
+    pub p90_eod_balance_30d: Option<f64>,
     ///The 90th percentile of the end-of-day available balance over the past 60 days of the account that will be debited
-    pub p90_eod_balance_60d: Option<Option<f64>>,
+    pub p90_eod_balance_60d: Option<f64>,
     ///The 90th percentile of the end-of-day available balance over the past 90 days of the account that will be debited
-    pub p90_eod_balance_90d: Option<Option<f64>>,
+    pub p90_eod_balance_90d: Option<f64>,
     ///The 10th percentile of the end-of-day available balance over the past 30 days of the account that will be debited
-    pub p10_eod_balance_30d: Option<Option<f64>>,
+    pub p10_eod_balance_30d: Option<f64>,
     ///The 10th percentile of the end-of-day available balance over the past 60 days of the account that will be debited
-    pub p10_eod_balance_60d: Option<Option<f64>>,
+    pub p10_eod_balance_60d: Option<f64>,
     ///The 10th percentile of the end-of-day available balance over the past 90 days of the account that will be debited
-    pub p10_eod_balance_90d: Option<Option<f64>>,
+    pub p10_eod_balance_90d: Option<f64>,
     ///Available balance, as of the `balance_last_updated` time. The available balance is the current balance less any outstanding holds or debits that have not yet posted to the account.
-    pub available_balance: Option<Option<f64>>,
+    pub available_balance: Option<f64>,
     ///Current balance, as of the `balance_last_updated` time. The current balance is the total amount of funds in the account.
-    pub current_balance: Option<Option<f64>>,
+    pub current_balance: Option<f64>,
     ///Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DDTHH:mm:ssZ) indicating the last time that the balance for the given account has been updated.
-    pub balance_last_updated: Option<Option<String>>,
+    pub balance_last_updated: Option<String>,
     ///The number of times the account's phone numbers on file have changed over the past 28 days
-    pub phone_change_count_28d: Option<Option<i64>>,
+    pub phone_change_count_28d: Option<i64>,
     ///The number of times the account's phone numbers on file have changed over the past 90 days
-    pub phone_change_count_90d: Option<Option<i64>>,
+    pub phone_change_count_90d: Option<i64>,
     ///The number of times the account's email addresses on file have changed over the past 28 days
-    pub email_change_count_28d: Option<Option<i64>>,
+    pub email_change_count_28d: Option<i64>,
     ///The number of times the account's email addresses on file have changed over the past 90 days
-    pub email_change_count_90d: Option<Option<i64>>,
+    pub email_change_count_90d: Option<i64>,
     ///The number of times the account's addresses on file have changed over the past 28 days
-    pub address_change_count_28d: Option<Option<i64>>,
+    pub address_change_count_28d: Option<i64>,
     ///The number of times the account's addresses on file have changed over the past 90 days
-    pub address_change_count_90d: Option<Option<i64>>,
+    pub address_change_count_90d: Option<i64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalDecisionReportRequest {
@@ -6406,16 +6404,16 @@ pub struct SignalDecisionReportRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Must be the same as the `client_transaction_id` supplied when calling `/signal/evaluate`
-    pub client_transaction_id: Option<String>,
+    pub client_transaction_id: String,
     ///`true` if the ACH transaction was initiated, `false` otherwise.
-    pub initiated: Option<bool>,
+    pub initiated: bool,
     ///The actual number of days (hold time) since the ACH debit transaction that you wait before making funds available to your customers. The holding time could affect the ACH return rate. For example, use 0 if you make funds available to your customers instantly or the same day following the debit transaction, or 1 if you make funds available the next day following the debit initialization.
-    pub days_funds_on_hold: Option<Option<i64>>,
+    pub days_funds_on_hold: Option<i64>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalDecisionReportResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalReturnReportRequest {
@@ -6424,21 +6422,21 @@ pub struct SignalReturnReportRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///Must be the same as the `client_transaction_id` supplied when calling `/signal/evaluate`
-    pub client_transaction_id: Option<String>,
+    pub client_transaction_id: String,
     ///Must be a valid ACH return code (e.g. "R01")
-    pub return_code: Option<String>,
+    pub return_code: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalReturnReportResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxOauthSelectAccountsRequest {
     ///
-    pub oauth_state_id: Option<String>,
+    pub oauth_state_id: String,
     ///
-    pub accounts: Option<Vec<String>>,
+    pub accounts: Vec<String>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxOauthSelectAccountsResponse {}
@@ -6460,23 +6458,23 @@ pub struct WalletGetRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the e-wallet
-    pub wallet_id: Option<String>,
+    pub wallet_id: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletGetResponse {
     ///A unique ID identifying the e-wallet
-    pub wallet_id: Option<String>,
+    pub wallet_id: String,
     ///An object representing the e-wallet balance
     pub balance: Option<WalletBalance>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletBalance {
     ///The ISO-4217 currency code of the balance
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
     ///The total amount of funds in the account
-    pub current: Option<f64>,
+    pub current: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionExecuteRequest {
@@ -6487,43 +6485,43 @@ pub struct WalletTransactionExecuteRequest {
     /**A random key provided by the client, per unique wallet transaction. Maximum of 128 characters.
 
 The API supports idempotency for safely retrying requests without accidentally performing the same operation twice. If a request to execute a wallet transaction fails due to a network connection error, then after a minimum delay of one minute, you can retry the request with the same idempotency key to guarantee that only a single wallet transaction is created. If the request was successfully processed, it will prevent any transaction that uses the same idempotency key, and was received within 24 hours of the first request, from being processed.*/
-    pub idempotency_key: Option<WalletTransactionIdempotencyKey>,
+    pub idempotency_key: WalletTransactionIdempotencyKey,
     ///The ID of the e-wallet to debit from
-    pub wallet_id: Option<String>,
+    pub wallet_id: String,
     ///An object representing the e-wallet transaction's counterparty
-    pub counterparty: Option<WalletTransactionCounterparty>,
+    pub counterparty: WalletTransactionCounterparty,
     ///The amount and currency of a transaction
-    pub amount: Option<WalletTransactionAmount>,
+    pub amount: WalletTransactionAmount,
     ///A reference for the transaction. This must be an alphanumeric string with at most 18 characters and must not contain any special characters or spaces.
-    pub reference: Option<String>,
+    pub reference: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionIdempotencyKey(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionCounterparty {
     ///The name of the counterparty
-    pub name: Option<String>,
+    pub name: String,
     ///The counterparty's bank account numbers
-    pub numbers: Option<WalletTransactionCounterpartyNumbers>,
+    pub numbers: WalletTransactionCounterpartyNumbers,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionCounterpartyNumbers {
     ///The account number and sort code of the counterparty's account
-    pub bacs: Option<WalletTransactionCounterpartyBACS>,
+    pub bacs: WalletTransactionCounterpartyBACS,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionCounterpartyBACS(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionAmount {
     ///The ISO-4217 currency code of the transaction. Currently, only `"GBP"` is supported.
-    pub iso_currency_code: Option<String>,
+    pub iso_currency_code: String,
     ///The amount of the transaction. Must contain at most two digits of precision e.g. `1.23`.
-    pub value: Option<f64>,
+    pub value: f64,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionExecuteResponse {
     ///A unique ID identifying the transaction
-    pub transaction_id: Option<String>,
+    pub transaction_id: String,
     /**The status of the transaction.
 
 `INITIATED`: This is the initial state of all transactions. It indicates that the transaction has been initiated and is currently being processed.
@@ -6533,9 +6531,9 @@ pub struct WalletTransactionExecuteResponse {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub status: Option<WalletTransactionStatus>,
+    pub status: WalletTransactionStatus,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionStatus(pub String);
@@ -6546,7 +6544,7 @@ pub struct WalletTransactionsListRequest {
     ///Your Plaid API `secret`. The `secret` is required and may be provided either in the `PLAID-SECRET` header or as part of a request body.
     pub secret: APISecret,
     ///The ID of the e-wallet to fetch transactions from
-    pub wallet_id: Option<String>,
+    pub wallet_id: String,
     ///A base64 value representing the latest transaction that has already been requested. Set this to `next_cursor` received from the previous `/wallet/transactions/list` request. If provided, the response will only contain transactions created before that transaction. If omitted, the response will contain transactions starting from the most recent, and in descending order by the `created_at` time.
     pub cursor: String,
     ///The number of transactions to fetch
@@ -6555,25 +6553,25 @@ pub struct WalletTransactionsListRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionsListResponse {
     ///An array of transactions of an e-wallet, associated with the given `wallet_id`
-    pub transactions: Option<Vec<WalletTransaction>>,
+    pub transactions: Vec<WalletTransaction>,
     ///Cursor used for fetching transactions created before the latest transaction provided in this response
     pub next_cursor: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
-    pub request_id: Option<RequestID>,
+    pub request_id: RequestID,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransaction {
     ///A unique ID identifying the transaction
-    pub transaction_id: Option<String>,
+    pub transaction_id: String,
     ///A reference for the transaction
-    pub reference: Option<String>,
+    pub reference: String,
     #[serde(rename = "type")]
     ///The type of of the transaction. Currently, only `"PAYOUT"` is supported.
-    pub type_: Option<String>,
+    pub type_: String,
     ///The amount and currency of a transaction
-    pub amount: Option<WalletTransactionAmount>,
+    pub amount: WalletTransactionAmount,
     ///An object representing the e-wallet transaction's counterparty
-    pub counterparty: Option<WalletTransactionCounterparty>,
+    pub counterparty: WalletTransactionCounterparty,
     /**The status of the transaction.
 
 `INITIATED`: This is the initial state of all transactions. It indicates that the transaction has been initiated and is currently being processed.
@@ -6583,7 +6581,7 @@ pub struct WalletTransaction {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub status: Option<WalletTransactionStatus>,
+    pub status: WalletTransactionStatus,
     ///Timestamp when the transaction was created, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
-    pub created_at: Option<String>,
+    pub created_at: String,
 }
