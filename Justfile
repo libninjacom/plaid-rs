@@ -11,8 +11,9 @@ run *args:
     cargo run {{args}}
 alias r := run
 
-output:
-    cargo build -vv
+generate:
+    cargo run --example generate
+alias gen := generate
 
 release:
     cargo build --release
