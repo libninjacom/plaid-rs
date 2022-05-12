@@ -51,3 +51,6 @@ publish:
 patch: test
     just version patch
     just publish
+
+doc:
+    cargo doc --no-deps --open

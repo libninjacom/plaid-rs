@@ -45,22 +45,20 @@ impl PlaidClient {
         &self,
         access_token: Option<String>,
     ) -> anyhow::Result<ItemApplicationListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/application/list")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -75,28 +73,25 @@ Enable consumers to update product access on selected accounts for an applicatio
         state: String,
         context: String,
     ) -> anyhow::Result<ItemApplicationScopesUpdateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "application_id" :
-                        application_id, "scopes" : scopes, "state" : state, "context" :
-                        context }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/application/scopes/update")
+            .json(
+                json!(
+                    { "access_token" : access_token, "application_id" : application_id,
+                    "scopes" : scopes, "state" : state, "context" : context }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -107,22 +102,20 @@ Allows financial institutions to retrieve information about Plaid clients for th
         &self,
         application_id: String,
     ) -> anyhow::Result<ApplicationGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "application_id" : application_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/application/get")
+            .json(json!({ "application_id" : application_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -130,27 +123,25 @@ Allows financial institutions to retrieve information about Plaid clients for th
 
 Returns information about the status of an Item.
 
-See full Plaid docs at <https://plaid.com/docs/api/items/#itemget>*/
+See endpoint docs at <https://plaid.com/docs/api/items/#itemget>.*/
     pub async fn item_get(
         &self,
         access_token: String,
     ) -> anyhow::Result<ItemGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/get")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -164,28 +155,26 @@ Also note that `/auth/get` will not return data for any new accounts opened afte
 
 Versioning note: In API version 2017-03-08, the schema of the `numbers` object returned by this endpoint is substantially different. For details, see [Plaid API versioning](https://plaid.com/docs/api/versioning/#version-2018-05-22).
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#authget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#authget>.*/
     pub async fn auth_get(
         &self,
         access_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<AuthGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/auth/get")
+            .json(json!({ "access_token" : access_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -201,7 +190,7 @@ Data returned by `/transactions/get` will be the data available for the Item as 
 
 Note that data may not be immediately available to `/transactions/get`. Plaid will begin to prepare transactions data upon Item link, if Link was initialized with `transactions`, or upon the first call to `/transactions/get`, if it wasn't. To be alerted when transaction data is ready to be fetched, listen for the [`INITIAL_UPDATE`](https://plaid.com/docs/api/webhooks#transactions-initial_update) and [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/webhooks#transactions-historical_update) webhooks. If no transaction history is ready when `/transactions/get` is called, it will return a `PRODUCT_NOT_READY` error.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#transactionsget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#transactionsget>.*/
     pub async fn transactions_get(
         &self,
         options: serde_json::Value,
@@ -209,27 +198,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#transactionsget>*/
         start_date: String,
         end_date: String,
     ) -> anyhow::Result<TransactionsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "options" : options, "access_token" : access_token,
-                        "start_date" : start_date, "end_date" : end_date }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transactions/get")
+            .json(
+                json!(
+                    { "options" : options, "access_token" : access_token, "start_date" :
+                    start_date, "end_date" : end_date }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -239,27 +226,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#transactionsget>*/
 
 Access to `/transactions/refresh` in Production is specific to certain pricing plans. If you cannot access `/transactions/refresh` in Production, [contact Sales](https://www.plaid.com/contact) for assistance.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#transactionsrefresh>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#transactionsrefresh>.*/
     pub async fn transactions_refresh(
         &self,
         access_token: String,
     ) -> anyhow::Result<TransactionsRefreshResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transactions/refresh")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -273,24 +258,20 @@ The product is currently in beta. To request access, contact transactions-feedba
         access_token: String,
         account_ids: Vec<String>,
     ) -> anyhow::Result<TransactionsRecurringGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!({ "access_token" : access_token, "account_ids" : account_ids }),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transactions/recurring/get")
+            .json(json!({ "access_token" : access_token, "account_ids" : account_ids }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -301,34 +282,31 @@ Subsequent calls to the endpoint using the cursor returned in the response will 
 
 The product is currently in beta. To request access, contact transactions-feedback@plaid.com.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#transactionssync>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#transactionssync>.*/
     pub async fn transactions_sync(
         &self,
         access_token: String,
         cursor: String,
         count: i64,
     ) -> anyhow::Result<TransactionsSyncResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "cursor" : cursor, "count" :
-                        count }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transactions/sync")
+            .json(
+                json!(
+                    { "access_token" : access_token, "cursor" : cursor, "count" : count }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -338,7 +316,7 @@ Returns a JSON response containing details on all financial institutions current
 
 If there is no overlap between an institution’s enabled products and a client’s enabled products, then the institution will be filtered out from the response. As a result, the number of institutions returned may not match the count specified in the call.
 
-See full Plaid docs at <https://plaid.com/docs/api/institutions/#institutionsget>*/
+See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionsget>.*/
     pub async fn institutions_get(
         &self,
         count: i64,
@@ -346,27 +324,25 @@ See full Plaid docs at <https://plaid.com/docs/api/institutions/#institutionsget
         country_codes: Vec<CountryCode>,
         options: serde_json::Value,
     ) -> anyhow::Result<InstitutionsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "count" : count, "offset" : offset, "country_codes" :
-                        country_codes, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/institutions/get")
+            .json(
+                json!(
+                    { "count" : count, "offset" : offset, "country_codes" :
+                    country_codes, "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -377,7 +353,7 @@ Returns a JSON response containing details for institutions that match the query
 Versioning note: API versions 2019-05-29 and earlier allow use of the `public_key` parameter instead of the `client_id` and `secret` parameters to authenticate to this endpoint. The `public_key` parameter has since been deprecated; all customers are encouraged to use `client_id` and `secret` instead.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/institutions/#institutionssearch>*/
+See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionssearch>.*/
     pub async fn institutions_search(
         &self,
         query: String,
@@ -385,27 +361,25 @@ See full Plaid docs at <https://plaid.com/docs/api/institutions/#institutionssea
         country_codes: Vec<CountryCode>,
         options: serde_json::Value,
     ) -> anyhow::Result<InstitutionsSearchResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "query" : query, "products" : products, "country_codes" :
-                        country_codes, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/institutions/search")
+            .json(
+                json!(
+                    { "query" : query, "products" : products, "country_codes" :
+                    country_codes, "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -416,34 +390,32 @@ Returns a JSON response containing details on a specified financial institution 
 Versioning note: API versions 2019-05-29 and earlier allow use of the `public_key` parameter instead of the `client_id` and `secret` to authenticate to this endpoint. The `public_key` has been deprecated; all customers are encouraged to use `client_id` and `secret` instead.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/institutions/#institutionsget_by_id>*/
+See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionsget_by_id>.*/
     pub async fn institutions_get_by_id(
         &self,
         institution_id: String,
         country_codes: Vec<CountryCode>,
         options: serde_json::Value,
     ) -> anyhow::Result<InstitutionsGetByIdResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "institution_id" : institution_id, "country_codes" :
-                        country_codes, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/institutions/get_by_id")
+            .json(
+                json!(
+                    { "institution_id" : institution_id, "country_codes" : country_codes,
+                    "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -457,27 +429,25 @@ Also note that for certain OAuth-based institutions, an Item removed via `/item/
 
 API versions 2019-05-29 and earlier return a `removed` boolean as part of the response.
 
-See full Plaid docs at <https://plaid.com/docs/api/items/#itemremove>*/
+See endpoint docs at <https://plaid.com/docs/api/items/#itemremove>.*/
     pub async fn item_remove(
         &self,
         access_token: String,
     ) -> anyhow::Result<ItemRemoveResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/remove")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -489,28 +459,26 @@ This endpoint only returns accounts that were permissioned by the user when they
 
 This endpoint retrieves cached information, rather than extracting fresh information from the institution. As a result, balances returned may not be up-to-date; for realtime balance information, use `/accounts/balance/get` instead. Note that some information is nullable.
 
-See full Plaid docs at <https://plaid.com/docs/api/accounts/#accountsget>*/
+See endpoint docs at <https://plaid.com/docs/api/accounts/#accountsget>.*/
     pub async fn accounts_get(
         &self,
         access_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<AccountsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/accounts/get")
+            .json(json!({ "access_token" : access_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -518,24 +486,22 @@ See full Plaid docs at <https://plaid.com/docs/api/accounts/#accountsget>*/
 
 Send a request to the `/categories/get` endpoint to get detailed information on categories returned by Plaid. This endpoint does not require authentication.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#categoriesget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#categoriesget>.*/
     pub async fn categories_get(&self) -> anyhow::Result<CategoriesGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({}))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/categories/get")
+            .json(json!({}))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -543,28 +509,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#categoriesget>*/
 
 Use the `/sandbox/processor_token/create` endpoint to create a valid `processor_token` for an arbitrary institution ID and test credentials. The created `processor_token` corresponds to a new Sandbox Item. You can then use this `processor_token` with the `/processor/` API endpoints in Sandbox. You can also use `/sandbox/processor_token/create` with the [`user_custom` test username](https://plaid.com/docs/sandbox/user-custom) to generate a test account with custom data.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxprocessor_tokencreate>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxprocessor_tokencreate>.*/
     pub async fn sandbox_processor_token_create(
         &self,
         institution_id: String,
         options: serde_json::Value,
     ) -> anyhow::Result<SandboxProcessorTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "institution_id" : institution_id, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/processor_token/create")
+            .json(json!({ "institution_id" : institution_id, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -572,34 +536,32 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxprocessor_tok
 
 Use the `/sandbox/public_token/create` endpoint to create a valid `public_token`  for an arbitrary institution ID, initial products, and test credentials. The created `public_token` maps to a new Sandbox Item. You can then call `/item/public_token/exchange` to exchange the `public_token` for an `access_token` and perform all API actions. `/sandbox/public_token/create` can also be used with the [`user_custom` test username](https://plaid.com/docs/sandbox/user-custom) to generate a test account with custom data. `/sandbox/public_token/create` cannot be used with OAuth institutions.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxpublic_tokencreate>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxpublic_tokencreate>.*/
     pub async fn sandbox_public_token_create(
         &self,
         institution_id: String,
         initial_products: Vec<Products>,
         options: serde_json::Value,
     ) -> anyhow::Result<SandboxPublicTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "institution_id" : institution_id, "initial_products" :
-                        initial_products, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/public_token/create")
+            .json(
+                json!(
+                    { "institution_id" : institution_id, "initial_products" :
+                    initial_products, "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -607,32 +569,28 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxpublic_tokenc
 
 The `/sandbox/item/fire_webhook` endpoint is used to test that code correctly handles webhooks. This endpoint can trigger a Transactions `DEFAULT_UPDATE` webhook to be fired for a given Sandbox Item. If the Item does not support Transactions, a `SANDBOX_PRODUCT_NOT_ENABLED` error will result. This endpoint can also trigger a `NEW_ACCOUNTS_AVAILABLE` webhook to be fired for a given Sandbox Item created with Account Select v2. Note that this endpoint is provided for developer ease-of-use and is not required for testing webhooks; webhooks will also fire in Sandbox under the same conditions that they would in Production or Development.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxitemfire_webhook>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemfire_webhook>.*/
     pub async fn sandbox_item_fire_webhook(
         &self,
         access_token: String,
         webhook_code: String,
     ) -> anyhow::Result<SandboxItemFireWebhookResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "webhook_code" : webhook_code }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/item/fire_webhook")
+            .json(
+                json!({ "access_token" : access_token, "webhook_code" : webhook_code }),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -640,28 +598,26 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxitemfire_webh
 
 The `/accounts/balance/get` endpoint returns the real-time balance for each of an Item's accounts. While other endpoints may return a balance object, only `/accounts/balance/get` forces the available and current balance fields to be refreshed rather than cached. This endpoint can be used for existing Items that were added via any of Plaid’s other products. This endpoint can be used as long as Link has been initialized with any other product, `balance` itself is not a product that can be used to initialize Link.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#accountsbalanceget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#accountsbalanceget>.*/
     pub async fn accounts_balance_get(
         &self,
         access_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<AccountsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/accounts/balance/get")
+            .json(json!({ "access_token" : access_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -671,28 +627,26 @@ The `/identity/get` endpoint allows you to retrieve various account holder infor
 
 Note: This request may take some time to complete if identity was not specified as an initial product when creating the Item. This is because Plaid must communicate directly with the institution to retrieve the data.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#identityget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#identityget>.*/
     pub async fn identity_get(
         &self,
         access_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<IdentityGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/identity/get")
+            .json(json!({ "access_token" : access_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -703,27 +657,25 @@ The `/processor/auth/get` endpoint returns the bank account and bank identificat
 Versioning note: API versions 2019-05-29 and earlier use a different schema for the `numbers` object returned by this endpoint. For details, see [Plaid API versioning](https://plaid.com/docs/api/versioning/#version-2020-09-14).
 
 
-See full Plaid docs at <https://plaid.com/docs/api/processors/#processorauthget>*/
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorauthget>.*/
     pub async fn processor_auth_get(
         &self,
         processor_token: String,
     ) -> anyhow::Result<ProcessorAuthGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "processor_token" : processor_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/auth/get")
+            .json(json!({ "processor_token" : processor_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -731,7 +683,7 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#processorauthget>
 
 Use the `/processor/bank_transfer/create` endpoint to initiate a new bank transfer as a processor
 
-See full Plaid docs at <https://plaid.com/docs/api/processors/#bank_transfercreate>*/
+See endpoint docs at <https://plaid.com/docs/api/processors/#bank_transfercreate>.*/
     pub async fn processor_bank_transfer_create(
         &self,
         idempotency_key: String,
@@ -747,31 +699,29 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#bank_transfercrea
         metadata: Option<serde_json::Value>,
         origination_account_id: Option<String>,
     ) -> anyhow::Result<ProcessorBankTransferCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "idempotency_key" : idempotency_key, "processor_token" :
-                        processor_token, "type" : type_, "network" : network, "amount" :
-                        amount, "iso_currency_code" : iso_currency_code, "description" :
-                        description, "ach_class" : ach_class, "user" : user, "custom_tag"
-                        : custom_tag, "metadata" : metadata, "origination_account_id" :
-                        origination_account_id }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/bank_transfer/create")
+            .json(
+                json!(
+                    { "idempotency_key" : idempotency_key, "processor_token" :
+                    processor_token, "type" : type_, "network" : network, "amount" :
+                    amount, "iso_currency_code" : iso_currency_code, "description" :
+                    description, "ach_class" : ach_class, "user" : user, "custom_tag" :
+                    custom_tag, "metadata" : metadata, "origination_account_id" :
+                    origination_account_id }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -779,27 +729,25 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#bank_transfercrea
 
 The `/processor/identity/get` endpoint allows you to retrieve various account holder information on file with the financial institution, including names, emails, phone numbers, and addresses.
 
-See full Plaid docs at <https://plaid.com/docs/api/processors/#processoridentityget>*/
+See endpoint docs at <https://plaid.com/docs/api/processors/#processoridentityget>.*/
     pub async fn processor_identity_get(
         &self,
         processor_token: String,
     ) -> anyhow::Result<ProcessorIdentityGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "processor_token" : processor_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/identity/get")
+            .json(json!({ "processor_token" : processor_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -807,30 +755,26 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#processoridentity
 
 The `/processor/balance/get` endpoint returns the real-time balance for each of an Item's accounts. While other endpoints may return a balance object, only `/processor/balance/get` forces the available and current balance fields to be refreshed rather than cached.
 
-See full Plaid docs at <https://plaid.com/docs/api/processors/#processorbalanceget>*/
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorbalanceget>.*/
     pub async fn processor_balance_get(
         &self,
         processor_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<ProcessorBalanceGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!({ "processor_token" : processor_token, "options" : options }),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/balance/get")
+            .json(json!({ "processor_token" : processor_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -838,28 +782,26 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#processorbalanceg
 
 The POST `/item/webhook/update` allows you to update the webhook URL associated with an Item. This request triggers a [`WEBHOOK_UPDATE_ACKNOWLEDGED`](https://plaid.com/docs/api/webhooks/#item-webhook-update-acknowledged) webhook to the newly specified webhook URL.
 
-See full Plaid docs at <https://plaid.com/docs/api/items/#itemwebhookupdate>*/
+See endpoint docs at <https://plaid.com/docs/api/items/#itemwebhookupdate>.*/
     pub async fn item_webhook_update(
         &self,
         access_token: String,
         webhook: Option<String>,
     ) -> anyhow::Result<ItemWebhookUpdateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "webhook" : webhook }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/webhook/update")
+            .json(json!({ "access_token" : access_token, "webhook" : webhook }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -870,27 +812,25 @@ By default, the `access_token` associated with an Item does not expire and shoul
 You can use the `/item/access_token/invalidate` endpoint to rotate the `access_token` associated with an Item. The endpoint returns a new `access_token` and immediately invalidates the previous `access_token`.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/tokens/#itemaccess_tokeninvalidate>*/
+See endpoint docs at <https://plaid.com/docs/api/tokens/#itemaccess_tokeninvalidate>.*/
     pub async fn item_access_token_invalidate(
         &self,
         access_token: String,
     ) -> anyhow::Result<ItemAccessTokenInvalidateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/access_token/invalidate")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -900,27 +840,25 @@ Plaid signs all outgoing webhooks and provides JSON Web Tokens (JWTs) so that yo
 
 The `/webhook_verification_key/get` endpoint provides a JSON Web Key (JWK) that can be used to verify a JWT.
 
-See full Plaid docs at <https://plaid.com/docs/api/webhooks/webhook-verification/#webhook_verification_keyget>*/
+See endpoint docs at <https://plaid.com/docs/api/webhooks/webhook-verification/#webhook_verification_keyget>.*/
     pub async fn webhook_verification_key_get(
         &self,
         key_id: String,
     ) -> anyhow::Result<WebhookVerificationKeyGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "key_id" : key_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/webhook_verification_key/get")
+            .json(json!({ "key_id" : key_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -932,28 +870,26 @@ The types of information returned by Liabilities can include balances and due da
 
 Note: This request may take some time to complete if `liabilities` was not specified as an initial product when creating the Item. This is because Plaid must communicate directly with the institution to retrieve the additional data.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#liabilitiesget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#liabilitiesget>.*/
     pub async fn liabilities_get(
         &self,
         access_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<LiabilitiesGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/liabilities/get")
+            .json(json!({ "access_token" : access_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -964,7 +900,7 @@ Create a payment recipient for payment initiation.  The recipient must be in Eur
 The endpoint is idempotent: if a developer has already made a request with the same payment details, Plaid will return the same `recipient_id`.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationrecipientcreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationrecipientcreate>.*/
     pub async fn payment_initiation_recipient_create(
         &self,
         name: String,
@@ -972,27 +908,24 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationr
         bacs: Option<serde_json::Value>,
         address: Option<serde_json::Value>,
     ) -> anyhow::Result<PaymentInitiationRecipientCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "name" : name, "iban" : iban, "bacs" : bacs, "address" :
-                        address }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/recipient/create")
+            .json(
+                json!(
+                    { "name" : name, "iban" : iban, "bacs" : bacs, "address" : address }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1003,27 +936,25 @@ Reverse a previously initiated payment.
 A payment can only be reversed once and will be refunded to the original sender's account.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentreverse>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentreverse>.*/
     pub async fn payment_initiation_payment_reverse(
         &self,
         payment_id: String,
     ) -> anyhow::Result<PaymentInitiationPaymentReverseResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "payment_id" : payment_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/payment/reverse")
+            .json(json!({ "payment_id" : payment_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1031,27 +962,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationp
 
 Get details about a payment recipient you have previously created.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationrecipientget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationrecipientget>.*/
     pub async fn payment_initiation_recipient_get(
         &self,
         recipient_id: String,
     ) -> anyhow::Result<PaymentInitiationRecipientGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "recipient_id" : recipient_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/recipient/get")
+            .json(json!({ "recipient_id" : recipient_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1059,26 +988,24 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationr
 
 The `/payment_initiation/recipient/list` endpoint list the payment recipients that you have previously created.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationrecipientlist>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationrecipientlist>.*/
     pub async fn payment_initiation_recipient_list(
         &self,
     ) -> anyhow::Result<PaymentInitiationRecipientListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({}))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/recipient/list")
+            .json(json!({}))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1090,7 +1017,7 @@ Standing orders (recurring payments) must be denominated in GBP and can only be 
 
 In the Development environment, payments must be below 5 GBP / EUR. For details on any payment limits in Production, contact your Plaid Account Manager.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentcreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentcreate>.*/
     pub async fn payment_initiation_payment_create(
         &self,
         recipient_id: String,
@@ -1099,27 +1026,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationp
         schedule: serde_json::Value,
         options: Option<serde_json::Value>,
     ) -> anyhow::Result<PaymentInitiationPaymentCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "recipient_id" : recipient_id, "reference" : reference,
-                        "amount" : amount, "schedule" : schedule, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/payment/create")
+            .json(
+                json!(
+                    { "recipient_id" : recipient_id, "reference" : reference, "amount" :
+                    amount, "schedule" : schedule, "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1129,27 +1054,25 @@ The `/payment_initiation/payment/token/create` endpoint has been deprecated. New
 
 The `/payment_initiation/payment/token/create` is used to create a `payment_token`, which can then be used in Link initialization to enter a payment initiation flow. You can only use a `payment_token` once. If this attempt fails, the end user aborts the flow, or the token expires, you will need to create a new payment token. Creating a new payment token does not require end user input.
 
-See full Plaid docs at <https://plaid.com/docs/link/maintain-legacy-integration/#creating-a-payment-token>*/
+See endpoint docs at <https://plaid.com/docs/link/maintain-legacy-integration/#creating-a-payment-token>.*/
     pub async fn create_payment_token(
         &self,
         payment_id: String,
     ) -> anyhow::Result<PaymentInitiationPaymentTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "payment_id" : payment_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/payment/token/create")
+            .json(json!({ "payment_id" : payment_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1160,27 +1083,25 @@ See full Plaid docs at <https://plaid.com/docs/link/maintain-legacy-integration/
 
 In the Sandbox, Items will transition to an `ITEM_LOGIN_REQUIRED` error state automatically after 30 days, even if this endpoint is not called.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxitemreset_login>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemreset_login>.*/
     pub async fn sandbox_item_reset_login(
         &self,
         access_token: String,
     ) -> anyhow::Result<SandboxItemResetLoginResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/item/reset_login")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1192,34 +1113,32 @@ Note that not all Plaid developer accounts are enabled for micro-deposit based v
 
 For more information on testing Automated Micro-deposits in Sandbox, see [Auth full coverage testing](https://plaid.com/docs/auth/coverage/testing#).
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxitemset_verification_status>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemset_verification_status>.*/
     pub async fn sandbox_item_set_verification_status(
         &self,
         access_token: String,
         account_id: String,
         verification_status: String,
     ) -> anyhow::Result<SandboxItemSetVerificationStatusResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "account_id" : account_id,
-                        "verification_status" : verification_status }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/item/set_verification_status")
+            .json(
+                json!(
+                    { "access_token" : access_token, "account_id" : account_id,
+                    "verification_status" : verification_status }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1229,27 +1148,25 @@ Exchange a Link `public_token` for an API `access_token`. Link hands off the `pu
 
 The response also includes an `item_id` that should be stored with the `access_token`. The `item_id` is used to identify an Item in a webhook. The `item_id` can also be retrieved by making an `/item/get` request.
 
-See full Plaid docs at <https://plaid.com/docs/api/tokens/#itempublic_tokenexchange>*/
+See endpoint docs at <https://plaid.com/docs/api/tokens/#itempublic_tokenexchange>.*/
     pub async fn item_public_token_exchange(
         &self,
         public_token: String,
     ) -> anyhow::Result<ItemPublicTokenExchangeResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "public_token" : public_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/public_token/exchange")
+            .json(json!({ "public_token" : public_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1263,27 +1180,25 @@ A `public_token` is one-time use and expires after 30 minutes. You use a `public
 
 The `/item/public_token/create` endpoint is **not** used to create your initial `public_token`. If you have not already received an `access_token` for a specific Item, use Link to obtain your `public_token` instead. See the [Quickstart](https://plaid.com/docs/quickstart) for more information.
 
-See full Plaid docs at <https://plaid.com/docs/api/tokens/#itempublic_tokencreate>*/
+See endpoint docs at <https://plaid.com/docs/api/tokens/#itempublic_tokencreate>.*/
     pub async fn item_create_public_token(
         &self,
         access_token: String,
     ) -> anyhow::Result<ItemPublicTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/public_token/create")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1291,27 +1206,25 @@ See full Plaid docs at <https://plaid.com/docs/api/tokens/#itempublic_tokencreat
 
 The `/payment_initiation/payment/get` endpoint can be used to check the status of a payment, as well as to receive basic information such as recipient and payment amount. In the case of standing orders, the `/payment_initiation/payment/get` endpoint will provide information about the status of the overall standing order itself; the API cannot be used to retrieve payment status for individual payments within a standing order.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentget>.*/
     pub async fn payment_initiation_payment_get(
         &self,
         payment_id: String,
     ) -> anyhow::Result<PaymentInitiationPaymentGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "payment_id" : payment_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/payment/get")
+            .json(json!({ "payment_id" : payment_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1319,28 +1232,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationp
 
 The `/payment_initiation/payment/list` endpoint can be used to retrieve all created payments. By default, the 10 most recent payments are returned. You can request more payments and paginate through the results using the optional `count` and `cursor` parameters.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentlist>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#payment_initiationpaymentlist>.*/
     pub async fn payment_initiation_payment_list(
         &self,
         count: Option<i64>,
         cursor: Option<String>,
     ) -> anyhow::Result<PaymentInitiationPaymentListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "count" : count, "cursor" : cursor }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/payment_initiation/payment/list")
+            .json(json!({ "count" : count, "cursor" : cursor }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1352,34 +1263,32 @@ The Asset Report takes some time to be created and is not available immediately 
 
 The `/asset_report/create` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable. To get an updated Asset Report, use the `/asset_report/refresh` endpoint.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportcreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportcreate>.*/
     pub async fn asset_report_create(
         &self,
         access_tokens: Vec<AccessToken>,
         days_requested: i64,
         options: serde_json::Value,
     ) -> anyhow::Result<AssetReportCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_tokens" : access_tokens, "days_requested" :
-                        days_requested, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/create")
+            .json(
+                json!(
+                    { "access_tokens" : access_tokens, "days_requested" : days_requested,
+                    "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1389,34 +1298,32 @@ An Asset Report is an immutable snapshot of a user's assets. In order to "refres
 
 The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by any call to `/asset_report/filter`. By default, the new Asset Report will also use the same parameters you submitted with your original `/asset_report/create` request, but the original `days_requested` value and the values of any parameters in the `options` object can be overridden with new values. To change these arguments, simply supply new values for them in your request to `/asset_report/refresh`. Submit an empty string ("") for any previously-populated fields you would like set as empty.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportrefresh>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportrefresh>.*/
     pub async fn asset_report_refresh(
         &self,
         asset_report_token: String,
         days_requested: Option<i64>,
         options: serde_json::Value,
     ) -> anyhow::Result<AssetReportRefreshResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "asset_report_token" : asset_report_token, "days_requested" :
-                        days_requested, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/refresh")
+            .json(
+                json!(
+                    { "asset_report_token" : asset_report_token, "days_requested" :
+                    days_requested, "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1426,27 +1333,25 @@ The `/item/remove` endpoint allows you to invalidate an `access_token`, meaning 
 
 The `/asset_report/remove` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates its `asset_report_token`, meaning you will no longer be able to use it to access Report data or create new Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any `audit_copy_tokens` associated with the Asset Report.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportremove>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportremove>.*/
     pub async fn asset_report_remove(
         &self,
         asset_report_token: String,
     ) -> anyhow::Result<AssetReportRemoveResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "asset_report_token" : asset_report_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/remove")
+            .json(json!({ "asset_report_token" : asset_report_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1460,33 +1365,31 @@ Because Asset Reports are immutable, calling `/asset_report/filter` does not alt
 
 Plaid will fire a [`PRODUCT_READY`](https://plaid.com/docs/api/webhooks) webhook once generation of the filtered Asset Report has completed.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportfilter>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportfilter>.*/
     pub async fn asset_report_filter(
         &self,
         asset_report_token: String,
         account_ids_to_exclude: Vec<String>,
     ) -> anyhow::Result<AssetReportFilterResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "asset_report_token" : asset_report_token,
-                        "account_ids_to_exclude" : account_ids_to_exclude }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/filter")
+            .json(
+                json!(
+                    { "asset_report_token" : asset_report_token, "account_ids_to_exclude"
+                    : account_ids_to_exclude }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1498,33 +1401,31 @@ By default, an Asset Report includes transaction descriptions as returned by the
 
 To retrieve an Asset Report with Insights, call the `/asset_report/get` endpoint with `include_insights` set to `true`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportget>.*/
     pub async fn asset_report_get(
         &self,
         asset_report_token: String,
         include_insights: bool,
     ) -> anyhow::Result<AssetReportGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "asset_report_token" : asset_report_token, "include_insights" :
-                        include_insights }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/get")
+            .json(
+                json!(
+                    { "asset_report_token" : asset_report_token, "include_insights" :
+                    include_insights }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1534,33 +1435,31 @@ Plaid can provide an Audit Copy of any Asset Report directly to a participating 
 
 To grant access to an Audit Copy, use the `/asset_report/audit_copy/create` endpoint to create an `audit_copy_token` and then pass that token to the third party who needs access. Each third party has its own `auditor_id`, for example `fannie_mae`. You’ll need to create a separate Audit Copy for each third party to whom you want to grant access to the Report.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportaudit_copycreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportaudit_copycreate>.*/
     pub async fn asset_report_audit_copy_create(
         &self,
         asset_report_token: String,
         auditor_id: String,
     ) -> anyhow::Result<AssetReportAuditCopyCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "asset_report_token" : asset_report_token, "auditor_id" :
-                        auditor_id }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/audit_copy/create")
+            .json(
+                json!(
+                    { "asset_report_token" : asset_report_token, "auditor_id" :
+                    auditor_id }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1568,27 +1467,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportaudit_c
 
 The `/asset_report/audit_copy/remove` endpoint allows you to remove an Audit Copy. Removing an Audit Copy invalidates the `audit_copy_token` associated with it, meaning both you and any third parties holding the token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given Audit Copy.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportaudit_copyremove>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportaudit_copyremove>.*/
     pub async fn asset_report_audit_copy_remove(
         &self,
         audit_copy_token: String,
     ) -> anyhow::Result<AssetReportAuditCopyRemoveResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "audit_copy_token" : audit_copy_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/audit_copy/remove")
+            .json(json!({ "audit_copy_token" : audit_copy_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1596,28 +1493,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#asset_reportaudit_c
 
 The `/investments/holdings/get` endpoint allows developers to receive user-authorized stock position data for `investment`-type accounts.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#investmentsholdingsget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#investmentsholdingsget>.*/
     pub async fn investments_holdings_get(
         &self,
         access_token: String,
         options: serde_json::Value,
     ) -> anyhow::Result<InvestmentsHoldingsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token, "options" : options }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/investments/holdings/get")
+            .json(json!({ "access_token" : access_token, "options" : options }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1629,7 +1524,7 @@ Transactions are returned in reverse-chronological order, and the sequence of tr
 
 Due to the potentially large number of investment transactions associated with an Item, results are paginated. Manipulate the count and offset parameters in conjunction with the `total_investment_transactions` response body field to fetch all available investment transactions.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#investmentstransactionsget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#investmentstransactionsget>.*/
     pub async fn investments_transactions_get(
         &self,
         access_token: String,
@@ -1637,27 +1532,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#investmentstransact
         end_date: String,
         options: serde_json::Value,
     ) -> anyhow::Result<InvestmentsTransactionsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "start_date" : start_date,
-                        "end_date" : end_date, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/investments/transactions/get")
+            .json(
+                json!(
+                    { "access_token" : access_token, "start_date" : start_date,
+                    "end_date" : end_date, "options" : options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1665,34 +1558,32 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#investmentstransact
 
 Used to create a token suitable for sending to one of Plaid's partners to enable integrations. Note that Stripe partnerships use bank account tokens instead; see `/processor/stripe/bank_account_token/create` for creating tokens for use with Stripe integrations.
 
-See full Plaid docs at <https://plaid.com/docs/api/processors/#processortokencreate>*/
+See endpoint docs at <https://plaid.com/docs/api/processors/#processortokencreate>.*/
     pub async fn processor_token_create(
         &self,
         access_token: String,
         account_id: String,
         processor: String,
     ) -> anyhow::Result<ProcessorTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "account_id" : account_id,
-                        "processor" : processor }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/token/create")
+            .json(
+                json!(
+                    { "access_token" : access_token, "account_id" : account_id,
+                    "processor" : processor }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1700,30 +1591,26 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#processortokencre
 
 Used to create a token suitable for sending to Stripe to enable Plaid-Stripe integrations. For a detailed guide on integrating Stripe, see [Add Stripe to your app](https://plaid.com/docs/auth/partnerships/stripe/).
 
-See full Plaid docs at <https://plaid.com/docs/api/processors/#processorstripebank_account_tokencreate>*/
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorstripebank_account_tokencreate>.*/
     pub async fn processor_stripe_bank_account_token_create(
         &self,
         access_token: String,
         account_id: String,
     ) -> anyhow::Result<ProcessorStripeBankAccountTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!({ "access_token" : access_token, "account_id" : account_id }),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/stripe/bank_account_token/create")
+            .json(json!({ "access_token" : access_token, "account_id" : account_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1731,30 +1618,26 @@ See full Plaid docs at <https://plaid.com/docs/api/processors/#processorstripeba
 
 Used to create a token suitable for sending to Apex to enable Plaid-Apex integrations.
 
-See full Plaid docs at <https://plaid.com/docs/none/>*/
+See endpoint docs at <https://plaid.com/docs/none/>.*/
     pub async fn processor_apex_processor_token_create(
         &self,
         access_token: String,
         account_id: String,
     ) -> anyhow::Result<ProcessorTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!({ "access_token" : access_token, "account_id" : account_id }),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/processor/apex/processor_token/create")
+            .json(json!({ "access_token" : access_token, "account_id" : account_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1762,7 +1645,7 @@ See full Plaid docs at <https://plaid.com/docs/none/>*/
 
 This endpoint creates a deposit switch entity that will be persisted throughout the lifecycle of the switch.
 
-See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchcreate>*/
+See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchcreate>.*/
     pub async fn deposit_switch_create(
         &self,
         target_access_token: String,
@@ -1770,28 +1653,26 @@ See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_
         country_code: Option<String>,
         options: serde_json::Value,
     ) -> anyhow::Result<DepositSwitchCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "target_access_token" : target_access_token,
-                        "target_account_id" : target_account_id, "country_code" :
-                        country_code, "options" : options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/deposit_switch/create")
+            .json(
+                json!(
+                    { "target_access_token" : target_access_token, "target_account_id" :
+                    target_account_id, "country_code" : country_code, "options" : options
+                    }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1806,27 +1687,25 @@ Upon creating an Item via `/item/import`, Plaid will automatically begin an extr
         user_auth: serde_json::Value,
         options: serde_json::Value,
     ) -> anyhow::Result<ItemImportResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "products" : products, "user_auth" : user_auth, "options" :
-                        options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/item/import")
+            .json(
+                json!(
+                    { "products" : products, "user_auth" : user_auth, "options" : options
+                    }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1835,27 +1714,25 @@ Upon creating an Item via `/item/import`, Plaid will automatically begin an extr
 In order for the end user to take action, you will need to create a public token representing the deposit switch. This token is used to initialize Link. It can be used one time and expires after 30 minutes.
 
 
-See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchtokencreate>*/
+See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchtokencreate>.*/
     pub async fn deposit_switch_token_create(
         &self,
         deposit_switch_id: String,
     ) -> anyhow::Result<DepositSwitchTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "deposit_switch_id" : deposit_switch_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/deposit_switch/token/create")
+            .json(json!({ "deposit_switch_id" : deposit_switch_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1865,7 +1742,7 @@ The `/link/token/create` endpoint creates a `link_token`, which is required as a
 
 A `link_token` generated by `/link/token/create` is also used to initialize other Link flows, such as the update mode flow for tokens with expired credentials, or the Payment Initiation (Europe) flow.
 
-See full Plaid docs at <https://plaid.com/docs/api/tokens/#linktokencreate>*/
+See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
     pub async fn link_token_create(
         &self,
         client_name: String,
@@ -1888,35 +1765,33 @@ See full Plaid docs at <https://plaid.com/docs/api/tokens/#linktokencreate>*/
         transfer: serde_json::Value,
         update: serde_json::Value,
     ) -> anyhow::Result<LinkTokenCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "client_name" : client_name, "language" : language,
-                        "country_codes" : country_codes, "user" : user, "products" :
-                        products, "webhook" : webhook, "access_token" : access_token,
-                        "link_customization_name" : link_customization_name,
-                        "redirect_uri" : redirect_uri, "android_package_name" :
-                        android_package_name, "account_filters" : account_filters,
-                        "eu_config" : eu_config, "institution_id" : institution_id,
-                        "payment_initiation" : payment_initiation, "deposit_switch" :
-                        deposit_switch, "income_verification" : income_verification,
-                        "auth" : auth, "transfer" : transfer, "update" : update }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/link/token/create")
+            .json(
+                json!(
+                    { "client_name" : client_name, "language" : language, "country_codes"
+                    : country_codes, "user" : user, "products" : products, "webhook" :
+                    webhook, "access_token" : access_token, "link_customization_name" :
+                    link_customization_name, "redirect_uri" : redirect_uri,
+                    "android_package_name" : android_package_name, "account_filters" :
+                    account_filters, "eu_config" : eu_config, "institution_id" :
+                    institution_id, "payment_initiation" : payment_initiation,
+                    "deposit_switch" : deposit_switch, "income_verification" :
+                    income_verification, "auth" : auth, "transfer" : transfer, "update" :
+                    update }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1925,27 +1800,25 @@ See full Plaid docs at <https://plaid.com/docs/api/tokens/#linktokencreate>*/
 The `/link/token/get` endpoint gets information about a previously-created `link_token` using the
 `/link/token/create` endpoint. It can be useful for debugging purposes.
 
-See full Plaid docs at <https://plaid.com/docs/api/tokens/#linktokenget>*/
+See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokenget>.*/
     pub async fn link_token_get(
         &self,
         link_token: String,
     ) -> anyhow::Result<LinkTokenGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "link_token" : link_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/link/token/get")
+            .json(json!({ "link_token" : link_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1953,27 +1826,25 @@ See full Plaid docs at <https://plaid.com/docs/api/tokens/#linktokenget>*/
 
 `/asset_report/audit_copy/get` allows auditors to get a copy of an Asset Report that was previously shared via the `/asset_report/audit_copy/create` endpoint.  The caller of `/asset_report/audit_copy/create` must provide the `audit_copy_token` to the auditor.  This token can then be used to call `/asset_report/audit_copy/create`.
 
-See full Plaid docs at <https://plaid.com/docs/none/>*/
+See endpoint docs at <https://plaid.com/docs/none/>.*/
     pub async fn asset_report_audit_copy_get(
         &self,
         audit_copy_token: String,
     ) -> anyhow::Result<AssetReportGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "audit_copy_token" : audit_copy_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/asset_report/audit_copy/get")
+            .json(json!({ "audit_copy_token" : audit_copy_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -1981,27 +1852,25 @@ See full Plaid docs at <https://plaid.com/docs/none/>*/
 
 This endpoint returns information related to how the user has configured their payroll allocation and the state of the switch. You can use this information to build logic related to the user's direct deposit allocation preferences.
 
-See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchget>*/
+See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchget>.*/
     pub async fn deposit_switch_get(
         &self,
         deposit_switch_id: String,
     ) -> anyhow::Result<DepositSwitchGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "deposit_switch_id" : deposit_switch_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/deposit_switch/get")
+            .json(json!({ "deposit_switch_id" : deposit_switch_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2009,27 +1878,25 @@ See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_
 
 The `/transfer/get` fetches information about the transfer corresponding to the given `transfer_id`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferget>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferget>.*/
     pub async fn transfer_get(
         &self,
         transfer_id: String,
     ) -> anyhow::Result<TransferGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "transfer_id" : transfer_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/get")
+            .json(json!({ "transfer_id" : transfer_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2037,27 +1904,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferget>*/
 
 The `/bank_transfer/get` fetches information about the bank transfer corresponding to the given `bank_transfer_id`.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferget>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferget>.*/
     pub async fn bank_transfer_get(
         &self,
         bank_transfer_id: String,
     ) -> anyhow::Result<BankTransferGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "bank_transfer_id" : bank_transfer_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/get")
+            .json(json!({ "bank_transfer_id" : bank_transfer_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2079,7 +1944,7 @@ In Plaid's sandbox environment the decisions will be returned as follows:
 
 All username/password combinations other than the ones listed above will result in a decision of permitted and rationale code `ERROR`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferauthorizationcreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferauthorizationcreate>.*/
     pub async fn transfer_authorization_create(
         &self,
         access_token: String,
@@ -2093,30 +1958,27 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferauthorizatio
         origination_account_id: String,
         iso_currency_code: String,
     ) -> anyhow::Result<TransferAuthorizationCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "account_id" : account_id,
-                        "type" : type_, "network" : network, "amount" : amount,
-                        "ach_class" : ach_class, "user" : user, "device" : device,
-                        "origination_account_id" : origination_account_id,
-                        "iso_currency_code" : iso_currency_code }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/authorization/create")
+            .json(
+                json!(
+                    { "access_token" : access_token, "account_id" : account_id, "type" :
+                    type_, "network" : network, "amount" : amount, "ach_class" :
+                    ach_class, "user" : user, "device" : device, "origination_account_id"
+                    : origination_account_id, "iso_currency_code" : iso_currency_code }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2124,7 +1986,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferauthorizatio
 
 Use the `/transfer/create` endpoint to initiate a new transfer.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transfercreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transfercreate>.*/
     pub async fn transfer_create(
         &self,
         idempotency_key: String,
@@ -2141,31 +2003,29 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfercreate>*/
         origination_account_id: Option<String>,
         iso_currency_code: String,
     ) -> anyhow::Result<TransferCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "idempotency_key" : idempotency_key, "access_token" :
-                        access_token, "account_id" : account_id, "authorization_id" :
-                        authorization_id, "type" : type_, "network" : network, "amount" :
-                        amount, "description" : description, "ach_class" : ach_class,
-                        "user" : user, "metadata" : metadata, "origination_account_id" :
-                        origination_account_id, "iso_currency_code" : iso_currency_code }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/create")
+            .json(
+                json!(
+                    { "idempotency_key" : idempotency_key, "access_token" : access_token,
+                    "account_id" : account_id, "authorization_id" : authorization_id,
+                    "type" : type_, "network" : network, "amount" : amount, "description"
+                    : description, "ach_class" : ach_class, "user" : user, "metadata" :
+                    metadata, "origination_account_id" : origination_account_id,
+                    "iso_currency_code" : iso_currency_code }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2173,7 +2033,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfercreate>*/
 
 Use the `/bank_transfer/create` endpoint to initiate a new bank transfer.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfercreate>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfercreate>.*/
     pub async fn bank_transfer_create(
         &self,
         idempotency_key: String,
@@ -2190,31 +2050,29 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
         metadata: Option<serde_json::Value>,
         origination_account_id: Option<String>,
     ) -> anyhow::Result<BankTransferCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "idempotency_key" : idempotency_key, "access_token" :
-                        access_token, "account_id" : account_id, "type" : type_,
-                        "network" : network, "amount" : amount, "iso_currency_code" :
-                        iso_currency_code, "description" : description, "ach_class" :
-                        ach_class, "user" : user, "custom_tag" : custom_tag, "metadata" :
-                        metadata, "origination_account_id" : origination_account_id }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/create")
+            .json(
+                json!(
+                    { "idempotency_key" : idempotency_key, "access_token" : access_token,
+                    "account_id" : account_id, "type" : type_, "network" : network,
+                    "amount" : amount, "iso_currency_code" : iso_currency_code,
+                    "description" : description, "ach_class" : ach_class, "user" : user,
+                    "custom_tag" : custom_tag, "metadata" : metadata,
+                    "origination_account_id" : origination_account_id }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2223,7 +2081,7 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 Use the `/transfer/list` endpoint to see a list of all your transfers and their statuses. Results are paginated; use the `count` and `offset` query parameters to retrieve the desired transfers.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferlist>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferlist>.*/
     pub async fn transfer_list(
         &self,
         start_date: Option<String>,
@@ -2232,28 +2090,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferlist>*/
         offset: i64,
         origination_account_id: Option<String>,
     ) -> anyhow::Result<TransferListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "start_date" : start_date, "end_date" : end_date, "count" :
-                        count, "offset" : offset, "origination_account_id" :
-                        origination_account_id }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/list")
+            .json(
+                json!(
+                    { "start_date" : start_date, "end_date" : end_date, "count" : count,
+                    "offset" : offset, "origination_account_id" : origination_account_id
+                    }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2262,7 +2118,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferlist>*/
 Use the `/bank_transfer/list` endpoint to see a list of all your bank transfers and their statuses. Results are paginated; use the `count` and `offset` query parameters to retrieve the desired bank transfers.
 
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferlist>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferlist>.*/
     pub async fn bank_transfer_list(
         &self,
         start_date: Option<String>,
@@ -2272,28 +2128,26 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
         origination_account_id: Option<String>,
         direction: Option<String>,
     ) -> anyhow::Result<BankTransferListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "start_date" : start_date, "end_date" : end_date, "count" :
-                        count, "offset" : offset, "origination_account_id" :
-                        origination_account_id, "direction" : direction }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/list")
+            .json(
+                json!(
+                    { "start_date" : start_date, "end_date" : end_date, "count" : count,
+                    "offset" : offset, "origination_account_id" : origination_account_id,
+                    "direction" : direction }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2301,27 +2155,25 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 
 Use the `/transfer/cancel` endpoint to cancel a transfer.  A transfer is eligible for cancelation if the `cancellable` property returned by `/transfer/get` is `true`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transfercancel>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transfercancel>.*/
     pub async fn transfer_cancel(
         &self,
         transfer_id: String,
     ) -> anyhow::Result<TransferCancelResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "transfer_id" : transfer_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/cancel")
+            .json(json!({ "transfer_id" : transfer_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2329,27 +2181,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfercancel>*/
 
 Use the `/bank_transfer/cancel` endpoint to cancel a bank transfer.  A transfer is eligible for cancelation if the `cancellable` property returned by `/bank_transfer/get` is `true`.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfercancel>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfercancel>.*/
     pub async fn bank_transfer_cancel(
         &self,
         bank_transfer_id: String,
     ) -> anyhow::Result<BankTransferCancelResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "bank_transfer_id" : bank_transfer_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/cancel")
+            .json(json!({ "bank_transfer_id" : bank_transfer_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2357,7 +2207,7 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 
 Use the `/transfer/event/list` endpoint to get a list of transfer events based on specified filter criteria.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transfereventlist>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transfereventlist>.*/
     pub async fn transfer_event_list(
         &self,
         start_date: Option<String>,
@@ -2371,30 +2221,28 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfereventlist>*/
         offset: Option<i64>,
         origination_account_id: Option<String>,
     ) -> anyhow::Result<TransferEventListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "start_date" : start_date, "end_date" : end_date, "transfer_id"
-                        : transfer_id, "account_id" : account_id, "transfer_type" :
-                        transfer_type, "event_types" : event_types, "sweep_id" :
-                        sweep_id, "count" : count, "offset" : offset,
-                        "origination_account_id" : origination_account_id }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/event/list")
+            .json(
+                json!(
+                    { "start_date" : start_date, "end_date" : end_date, "transfer_id" :
+                    transfer_id, "account_id" : account_id, "transfer_type" :
+                    transfer_type, "event_types" : event_types, "sweep_id" : sweep_id,
+                    "count" : count, "offset" : offset, "origination_account_id" :
+                    origination_account_id }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2402,7 +2250,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfereventlist>*/
 
 Use the `/bank_transfer/event/list` endpoint to get a list of bank transfer events based on specified filter criteria.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventlist>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventlist>.*/
     pub async fn bank_transfer_event_list(
         &self,
         start_date: Option<String>,
@@ -2416,31 +2264,29 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
         origination_account_id: Option<String>,
         direction: Option<String>,
     ) -> anyhow::Result<BankTransferEventListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "start_date" : start_date, "end_date" : end_date,
-                        "bank_transfer_id" : bank_transfer_id, "account_id" : account_id,
-                        "bank_transfer_type" : bank_transfer_type, "event_types" :
-                        event_types, "count" : count, "offset" : offset,
-                        "origination_account_id" : origination_account_id, "direction" :
-                        direction }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/event/list")
+            .json(
+                json!(
+                    { "start_date" : start_date, "end_date" : end_date,
+                    "bank_transfer_id" : bank_transfer_id, "account_id" : account_id,
+                    "bank_transfer_type" : bank_transfer_type, "event_types" :
+                    event_types, "count" : count, "offset" : offset,
+                    "origination_account_id" : origination_account_id, "direction" :
+                    direction }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2448,28 +2294,26 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 
 `/transfer/event/sync` allows you to request up to the next 25 transfer events that happened after a specific `event_id`. Use the `/transfer/event/sync` endpoint to guarantee you have seen all transfer events.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transfereventsync>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transfereventsync>.*/
     pub async fn transfer_event_sync(
         &self,
         after_id: i64,
         count: Option<i64>,
     ) -> anyhow::Result<TransferEventSyncResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "after_id" : after_id, "count" : count }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/event/sync")
+            .json(json!({ "after_id" : after_id, "count" : count }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2477,28 +2321,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfereventsync>*/
 
 `/bank_transfer/event/sync` allows you to request up to the next 25 bank transfer events that happened after a specific `event_id`. Use the `/bank_transfer/event/sync` endpoint to guarantee you have seen all bank transfer events.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventsync>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventsync>.*/
     pub async fn bank_transfer_event_sync(
         &self,
         after_id: i64,
         count: Option<i64>,
     ) -> anyhow::Result<BankTransferEventSyncResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "after_id" : after_id, "count" : count }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/event/sync")
+            .json(json!({ "after_id" : after_id, "count" : count }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2506,27 +2348,25 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 
 The `/transfer/sweep/get` endpoint fetches a sweep corresponding to the given `sweep_id`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transfersweepget>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transfersweepget>.*/
     pub async fn transfer_sweep_get(
         &self,
         sweep_id: String,
     ) -> anyhow::Result<TransferSweepGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "sweep_id" : sweep_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/sweep/get")
+            .json(json!({ "sweep_id" : sweep_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2534,27 +2374,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfersweepget>*/
 
 The `/bank_transfer/sweep/get` endpoint fetches information about the sweep corresponding to the given `sweep_id`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#bank_transfersweepget>*/
+See endpoint docs at <https://plaid.com/docs/api/products#bank_transfersweepget>.*/
     pub async fn bank_transfer_sweep_get(
         &self,
         sweep_id: String,
     ) -> anyhow::Result<BankTransferSweepGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "sweep_id" : sweep_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/sweep/get")
+            .json(json!({ "sweep_id" : sweep_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2562,7 +2400,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#bank_transfersweepge
 
 The `/transfer/sweep/list` endpoint fetches sweeps matching the given filters.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transfersweeplist>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transfersweeplist>.*/
     pub async fn transfer_sweep_list(
         &self,
         start_date: Option<String>,
@@ -2570,27 +2408,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfersweeplist>*/
         count: Option<i64>,
         offset: i64,
     ) -> anyhow::Result<TransferSweepListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "start_date" : start_date, "end_date" : end_date, "count" :
-                        count, "offset" : offset }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/sweep/list")
+            .json(
+                json!(
+                    { "start_date" : start_date, "end_date" : end_date, "count" : count,
+                    "offset" : offset }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2598,7 +2434,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transfersweeplist>*/
 
 The `/bank_transfer/sweep/list` endpoint fetches information about the sweeps matching the given filters.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#bank_transfersweeplist>*/
+See endpoint docs at <https://plaid.com/docs/api/products#bank_transfersweeplist>.*/
     pub async fn bank_transfer_sweep_list(
         &self,
         origination_account_id: Option<String>,
@@ -2606,27 +2442,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#bank_transfersweepli
         end_time: Option<String>,
         count: Option<i64>,
     ) -> anyhow::Result<BankTransferSweepListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "origination_account_id" : origination_account_id, "start_time"
-                        : start_time, "end_time" : end_time, "count" : count }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/sweep/list")
+            .json(
+                json!(
+                    { "origination_account_id" : origination_account_id, "start_time" :
+                    start_time, "end_time" : end_time, "count" : count }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2638,27 +2472,25 @@ The transactable balance shows the amount in your account that you are able to u
 
 Note that this endpoint can only be used with FBO accounts, when using Bank Transfers in the Full Service configuration. It cannot be used on your own account when using Bank Transfers in the BTS Platform configuration.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferbalanceget>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferbalanceget>.*/
     pub async fn bank_transfer_balance_get(
         &self,
         origination_account_id: Option<String>,
     ) -> anyhow::Result<BankTransferBalanceGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "origination_account_id" : origination_account_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/balance/get")
+            .json(json!({ "origination_account_id" : origination_account_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2666,34 +2498,32 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 
 As an alternative to adding Items via Link, you can also use the `/bank_transfer/migrate_account` endpoint to migrate known account and routing numbers to Plaid Items.  Note that Items created in this way are not compatible with endpoints for other products, such as `/accounts/balance/get`, and can only be used with Bank Transfer endpoints.  If you require access to other endpoints, create the Item through Link instead.  Access to `/bank_transfer/migrate_account` is not enabled by default; to obtain access, contact your Plaid Account Manager.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfermigrate_account>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfermigrate_account>.*/
     pub async fn bank_transfer_migrate_account(
         &self,
         account_number: String,
         routing_number: String,
         account_type: String,
     ) -> anyhow::Result<BankTransferMigrateAccountResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "account_number" : account_number, "routing_number" :
-                        routing_number, "account_type" : account_type }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/bank_transfer/migrate_account")
+            .json(
+                json!(
+                    { "account_number" : account_number, "routing_number" :
+                    routing_number, "account_type" : account_type }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2701,7 +2531,7 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference#bank_tra
 
 Use the `/transfer/intent/create` endpoint to generate a transfer intent object and invoke the Transfer UI.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferintentcreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferintentcreate>.*/
     pub async fn transfer_intent_create(
         &self,
         account_id: Option<String>,
@@ -2714,29 +2544,27 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferintentcreate
         metadata: Option<serde_json::Value>,
         iso_currency_code: String,
     ) -> anyhow::Result<TransferIntentCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "account_id" : account_id, "mode" : mode, "amount" : amount,
-                        "description" : description, "ach_class" : ach_class,
-                        "origination_account_id" : origination_account_id, "user" : user,
-                        "metadata" : metadata, "iso_currency_code" : iso_currency_code }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/intent/create")
+            .json(
+                json!(
+                    { "account_id" : account_id, "mode" : mode, "amount" : amount,
+                    "description" : description, "ach_class" : ach_class,
+                    "origination_account_id" : origination_account_id, "user" : user,
+                    "metadata" : metadata, "iso_currency_code" : iso_currency_code }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2744,27 +2572,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferintentcreate
 
 Use the `/transfer/intent/get` endpoint to retrieve more information about a transfer intent.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferintentget>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferintentget>.*/
     pub async fn transfer_intent_get(
         &self,
         transfer_intent_id: String,
     ) -> anyhow::Result<TransferIntentGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "transfer_intent_id" : transfer_intent_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/intent/get")
+            .json(json!({ "transfer_intent_id" : transfer_intent_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2772,7 +2598,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferintentget>*/
 
 The `/transfer/repayment/list` endpoint fetches repayments matching the given filters. Repayments are returned in reverse-chronological order (most recent first) starting at the given `start_time`.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferrepaymentlist>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferrepaymentlist>.*/
     pub async fn transfer_repayment_list(
         &self,
         start_date: Option<String>,
@@ -2780,27 +2606,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferrepaymentlis
         count: Option<i64>,
         offset: i64,
     ) -> anyhow::Result<TransferRepaymentListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "start_date" : start_date, "end_date" : end_date, "count" :
-                        count, "offset" : offset }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/repayment/list")
+            .json(
+                json!(
+                    { "start_date" : start_date, "end_date" : end_date, "count" : count,
+                    "offset" : offset }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2808,34 +2632,31 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferrepaymentlis
 
 The `/transfer/repayment/return/list` endpoint retrieves the set of returns that were batched together into the specified repayment. The sum of amounts of returns retrieved by this request equals the amount of the repayment.
 
-See full Plaid docs at <https://plaid.com/docs/api/products#transferrepaymentreturnlist>*/
+See endpoint docs at <https://plaid.com/docs/api/products#transferrepaymentreturnlist>.*/
     pub async fn transfer_repayment_return_list(
         &self,
         repayment_id: String,
         count: Option<i64>,
         offset: i64,
     ) -> anyhow::Result<TransferRepaymentReturnListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "repayment_id" : repayment_id, "count" : count, "offset" :
-                        offset }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/transfer/repayment/return/list")
+            .json(
+                json!(
+                    { "repayment_id" : repayment_id, "count" : count, "offset" : offset }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2843,34 +2664,32 @@ See full Plaid docs at <https://plaid.com/docs/api/products#transferrepaymentret
 
 Use the `/sandbox/bank_transfer/simulate` endpoint to simulate a bank transfer event in the Sandbox environment.  Note that while an event will be simulated and will appear when using endpoints such as `/bank_transfer/event/sync` or `/bank_transfer/event/list`, no transactions will actually take place and funds will not move between accounts, even within the Sandbox.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference/#sandboxbank_transfersimulate>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference/#sandboxbank_transfersimulate>.*/
     pub async fn sandbox_bank_transfer_simulate(
         &self,
         bank_transfer_id: String,
         event_type: String,
         failure_reason: Option<serde_json::Value>,
     ) -> anyhow::Result<SandboxBankTransferSimulateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "bank_transfer_id" : bank_transfer_id, "event_type" :
-                        event_type, "failure_reason" : failure_reason }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/bank_transfer/simulate")
+            .json(
+                json!(
+                    { "bank_transfer_id" : bank_transfer_id, "event_type" : event_type,
+                    "failure_reason" : failure_reason }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2878,26 +2697,24 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference/#sandbox
 
 Use the `/sandbox/transfer/sweep/simulate` endpoint to create a sweep and associated events in the Sandbox environment. Upon calling this endpoint, all `posted` or `pending` transfers with a sweep status of `unswept` will become `swept`, and all `reversed` transfers with a sweep status of `swept` will become `reverse_swept`.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersweepsimulate>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersweepsimulate>.*/
     pub async fn sandbox_transfer_sweep_simulate(
         &self,
     ) -> anyhow::Result<SandboxTransferSweepSimulateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({}))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/transfer/sweep/simulate")
+            .json(json!({}))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2905,34 +2722,32 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersweep
 
 Use the `/sandbox/transfer/simulate` endpoint to simulate a transfer event in the Sandbox environment.  Note that while an event will be simulated and will appear when using endpoints such as `/transfer/event/sync` or `/transfer/event/list`, no transactions will actually take place and funds will not move between accounts, even within the Sandbox.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersimulate>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersimulate>.*/
     pub async fn sandbox_transfer_simulate(
         &self,
         transfer_id: String,
         event_type: String,
         failure_reason: Option<serde_json::Value>,
     ) -> anyhow::Result<SandboxTransferSimulateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "transfer_id" : transfer_id, "event_type" : event_type,
-                        "failure_reason" : failure_reason }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/transfer/simulate")
+            .json(
+                json!(
+                    { "transfer_id" : transfer_id, "event_type" : event_type,
+                    "failure_reason" : failure_reason }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2940,26 +2755,24 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersimul
 
 Use the `/sandbox/transfer/repayment/simulate` endpoint to trigger the creation of a repayment. As a side effect of calling this route, a repayment is created that includes all unreimbursed returns of guaranteed transfers. If there are no such returns, an 400 error is returned.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxtransferrepaymentsimulate>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransferrepaymentsimulate>.*/
     pub async fn sandbox_transfer_repayment_simulate(
         &self,
     ) -> anyhow::Result<SandboxTransferRepaymentSimulateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({}))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/transfer/repayment/simulate")
+            .json(json!({}))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2969,28 +2782,26 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxtransferrepay
 
 The data in the employer database is currently limited. As the Deposit Switch and Income products progress through their respective beta periods, more employers are being regularly added. Because the employer database is frequently updated, we recommend that you do not cache or store data from this endpoint for more than a day.
 
-See full Plaid docs at <https://plaid.com/docs/api/employers/#employerssearch>*/
+See endpoint docs at <https://plaid.com/docs/api/employers/#employerssearch>.*/
     pub async fn employers_search(
         &self,
         query: String,
         products: Vec<String>,
     ) -> anyhow::Result<EmployersSearchResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "query" : query, "products" : products }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/employers/search")
+            .json(json!({ "query" : query, "products" : products }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -2998,34 +2809,32 @@ See full Plaid docs at <https://plaid.com/docs/api/employers/#employerssearch>*/
 
 `/income/verification/create` begins the income verification process by returning an `income_verification_id`. You can then provide the `income_verification_id` to `/link/token/create` under the `income_verification` parameter in order to create a Link instance that will prompt the user to go through the income verification flow. Plaid will fire an `INCOME` webhook once the user completes the Payroll Income flow, or when the uploaded documents in the Document Income flow have finished processing.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationcreate>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#incomeverificationcreate>.*/
     pub async fn income_verification_create(
         &self,
         webhook: String,
         precheck_id: String,
         options: serde_json::Value,
     ) -> anyhow::Result<IncomeVerificationCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "webhook" : webhook, "precheck_id" : precheck_id, "options" :
-                        options }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/create")
+            .json(
+                json!(
+                    { "webhook" : webhook, "precheck_id" : precheck_id, "options" :
+                    options }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3033,33 +2842,31 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationc
 
 `/income/verification/summary/get` returns a verification summary for the income that was verified for an end user. It can be called once the status of the verification has been set to `VERIFICATION_STATUS_PROCESSING_COMPLETE`, as reported by the `INCOME: verification_status` webhook. Attempting to call the endpoint before verification has been completed will result in an error.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationsummaryget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#incomeverificationsummaryget>.*/
     pub async fn income_verification_summary_get(
         &self,
         income_verification_id: Option<String>,
         access_token: Option<String>,
     ) -> anyhow::Result<IncomeVerificationSummaryGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "income_verification_id" : income_verification_id,
-                        "access_token" : access_token }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/summary/get")
+            .json(
+                json!(
+                    { "income_verification_id" : income_verification_id, "access_token" :
+                    access_token }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3071,27 +2878,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverifications
         income_verification_id: Option<String>,
         access_token: Option<String>,
     ) -> anyhow::Result<IncomeVerificationPaystubGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "income_verification_id" : income_verification_id,
-                        "access_token" : access_token }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/paystub/get")
+            .json(
+                json!(
+                    { "income_verification_id" : income_verification_id, "access_token" :
+                    access_token }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3099,33 +2904,31 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverifications
 
 `/income/verification/paystubs/get` returns the information collected from the paystubs that were used to verify an end user's income. It can be called once the status of the verification has been set to `VERIFICATION_STATUS_PROCESSING_COMPLETE`, as reported by the `INCOME: verification_status` webhook. Attempting to call the endpoint before verification has been completed will result in an error.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationpaystubsget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#incomeverificationpaystubsget>.*/
     pub async fn income_verification_paystubs_get(
         &self,
         income_verification_id: Option<String>,
         access_token: Option<String>,
     ) -> anyhow::Result<IncomeVerificationPaystubsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "income_verification_id" : income_verification_id,
-                        "access_token" : access_token }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/paystubs/get")
+            .json(
+                json!(
+                    { "income_verification_id" : income_verification_id, "access_token" :
+                    access_token }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3133,33 +2936,31 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationp
 
 `/income/verification/refresh` refreshes a given income verification.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationrefresh>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#incomeverificationrefresh>.*/
     pub async fn income_verification_refresh(
         &self,
         income_verification_id: Option<String>,
         access_token: Option<String>,
     ) -> anyhow::Result<IncomeVerificationRefreshResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "income_verification_id" : income_verification_id,
-                        "access_token" : access_token }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/refresh")
+            .json(
+                json!(
+                    { "income_verification_id" : income_verification_id, "access_token" :
+                    access_token }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3167,33 +2968,31 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationr
 
 `/income/verification/taxforms/get` returns the information collected from forms that were used to verify an end user's income. It can be called once the status of the verification has been set to `VERIFICATION_STATUS_PROCESSING_COMPLETE`, as reported by the `INCOME: verification_status` webhook. Attempting to call the endpoint before verification has been completed will result in an error.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationtaxformsget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#incomeverificationtaxformsget>.*/
     pub async fn income_verification_taxforms_get(
         &self,
         income_verification_id: Option<String>,
         access_token: Option<String>,
     ) -> anyhow::Result<IncomeVerificationTaxformsGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "income_verification_id" : income_verification_id,
-                        "access_token" : access_token }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/taxforms/get")
+            .json(
+                json!(
+                    { "income_verification_id" : income_verification_id, "access_token" :
+                    access_token }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3203,7 +3002,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationt
 
 While all request fields are optional, providing either `employer` or `transactions_access_tokens` data will increase the chance of receiving a useful result.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationprecheck>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#incomeverificationprecheck>.*/
     pub async fn income_verification_precheck(
         &self,
         user: Option<serde_json::Value>,
@@ -3212,29 +3011,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationp
         transactions_access_tokens: Vec<AccessToken>,
         us_military_info: Option<serde_json::Value>,
     ) -> anyhow::Result<IncomeVerificationPrecheckResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "user" : user, "employer" : employer,
-                        "transactions_access_token" : transactions_access_token,
-                        "transactions_access_tokens" : transactions_access_tokens,
-                        "us_military_info" : us_military_info }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/income/verification/precheck")
+            .json(
+                json!(
+                    { "user" : user, "employer" : employer, "transactions_access_token" :
+                    transactions_access_token, "transactions_access_tokens" :
+                    transactions_access_tokens, "us_military_info" : us_military_info }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3242,27 +3038,25 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#incomeverificationp
 
 `/employment/verification/get` returns a list of employments through a user payroll that was verified by an end user.
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#employmentverificationget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#employmentverificationget>.*/
     pub async fn employment_verification_get(
         &self,
         access_token: String,
     ) -> anyhow::Result<EmploymentVerificationGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "access_token" : access_token }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/employment/verification/get")
+            .json(json!({ "access_token" : access_token }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3270,7 +3064,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#employmentverificat
 
 This endpoint provides an alternative to `/deposit_switch/create` for customers who have not yet fully integrated with Plaid Exchange. Like `/deposit_switch/create`, it creates a deposit switch entity that will be persisted throughout the lifecycle of the switch.
 
-See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchaltcreate>*/
+See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchaltcreate>.*/
     pub async fn deposit_switch_alt_create(
         &self,
         target_account: serde_json::Value,
@@ -3278,27 +3072,25 @@ See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_
         options: serde_json::Value,
         country_code: Option<String>,
     ) -> anyhow::Result<DepositSwitchAltCreateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "target_account" : target_account, "target_user" : target_user,
-                        "options" : options, "country_code" : country_code }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/deposit_switch/alt/create")
+            .json(
+                json!(
+                    { "target_account" : target_account, "target_user" : target_user,
+                    "options" : options, "country_code" : country_code }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3306,27 +3098,25 @@ See full Plaid docs at <https://plaid.com/docs/deposit-switch/reference#deposit_
 
 Use the `/sandbox/bank_transfer/fire_webhook` endpoint to manually trigger a Bank Transfers webhook in the Sandbox environment.
 
-See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference/#sandboxbank_transferfire_webhook>*/
+See endpoint docs at <https://plaid.com/docs/bank-transfers/reference/#sandboxbank_transferfire_webhook>.*/
     pub async fn sandbox_bank_transfer_fire_webhook(
         &self,
         webhook: String,
     ) -> anyhow::Result<SandboxBankTransferFireWebhookResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "webhook" : webhook }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/bank_transfer/fire_webhook")
+            .json(json!({ "webhook" : webhook }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3334,7 +3124,7 @@ See full Plaid docs at <https://plaid.com/docs/bank-transfers/reference/#sandbox
 
 Use the `/sandbox/income/fire_webhook` endpoint to manually trigger an Income webhook in the Sandbox environment.
 
-See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxincomefire_webhook>*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxincomefire_webhook>.*/
     pub async fn sandbox_income_fire_webhook(
         &self,
         income_verification_id: String,
@@ -3342,28 +3132,26 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxincomefire_we
         webhook: String,
         verification_status: String,
     ) -> anyhow::Result<SandboxIncomeFireWebhookResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "income_verification_id" : income_verification_id, "item_id" :
-                        item_id, "webhook" : webhook, "verification_status" :
-                        verification_status }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/income/fire_webhook")
+            .json(
+                json!(
+                    { "income_verification_id" : income_verification_id, "item_id" :
+                    item_id, "webhook" : webhook, "verification_status" :
+                    verification_status }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3373,24 +3161,20 @@ See full Plaid docs at <https://plaid.com/docs/api/sandbox/#sandboxincomefire_we
         oauth_state_id: String,
         accounts: Vec<String>,
     ) -> anyhow::Result<SandboxOauthSelectAccountsResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!({ "oauth_state_id" : oauth_state_id, "accounts" : accounts }),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/sandbox/oauth/select_accounts")
+            .json(json!({ "oauth_state_id" : oauth_state_id, "accounts" : accounts }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3400,7 +3184,7 @@ Use `/signal/evaluate` to evaluate a planned ACH transaction to get a return ris
 
 In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause. If `/signal/evaluate` is called on the same transaction multiple times within a 24-hour period, cached results may be returned.
 
-See full Plaid docs at <https://plaid.com/docs/signal/reference#signalevaluate>*/
+See endpoint docs at <https://plaid.com/docs/signal/reference#signalevaluate>.*/
     pub async fn signal_evaluate(
         &self,
         access_token: String,
@@ -3412,29 +3196,27 @@ See full Plaid docs at <https://plaid.com/docs/signal/reference#signalevaluate>*
         user: serde_json::Value,
         device: serde_json::Value,
     ) -> anyhow::Result<SignalEvaluateResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "access_token" : access_token, "account_id" : account_id,
-                        "client_transaction_id" : client_transaction_id, "amount" :
-                        amount, "user_present" : user_present, "client_user_id" :
-                        client_user_id, "user" : user, "device" : device }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/signal/evaluate")
+            .json(
+                json!(
+                    { "access_token" : access_token, "account_id" : account_id,
+                    "client_transaction_id" : client_transaction_id, "amount" : amount,
+                    "user_present" : user_present, "client_user_id" : client_user_id,
+                    "user" : user, "device" : device }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3442,34 +3224,32 @@ See full Plaid docs at <https://plaid.com/docs/signal/reference#signalevaluate>*
 
 After calling `/signal/evaluate`, call `/signal/decision/report` to report whether the transaction was initiated. This endpoint will return an `INVALID_REQUEST` error if called a second time with a different value for `initiated`.
 
-See full Plaid docs at <https://plaid.com/docs/signal/reference#signaldecisionreport>*/
+See endpoint docs at <https://plaid.com/docs/signal/reference#signaldecisionreport>.*/
     pub async fn signal_decision_report(
         &self,
         client_transaction_id: String,
         initiated: bool,
         days_funds_on_hold: Option<i64>,
     ) -> anyhow::Result<SignalDecisionReportResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "client_transaction_id" : client_transaction_id, "initiated" :
-                        initiated, "days_funds_on_hold" : days_funds_on_hold }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/signal/decision/report")
+            .json(
+                json!(
+                    { "client_transaction_id" : client_transaction_id, "initiated" :
+                    initiated, "days_funds_on_hold" : days_funds_on_hold }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3477,33 +3257,31 @@ See full Plaid docs at <https://plaid.com/docs/signal/reference#signaldecisionre
 
 Call the `/signal/return/report` endpoint to report a returned transaction that was previously sent to the `/signal/evaluate` endpoint. Your feedback will be used by the foo to incorporate the latest risk trend in your portfolio.
 
-See full Plaid docs at <https://plaid.com/docs/signal/reference#signalreturnreport>*/
+See endpoint docs at <https://plaid.com/docs/signal/reference#signalreturnreport>.*/
     pub async fn signal_return_report(
         &self,
         client_transaction_id: String,
         return_code: String,
     ) -> anyhow::Result<SignalReturnReportResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "client_transaction_id" : client_transaction_id, "return_code"
-                        : return_code }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/signal/return/report")
+            .json(
+                json!(
+                    { "client_transaction_id" : client_transaction_id, "return_code" :
+                    return_code }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3512,27 +3290,25 @@ See full Plaid docs at <https://plaid.com/docs/signal/reference#signalreturnrepo
 Fetch an e-wallet. The response includes the current balance.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#walletget>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#walletget>.*/
     pub async fn wallet_get(
         &self,
         wallet_id: String,
     ) -> anyhow::Result<WalletGetResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(json!({ "wallet_id" : wallet_id }))
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/wallet/get")
+            .json(json!({ "wallet_id" : wallet_id }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3541,7 +3317,7 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#walletget>*/
 Execute a transaction using the specified e-wallet. Specify the e-wallet to debit from, the counterparty to credit to, the idempotency key to prevent duplicate payouts, the amount and reference for the payout. The payouts are executed over the Faster Payment rails, where settlement usually only takes a few seconds.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#wallettransactionexecute>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionexecute>.*/
     pub async fn wallet_transaction_execute(
         &self,
         idempotency_key: String,
@@ -3550,28 +3326,26 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#wallettransactionex
         amount: serde_json::Value,
         reference: String,
     ) -> anyhow::Result<WalletTransactionExecuteResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "idempotency_key" : idempotency_key, "wallet_id" : wallet_id,
-                        "counterparty" : counterparty, "amount" : amount, "reference" :
-                        reference }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/wallet/transaction/execute")
+            .json(
+                json!(
+                    { "idempotency_key" : idempotency_key, "wallet_id" : wallet_id,
+                    "counterparty" : counterparty, "amount" : amount, "reference" :
+                    reference }
+                ),
+            )
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
@@ -3580,33 +3354,27 @@ See full Plaid docs at <https://plaid.com/docs/api/products/#wallettransactionex
 This endpoint lists the latest transactions of the specified e-wallet. Transactions are returned in descending order by the `created_at` time.
 
 
-See full Plaid docs at <https://plaid.com/docs/api/products/#wallettransactionslist>*/
+See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionslist>.*/
     pub async fn wallet_transactions_list(
         &self,
         wallet_id: String,
         cursor: String,
         count: i64,
     ) -> anyhow::Result<WalletTransactionsListResponse> {
-        {
-            let res = self
-                .client
-                .post("/item/get")
-                .json(
-                    json!(
-                        { "wallet_id" : wallet_id, "cursor" : cursor, "count" : count }
-                    ),
-                )
-                .authenticate(&self.authentication)
-                .send()
-                .await
-                .unwrap()
-                .error_for_status();
-            match res {
-                Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-                Err(res) => {
-                    let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                    Err(anyhow::anyhow!("{:?}", text))
-                }
+        let res = self
+            .client
+            .post("/wallet/transactions/list")
+            .json(json!({ "wallet_id" : wallet_id, "cursor" : cursor, "count" : count }))
+            .authenticate(&self.authentication)
+            .send()
+            .await
+            .unwrap()
+            .error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
             }
         }
     }
