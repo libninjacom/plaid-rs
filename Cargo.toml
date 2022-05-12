@@ -4,6 +4,9 @@ version = "0.1.4"
 edition = "2021"
 description = "Feature-complete, human, and async Plaid client, generated from Plaid's OpenAPI specification"
 license = "MIT"
+documentation = "https://docs.rs/plaid-openapi"
+homepage = "https://github.com/kurtbuilds/plaid-openapi"
+repository = "https://github.com/kurtbuilds/plaid-openapi"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
