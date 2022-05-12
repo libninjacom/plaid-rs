@@ -1,3 +1,24 @@
+<div id="top"></div>
+
+<p align="center">
+<a href="https://github.com/kurtbuilds/plaid-openapi/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/kurtbuilds/plaid-openapi.svg?style=flat-square" alt="GitHub Contributors" />
+</a>
+<a href="https://github.com/kurtbuilds/plaid-openapi/stargazers">
+    <img src="https://img.shields.io/github/stars/kurtbuilds/plaid-openapi.svg?style=flat-square" alt="Stars" />
+</a>
+<a href="https://github.com/kurtbuilds/plaid-openapi/actions">
+    <img src="https://img.shields.io/github/workflow/status/kurtbuilds/plaid-openapi/test?style=flat-square" alt="Build Status" />
+</a>
+<a href="https://crates.io/crates/plaid-openapi">
+    <img src="https://img.shields.io/crates/d/plaid-openapi?style=flat-square" alt="Downloads" />
+</a>
+<a href="https://crates.io/crates/plaid-openapi">
+    <img src="https://img.shields.io/crates/v/plaid-openapi?style=flat-square" alt="Crates.io" />
+</a>
+
+</p>
+
 # `plaid-openapi`
 
 ```rust
@@ -14,7 +35,7 @@ async fn main() {
 }
 ```
 
-`plaid-openapi` is a feature-complete, human, async client library for the Plaid API, generated from Plaid's OpenAPI spec using [`openapi-client-generator`](https://github.com/kurtbuilds/openapi-client-generator).
+`plaid-openapi` is a feature-complete, human, async client library for the Plaid API, generated from Plaid's OpenAPI spec using [`plaid-openapi`](https://github.com/kurtbuilds/plaid-openapi).
 
 # Contributing
 
