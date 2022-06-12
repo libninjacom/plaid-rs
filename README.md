@@ -19,8 +19,6 @@
 
 </p>
 
-# `plaid-openapi`
-
 ```rust
 use plaid_openapi::PlaidClient;
 
@@ -35,7 +33,9 @@ async fn main() {
 }
 ```
 
-`plaid-openapi` is a feature-complete, human, async client library for the Plaid API, generated from Plaid's OpenAPI spec using [`plaid-openapi`](https://github.com/kurtbuilds/plaid-openapi).
+`plaid-openapi` is a complete, easy-to-use, async client library for the Plaid API, generated from Plaid's OpenAPI spec using [`plaid-openapi`](https://github.com/kurtbuilds/plaid-openapi).
+
+# [Documentation](https://docs.rs/plaid-openapi/latest/plaid_openapi/)
 
 # Contributing
 
