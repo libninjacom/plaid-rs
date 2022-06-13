@@ -5,7 +5,7 @@
       "url": "https://sandbox.plaid.com/item/get",
       "headers": {
         "content-type": "application/json",
-        "user-agent": "httpclient/0.1.14"
+        "user-agent": "httpclient/0.1.17"
       },
       "data": {
         "access_token": "access-sandbox-b4957595-eae2-4130-9da7-114d14726a62",

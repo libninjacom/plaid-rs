@@ -1804,8 +1804,6 @@ pub enum AccountSubtype {
     Sarsep,
     #[serde(rename = "payroll")]
     Payroll,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersAch {
@@ -2120,8 +2118,6 @@ pub enum TransactionCode {
     StandingOrder,
     #[serde(rename = "transfer")]
     Transfer,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Category {
@@ -2572,8 +2568,6 @@ pub enum PaymentScheduleInterval {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentScheme {
-    #[serde(rename = "")]
-    Unknown,
     #[serde(rename = "FASTER_PAYMENTS")]
     FasterPayments,
     #[serde(rename = "SEPA_CREDIT_TRANSFER")]
@@ -3916,8 +3910,6 @@ pub enum TransferAuthorizationGuaranteeDecision {
     Guaranteed,
     #[serde(rename = "NOT_GUARANTEED")]
     NotGuaranteed,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferAuthorizationGuaranteeDecisionRationale {
@@ -4024,8 +4016,6 @@ pub enum TransferStatus {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferSweepStatus {
-    #[serde(rename = "")]
-    Unknown,
     #[serde(rename = "unswept")]
     Unswept,
     #[serde(rename = "swept")]
@@ -4361,8 +4351,6 @@ pub enum BankTransferDirection {
     Outbound,
     #[serde(rename = "inbound")]
     Inbound,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferCancelRequest {
@@ -5460,8 +5448,6 @@ pub enum PayFrequencyValue {
     Biweekly,
     #[serde(rename = "unknown")]
     Unknown,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum VerificationStatus {
@@ -5675,8 +5661,6 @@ pub enum TotalCanonicalDescription {
     NotFound,
     #[serde(rename = "OTHER")]
     Other,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Pay {
@@ -5734,8 +5718,6 @@ pub enum EarningsBreakdownCanonicalDescription {
     BasicAllowanceSubsistence,
     #[serde(rename = "OTHER")]
     Other,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EarningsTotal {
@@ -5803,8 +5785,6 @@ pub enum PaystubPayFrequency {
     Weekly,
     #[serde(rename = "SEMI-MONTHLY")]
     SemiMonthly,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeBreakdown {
@@ -5829,8 +5809,6 @@ pub enum IncomeBreakdownType {
     Overtime,
     #[serde(rename = "regular")]
     Regular,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Employee {
@@ -5951,8 +5929,6 @@ pub enum PaystubVerificationStatus {
     PaystubVerificationStatusVerified,
     #[serde(rename = "PAYSTUB_VERIFICATION_STATUS_FRAUDULENT")]
     PaystubVerificationStatusFraudulent,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct VerificationAttribute {
@@ -6099,8 +6075,6 @@ pub enum EmploymentVerificationStatus {
     EmploymentStatusActive,
     #[serde(rename = "EMPLOYMENT_STATUS_INACTIVE")]
     EmploymentStatusInactive,
-    #[serde(rename = "")]
-    Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmployerVerification {
