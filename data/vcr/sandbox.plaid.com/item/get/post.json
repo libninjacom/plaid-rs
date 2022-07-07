@@ -1,0 +1,69 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "url": "https://sandbox.plaid.com/item/get",
+      "headers": {
+        "content-type": "application/json",
+        "user-agent": "httpclient/0.1.17"
+      },
+      "data": {
+        "access_token": "access-sandbox-b4957595-eae2-4130-9da7-114d14726a62",
+        "client_id": "590c94144e95b84d2545e72e",
+        "secret": "<SECRET>"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "connection": "keep-alive",
+        "content-length": "877",
+        "content-type": "application/json; charset=utf-8",
+        "date": "Wed, 11 May 2022 17:07:50 GMT",
+        "plaid-version": "2017-03-08",
+        "server": "nginx",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "x-xss-protection": "1; mode=block"
+      },
+      "data": {
+        "item": {
+          "available_products": [
+            "assets",
+            "auth",
+            "balance",
+            "identity",
+            "income",
+            "investments",
+            "liabilities"
+          ],
+          "billed_products": [
+            "transactions"
+          ],
+          "consent_expiration_time": null,
+          "error": null,
+          "institution_id": "ins_3",
+          "item_id": "VQBaNJJGgecBpAkvb9RmHbZDDK4orbfW1nemM",
+          "optional_products": null,
+          "products": [
+            "transactions"
+          ],
+          "update_type": "background",
+          "webhook": "https://p6mw18-30jxt3-gi8lt4-g3m2bz.replicator.so/api/plaid/webhook"
+        },
+        "request_id": "rObj0beviaMU3QI",
+        "status": {
+          "last_webhook": {
+            "code_sent": "HISTORICAL_UPDATE",
+            "sent_at": "2022-05-09T15:53:38.558Z"
+          },
+          "transactions": {
+            "last_failed_update": "2022-05-09T15:53:18.461Z",
+            "last_successful_update": "2022-05-11T15:09:41.161Z"
+          }
+        }
+      }
+    }
+  }
+]
