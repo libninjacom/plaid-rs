@@ -1,5 +1,5 @@
-use plaid_openapi::model::TransactionsGetRequestOptions;
-use plaid_openapi::PlaidClient;
+use plaid::model::TransactionsGetRequestOptions;
+use plaid::PlaidClient;
 
 #[tokio::main]
 async fn main() {

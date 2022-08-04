@@ -22,7 +22,7 @@
 
 # Usage
 ```rust
-use plaid_openapi::PlaidClient;
+use plaid::PlaidClient;
 
 #[tokio::main]
 async fn main() {
