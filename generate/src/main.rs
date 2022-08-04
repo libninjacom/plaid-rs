@@ -1,5 +1,7 @@
-use openapi_client_generator::{generate_library, GenerateLibrary, OpenAPI, read_spec};
+use openapi_client_generator::{OpenAPI, read_spec, GenerateLibraryOptions};
+use openapi_client_generator::generate_library;
 use openapi_client_generator::openapiv3::{ReferenceOr, Schema, SchemaKind, Type};
+use openapi_client_generator::sourcegen::SourceGen;
 
 
 fn get_component_name(reference: &str) -> Option<&str> {
@@ -60,10 +62,16 @@ fn main() {
 
     modify_spec(&mut spec);
 
-    generate_library(spec, GenerateLibrary {
-        name: "Plaid".to_string(),
-        dest_path: "src".into(),
-        lib_rs_path: Some("template/lib.rs".into()),
-        model_rs_path: Some("template/model.rs".into()),
+    generate_library(spec, GenerateLibraryOptions {
+        package_name: "plaid-openapi".to_string(),
+        service_name: "Plaid".to_string(),
+        qualified_github_repo: "libninjacom/plaid-rs".to_string(),
+        dest_path: "..".into(),
+        lib_rs_path: Some("template/src/lib.rs".into()),
+        model_rs_path: Some("template/src/model.rs".into()),
+        package_version: "1.0.0".to_string(),
+        generator: SourceGen::Rust
     }).unwrap();
+
+    std::fs::copy("template/Justfile", "../Justfile").unwrap();
 }

@@ -784,31 +784,18 @@ pub struct PaymentInitiationPaymentGetRequest {
 pub struct PaymentInitiationPaymentGetResponse(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentInitiationPaymentStatus {
-    #[serde(rename = "PAYMENT_STATUS_INPUT_NEEDED")]
     PaymentStatusInputNeeded,
-    #[serde(rename = "PAYMENT_STATUS_PROCESSING")]
     PaymentStatusProcessing,
-    #[serde(rename = "PAYMENT_STATUS_INITIATED")]
     PaymentStatusInitiated,
-    #[serde(rename = "PAYMENT_STATUS_COMPLETED")]
     PaymentStatusCompleted,
-    #[serde(rename = "PAYMENT_STATUS_INSUFFICIENT_FUNDS")]
     PaymentStatusInsufficientFunds,
-    #[serde(rename = "PAYMENT_STATUS_FAILED")]
     PaymentStatusFailed,
-    #[serde(rename = "PAYMENT_STATUS_BLOCKED")]
     PaymentStatusBlocked,
-    #[serde(rename = "PAYMENT_STATUS_UNKNOWN")]
     PaymentStatusUnknown,
-    #[serde(rename = "PAYMENT_STATUS_EXECUTED")]
     PaymentStatusExecuted,
-    #[serde(rename = "PAYMENT_STATUS_AUTHORISING")]
     PaymentStatusAuthorising,
-    #[serde(rename = "PAYMENT_STATUS_CANCELLED")]
     PaymentStatusCancelled,
-    #[serde(rename = "PAYMENT_STATUS_ESTABLISHED")]
     PaymentStatusEstablished,
-    #[serde(rename = "PAYMENT_STATUS_REJECTED")]
     PaymentStatusRejected,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1536,32 +1523,20 @@ pub struct ItemStatus {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum AccountType {
-    #[serde(rename = "investment")]
     Investment,
-    #[serde(rename = "credit")]
     Credit,
-    #[serde(rename = "depository")]
     Depository,
-    #[serde(rename = "loan")]
     Loan,
-    #[serde(rename = "brokerage")]
     Brokerage,
-    #[serde(rename = "other")]
     Other,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum OverrideAccountType {
-    #[serde(rename = "investment")]
     Investment,
-    #[serde(rename = "credit")]
     Credit,
-    #[serde(rename = "depository")]
     Depository,
-    #[serde(rename = "loan")]
     Loan,
-    #[serde(rename = "payroll")]
     Payroll,
-    #[serde(rename = "other")]
     Other,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1672,137 +1647,72 @@ pub enum AccountSubtype {
     AccountSubtype457B,
     #[serde(rename = "529")]
     AccountSubtype529,
-    #[serde(rename = "brokerage")]
     Brokerage,
-    #[serde(rename = "cash isa")]
     CashIsa,
-    #[serde(rename = "education savings account")]
     EducationSavingsAccount,
-    #[serde(rename = "ebt")]
     Ebt,
-    #[serde(rename = "fixed annuity")]
     FixedAnnuity,
-    #[serde(rename = "gic")]
     Gic,
-    #[serde(rename = "health reimbursement arrangement")]
     HealthReimbursementArrangement,
-    #[serde(rename = "hsa")]
     Hsa,
-    #[serde(rename = "isa")]
     Isa,
-    #[serde(rename = "ira")]
     Ira,
-    #[serde(rename = "lif")]
     Lif,
-    #[serde(rename = "life insurance")]
     LifeInsurance,
-    #[serde(rename = "lira")]
     Lira,
-    #[serde(rename = "lrif")]
     Lrif,
-    #[serde(rename = "lrsp")]
     Lrsp,
     #[serde(rename = "non-taxable brokerage account")]
     NonTaxableBrokerageAccount,
-    #[serde(rename = "other")]
     Other,
-    #[serde(rename = "other insurance")]
     OtherInsurance,
-    #[serde(rename = "other annuity")]
     OtherAnnuity,
-    #[serde(rename = "prif")]
     Prif,
-    #[serde(rename = "rdsp")]
     Rdsp,
-    #[serde(rename = "resp")]
     Resp,
-    #[serde(rename = "rlif")]
     Rlif,
-    #[serde(rename = "rrif")]
     Rrif,
-    #[serde(rename = "pension")]
     Pension,
-    #[serde(rename = "profit sharing plan")]
     ProfitSharingPlan,
-    #[serde(rename = "retirement")]
     Retirement,
-    #[serde(rename = "roth")]
     Roth,
-    #[serde(rename = "roth 401k")]
     Roth401K,
-    #[serde(rename = "rrsp")]
     Rrsp,
-    #[serde(rename = "sep ira")]
     SepIra,
-    #[serde(rename = "simple ira")]
     SimpleIra,
-    #[serde(rename = "sipp")]
     Sipp,
-    #[serde(rename = "stock plan")]
     StockPlan,
-    #[serde(rename = "thrift savings plan")]
     ThriftSavingsPlan,
-    #[serde(rename = "tfsa")]
     Tfsa,
-    #[serde(rename = "trust")]
     Trust,
-    #[serde(rename = "ugma")]
     Ugma,
-    #[serde(rename = "utma")]
     Utma,
-    #[serde(rename = "variable annuity")]
     VariableAnnuity,
-    #[serde(rename = "credit card")]
     CreditCard,
-    #[serde(rename = "paypal")]
     Paypal,
-    #[serde(rename = "cd")]
     Cd,
-    #[serde(rename = "checking")]
     Checking,
-    #[serde(rename = "savings")]
     Savings,
-    #[serde(rename = "money market")]
     MoneyMarket,
-    #[serde(rename = "prepaid")]
     Prepaid,
-    #[serde(rename = "auto")]
     Auto,
-    #[serde(rename = "business")]
     Business,
-    #[serde(rename = "commercial")]
     Commercial,
-    #[serde(rename = "construction")]
     Construction,
-    #[serde(rename = "consumer")]
     Consumer,
-    #[serde(rename = "home equity")]
     HomeEquity,
-    #[serde(rename = "loan")]
     Loan,
-    #[serde(rename = "mortgage")]
     Mortgage,
-    #[serde(rename = "overdraft")]
     Overdraft,
-    #[serde(rename = "line of credit")]
     LineOfCredit,
-    #[serde(rename = "student")]
     Student,
-    #[serde(rename = "cash management")]
     CashManagement,
-    #[serde(rename = "keogh")]
     Keogh,
-    #[serde(rename = "mutual fund")]
     MutualFund,
-    #[serde(rename = "recurring")]
     Recurring,
-    #[serde(rename = "rewards")]
     Rewards,
-    #[serde(rename = "safe deposit")]
     SafeDeposit,
-    #[serde(rename = "sarsep")]
     Sarsep,
-    #[serde(rename = "payroll")]
     Payroll,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1992,15 +1902,10 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum RecurringTransactionFrequency {
-    #[serde(rename = "UNKNOWN")]
     Unknown,
-    #[serde(rename = "WEEKLY")]
     Weekly,
-    #[serde(rename = "BIWEEKLY")]
     Biweekly,
-    #[serde(rename = "SEMI_MONTHLY")]
     SemiMonthly,
-    #[serde(rename = "MONTHLY")]
     Monthly,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2056,21 +1961,13 @@ pub struct InstitutionStatus {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum CountryCode {
-    #[serde(rename = "US")]
     Us,
-    #[serde(rename = "GB")]
     Gb,
-    #[serde(rename = "ES")]
     Es,
-    #[serde(rename = "NL")]
     Nl,
-    #[serde(rename = "FR")]
     Fr,
-    #[serde(rename = "IE")]
     Ie,
-    #[serde(rename = "CA")]
     Ca,
-    #[serde(rename = "DE")]
     De,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2094,29 +1991,17 @@ pub struct PaymentMeta {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransactionCode {
-    #[serde(rename = "adjustment")]
     Adjustment,
-    #[serde(rename = "atm")]
     Atm,
-    #[serde(rename = "bank charge")]
     BankCharge,
-    #[serde(rename = "bill payment")]
     BillPayment,
-    #[serde(rename = "cash")]
     Cash,
-    #[serde(rename = "cashback")]
     Cashback,
-    #[serde(rename = "cheque")]
     Cheque,
-    #[serde(rename = "direct debit")]
     DirectDebit,
-    #[serde(rename = "interest")]
     Interest,
-    #[serde(rename = "purchase")]
     Purchase,
-    #[serde(rename = "standing order")]
     StandingOrder,
-    #[serde(rename = "transfer")]
     Transfer,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2561,18 +2446,13 @@ If the only `interval_execution_day` between the start date and the end date (in
 pub struct ExternalPaymentScheduleRequest(pub serde_json::Value);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentScheduleInterval {
-    #[serde(rename = "WEEKLY")]
     Weekly,
-    #[serde(rename = "MONTHLY")]
     Monthly,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentScheme {
-    #[serde(rename = "FASTER_PAYMENTS")]
     FasterPayments,
-    #[serde(rename = "SEPA_CREDIT_TRANSFER")]
     SepaCreditTransfer,
-    #[serde(rename = "SEPA_CREDIT_TRANSFER_INSTANT")]
     SepaCreditTransferInstant,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2607,35 +2487,20 @@ pub struct ExternalPaymentRefundDetails {
 pub struct ExternalPaymentScheduleGet(pub Option<serde_json::Value>);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Products {
-    #[serde(rename = "assets")]
     Assets,
-    #[serde(rename = "auth")]
     Auth,
-    #[serde(rename = "balance")]
     Balance,
-    #[serde(rename = "identity")]
     Identity,
-    #[serde(rename = "investments")]
     Investments,
-    #[serde(rename = "liabilities")]
     Liabilities,
-    #[serde(rename = "payment_initiation")]
     PaymentInitiation,
-    #[serde(rename = "transactions")]
     Transactions,
-    #[serde(rename = "credit_details")]
     CreditDetails,
-    #[serde(rename = "income")]
     Income,
-    #[serde(rename = "income_verification")]
     IncomeVerification,
-    #[serde(rename = "deposit_switch")]
     DepositSwitch,
-    #[serde(rename = "standing_orders")]
     StandingOrders,
-    #[serde(rename = "transfer")]
     Transfer,
-    #[serde(rename = "employment")]
     Employment,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3485,7 +3350,7 @@ pub struct StandaloneInvestmentTransactionSellType(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StandaloneInvestmentTransactionTransferType(pub String);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AccountSubtypes(pub Vec<AccountSubtype>);
+pub struct AccountSubtypes(pub Vec<Option<AccountSubtype>>);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserPermissionRevokedWebhook {
     ///`ITEM`
@@ -3771,35 +3636,20 @@ pub struct BankTransfer {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum AchClass {
-    #[serde(rename = "arc")]
     Arc,
-    #[serde(rename = "cbr")]
     Cbr,
-    #[serde(rename = "ccd")]
     Ccd,
-    #[serde(rename = "cie")]
     Cie,
-    #[serde(rename = "cor")]
     Cor,
-    #[serde(rename = "ctx")]
     Ctx,
-    #[serde(rename = "iat")]
     Iat,
-    #[serde(rename = "mte")]
     Mte,
-    #[serde(rename = "pbr")]
     Pbr,
-    #[serde(rename = "pop")]
     Pop,
-    #[serde(rename = "pos")]
     Pos,
-    #[serde(rename = "ppd")]
     Ppd,
-    #[serde(rename = "rck")]
     Rck,
-    #[serde(rename = "tel")]
     Tel,
-    #[serde(rename = "web")]
     Web,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3819,9 +3669,7 @@ For a full listing of bank transfer errors, see [Bank Transfers errors](https://
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferIntentCreateMode {
-    #[serde(rename = "PAYMENT")]
     Payment,
-    #[serde(rename = "DISBURSEMENT")]
     Disbursement,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3906,9 +3754,7 @@ pub struct TransferAuthorizationDecisionRationale {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferAuthorizationGuaranteeDecision {
-    #[serde(rename = "GUARANTEED")]
     Guaranteed,
-    #[serde(rename = "NOT_GUARANTEED")]
     NotGuaranteed,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3989,67 +3835,47 @@ pub struct TransferMetadata {}
 pub struct BankTransferMetadata {}
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferType {
-    #[serde(rename = "debit")]
     Debit,
-    #[serde(rename = "credit")]
     Credit,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum BankTransferType {
-    #[serde(rename = "debit")]
     Debit,
-    #[serde(rename = "credit")]
     Credit,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferStatus {
-    #[serde(rename = "pending")]
     Pending,
-    #[serde(rename = "posted")]
     Posted,
-    #[serde(rename = "cancelled")]
     Cancelled,
-    #[serde(rename = "failed")]
     Failed,
-    #[serde(rename = "reversed")]
     Reversed,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferSweepStatus {
-    #[serde(rename = "unswept")]
     Unswept,
-    #[serde(rename = "swept")]
     Swept,
-    #[serde(rename = "reverse_swept")]
     ReverseSwept,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum BankTransferStatus {
-    #[serde(rename = "pending")]
     Pending,
-    #[serde(rename = "posted")]
     Posted,
-    #[serde(rename = "cancelled")]
     Cancelled,
-    #[serde(rename = "failed")]
     Failed,
-    #[serde(rename = "reversed")]
     Reversed,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferNetwork {
-    #[serde(rename = "ach")]
     Ach,
     #[serde(rename = "same-day-ach")]
     SameDayAch,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum BankTransferNetwork {
-    #[serde(rename = "ach")]
     Ach,
     #[serde(rename = "same-day-ach")]
     SameDayAch,
-    #[serde(rename = "wire")]
     Wire,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4347,9 +4173,7 @@ pub struct BankTransferListResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum BankTransferDirection {
-    #[serde(rename = "outbound")]
     Outbound,
-    #[serde(rename = "inbound")]
     Inbound,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4421,32 +4245,20 @@ pub struct BankTransferEventListRequest {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TransferEventType {
-    #[serde(rename = "pending")]
     Pending,
-    #[serde(rename = "cancelled")]
     Cancelled,
-    #[serde(rename = "failed")]
     Failed,
-    #[serde(rename = "posted")]
     Posted,
-    #[serde(rename = "reversed")]
     Reversed,
-    #[serde(rename = "swept")]
     Swept,
-    #[serde(rename = "reverse_swept")]
     ReverseSwept,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum BankTransferEventType {
-    #[serde(rename = "pending")]
     Pending,
-    #[serde(rename = "cancelled")]
     Cancelled,
-    #[serde(rename = "failed")]
     Failed,
-    #[serde(rename = "posted")]
     Posted,
-    #[serde(rename = "reversed")]
     Reversed,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5057,10 +4869,10 @@ pub struct AccountFiltersResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InstitutionsSearchAccountFilter {
-    pub loan: Vec<AccountSubtype>,
-    pub depository: Vec<AccountSubtype>,
-    pub credit: Vec<AccountSubtype>,
-    pub investment: Vec<AccountSubtype>,
+    pub loan: Vec<Option<AccountSubtype>>,
+    pub depository: Vec<Option<AccountSubtype>>,
+    pub credit: Vec<Option<AccountSubtype>>,
+    pub investment: Vec<Option<AccountSubtype>>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountIdentity(pub serde_json::Value);
@@ -5096,61 +4908,36 @@ pub struct LoanAccountSubtypes(pub Vec<LoanAccountSubtype>);
 pub struct InvestmentAccountSubtypes(pub Vec<InvestmentAccountSubtype>);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum DepositoryAccountSubtype {
-    #[serde(rename = "checking")]
     Checking,
-    #[serde(rename = "savings")]
     Savings,
-    #[serde(rename = "hsa")]
     Hsa,
-    #[serde(rename = "cd")]
     Cd,
-    #[serde(rename = "money market")]
     MoneyMarket,
-    #[serde(rename = "paypal")]
     Paypal,
-    #[serde(rename = "prepaid")]
     Prepaid,
-    #[serde(rename = "cash management")]
     CashManagement,
-    #[serde(rename = "ebt")]
     Ebt,
-    #[serde(rename = "all")]
     All,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum CreditAccountSubtype {
-    #[serde(rename = "credit card")]
     CreditCard,
-    #[serde(rename = "paypal")]
     Paypal,
-    #[serde(rename = "all")]
     All,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum LoanAccountSubtype {
-    #[serde(rename = "auto")]
     Auto,
-    #[serde(rename = "business")]
     Business,
-    #[serde(rename = "commercial")]
     Commercial,
-    #[serde(rename = "construction")]
     Construction,
-    #[serde(rename = "consumer")]
     Consumer,
-    #[serde(rename = "home equity")]
     HomeEquity,
-    #[serde(rename = "loan")]
     Loan,
-    #[serde(rename = "mortgage")]
     Mortgage,
-    #[serde(rename = "line of credit")]
     LineOfCredit,
-    #[serde(rename = "student")]
     Student,
-    #[serde(rename = "other")]
     Other,
-    #[serde(rename = "all")]
     All,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5276,11 +5063,8 @@ pub struct IncomeVerificationPrecheckResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum IncomeVerificationPrecheckConfidence {
-    #[serde(rename = "HIGH")]
     High,
-    #[serde(rename = "LOW")]
     Low,
-    #[serde(rename = "UNKNOWN")]
     Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5438,37 +5222,24 @@ pub struct PayFrequency {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PayFrequencyValue {
-    #[serde(rename = "monthly")]
     Monthly,
-    #[serde(rename = "semimonthly")]
     Semimonthly,
-    #[serde(rename = "weekly")]
     Weekly,
-    #[serde(rename = "biweekly")]
     Biweekly,
-    #[serde(rename = "unknown")]
     Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum VerificationStatus {
-    #[serde(rename = "VERIFIED")]
     Verified,
-    #[serde(rename = "UNVERIFIED")]
     Unverified,
-    #[serde(rename = "NEEDS_INFO")]
     NeedsInfo,
-    #[serde(rename = "UNABLE_TO_VERIFY")]
     UnableToVerify,
-    #[serde(rename = "UNKNOWN")]
     Unknown,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum VerificationRefreshStatus {
-    #[serde(rename = "VERIFICATION_REFRESH_STATUS_USER_PRESENCE_REQUIRED")]
     VerificationRefreshStatusUserPresenceRequired,
-    #[serde(rename = "VERIFICATION_REFRESH_SUCCESSFUL")]
     VerificationRefreshSuccessful,
-    #[serde(rename = "VERIFICATION_REFRESH_NOT_FOUND")]
     VerificationRefreshNotFound,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5535,23 +5306,14 @@ pub struct DocumentMetadata {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum DocType {
-    #[serde(rename = "UNKNOWN")]
     Unknown,
-    #[serde(rename = "DOCUMENT_TYPE_PAYSTUB")]
     DocumentTypePaystub,
-    #[serde(rename = "DOCUMENT_TYPE_BANK_STATEMENT")]
     DocumentTypeBankStatement,
-    #[serde(rename = "DOCUMENT_TYPE_US_TAX_W2")]
     DocumentTypeUsTaxW2,
-    #[serde(rename = "DOCUMENT_TYPE_US_MILITARY_ERAS")]
     DocumentTypeUsMilitaryEras,
-    #[serde(rename = "DOCUMENT_TYPE_US_MILITARY_LES")]
     DocumentTypeUsMilitaryLes,
-    #[serde(rename = "DOCUMENT_TYPE_US_MILITARY_CLES")]
     DocumentTypeUsMilitaryCles,
-    #[serde(rename = "DOCUMENT_TYPE_GIG")]
     DocumentTypeGig,
-    #[serde(rename = "DOCUMENT_TYPE_NONE")]
     DocumentTypeNone,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5629,37 +5391,21 @@ pub struct Total {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum TotalCanonicalDescription {
-    #[serde(rename = "BONUS")]
     Bonus,
-    #[serde(rename = "COMMISSION")]
     Commission,
-    #[serde(rename = "OVERTIME")]
     Overtime,
-    #[serde(rename = "PAID TIME OFF")]
     PaidTimeOff,
-    #[serde(rename = "REGULAR PAY")]
     RegularPay,
-    #[serde(rename = "VACATION")]
     Vacation,
-    #[serde(rename = "EMPLOYEE MEDICARE")]
     EmployeeMedicare,
-    #[serde(rename = "FICA")]
     Fica,
-    #[serde(rename = "SOCIAL SECURITY EMPLOYEE TAX")]
     SocialSecurityEmployeeTax,
-    #[serde(rename = "MEDICAL")]
     Medical,
-    #[serde(rename = "VISION")]
     Vision,
-    #[serde(rename = "DENTAL")]
     Dental,
-    #[serde(rename = "NET PAY")]
     NetPay,
-    #[serde(rename = "TAXES")]
     Taxes,
-    #[serde(rename = "NOT_FOUND")]
     NotFound,
-    #[serde(rename = "OTHER")]
     Other,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5700,23 +5446,14 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum EarningsBreakdownCanonicalDescription {
-    #[serde(rename = "BONUS")]
     Bonus,
-    #[serde(rename = "COMMISSION")]
     Commission,
-    #[serde(rename = "OVERTIME")]
     Overtime,
-    #[serde(rename = "PAID TIME OFF")]
     PaidTimeOff,
-    #[serde(rename = "REGULAR PAY")]
     RegularPay,
-    #[serde(rename = "VACATION")]
     Vacation,
-    #[serde(rename = "BASIC ALLOWANCE HOUSING")]
     BasicAllowanceHousing,
-    #[serde(rename = "BASIC ALLOWANCE SUBSISTENCE")]
     BasicAllowanceSubsistence,
-    #[serde(rename = "OTHER")]
     Other,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5777,11 +5514,9 @@ pub struct PaystubDetails {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaystubPayFrequency {
-    #[serde(rename = "MONTHLY")]
     Monthly,
     #[serde(rename = "BI-WEEKLY")]
     BiWeekly,
-    #[serde(rename = "WEEKLY")]
     Weekly,
     #[serde(rename = "SEMI-MONTHLY")]
     SemiMonthly,
@@ -5803,11 +5538,8 @@ pub struct IncomeBreakdown {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum IncomeBreakdownType {
-    #[serde(rename = "bonus")]
     Bonus,
-    #[serde(rename = "overtime")]
     Overtime,
-    #[serde(rename = "regular")]
     Regular,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5919,15 +5651,12 @@ pub struct PaystubYtdDetails {
 pub struct PaystubVerification {
     ///Derived verification status.
     pub verification_status: Option<PaystubVerificationStatus>,
-    pub verification_attributes: Vec<VerificationAttribute>,
+    pub verification_attributes: Vec<Option<VerificationAttribute>>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaystubVerificationStatus {
-    #[serde(rename = "PAYSTUB_VERIFICATION_STATUS_UNKNOWN")]
     PaystubVerificationStatusUnknown,
-    #[serde(rename = "PAYSTUB_VERIFICATION_STATUS_VERIFIED")]
     PaystubVerificationStatusVerified,
-    #[serde(rename = "PAYSTUB_VERIFICATION_STATUS_FRAUDULENT")]
     PaystubVerificationStatusFraudulent,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6071,9 +5800,7 @@ pub struct EmploymentVerification {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum EmploymentVerificationStatus {
-    #[serde(rename = "EMPLOYMENT_STATUS_ACTIVE")]
     EmploymentStatusActive,
-    #[serde(rename = "EMPLOYMENT_STATUS_INACTIVE")]
     EmploymentStatusInactive,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6267,9 +5994,7 @@ pub struct RequestedScopes {
 pub struct ScopesState(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum ScopesContext {
-    #[serde(rename = "ENROLLMENT")]
     Enrollment,
-    #[serde(rename = "PORTAL")]
     Portal,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6329,11 +6054,8 @@ pub struct ConnectedApplication {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum AccountSelectionCardinality {
-    #[serde(rename = "SINGLE_SELECT")]
     SingleSelect,
-    #[serde(rename = "MULTI_SELECT")]
     MultiSelect,
-    #[serde(rename = "ALL")]
     All,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6697,13 +6419,9 @@ pub struct WalletTransactionExecuteResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub enum WalletTransactionStatus {
-    #[serde(rename = "INITIATED")]
     Initiated,
-    #[serde(rename = "EXECUTED")]
     Executed,
-    #[serde(rename = "BLOCKED")]
     Blocked,
-    #[serde(rename = "FAILED")]
     Failed,
 }
 #[derive(Debug, Serialize, Deserialize)]
