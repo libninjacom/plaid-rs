@@ -60,7 +60,7 @@ impl PlaidClient {
     ///List a user’s connected applications
     pub fn item_application_list(
         &self,
-        access_token: Option<String>,
+        access_token: String,
     ) -> request_model::ItemApplicationListRequest {
         request_model::ItemApplicationListRequest {
             client: &self,
@@ -74,7 +74,6 @@ Enable consumers to update product access on selected accounts for an applicatio
         &self,
         access_token: String,
         application_id: String,
-        scopes: serde_json::Value,
         state: String,
         context: String,
     ) -> request_model::ItemApplicationScopesUpdateRequest {
@@ -82,7 +81,7 @@ Enable consumers to update product access on selected accounts for an applicatio
             client: &self,
             access_token,
             application_id,
-            scopes,
+            scopes: None,
             state,
             context,
         }
@@ -121,15 +120,11 @@ Also note that `/auth/get` will not return data for any new accounts opened afte
 Versioning note: In API version 2017-03-08, the schema of the `numbers` object returned by this endpoint is substantially different. For details, see [Plaid API versioning](https://plaid.com/docs/api/versioning/#version-2018-05-22).
 
 See endpoint docs at <https://plaid.com/docs/api/products/auth/#authget>.*/
-    pub fn auth_get(
-        &self,
-        access_token: String,
-        options: serde_json::Value,
-    ) -> request_model::AuthGetRequest {
+    pub fn auth_get(&self, access_token: String) -> request_model::AuthGetRequest {
         request_model::AuthGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
         }
     }
     /**Get transaction data
@@ -147,14 +142,13 @@ Note that data may not be immediately available to `/transactions/get`. Plaid wi
 See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transactionsget>.*/
     pub fn transactions_get(
         &self,
-        options: serde_json::Value,
         access_token: String,
         start_date: String,
         end_date: String,
     ) -> request_model::TransactionsGetRequest {
         request_model::TransactionsGetRequest {
             client: &self,
-            options,
+            options: None,
             access_token,
             start_date,
             end_date,
@@ -190,13 +184,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
     pub fn transactions_recurring_get(
         &self,
         access_token: String,
-        options: serde_json::Value,
         account_ids: Vec<String>,
     ) -> request_model::TransactionsRecurringGetRequest {
         request_model::TransactionsRecurringGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
             account_ids,
         }
     }
@@ -226,14 +219,13 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
         access_token: String,
         cursor: String,
         count: i64,
-        options: serde_json::Value,
     ) -> request_model::TransactionsSyncRequest {
         request_model::TransactionsSyncRequest {
             client: &self,
             access_token,
             cursor,
             count,
-            options,
+            options: None,
         }
     }
     /**Get details of all supported institutions
@@ -247,15 +239,14 @@ See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionsget>.
         &self,
         count: i64,
         offset: i64,
-        country_codes: Vec<CountryCode>,
-        options: serde_json::Value,
+        country_codes: Vec<String>,
     ) -> request_model::InstitutionsGetRequest {
         request_model::InstitutionsGetRequest {
             client: &self,
             count,
             offset,
             country_codes,
-            options,
+            options: None,
         }
     }
     /**Search institutions
@@ -269,16 +260,15 @@ See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionssearc
     pub fn institutions_search(
         &self,
         query: String,
-        products: Option<Vec<Products>>,
-        country_codes: Vec<CountryCode>,
-        options: serde_json::Value,
+        products: Vec<String>,
+        country_codes: Vec<String>,
     ) -> request_model::InstitutionsSearchRequest {
         request_model::InstitutionsSearchRequest {
             client: &self,
             query,
             products,
             country_codes,
-            options,
+            options: None,
         }
     }
     /**Get details of an institution
@@ -292,14 +282,13 @@ See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionsget_b
     pub fn institutions_get_by_id(
         &self,
         institution_id: String,
-        country_codes: Vec<CountryCode>,
-        options: serde_json::Value,
+        country_codes: Vec<String>,
     ) -> request_model::InstitutionsGetByIdRequest {
         request_model::InstitutionsGetByIdRequest {
             client: &self,
             institution_id,
             country_codes,
-            options,
+            options: None,
         }
     }
     /**Remove an Item
@@ -330,12 +319,11 @@ See endpoint docs at <https://plaid.com/docs/api/accounts/#accountsget>.*/
     pub fn accounts_get(
         &self,
         access_token: String,
-        options: serde_json::Value,
     ) -> request_model::AccountsGetRequest {
         request_model::AccountsGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
         }
     }
     /**Get Categories
@@ -356,12 +344,11 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxprocessor_token
     pub fn sandbox_processor_token_create(
         &self,
         institution_id: String,
-        options: serde_json::Value,
     ) -> request_model::SandboxProcessorTokenCreateRequest {
         request_model::SandboxProcessorTokenCreateRequest {
             client: &self,
             institution_id,
-            options,
+            options: None,
         }
     }
     /**Create a test Item
@@ -372,15 +359,14 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxpublic_tokencre
     pub fn sandbox_public_token_create(
         &self,
         institution_id: String,
-        initial_products: Vec<Products>,
-        options: serde_json::Value,
+        initial_products: Vec<String>,
         user_token: String,
     ) -> request_model::SandboxPublicTokenCreateRequest {
         request_model::SandboxPublicTokenCreateRequest {
             client: &self,
             institution_id,
             initial_products,
-            options,
+            options: None,
             user_token,
         }
     }
@@ -420,12 +406,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/balance/#accountsbalan
     pub fn accounts_balance_get(
         &self,
         access_token: String,
-        options: serde_json::Value,
     ) -> request_model::AccountsBalanceGetRequest {
         request_model::AccountsBalanceGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
         }
     }
     /**Retrieve identity data
@@ -440,12 +425,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity/#identityget>
     pub fn identity_get(
         &self,
         access_token: String,
-        options: serde_json::Value,
     ) -> request_model::IdentityGetRequest {
         request_model::IdentityGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
         }
     }
     /**Retrieve identity match score
@@ -458,14 +442,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity/#identitymatc
     pub fn identity_match(
         &self,
         access_token: String,
-        user: serde_json::Value,
-        options: serde_json::Value,
     ) -> request_model::IdentityMatchRequest {
         request_model::IdentityMatchRequest {
             client: &self,
             access_token,
-            user,
-            options,
+            user: None,
+            options: None,
         }
     }
     /**Retrieve a dashboard user
@@ -489,7 +471,7 @@ List all dashboard users associated with your account.
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#dashboard_userlist>.*/
     pub fn dashboard_user_list(
         &self,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::DashboardUserListRequest {
         request_model::DashboardUserListRequest {
             client: &self,
@@ -508,15 +490,14 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
         is_shareable: bool,
         template_id: String,
         gave_consent: bool,
-        user: serde_json::Value,
-        is_idempotent: Option<bool>,
+        is_idempotent: bool,
     ) -> request_model::IdentityVerificationCreateRequest {
         request_model::IdentityVerificationCreateRequest {
             client: &self,
             is_shareable,
             template_id,
             gave_consent,
-            user,
+            user: None,
             is_idempotent,
         }
     }
@@ -543,7 +524,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
         &self,
         template_id: String,
         client_user_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::IdentityVerificationListRequest {
         request_model::IdentityVerificationListRequest {
             client: &self,
@@ -562,14 +543,13 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
         client_user_id: String,
         template_id: String,
         strategy: String,
-        steps: Option<serde_json::Value>,
     ) -> request_model::IdentityVerificationRetryRequest {
         request_model::IdentityVerificationRetryRequest {
             client: &self,
             client_user_id,
             template_id,
             strategy,
-            steps,
+            steps: None,
         }
     }
     /**Create a watchlist screening for an entity
@@ -579,12 +559,11 @@ Create a new entity watchlist screening to check your customer against watchlist
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningentitycreate>.*/
     pub fn watchlist_screening_entity_create(
         &self,
-        search_terms: serde_json::Value,
-        client_user_id: Option<serde_json::Value>,
+        client_user_id: serde_json::Value,
     ) -> request_model::WatchlistScreeningEntityCreateRequest {
         request_model::WatchlistScreeningEntityCreateRequest {
             client: &self,
-            search_terms,
+            search_terms: None,
             client_user_id,
         }
     }
@@ -610,7 +589,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_entity_history_list(
         &self,
         entity_watchlist_screening_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningEntityHistoryListRequest {
         request_model::WatchlistScreeningEntityHistoryListRequest {
             client: &self,
@@ -626,7 +605,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_entity_hits_list(
         &self,
         entity_watchlist_screening_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningEntityHitsListRequest {
         request_model::WatchlistScreeningEntityHitsListRequest {
             client: &self,
@@ -642,10 +621,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_entity_list(
         &self,
         entity_watchlist_program_id: String,
-        client_user_id: Option<serde_json::Value>,
-        status: Option<serde_json::Value>,
-        assignee: Option<serde_json::Value>,
-        cursor: Option<String>,
+        client_user_id: serde_json::Value,
+        status: serde_json::Value,
+        assignee: serde_json::Value,
+        cursor: String,
     ) -> request_model::WatchlistScreeningEntityListRequest {
         request_model::WatchlistScreeningEntityListRequest {
             client: &self,
@@ -677,7 +656,7 @@ List all entity watchlist screening programs
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningentityprogramlist>.*/
     pub fn watchlist_screening_entity_program_list(
         &self,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningEntityProgramListRequest {
         request_model::WatchlistScreeningEntityProgramListRequest {
             client: &self,
@@ -691,9 +670,9 @@ Create a review for an entity watchlist screening. Reviews are compliance report
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningentityreviewcreate>.*/
     pub fn watchlist_screening_entity_review_create(
         &self,
-        confirmed_hits: Vec<EntityWatchlistScreeningHitId>,
-        dismissed_hits: Vec<EntityWatchlistScreeningHitId>,
-        comment: Option<String>,
+        confirmed_hits: Vec<String>,
+        dismissed_hits: Vec<String>,
+        comment: String,
         entity_watchlist_screening_id: String,
     ) -> request_model::WatchlistScreeningEntityReviewCreateRequest {
         request_model::WatchlistScreeningEntityReviewCreateRequest {
@@ -712,7 +691,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_entity_review_list(
         &self,
         entity_watchlist_screening_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningEntityReviewListRequest {
         request_model::WatchlistScreeningEntityReviewListRequest {
             client: &self,
@@ -728,16 +707,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_entity_update(
         &self,
         entity_watchlist_screening_id: String,
-        search_terms: Option<serde_json::Value>,
-        assignee: Option<serde_json::Value>,
-        status: Option<serde_json::Value>,
-        client_user_id: Option<serde_json::Value>,
-        reset_fields: Option<Vec<UpdateEntityScreeningRequestResettableField>>,
+        assignee: serde_json::Value,
+        status: serde_json::Value,
+        client_user_id: serde_json::Value,
+        reset_fields: UpdateEntityScreeningRequestResettableFieldList,
     ) -> request_model::WatchlistScreeningEntityUpdateRequest {
         request_model::WatchlistScreeningEntityUpdateRequest {
             client: &self,
             entity_watchlist_screening_id,
-            search_terms,
+            search_terms: None,
             assignee,
             status,
             client_user_id,
@@ -751,12 +729,11 @@ Create a new Watchlist Screening to check your customer against watchlists defin
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningindividualcreate>.*/
     pub fn watchlist_screening_individual_create(
         &self,
-        search_terms: serde_json::Value,
-        client_user_id: Option<serde_json::Value>,
+        client_user_id: serde_json::Value,
     ) -> request_model::WatchlistScreeningIndividualCreateRequest {
         request_model::WatchlistScreeningIndividualCreateRequest {
             client: &self,
-            search_terms,
+            search_terms: None,
             client_user_id,
         }
     }
@@ -782,7 +759,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_individual_history_list(
         &self,
         watchlist_screening_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningIndividualHistoryListRequest {
         request_model::WatchlistScreeningIndividualHistoryListRequest {
             client: &self,
@@ -798,7 +775,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_individual_hit_list(
         &self,
         watchlist_screening_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningIndividualHitListRequest {
         request_model::WatchlistScreeningIndividualHitListRequest {
             client: &self,
@@ -814,10 +791,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_individual_list(
         &self,
         watchlist_program_id: String,
-        client_user_id: Option<serde_json::Value>,
-        status: Option<serde_json::Value>,
-        assignee: Option<serde_json::Value>,
-        cursor: Option<String>,
+        client_user_id: serde_json::Value,
+        status: serde_json::Value,
+        assignee: serde_json::Value,
+        cursor: String,
     ) -> request_model::WatchlistScreeningIndividualListRequest {
         request_model::WatchlistScreeningIndividualListRequest {
             client: &self,
@@ -849,7 +826,7 @@ List all individual watchlist screening programs
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningindividualprogramlist>.*/
     pub fn watchlist_screening_individual_program_list(
         &self,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningIndividualProgramListRequest {
         request_model::WatchlistScreeningIndividualProgramListRequest {
             client: &self,
@@ -863,9 +840,9 @@ Create a review for the individual watchlist screening. Reviews are compliance r
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningindividualreviewcreate>.*/
     pub fn watchlist_screening_individual_review_create(
         &self,
-        confirmed_hits: Vec<WatchlistScreeningHitId>,
-        dismissed_hits: Vec<WatchlistScreeningHitId>,
-        comment: Option<String>,
+        confirmed_hits: Vec<String>,
+        dismissed_hits: Vec<String>,
+        comment: String,
         watchlist_screening_id: String,
     ) -> request_model::WatchlistScreeningIndividualReviewCreateRequest {
         request_model::WatchlistScreeningIndividualReviewCreateRequest {
@@ -884,7 +861,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_individual_reviews_list(
         &self,
         watchlist_screening_id: String,
-        cursor: Option<String>,
+        cursor: String,
     ) -> request_model::WatchlistScreeningIndividualReviewsListRequest {
         request_model::WatchlistScreeningIndividualReviewsListRequest {
             client: &self,
@@ -900,16 +877,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     pub fn watchlist_screening_individual_update(
         &self,
         watchlist_screening_id: String,
-        search_terms: Option<serde_json::Value>,
-        assignee: Option<serde_json::Value>,
-        status: Option<serde_json::Value>,
-        client_user_id: Option<serde_json::Value>,
-        reset_fields: Option<Vec<UpdateIndividualScreeningRequestResettableField>>,
+        assignee: serde_json::Value,
+        status: serde_json::Value,
+        client_user_id: serde_json::Value,
+        reset_fields: UpdateIndividualScreeningRequestResettableFieldList,
     ) -> request_model::WatchlistScreeningIndividualUpdateRequest {
         request_model::WatchlistScreeningIndividualUpdateRequest {
             client: &self,
             watchlist_screening_id,
-            search_terms,
+            search_terms: None,
             assignee,
             status,
             client_user_id,
@@ -948,10 +924,8 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#bank_transfercreate
         iso_currency_code: String,
         description: String,
         ach_class: String,
-        user: serde_json::Value,
-        custom_tag: Option<String>,
-        metadata: Option<serde_json::Value>,
-        origination_account_id: Option<String>,
+        custom_tag: String,
+        origination_account_id: String,
     ) -> request_model::ProcessorBankTransferCreateRequest {
         request_model::ProcessorBankTransferCreateRequest {
             client: &self,
@@ -963,9 +937,9 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#bank_transfercreate
             iso_currency_code,
             description,
             ach_class,
-            user,
+            user: None,
             custom_tag,
-            metadata,
+            metadata: None,
             origination_account_id,
         }
     }
@@ -991,12 +965,11 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#processorbalanceget
     pub fn processor_balance_get(
         &self,
         processor_token: String,
-        options: serde_json::Value,
     ) -> request_model::ProcessorBalanceGetRequest {
         request_model::ProcessorBalanceGetRequest {
             client: &self,
             processor_token,
-            options,
+            options: None,
         }
     }
     /**Update Webhook URL
@@ -1007,7 +980,7 @@ See endpoint docs at <https://plaid.com/docs/api/items/#itemwebhookupdate>.*/
     pub fn item_webhook_update(
         &self,
         access_token: String,
-        webhook: Option<String>,
+        webhook: String,
     ) -> request_model::ItemWebhookUpdateRequest {
         request_model::ItemWebhookUpdateRequest {
             client: &self,
@@ -1060,12 +1033,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/liabilities/#liabiliti
     pub fn liabilities_get(
         &self,
         access_token: String,
-        options: serde_json::Value,
     ) -> request_model::LiabilitiesGetRequest {
         request_model::LiabilitiesGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
         }
     }
     /**Create payment recipient
@@ -1079,16 +1051,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     pub fn payment_initiation_recipient_create(
         &self,
         name: String,
-        iban: Option<String>,
-        bacs: Option<serde_json::Value>,
-        address: Option<serde_json::Value>,
+        iban: String,
+        bacs: RecipientBacsNullable,
     ) -> request_model::PaymentInitiationRecipientCreateRequest {
         request_model::PaymentInitiationRecipientCreateRequest {
             client: &self,
             name,
             iban,
             bacs,
-            address,
+            address: None,
         }
     }
     /**Reverse an existing payment
@@ -1151,17 +1122,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
         &self,
         recipient_id: String,
         reference: String,
-        amount: serde_json::Value,
-        schedule: serde_json::Value,
-        options: Option<serde_json::Value>,
+        schedule: ExternalPaymentScheduleRequest,
     ) -> request_model::PaymentInitiationPaymentCreateRequest {
         request_model::PaymentInitiationPaymentCreateRequest {
             client: &self,
             recipient_id,
             reference,
-            amount,
+            amount: None,
             schedule,
-            options,
+            options: None,
         }
     }
     /**Create payment token
@@ -1191,17 +1160,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
         &self,
         recipient_id: String,
         reference: String,
-        scopes: Vec<PaymentInitiationConsentScope>,
-        constraints: serde_json::Value,
-        options: Option<serde_json::Value>,
+        scopes: Vec<String>,
     ) -> request_model::PaymentInitiationConsentCreateRequest {
         request_model::PaymentInitiationConsentCreateRequest {
             client: &self,
             recipient_id,
             reference,
             scopes,
-            constraints,
-            options,
+            constraints: None,
+            options: None,
         }
     }
     /**Get payment consent
@@ -1240,13 +1207,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     pub fn payment_initiation_consent_payment_execute(
         &self,
         consent_id: String,
-        amount: serde_json::Value,
         idempotency_key: String,
     ) -> request_model::PaymentInitiationConsentPaymentExecuteRequest {
         request_model::PaymentInitiationConsentPaymentExecuteRequest {
             client: &self,
             consent_id,
-            amount,
+            amount: None,
             idempotency_key,
         }
     }
@@ -1362,9 +1328,9 @@ The `/payment_initiation/payment/list` endpoint can be used to retrieve all crea
 See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#payment_initiationpaymentlist>.*/
     pub fn payment_initiation_payment_list(
         &self,
-        count: Option<i64>,
-        cursor: Option<String>,
-        consent_id: Option<String>,
+        count: i64,
+        cursor: String,
+        consent_id: String,
     ) -> request_model::PaymentInitiationPaymentListRequest {
         request_model::PaymentInitiationPaymentListRequest {
             client: &self,
@@ -1384,15 +1350,14 @@ The `/asset_report/create` endpoint creates an Asset Report at a moment in time.
 See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportcreate>.*/
     pub fn asset_report_create(
         &self,
-        access_tokens: Vec<AccessToken>,
+        access_tokens: Vec<String>,
         days_requested: i64,
-        options: serde_json::Value,
     ) -> request_model::AssetReportCreateRequest {
         request_model::AssetReportCreateRequest {
             client: &self,
             access_tokens,
             days_requested,
-            options,
+            options: None,
         }
     }
     /**Refresh an Asset Report
@@ -1405,14 +1370,13 @@ See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportre
     pub fn asset_report_refresh(
         &self,
         asset_report_token: String,
-        days_requested: Option<i64>,
-        options: serde_json::Value,
+        days_requested: i64,
     ) -> request_model::AssetReportRefreshRequest {
         request_model::AssetReportRefreshRequest {
             client: &self,
             asset_report_token,
             days_requested,
-            options,
+            options: None,
         }
     }
     /**Refresh a Relay Token's Asset Report
@@ -1423,7 +1387,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportrelayrefr
     pub fn asset_report_relay_refresh(
         &self,
         asset_relay_token: String,
-        webhook: Option<String>,
+        webhook: String,
     ) -> request_model::AssetReportRelayRefreshRequest {
         request_model::AssetReportRelayRefreshRequest {
             client: &self,
@@ -1534,7 +1498,7 @@ See endpoint docs at <https://plaid.com/docs/none/>.*/
         &self,
         asset_report_token: String,
         secondary_client_id: String,
-        webhook: Option<String>,
+        webhook: String,
     ) -> request_model::AssetReportRelayCreateRequest {
         request_model::AssetReportRelayCreateRequest {
             client: &self,
@@ -1579,12 +1543,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/investments/#investmen
     pub fn investments_holdings_get(
         &self,
         access_token: String,
-        options: serde_json::Value,
     ) -> request_model::InvestmentsHoldingsGetRequest {
         request_model::InvestmentsHoldingsGetRequest {
             client: &self,
             access_token,
-            options,
+            options: None,
         }
     }
     /**Get investment transactions
@@ -1601,14 +1564,13 @@ See endpoint docs at <https://plaid.com/docs/api/products/investments/#investmen
         access_token: String,
         start_date: String,
         end_date: String,
-        options: serde_json::Value,
     ) -> request_model::InvestmentsTransactionsGetRequest {
         request_model::InvestmentsTransactionsGetRequest {
             client: &self,
             access_token,
             start_date,
             end_date,
-            options,
+            options: None,
         }
     }
     /**Create processor token
@@ -1670,15 +1632,14 @@ See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_sw
         &self,
         target_access_token: String,
         target_account_id: String,
-        country_code: Option<String>,
-        options: serde_json::Value,
+        country_code: String,
     ) -> request_model::DepositSwitchCreateRequest {
         request_model::DepositSwitchCreateRequest {
             client: &self,
             target_access_token,
             target_account_id,
             country_code,
-            options,
+            options: None,
         }
     }
     /**Import Item
@@ -1688,15 +1649,13 @@ See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_sw
 Upon creating an Item via `/item/import`, Plaid will automatically begin an extraction of that Item through the Plaid Exchange infrastructure you have already integrated. This will automatically generate the Plaid native account ID for the account the user will switch their direct deposit to (`target_account_id`).*/
     pub fn item_import(
         &self,
-        products: Vec<Products>,
-        user_auth: serde_json::Value,
-        options: serde_json::Value,
+        products: Vec<String>,
     ) -> request_model::ItemImportRequest {
         request_model::ItemImportRequest {
             client: &self,
             products,
-            user_auth,
-            options,
+            user_auth: None,
+            options: None,
         }
     }
     /**Create a deposit switch token
@@ -1725,26 +1684,15 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
         &self,
         client_name: String,
         language: String,
-        country_codes: Vec<CountryCode>,
-        user: serde_json::Value,
-        products: Vec<Products>,
-        additional_consented_products: Vec<Products>,
+        country_codes: Vec<String>,
+        products: Vec<String>,
+        additional_consented_products: Vec<String>,
         webhook: String,
         access_token: String,
         link_customization_name: String,
         redirect_uri: String,
         android_package_name: String,
-        institution_data: serde_json::Value,
-        account_filters: serde_json::Value,
-        eu_config: serde_json::Value,
         institution_id: String,
-        payment_initiation: serde_json::Value,
-        deposit_switch: serde_json::Value,
-        income_verification: serde_json::Value,
-        auth: serde_json::Value,
-        transfer: serde_json::Value,
-        update: serde_json::Value,
-        identity_verification: serde_json::Value,
         user_token: String,
     ) -> request_model::LinkTokenCreateRequest {
         request_model::LinkTokenCreateRequest {
@@ -1752,7 +1700,7 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
             client_name,
             language,
             country_codes,
-            user,
+            user: None,
             products,
             additional_consented_products,
             webhook,
@@ -1760,17 +1708,17 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
             link_customization_name,
             redirect_uri,
             android_package_name,
-            institution_data,
-            account_filters,
-            eu_config,
+            institution_data: None,
+            account_filters: None,
+            eu_config: None,
             institution_id,
-            payment_initiation,
-            deposit_switch,
-            income_verification,
-            auth,
-            transfer,
-            update,
-            identity_verification,
+            payment_initiation: None,
+            deposit_switch: None,
+            income_verification: None,
+            auth: None,
+            transfer: None,
+            update: None,
+            identity_verification: None,
             user_token,
         }
     }
@@ -1872,11 +1820,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferauth
         network: String,
         amount: String,
         ach_class: String,
-        user: serde_json::Value,
-        device: serde_json::Value,
         origination_account_id: String,
         iso_currency_code: String,
-        user_present: Option<bool>,
+        user_present: bool,
         payment_profile_id: String,
     ) -> request_model::TransferAuthorizationCreateRequest {
         request_model::TransferAuthorizationCreateRequest {
@@ -1887,8 +1833,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferauth
             network,
             amount,
             ach_class,
-            user,
-            device,
+            user: None,
+            device: None,
             origination_account_id,
             iso_currency_code,
             user_present,
@@ -1911,9 +1857,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercrea
         amount: String,
         description: String,
         ach_class: String,
-        user: serde_json::Value,
-        metadata: Option<serde_json::Value>,
-        origination_account_id: Option<String>,
+        origination_account_id: String,
         iso_currency_code: String,
         payment_profile_id: String,
     ) -> request_model::TransferCreateRequest {
@@ -1928,8 +1872,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercrea
             amount,
             description,
             ach_class,
-            user,
-            metadata,
+            user: None,
+            metadata: None,
             origination_account_id,
             iso_currency_code,
             payment_profile_id,
@@ -1951,10 +1895,8 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
         iso_currency_code: String,
         description: String,
         ach_class: String,
-        user: serde_json::Value,
-        custom_tag: Option<String>,
-        metadata: Option<serde_json::Value>,
-        origination_account_id: Option<String>,
+        custom_tag: String,
+        origination_account_id: String,
     ) -> request_model::BankTransferCreateRequest {
         request_model::BankTransferCreateRequest {
             client: &self,
@@ -1967,9 +1909,9 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
             iso_currency_code,
             description,
             ach_class,
-            user,
+            user: None,
             custom_tag,
-            metadata,
+            metadata: None,
             origination_account_id,
         }
     }
@@ -1981,11 +1923,11 @@ Use the `/transfer/list` endpoint to see a list of all your transfers and their 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferlist>.*/
     pub fn transfer_list(
         &self,
-        start_date: Option<String>,
-        end_date: Option<String>,
+        start_date: String,
+        end_date: String,
         count: i64,
         offset: i64,
-        origination_account_id: Option<String>,
+        origination_account_id: String,
     ) -> request_model::TransferListRequest {
         request_model::TransferListRequest {
             client: &self,
@@ -2004,12 +1946,12 @@ Use the `/bank_transfer/list` endpoint to see a list of all your bank transfers 
 See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferlist>.*/
     pub fn bank_transfer_list(
         &self,
-        start_date: Option<String>,
-        end_date: Option<String>,
+        start_date: String,
+        end_date: String,
         count: i64,
         offset: i64,
-        origination_account_id: Option<String>,
-        direction: Option<String>,
+        origination_account_id: String,
+        direction: String,
     ) -> request_model::BankTransferListRequest {
         request_model::BankTransferListRequest {
             client: &self,
@@ -2056,16 +1998,16 @@ Use the `/transfer/event/list` endpoint to get a list of transfer events based o
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereventlist>.*/
     pub fn transfer_event_list(
         &self,
-        start_date: Option<String>,
-        end_date: Option<String>,
-        transfer_id: Option<String>,
-        account_id: Option<String>,
-        transfer_type: Option<String>,
-        event_types: Vec<TransferEventType>,
+        start_date: String,
+        end_date: String,
+        transfer_id: String,
+        account_id: String,
+        transfer_type: String,
+        event_types: Vec<String>,
         sweep_id: String,
-        count: Option<i64>,
-        offset: Option<i64>,
-        origination_account_id: Option<String>,
+        count: i64,
+        offset: i64,
+        origination_account_id: String,
     ) -> request_model::TransferEventListRequest {
         request_model::TransferEventListRequest {
             client: &self,
@@ -2088,16 +2030,16 @@ Use the `/bank_transfer/event/list` endpoint to get a list of bank transfer even
 See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventlist>.*/
     pub fn bank_transfer_event_list(
         &self,
-        start_date: Option<String>,
-        end_date: Option<String>,
-        bank_transfer_id: Option<String>,
-        account_id: Option<String>,
-        bank_transfer_type: Option<String>,
-        event_types: Vec<BankTransferEventType>,
-        count: Option<i64>,
-        offset: Option<i64>,
-        origination_account_id: Option<String>,
-        direction: Option<String>,
+        start_date: String,
+        end_date: String,
+        bank_transfer_id: String,
+        account_id: String,
+        bank_transfer_type: String,
+        event_types: Vec<String>,
+        count: i64,
+        offset: i64,
+        origination_account_id: String,
+        direction: String,
     ) -> request_model::BankTransferEventListRequest {
         request_model::BankTransferEventListRequest {
             client: &self,
@@ -2121,7 +2063,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereven
     pub fn transfer_event_sync(
         &self,
         after_id: i64,
-        count: Option<i64>,
+        count: i64,
     ) -> request_model::TransferEventSyncRequest {
         request_model::TransferEventSyncRequest {
             client: &self,
@@ -2137,7 +2079,7 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
     pub fn bank_transfer_event_sync(
         &self,
         after_id: i64,
-        count: Option<i64>,
+        count: i64,
     ) -> request_model::BankTransferEventSyncRequest {
         request_model::BankTransferEventSyncRequest {
             client: &self,
@@ -2180,9 +2122,9 @@ The `/transfer/sweep/list` endpoint fetches sweeps matching the given filters.
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfersweeplist>.*/
     pub fn transfer_sweep_list(
         &self,
-        start_date: Option<String>,
-        end_date: Option<String>,
-        count: Option<i64>,
+        start_date: String,
+        end_date: String,
+        count: i64,
         offset: i64,
     ) -> request_model::TransferSweepListRequest {
         request_model::TransferSweepListRequest {
@@ -2200,10 +2142,10 @@ The `/bank_transfer/sweep/list` endpoint fetches information about the sweeps ma
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#bank_transfersweeplist>.*/
     pub fn bank_transfer_sweep_list(
         &self,
-        origination_account_id: Option<String>,
-        start_time: Option<String>,
-        end_time: Option<String>,
-        count: Option<i64>,
+        origination_account_id: String,
+        start_time: String,
+        end_time: String,
+        count: i64,
     ) -> request_model::BankTransferSweepListRequest {
         request_model::BankTransferSweepListRequest {
             client: &self,
@@ -2224,7 +2166,7 @@ Note that this endpoint can only be used with FBO accounts, when using Bank Tran
 See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transferbalanceget>.*/
     pub fn bank_transfer_balance_get(
         &self,
-        origination_account_id: Option<String>,
+        origination_account_id: String,
     ) -> request_model::BankTransferBalanceGetRequest {
         request_model::BankTransferBalanceGetRequest {
             client: &self,
@@ -2278,16 +2220,14 @@ Use the `/transfer/intent/create` endpoint to generate a transfer intent object 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferintentcreate>.*/
     pub fn transfer_intent_create(
         &self,
-        account_id: Option<String>,
+        account_id: String,
         mode: String,
         amount: String,
         description: String,
         ach_class: String,
-        origination_account_id: Option<String>,
-        user: serde_json::Value,
-        metadata: Option<serde_json::Value>,
+        origination_account_id: String,
         iso_currency_code: String,
-        require_guarantee: Option<bool>,
+        require_guarantee: bool,
     ) -> request_model::TransferIntentCreateRequest {
         request_model::TransferIntentCreateRequest {
             client: &self,
@@ -2297,8 +2237,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferinte
             description,
             ach_class,
             origination_account_id,
-            user,
-            metadata,
+            user: None,
+            metadata: None,
             iso_currency_code,
             require_guarantee,
         }
@@ -2324,9 +2264,9 @@ The `/transfer/repayment/list` endpoint fetches repayments matching the given fi
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrepaymentlist>.*/
     pub fn transfer_repayment_list(
         &self,
-        start_date: Option<String>,
-        end_date: Option<String>,
-        count: Option<i64>,
+        start_date: String,
+        end_date: String,
+        count: i64,
         offset: i64,
     ) -> request_model::TransferRepaymentListRequest {
         request_model::TransferRepaymentListRequest {
@@ -2345,7 +2285,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrepa
     pub fn transfer_repayment_return_list(
         &self,
         repayment_id: String,
-        count: Option<i64>,
+        count: i64,
         offset: i64,
     ) -> request_model::TransferRepaymentReturnListRequest {
         request_model::TransferRepaymentReturnListRequest {
@@ -2364,13 +2304,12 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference/#sandboxba
         &self,
         bank_transfer_id: String,
         event_type: String,
-        failure_reason: Option<serde_json::Value>,
     ) -> request_model::SandboxBankTransferSimulateRequest {
         request_model::SandboxBankTransferSimulateRequest {
             client: &self,
             bank_transfer_id,
             event_type,
-            failure_reason,
+            failure_reason: None,
         }
     }
     /**Simulate creating a sweep
@@ -2394,13 +2333,12 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersimulat
         &self,
         transfer_id: String,
         event_type: String,
-        failure_reason: Option<serde_json::Value>,
     ) -> request_model::SandboxTransferSimulateRequest {
         request_model::SandboxTransferSimulateRequest {
             client: &self,
             transfer_id,
             event_type,
-            failure_reason,
+            failure_reason: None,
         }
     }
     /**Trigger the creation of a repayment
@@ -2456,13 +2394,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
         &self,
         webhook: String,
         precheck_id: String,
-        options: serde_json::Value,
     ) -> request_model::IncomeVerificationCreateRequest {
         request_model::IncomeVerificationCreateRequest {
             client: &self,
             webhook,
             precheck_id,
-            options,
+            options: None,
         }
     }
     /**(Deprecated) Retrieve information from the paystubs used for income verification
@@ -2474,8 +2411,8 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverificationpaystubsget>.*/
     pub fn income_verification_paystubs_get(
         &self,
-        income_verification_id: Option<String>,
-        access_token: Option<String>,
+        income_verification_id: String,
+        access_token: String,
     ) -> request_model::IncomeVerificationPaystubsGetRequest {
         request_model::IncomeVerificationPaystubsGetRequest {
             client: &self,
@@ -2490,8 +2427,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
 See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverificationrefresh>.*/
     pub fn income_verification_refresh(
         &self,
-        income_verification_id: Option<String>,
-        access_token: Option<String>,
+        income_verification_id: String,
+        access_token: String,
     ) -> request_model::IncomeVerificationRefreshRequest {
         request_model::IncomeVerificationRefreshRequest {
             client: &self,
@@ -2508,8 +2445,8 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverificationtaxformsget>.*/
     pub fn income_verification_taxforms_get(
         &self,
-        income_verification_id: Option<String>,
-        access_token: Option<String>,
+        income_verification_id: String,
+        access_token: String,
     ) -> request_model::IncomeVerificationTaxformsGetRequest {
         request_model::IncomeVerificationTaxformsGetRequest {
             client: &self,
@@ -2528,19 +2465,16 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverificationprecheck>.*/
     pub fn income_verification_precheck(
         &self,
-        user: Option<serde_json::Value>,
-        employer: Option<serde_json::Value>,
         transactions_access_token: serde_json::Value,
-        transactions_access_tokens: Vec<AccessToken>,
-        us_military_info: Option<serde_json::Value>,
+        transactions_access_tokens: Vec<String>,
     ) -> request_model::IncomeVerificationPrecheckRequest {
         request_model::IncomeVerificationPrecheckRequest {
             client: &self,
-            user,
-            employer,
+            user: None,
+            employer: None,
             transactions_access_token,
             transactions_access_tokens,
-            us_military_info,
+            us_military_info: None,
         }
     }
     /**(Deprecated) Retrieve a summary of an individual's employment information
@@ -2566,16 +2500,13 @@ This endpoint provides an alternative to `/deposit_switch/create` for customers 
 See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_switchaltcreate>.*/
     pub fn deposit_switch_alt_create(
         &self,
-        target_account: serde_json::Value,
-        target_user: serde_json::Value,
-        options: serde_json::Value,
-        country_code: Option<String>,
+        country_code: String,
     ) -> request_model::DepositSwitchAltCreateRequest {
         request_model::DepositSwitchAltCreateRequest {
             client: &self,
-            target_account,
-            target_user,
-            options,
+            target_account: None,
+            target_user: None,
+            options: None,
             country_code,
         }
     }
@@ -2619,12 +2550,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_inc
     pub fn credit_bank_income_get(
         &self,
         user_token: String,
-        options: serde_json::Value,
     ) -> request_model::CreditBankIncomeGetRequest {
         request_model::CreditBankIncomeGetRequest {
             client: &self,
             user_token,
-            options,
+            options: None,
         }
     }
     /**Refresh a user's bank income information
@@ -2635,12 +2565,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_inc
     pub fn credit_bank_income_refresh(
         &self,
         user_token: String,
-        options: serde_json::Value,
     ) -> request_model::CreditBankIncomeRefreshRequest {
         request_model::CreditBankIncomeRefreshRequest {
             client: &self,
             user_token,
-            options,
+            options: None,
         }
     }
     /**Retrieve a user's payroll information
@@ -2667,16 +2596,14 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_
     pub fn credit_payroll_income_precheck(
         &self,
         user_token: String,
-        access_tokens: Vec<AccessToken>,
-        employer: Option<serde_json::Value>,
-        us_military_info: Option<serde_json::Value>,
+        access_tokens: Vec<String>,
     ) -> request_model::CreditPayrollIncomePrecheckRequest {
         request_model::CreditPayrollIncomePrecheckRequest {
             client: &self,
             user_token,
             access_tokens,
-            employer,
-            us_military_info,
+            employer: None,
+            us_military_info: None,
         }
     }
     /**Retrieve a summary of an individual's employment information
@@ -2718,7 +2645,7 @@ See endpoint docs at <https://plaid.com/docs/none/>.*/
         &self,
         report_tokens: Vec<ReportToken>,
         secondary_client_id: String,
-        webhook: Option<String>,
+        webhook: String,
     ) -> request_model::CreditRelayCreateRequest {
         request_model::CreditRelayCreateRequest {
             client: &self,
@@ -2752,7 +2679,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/#creditrelayrefresh>.*
         &self,
         relay_token: String,
         report_type: String,
-        webhook: Option<String>,
+        webhook: String,
     ) -> request_model::CreditRelayRefreshRequest {
         request_model::CreditRelayRefreshRequest {
             client: &self,
@@ -2834,10 +2761,8 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signalevaluate>.*/
         account_id: String,
         client_transaction_id: String,
         amount: f64,
-        user_present: Option<bool>,
+        user_present: bool,
         client_user_id: String,
-        user: serde_json::Value,
-        device: serde_json::Value,
     ) -> request_model::SignalEvaluateRequest {
         request_model::SignalEvaluateRequest {
             client: &self,
@@ -2847,8 +2772,8 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signalevaluate>.*/
             amount,
             user_present,
             client_user_id,
-            user,
-            device,
+            user: None,
+            device: None,
         }
     }
     /**Report whether you initiated an ACH transaction
@@ -2860,7 +2785,7 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signaldecisionrepo
         &self,
         client_transaction_id: String,
         initiated: bool,
-        days_funds_on_hold: Option<i64>,
+        days_funds_on_hold: i64,
     ) -> request_model::SignalDecisionReportRequest {
         request_model::SignalDecisionReportRequest {
             client: &self,
@@ -2953,16 +2878,14 @@ See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionexec
         &self,
         idempotency_key: String,
         wallet_id: String,
-        counterparty: serde_json::Value,
-        amount: serde_json::Value,
         reference: String,
     ) -> request_model::WalletTransactionExecuteRequest {
         request_model::WalletTransactionExecuteRequest {
             client: &self,
             idempotency_key,
             wallet_id,
-            counterparty,
-            amount,
+            counterparty: None,
+            amount: None,
             reference,
         }
     }
@@ -3023,13 +2946,12 @@ The product is currently in beta. To request access, contact transactions-feedba
         &self,
         access_token: String,
         personal_finance_category: String,
-        rule_details: serde_json::Value,
     ) -> request_model::TransactionsRulesCreateRequest {
         request_model::TransactionsRulesCreateRequest {
             client: &self,
             access_token,
             personal_finance_category,
-            rule_details,
+            rule_details: None,
         }
     }
     /**Return a list of rules created for the Item associated with the access token.

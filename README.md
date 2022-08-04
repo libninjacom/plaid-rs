@@ -37,7 +37,7 @@ async fn main() {
 ```
 
 
-Official Plaid client, generated from the OpenAPI spec.
+Plaid client, generated from the OpenAPI spec.
 
 # [Documentation](https://docs.rs/plaid-openapi/latest/plaid-openapi)
 
