@@ -9,8 +9,8 @@ pub struct AuthGetRequest {
     pub options: Option<AuthGetRequestOptions>,
 }
 impl std::fmt::Display for AuthGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -21,8 +21,8 @@ Note: An error will be returned if a provided `account_id` is not associated wit
     pub account_ids: Option<Vec<String>>,
 }
 impl std::fmt::Display for AuthGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -41,8 +41,8 @@ pub struct AuthGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AuthGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -61,8 +61,8 @@ pub struct AuthGetNumbers {
     pub bacs: Vec<NumbersBacs>,
 }
 impl std::fmt::Display for AuthGetNumbers {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -81,8 +81,8 @@ pub struct TransactionsGetRequest {
     pub end_date: String,
 }
 impl std::fmt::Display for TransactionsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -113,8 +113,8 @@ We’re introducing Category Rules - a new beta endpoint that will enable you to
     pub include_personal_finance_category: Option<bool>,
 }
 impl std::fmt::Display for TransactionsGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -136,8 +136,8 @@ pub struct TransactionsGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -147,8 +147,8 @@ pub struct TransactionsRefreshRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for TransactionsRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -158,8 +158,8 @@ pub struct TransactionsRefreshResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -177,8 +177,8 @@ Note: An error will be returned if a provided `account_id` is not associated wit
     pub account_ids: Vec<String>,
 }
 impl std::fmt::Display for TransactionsRecurringGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -190,8 +190,8 @@ See the [`taxonomy csv file`](https://plaid.com/documents/transactions-personal-
     pub include_personal_finance_category: Option<bool>,
 }
 impl std::fmt::Display for TransactionsRecurringGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -210,8 +210,8 @@ pub struct TransactionsRecurringGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsRecurringGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -230,8 +230,8 @@ See the [`taxonomy csv file`](https://plaid.com/documents/transactions-personal-
     pub rule_details: TransactionsRuleDetails,
 }
 impl std::fmt::Display for TransactionsRulesCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -244,8 +244,8 @@ pub struct TransactionsRulesCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsRulesCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -255,8 +255,8 @@ pub struct TransactionsRulesListRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for TransactionsRulesListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -269,8 +269,8 @@ pub struct TransactionsRulesListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsRulesListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -283,8 +283,8 @@ pub struct TransactionsRulesRemoveRequest {
     pub rule_id: String,
 }
 impl std::fmt::Display for TransactionsRulesRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -294,8 +294,8 @@ pub struct TransactionsRulesRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsRulesRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -316,8 +316,8 @@ Note: The upper-bound length of this cursor is 256 characters of base64.*/
     pub options: Option<TransactionsSyncRequestOptions>,
 }
 impl std::fmt::Display for TransactionsSyncRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -334,8 +334,8 @@ We’re introducing Category Rules - a new beta endpoint that will enable you to
     pub include_personal_finance_category: Option<bool>,
 }
 impl std::fmt::Display for TransactionsSyncRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -360,8 +360,8 @@ pub struct TransactionsSyncResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransactionsSyncResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -383,8 +383,8 @@ In API versions 2019-05-29 and earlier, the `country_codes` parameter is an opti
     pub options: Option<InstitutionsGetRequestOptions>,
 }
 impl std::fmt::Display for InstitutionsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -411,8 +411,8 @@ Note that Plaid does not own any of the logos shared by the API, and that by acc
     pub include_payment_initiation_metadata: Option<bool>,
 }
 impl std::fmt::Display for InstitutionsGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -428,8 +428,8 @@ pub struct InstitutionsGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for InstitutionsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -449,8 +449,8 @@ pub struct InstitutionsSearchRequest {
     pub options: Option<InstitutionsSearchRequestOptions>,
 }
 impl std::fmt::Display for InstitutionsSearchRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -472,8 +472,8 @@ pub struct InstitutionsSearchRequestOptions {
     pub payment_initiation: Option<InstitutionsSearchPaymentInitiationOptions>,
 }
 impl std::fmt::Display for InstitutionsSearchRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -486,8 +486,8 @@ pub struct InstitutionsSearchPaymentInitiationOptions {
     pub consent_id: Option<String>,
 }
 impl std::fmt::Display for InstitutionsSearchPaymentInitiationOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -500,8 +500,8 @@ pub struct InstitutionsSearchResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for InstitutionsSearchResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -518,8 +518,8 @@ pub struct InstitutionsGetByIdRequest {
     pub options: Option<InstitutionsGetByIdRequestOptions>,
 }
 impl std::fmt::Display for InstitutionsGetByIdRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -540,8 +540,8 @@ Note that Plaid does not own any of the logos shared by the API and that by acce
     pub include_payment_initiation_metadata: Option<bool>,
 }
 impl std::fmt::Display for InstitutionsGetByIdRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -554,8 +554,8 @@ pub struct InstitutionsGetByIdResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for InstitutionsGetByIdResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -568,8 +568,8 @@ pub struct AccountsGetRequest {
     pub options: Option<AccountsGetRequestOptions>,
 }
 impl std::fmt::Display for AccountsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -579,8 +579,8 @@ pub struct AccountsGetRequestOptions {
     pub account_ids: Option<Vec<String>>,
 }
 impl std::fmt::Display for AccountsGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -597,15 +597,15 @@ If `/accounts/balance/get` was called, each account will include real-time balan
     pub request_id: String,
 }
 impl std::fmt::Display for AccountsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CategoriesGetRequest {}
 impl std::fmt::Display for CategoriesGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -618,8 +618,8 @@ pub struct CategoriesGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CategoriesGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -636,8 +636,8 @@ pub struct SandboxProcessorTokenCreateRequest {
     pub options: Option<SandboxProcessorTokenCreateRequestOptions>,
 }
 impl std::fmt::Display for SandboxProcessorTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -650,8 +650,8 @@ pub struct SandboxProcessorTokenCreateRequestOptions {
     pub override_password: Option<String>,
 }
 impl std::fmt::Display for SandboxProcessorTokenCreateRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -664,8 +664,8 @@ pub struct SandboxProcessorTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxProcessorTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -684,8 +684,8 @@ pub struct SandboxPublicTokenCreateRequest {
     pub user_token: Option<String>,
 }
 impl std::fmt::Display for SandboxPublicTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -704,8 +704,8 @@ pub struct SandboxPublicTokenCreateRequestOptions {
     pub transactions: Option<SandboxPublicTokenCreateRequestOptionsTransactions>,
 }
 impl std::fmt::Display for SandboxPublicTokenCreateRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -718,8 +718,8 @@ pub struct SandboxPublicTokenCreateRequestOptionsTransactions {
     pub end_date: Option<String>,
 }
 impl std::fmt::Display for SandboxPublicTokenCreateRequestOptionsTransactions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -732,8 +732,8 @@ pub struct SandboxPublicTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxPublicTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -749,8 +749,8 @@ pub struct SandboxItemFireWebhookRequest {
     pub webhook_code: String,
 }
 impl std::fmt::Display for SandboxItemFireWebhookRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -778,8 +778,8 @@ pub struct SandboxItemFireWebhookResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxItemFireWebhookResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -792,8 +792,8 @@ pub struct AccountsBalanceGetRequest {
     pub options: Option<AccountsBalanceGetRequestOptions>,
 }
 impl std::fmt::Display for AccountsBalanceGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -812,8 +812,8 @@ This field is only used when the institution is `ins_128026` (Capital One), in w
     pub min_last_updated_datetime: Option<String>,
 }
 impl std::fmt::Display for AccountsBalanceGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -828,8 +828,8 @@ pub struct IdentityGetRequest {
     pub options: Option<IdentityGetRequestOptions>,
 }
 impl std::fmt::Display for IdentityGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -840,8 +840,8 @@ Note: An error will be returned if a provided `account_id` is not associated wit
     pub account_ids: Option<Vec<String>>,
 }
 impl std::fmt::Display for IdentityGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -857,8 +857,8 @@ pub struct IdentityGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for IdentityGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -874,8 +874,8 @@ pub struct IdentityMatchRequest {
     pub options: Option<IdentityMatchRequestOptions>,
 }
 impl std::fmt::Display for IdentityMatchRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -885,8 +885,8 @@ pub struct IdentityMatchRequestOptions {
     pub account_ids: Option<Vec<String>>,
 }
 impl std::fmt::Display for IdentityMatchRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -905,8 +905,8 @@ pub struct IdentityMatchUser {
     pub address: Option<AddressDataNullable>,
 }
 impl std::fmt::Display for IdentityMatchUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -916,8 +916,8 @@ pub struct IdentityMatchResponse {
     pub request_id: Option<String>,
 }
 impl std::fmt::Display for IdentityMatchResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -927,8 +927,8 @@ pub struct ProcessorAuthGetRequest {
     pub processor_token: String,
 }
 impl std::fmt::Display for ProcessorAuthGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -944,8 +944,8 @@ pub struct ProcessorAuthGetResponse {
     pub account: AccountBase,
 }
 impl std::fmt::Display for ProcessorAuthGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1004,8 +1004,8 @@ The API supports idempotency for safely retrying requests without accidentally p
     pub origination_account_id: Option<String>,
 }
 impl std::fmt::Display for ProcessorBankTransferCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1018,8 +1018,8 @@ pub struct ProcessorBankTransferCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ProcessorBankTransferCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1038,8 +1038,8 @@ pub struct ProcessorNumber {
     pub bacs: Option<NumbersBacsNullable>,
 }
 impl std::fmt::Display for ProcessorNumber {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1049,8 +1049,8 @@ pub struct ProcessorIdentityGetRequest {
     pub processor_token: String,
 }
 impl std::fmt::Display for ProcessorIdentityGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1063,8 +1063,8 @@ pub struct ProcessorIdentityGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ProcessorIdentityGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1077,8 +1077,8 @@ pub struct ProcessorBalanceGetRequest {
     pub options: Option<ProcessorBalanceGetRequestOptions>,
 }
 impl std::fmt::Display for ProcessorBalanceGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1092,8 +1092,8 @@ This field is only used when the institution is `ins_128026` (Capital One), in w
     pub min_last_updated_datetime: Option<String>,
 }
 impl std::fmt::Display for ProcessorBalanceGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1106,8 +1106,8 @@ pub struct ProcessorBalanceGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ProcessorBalanceGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1117,8 +1117,8 @@ pub struct WebhookVerificationKeyGetRequest {
     pub key_id: String,
 }
 impl std::fmt::Display for WebhookVerificationKeyGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1131,8 +1131,8 @@ pub struct WebhookVerificationKeyGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for WebhookVerificationKeyGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1166,8 +1166,8 @@ pub struct JwkPublicKey {
     pub expired_at: Option<i64>,
 }
 impl std::fmt::Display for JwkPublicKey {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1180,8 +1180,8 @@ pub struct LiabilitiesGetRequest {
     pub options: Option<LiabilitiesGetRequestOptions>,
 }
 impl std::fmt::Display for LiabilitiesGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1193,8 +1193,8 @@ An error will be returned if a provided `account_id` is not associated with the 
     pub account_ids: Option<Vec<String>>,
 }
 impl std::fmt::Display for LiabilitiesGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1213,8 +1213,8 @@ pub struct LiabilitiesGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for LiabilitiesGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1233,8 +1233,8 @@ pub struct PaymentInitiationRecipientCreateRequest {
     pub address: Option<PaymentInitiationAddress>,
 }
 impl std::fmt::Display for PaymentInitiationRecipientCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1247,8 +1247,8 @@ pub struct PaymentInitiationRecipientCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationRecipientCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1283,8 +1283,8 @@ pub struct PaymentInitiationPaymentReverseResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentReverseResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1294,8 +1294,8 @@ pub struct PaymentInitiationRecipientGetRequest {
     pub recipient_id: String,
 }
 impl std::fmt::Display for PaymentInitiationRecipientGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1319,15 +1319,15 @@ pub struct PaymentInitiationRecipient {
     pub bacs: Option<RecipientBacsNullable>,
 }
 impl std::fmt::Display for PaymentInitiationRecipient {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientListRequest {}
 impl std::fmt::Display for PaymentInitiationRecipientListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1340,8 +1340,8 @@ pub struct PaymentInitiationRecipientListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationRecipientListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1363,8 +1363,8 @@ pub struct PaymentInitiationPaymentCreateRequest {
     pub options: Option<ExternalPaymentOptions>,
 }
 impl std::fmt::Display for PaymentInitiationPaymentCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1382,8 +1382,8 @@ The API supports idempotency for safely retrying requests without accidentally p
     pub reference: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentReverseRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1406,8 +1406,8 @@ pub struct PaymentInitiationPaymentCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1417,8 +1417,8 @@ pub struct SandboxItemResetLoginRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for SandboxItemResetLoginRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1431,8 +1431,8 @@ pub struct SandboxItemResetLoginResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxItemResetLoginResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1448,8 +1448,8 @@ pub struct SandboxItemSetVerificationStatusRequest {
     pub verification_status: String,
 }
 impl std::fmt::Display for SandboxItemSetVerificationStatusRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1459,8 +1459,8 @@ pub struct SandboxItemSetVerificationStatusResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxItemSetVerificationStatusResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1470,8 +1470,8 @@ pub struct UserCreateRequest {
     pub client_user_id: String,
 }
 impl std::fmt::Display for UserCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1487,8 +1487,8 @@ pub struct UserCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for UserCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1498,8 +1498,8 @@ pub struct PaymentInitiationPaymentGetRequest {
     pub payment_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1626,8 +1626,8 @@ These statuses will be removed in a future release.
     pub consent_id: Option<String>,
 }
 impl std::fmt::Display for PaymentInitiationPayment {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1637,8 +1637,8 @@ pub struct PaymentInitiationPaymentTokenCreateRequest {
     pub payment_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1654,8 +1654,8 @@ pub struct PaymentInitiationPaymentTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1677,8 +1677,8 @@ pub struct PaymentInitiationConsentCreateRequest {
     pub options: Option<ExternalPaymentInitiationConsentOptions>,
 }
 impl std::fmt::Display for PaymentInitiationConsentCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1704,8 +1704,8 @@ pub struct PaymentInitiationConsentCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationConsentCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1715,15 +1715,15 @@ pub struct PaymentInitiationConsentGetRequest {
     pub consent_id: String,
 }
 impl std::fmt::Display for PaymentInitiationConsentGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationConsentGetResponse {}
 impl std::fmt::Display for PaymentInitiationConsentGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1761,8 +1761,8 @@ pub struct PaymentInitiationConsent {
     pub scopes: Vec<String>,
 }
 impl std::fmt::Display for PaymentInitiationConsent {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1785,8 +1785,8 @@ pub struct PaymentInitiationConsentRevokeRequest {
     pub consent_id: String,
 }
 impl std::fmt::Display for PaymentInitiationConsentRevokeRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1796,8 +1796,8 @@ pub struct PaymentInitiationConsentRevokeResponse {
     pub request_id: Option<String>,
 }
 impl std::fmt::Display for PaymentInitiationConsentRevokeResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1815,8 +1815,8 @@ The API supports idempotency for safely retrying requests without accidentally p
     pub idempotency_key: String,
 }
 impl std::fmt::Display for PaymentInitiationConsentPaymentExecuteRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1861,8 +1861,8 @@ These statuses will be removed in a future release.
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationConsentPaymentExecuteResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1878,8 +1878,8 @@ pub struct PaymentInitiationPaymentListRequest {
     pub consent_id: Option<String>,
 }
 impl std::fmt::Display for PaymentInitiationPaymentListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1895,8 +1895,8 @@ pub struct PaymentInitiationPaymentListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1914,8 +1914,8 @@ An Asset Report requested with "Additional History" (that is, with more than 61 
     pub options: Option<AssetReportCreateRequestOptions>,
 }
 impl std::fmt::Display for AssetReportCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1937,8 +1937,8 @@ pub struct AssetReportCreateRequestOptions {
     pub user: Option<AssetReportUser>,
 }
 impl std::fmt::Display for AssetReportCreateRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1954,8 +1954,8 @@ pub struct AssetReportCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1971,8 +1971,8 @@ pub struct AssetReportRefreshRequest {
     pub options: Option<AssetReportRefreshRequestOptions>,
 }
 impl std::fmt::Display for AssetReportRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1988,8 +1988,8 @@ pub struct AssetReportRefreshRequestOptions {
     pub user: Option<AssetReportUser>,
 }
 impl std::fmt::Display for AssetReportRefreshRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2005,8 +2005,8 @@ pub struct AssetReportRefreshResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2018,8 +2018,8 @@ pub struct AssetReportRelayRefreshRequest {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for AssetReportRelayRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2034,8 +2034,8 @@ pub struct AssetReportRelayRefreshResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportRelayRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2045,8 +2045,8 @@ pub struct AssetReportRemoveRequest {
     pub asset_report_token: String,
 }
 impl std::fmt::Display for AssetReportRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2059,8 +2059,8 @@ pub struct AssetReportRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2073,8 +2073,8 @@ pub struct AssetReportFilterRequest {
     pub account_ids_to_exclude: Vec<String>,
 }
 impl std::fmt::Display for AssetReportFilterRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2090,8 +2090,8 @@ pub struct AssetReportFilterResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportFilterResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2107,8 +2107,8 @@ pub struct AssetReportGetRequest {
     pub fast_report: Option<bool>,
 }
 impl std::fmt::Display for AssetReportGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2124,8 +2124,8 @@ pub struct AssetReportGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2135,8 +2135,8 @@ pub struct AssetReportPdfGetRequest {
     pub asset_report_token: String,
 }
 impl std::fmt::Display for AssetReportPdfGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2151,8 +2151,8 @@ pub struct AssetReportAuditCopyCreateRequest {
     pub auditor_id: String,
 }
 impl std::fmt::Display for AssetReportAuditCopyCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2165,8 +2165,8 @@ pub struct AssetReportAuditCopyCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportAuditCopyCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2176,8 +2176,8 @@ pub struct AssetReportAuditCopyRemoveRequest {
     pub audit_copy_token: String,
 }
 impl std::fmt::Display for AssetReportAuditCopyRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2190,8 +2190,8 @@ pub struct AssetReportAuditCopyRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportAuditCopyRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2207,8 +2207,8 @@ pub struct AssetReportRelayCreateRequest {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for AssetReportRelayCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2221,8 +2221,8 @@ pub struct AssetReportRelayCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportRelayCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2232,8 +2232,8 @@ pub struct AssetReportRelayGetRequest {
     pub asset_relay_token: String,
 }
 impl std::fmt::Display for AssetReportRelayGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2243,8 +2243,8 @@ pub struct AssetReportRelayRemoveRequest {
     pub asset_relay_token: String,
 }
 impl std::fmt::Display for AssetReportRelayRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2257,8 +2257,8 @@ pub struct AssetReportRelayRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for AssetReportRelayRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2271,8 +2271,8 @@ pub struct InvestmentsHoldingsGetRequest {
     pub options: Option<InvestmentHoldingsGetRequestOptions>,
 }
 impl std::fmt::Display for InvestmentsHoldingsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2282,8 +2282,8 @@ pub struct InvestmentHoldingsGetRequestOptions {
     pub account_ids: Option<Vec<String>>,
 }
 impl std::fmt::Display for InvestmentHoldingsGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2305,8 +2305,8 @@ pub struct InvestmentsHoldingsGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for InvestmentsHoldingsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2325,8 +2325,8 @@ pub struct InvestmentsTransactionsGetRequest {
     pub options: Option<InvestmentsTransactionsGetRequestOptions>,
 }
 impl std::fmt::Display for InvestmentsTransactionsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2343,8 +2343,8 @@ pub struct InvestmentsTransactionsGetRequestOptions {
     pub offset: Option<i64>,
 }
 impl std::fmt::Display for InvestmentsTransactionsGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2369,8 +2369,8 @@ pub struct InvestmentsTransactionsGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for InvestmentsTransactionsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2386,8 +2386,8 @@ pub struct ProcessorTokenCreateRequest {
     pub processor: String,
 }
 impl std::fmt::Display for ProcessorTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2400,8 +2400,8 @@ pub struct ProcessorTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ProcessorTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2414,8 +2414,8 @@ pub struct ProcessorStripeBankAccountTokenCreateRequest {
     pub account_id: String,
 }
 impl std::fmt::Display for ProcessorStripeBankAccountTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2428,8 +2428,8 @@ pub struct ProcessorStripeBankAccountTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ProcessorStripeBankAccountTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2442,8 +2442,8 @@ pub struct ProcessorApexProcessorTokenCreateRequest {
     pub account_id: String,
 }
 impl std::fmt::Display for ProcessorApexProcessorTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2462,8 +2462,8 @@ pub struct DepositSwitchCreateRequest {
     pub options: Option<DepositSwitchCreateRequestOptions>,
 }
 impl std::fmt::Display for DepositSwitchCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2477,8 +2477,8 @@ pub struct DepositSwitchCreateRequestOptions {
     pub transaction_item_access_tokens: Option<Vec<String>>,
 }
 impl std::fmt::Display for DepositSwitchCreateRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2491,8 +2491,8 @@ pub struct DepositSwitchCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for DepositSwitchCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2502,8 +2502,8 @@ pub struct DepositSwitchTokenCreateRequest {
     pub deposit_switch_id: String,
 }
 impl std::fmt::Display for DepositSwitchTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2519,8 +2519,8 @@ pub struct DepositSwitchTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for DepositSwitchTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2530,8 +2530,8 @@ pub struct LinkTokenGetRequest {
     pub link_token: String,
 }
 impl std::fmt::Display for LinkTokenGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2638,8 +2638,8 @@ For institutions using OAuth, the filter will not affect the list of accounts sh
     pub user_token: Option<String>,
 }
 impl std::fmt::Display for LinkTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2658,8 +2658,8 @@ pub struct LinkTokenAccountFilters {
     pub investment: Option<InvestmentFilter>,
 }
 impl std::fmt::Display for LinkTokenAccountFilters {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2669,8 +2669,8 @@ pub struct LinkTokenEuConfig {
     pub headless: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenEuConfig {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2683,8 +2683,8 @@ pub struct LinkTokenCreateRequestPaymentInitiation {
     pub consent_id: Option<String>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestPaymentInitiation {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2694,8 +2694,8 @@ pub struct LinkTokenCreateRequestDepositSwitch {
     pub deposit_switch_id: String,
 }
 impl std::fmt::Display for LinkTokenCreateRequestDepositSwitch {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2708,8 +2708,8 @@ pub struct LinkTokenCreateRequestTransfer {
     pub payment_profile_id: Option<String>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestTransfer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2734,8 +2734,8 @@ pub struct LinkTokenCreateRequestUserStatedIncomeSource {
     pub pay_frequency: Option<String>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestUserStatedIncomeSource {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2804,8 +2804,8 @@ pub struct LinkTokenCreateRequestAuth {
     pub flow_type: Option<String>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestAuth {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2822,8 +2822,8 @@ If `gave_consent` is set to `true`, the `accept_tos` step will be marked as `ski
     pub gave_consent: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestIdentityVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2833,8 +2833,8 @@ pub struct LinkTokenCreateInstitutionData {
     pub routing_number: Option<String>,
 }
 impl std::fmt::Display for LinkTokenCreateInstitutionData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2883,8 +2883,8 @@ pub struct LinkTokenCreateRequestUser {
     pub id_number: Option<UserIdNumber>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2894,8 +2894,8 @@ pub struct LinkTokenCreateRequestUpdate {
     pub account_selection_enabled: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestUpdate {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2914,8 +2914,8 @@ pub struct LinkTokenCreateRequestAccountSubtypes {
     pub investment: Option<LinkTokenCreateInvestmentFilter>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestAccountSubtypes {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2925,8 +2925,8 @@ pub struct LinkTokenCreateDepositoryFilter {
     pub account_subtypes: Option<DepositoryAccountSubtypes>,
 }
 impl std::fmt::Display for LinkTokenCreateDepositoryFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2936,8 +2936,8 @@ pub struct LinkTokenCreateCreditFilter {
     pub account_subtypes: Option<CreditAccountSubtypes>,
 }
 impl std::fmt::Display for LinkTokenCreateCreditFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2947,8 +2947,8 @@ pub struct LinkTokenCreateLoanFilter {
     pub account_subtypes: Option<LoanAccountSubtypes>,
 }
 impl std::fmt::Display for LinkTokenCreateLoanFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2958,8 +2958,8 @@ pub struct LinkTokenCreateInvestmentFilter {
     pub account_subtypes: Option<InvestmentAccountSubtypes>,
 }
 impl std::fmt::Display for LinkTokenCreateInvestmentFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -2981,8 +2981,8 @@ pub struct LinkTokenGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for LinkTokenGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3014,8 +3014,8 @@ pub struct LinkTokenGetMetadataResponse {
     pub client_name: Option<String>,
 }
 impl std::fmt::Display for LinkTokenGetMetadataResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3031,8 +3031,8 @@ pub struct LinkTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for LinkTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3072,8 +3072,8 @@ This may change over time and is not safe for programmatic use.*/
     pub suggested_action: Option<String>,
 }
 impl std::fmt::Display for Error {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3163,8 +3163,8 @@ See the [Account type schema](https://plaid.com/docs/api/accounts#account-type-s
     pub verification_status: Option<String>,
 }
 impl std::fmt::Display for AccountBase {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3219,8 +3219,8 @@ This is currently only provided when the `min_last_updated_datetime` is passed w
     pub last_updated_datetime: Option<String>,
 }
 impl std::fmt::Display for AccountBalance {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3388,8 +3388,8 @@ Note that when using OAuth with Chase Bank (`ins_56`), Chase will issue "tokeniz
     pub wire_routing: Option<String>,
 }
 impl std::fmt::Display for NumbersAch {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3410,8 +3410,8 @@ pub struct NumbersEft {
     pub branch: String,
 }
 impl std::fmt::Display for NumbersEft {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3429,8 +3429,8 @@ pub struct NumbersInternational {
     pub bic: String,
 }
 impl std::fmt::Display for NumbersInternational {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3448,8 +3448,8 @@ pub struct NumbersBacs {
     pub sort_code: String,
 }
 impl std::fmt::Display for NumbersBacs {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3464,8 +3464,8 @@ pub struct NumbersInternationalIban {
     pub bic: String,
 }
 impl std::fmt::Display for NumbersInternationalIban {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3482,8 +3482,8 @@ pub struct RecipientBacs {
     pub sort_code: Option<String>,
 }
 impl std::fmt::Display for RecipientBacs {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3501,8 +3501,8 @@ pub struct RemovedTransaction {
     pub transaction_id: Option<String>,
 }
 impl std::fmt::Display for RemovedTransaction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3523,8 +3523,8 @@ Matches are case sensitive.
     pub query: String,
 }
 impl std::fmt::Display for TransactionsRuleDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3564,8 +3564,8 @@ In the personal finance category taxonomy, this field is represented by the deta
     pub rule_details: Option<TransactionsRuleDetails>,
 }
 impl std::fmt::Display for TransactionsCategoryRule {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3645,8 +3645,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub check_number: Option<String>,
 }
 impl std::fmt::Display for TransactionBase {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3679,8 +3679,8 @@ pub struct Location {
     pub store_number: Option<String>,
 }
 impl std::fmt::Display for Location {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3752,8 +3752,8 @@ See the [`taxonomy csv file`](https://plaid.com/documents/transactions-personal-
     pub personal_finance_category: Option<PersonalFinanceCategory>,
 }
 impl std::fmt::Display for TransactionStream {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3771,8 +3771,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for TransactionStreamAmount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3842,8 +3842,8 @@ Institution status is accessible in the Dashboard and via the API using the `/in
     pub auth_metadata: Option<AuthMetadata>,
 }
 impl std::fmt::Display for Institution {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3877,8 +3877,8 @@ pub struct InstitutionStatus {
     pub health_incidents: Option<Vec<HealthIncident>>,
 }
 impl std::fmt::Display for InstitutionStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3930,8 +3930,8 @@ pub struct PaymentMeta {
     pub reason: Option<String>,
 }
 impl std::fmt::Display for PaymentMeta {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3974,8 +3974,8 @@ pub struct Category {
     pub hierarchy: Vec<String>,
 }
 impl std::fmt::Display for Category {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -3988,8 +3988,8 @@ pub struct PersonalFinanceCategory {
     pub detailed: String,
 }
 impl std::fmt::Display for PersonalFinanceCategory {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4019,8 +4019,8 @@ pub struct ScreeningStatusUpdatedWebhook {
     pub screening_id: serde_json::Value,
 }
 impl std::fmt::Display for ScreeningStatusUpdatedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4036,8 +4036,8 @@ pub struct EntityScreeningStatusUpdatedWebhook {
     pub screening_id: serde_json::Value,
 }
 impl std::fmt::Display for EntityScreeningStatusUpdatedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4053,8 +4053,8 @@ pub struct IdentityVerificationStepUpdatedWebhook {
     pub identity_verification_id: serde_json::Value,
 }
 impl std::fmt::Display for IdentityVerificationStepUpdatedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4070,8 +4070,8 @@ pub struct IdentityVerificationRetriedWebhook {
     pub identity_verification_id: serde_json::Value,
 }
 impl std::fmt::Display for IdentityVerificationRetriedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4087,8 +4087,8 @@ pub struct IdentityVerificationStatusUpdatedWebhook {
     pub identity_verification_id: serde_json::Value,
 }
 impl std::fmt::Display for IdentityVerificationStatusUpdatedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4110,8 +4110,8 @@ pub struct TransactionsRemovedWebhook {
     pub item_id: String,
 }
 impl std::fmt::Display for TransactionsRemovedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4133,8 +4133,8 @@ pub struct DefaultUpdateWebhook {
     pub item_id: String,
 }
 impl std::fmt::Display for DefaultUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4156,8 +4156,8 @@ pub struct SyncUpdatesAvailableWebhook {
     pub historical_update_complete: bool,
 }
 impl std::fmt::Display for SyncUpdatesAvailableWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4176,8 +4176,8 @@ pub struct RecurringTransactionsUpdateWebhook {
     pub account_ids: Vec<String>,
 }
 impl std::fmt::Display for RecurringTransactionsUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4202,15 +4202,15 @@ Example: `{ "XMBvvyMGQ1UoLbKByoMqH3nXMj84ALSdE5B58": ["PHONES"] }`
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for IdentityDefaultUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountIdsWithUpdatedIdentity {}
 impl std::fmt::Display for AccountIdsWithUpdatedIdentity {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4243,8 +4243,8 @@ pub struct HistoricalUpdateWebhook {
     pub item_id: String,
 }
 impl std::fmt::Display for HistoricalUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4266,8 +4266,8 @@ pub struct InitialUpdateWebhook {
     pub item_id: String,
 }
 impl std::fmt::Display for InitialUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4283,8 +4283,8 @@ pub struct PhoneNumber {
     pub type_: String,
 }
 impl std::fmt::Display for PhoneNumber {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4300,8 +4300,8 @@ pub struct Email {
     pub type_: String,
 }
 impl std::fmt::Display for Email {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4314,8 +4314,8 @@ pub struct Address {
     pub primary: Option<bool>,
 }
 impl std::fmt::Display for Address {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4343,8 +4343,8 @@ Example: `"564 Main Street, APT 15"`*/
     pub country: Option<String>,
 }
 impl std::fmt::Display for AddressData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4369,8 +4369,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for HistoricalBalance {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4391,8 +4391,8 @@ If an Item contains multiple accounts with different owner names, some instituti
     pub addresses: Vec<Address>,
 }
 impl std::fmt::Display for Owner {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4411,8 +4411,8 @@ pub struct OwnerOverride {
     pub addresses: Vec<Address>,
 }
 impl std::fmt::Display for OwnerOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4428,8 +4428,8 @@ pub struct LiabilitiesObject {
     pub student: Option<Vec<StudentLoan>>,
 }
 impl std::fmt::Display for LiabilitiesObject {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4511,8 +4511,8 @@ Firstmark (`ins_116295` ) and Navient (`ins_116248`) will display as $0 if there
     pub ytd_principal_paid: Option<f64>,
 }
 impl std::fmt::Display for StudentLoan {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4546,8 +4546,8 @@ pub struct CreditCardLiability {
     pub next_payment_due_date: Option<String>,
 }
 impl std::fmt::Display for CreditCardLiability {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4614,8 +4614,8 @@ pub struct MortgageLiability {
     pub ytd_principal_paid: Option<f64>,
 }
 impl std::fmt::Display for MortgageLiability {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4628,8 +4628,8 @@ pub struct MortgageInterestRate {
     pub type_: Option<String>,
 }
 impl std::fmt::Display for MortgageInterestRate {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4651,8 +4651,8 @@ pub struct MortgagePropertyAddress {
     pub street: Option<String>,
 }
 impl std::fmt::Display for MortgagePropertyAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4666,8 +4666,8 @@ pub struct StudentLoanStatus {
     pub type_: Option<String>,
 }
 impl std::fmt::Display for StudentLoanStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4680,8 +4680,8 @@ pub struct StudentRepaymentPlan {
     pub type_: Option<String>,
 }
 impl std::fmt::Display for StudentRepaymentPlan {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4697,8 +4697,8 @@ pub struct PslfStatus {
     pub payments_remaining: Option<f64>,
 }
 impl std::fmt::Display for PslfStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4722,8 +4722,8 @@ Example: `"564 Main Street, APT 15"`*/
     pub country: Option<String>,
 }
 impl std::fmt::Display for ServicerAddressData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4743,8 +4743,8 @@ pub struct Apr {
     pub interest_charge_amount: Option<f64>,
 }
 impl std::fmt::Display for Apr {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4754,8 +4754,8 @@ pub struct AuthMetadata {
     pub supported_methods: Option<AuthSupportedMethods>,
 }
 impl std::fmt::Display for AuthMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4771,8 +4771,8 @@ pub struct AuthSupportedMethods {
     pub automated_micro_deposits: bool,
 }
 impl std::fmt::Display for AuthSupportedMethods {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4797,15 +4797,15 @@ Example: `{"GBP": "10000"}`
     pub standing_order_metadata: Option<PaymentInitiationStandingOrderMetadata>,
 }
 impl std::fmt::Display for PaymentInitiationMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentInitiationMaximumPaymentAmount {}
 impl std::fmt::Display for PaymentInitiationMaximumPaymentAmount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4821,8 +4821,8 @@ pub struct PaymentInitiationStandingOrderMetadata {
     pub valid_standing_order_intervals: Vec<String>,
 }
 impl std::fmt::Display for PaymentInitiationStandingOrderMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4841,8 +4841,8 @@ pub struct PaymentInitiationAddress {
     pub country: String,
 }
 impl std::fmt::Display for PaymentInitiationAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4871,8 +4871,8 @@ If the only `interval_execution_day` between the start date and the end date (in
     pub adjusted_start_date: Option<String>,
 }
 impl std::fmt::Display for ExternalPaymentScheduleBase {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4916,8 +4916,8 @@ pub struct ExternalPaymentInitiationConsentOptions {
     pub bacs: Option<PaymentInitiationOptionalRestrictionBacs>,
 }
 impl std::fmt::Display for ExternalPaymentInitiationConsentOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4933,8 +4933,8 @@ pub struct PaymentInitiationConsentConstraints {
     pub periodic_amounts: Vec<PaymentConsentPeriodicAmount>,
 }
 impl std::fmt::Display for PaymentInitiationConsentConstraints {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4966,8 +4966,8 @@ pub struct ExternalPaymentOptions {
     pub scheme: Option<String>,
 }
 impl std::fmt::Display for ExternalPaymentOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -4983,8 +4983,8 @@ pub struct ExternalPaymentRefundDetails {
     pub bacs: Option<RecipientBacsNullable>,
 }
 impl std::fmt::Display for ExternalPaymentRefundDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5044,8 +5044,8 @@ pub struct ProductStatus {
     pub breakdown: ProductStatusBreakdown,
 }
 impl std::fmt::Display for ProductStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5065,8 +5065,8 @@ pub struct ProductStatusBreakdown {
     pub refresh_interval: Option<String>,
 }
 impl std::fmt::Display for ProductStatusBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5106,8 +5106,8 @@ Note that transactions data is generated relative to the Item's creation date. D
     pub force_error: String,
 }
 impl std::fmt::Display for UserCustomPassword {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5136,8 +5136,8 @@ If value is `questions`, the MFA answer is  `answer_<i>_<j>` for the j-th questi
     pub selections_per_question: f64,
 }
 impl std::fmt::Display for Mfa {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5199,8 +5199,8 @@ See the [Account type schema](https://plaid.com/docs/api/accounts#account-type-s
     pub income: Option<IncomeOverride>,
 }
 impl std::fmt::Display for OverrideAccounts {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5216,8 +5216,8 @@ pub struct Meta {
     pub limit: f64,
 }
 impl std::fmt::Display for Meta {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5248,8 +5248,8 @@ pub struct Numbers {
     pub bacs_sort_code: Option<String>,
 }
 impl std::fmt::Display for Numbers {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5271,8 +5271,8 @@ pub struct TransactionOverride {
     pub currency: Option<String>,
 }
 impl std::fmt::Display for TransactionOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5297,8 +5297,8 @@ pub struct SecurityOverride {
     pub currency: Option<String>,
 }
 impl std::fmt::Display for SecurityOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5323,8 +5323,8 @@ pub struct HoldingsOverride {
     pub security: SecurityOverride,
 }
 impl std::fmt::Display for HoldingsOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5360,8 +5360,8 @@ pub struct InvestmentsTransactionsOverride {
     pub security: Option<SecurityOverride>,
 }
 impl std::fmt::Display for InvestmentsTransactionsOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5440,8 +5440,8 @@ pub struct LiabilityOverride {
     pub servicer_address: Address,
 }
 impl std::fmt::Display for LiabilityOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5457,8 +5457,8 @@ pub struct StudentLoanRepaymentModel {
     pub repayment_months: f64,
 }
 impl std::fmt::Display for StudentLoanRepaymentModel {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5488,8 +5488,8 @@ Note that account types supported by Liabilities will accrue interest in the San
     pub statement_day_of_month: String,
 }
 impl std::fmt::Display for InflowModel {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5499,8 +5499,8 @@ pub struct IncomeOverride {
     pub paystubs: Option<Vec<PaystubOverride>>,
 }
 impl std::fmt::Display for IncomeOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5518,8 +5518,8 @@ pub struct PaystubOverride {
     pub pay_period_details: Option<PayPeriodDetails>,
 }
 impl std::fmt::Display for PaystubOverride {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5529,8 +5529,8 @@ pub struct PaystubOverrideEmployer {
     pub name: Option<String>,
 }
 impl std::fmt::Display for PaystubOverrideEmployer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5543,8 +5543,8 @@ pub struct PaystubOverrideEmployee {
     pub address: Option<PaystubOverrideEmployeeAddress>,
 }
 impl std::fmt::Display for PaystubOverrideEmployee {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5568,8 +5568,8 @@ Example: `"564 Main Street, APT 15"`*/
     pub country: Option<String>,
 }
 impl std::fmt::Display for PaystubOverrideEmployeeAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5592,8 +5592,8 @@ pub struct AutomaticallyVerifiedWebhook {
     pub item_id: String,
 }
 impl std::fmt::Display for AutomaticallyVerifiedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5602,8 +5602,8 @@ pub struct JwtHeader {
     pub id: String,
 }
 impl std::fmt::Display for JwtHeader {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5622,8 +5622,8 @@ pub struct VerificationExpiredWebhook {
     pub account_id: String,
 }
 impl std::fmt::Display for VerificationExpiredWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5645,8 +5645,8 @@ pub struct WebhookUpdateAcknowledgedWebhook {
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for WebhookUpdateAcknowledgedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5665,8 +5665,8 @@ pub struct PendingExpirationWebhook {
     pub consent_expiration_time: String,
 }
 impl std::fmt::Display for PendingExpirationWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5685,8 +5685,8 @@ pub struct ItemErrorWebhook {
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for ItemErrorWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5705,8 +5705,8 @@ pub struct ItemProductReadyWebhook {
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for ItemProductReadyWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5735,8 +5735,8 @@ If your user cannot verify their session, please submit a Support ticket with th
     pub troubleshooting_steps: String,
 }
 impl std::fmt::Display for RecaptchaRequiredError {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5749,8 +5749,8 @@ pub struct BankTransfersEventsUpdateWebhook {
     pub webhook_code: String,
 }
 impl std::fmt::Display for BankTransfersEventsUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5763,8 +5763,8 @@ pub struct TransferEventsUpdateWebhook {
     pub webhook_code: String,
 }
 impl std::fmt::Display for TransferEventsUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5789,8 +5789,8 @@ pub struct InvestmentsDefaultUpdateWebhook {
     pub canceled_investments_transactions: f64,
 }
 impl std::fmt::Display for InvestmentsDefaultUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5815,8 +5815,8 @@ pub struct HoldingsDefaultUpdateWebhook {
     pub updated_holdings: f64,
 }
 impl std::fmt::Display for HoldingsDefaultUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5844,15 +5844,15 @@ Example: `{ "XMBvvyMGQ1UoLbKByoMqH3nXMj84ALSdE5B58": ["past_amount_due"] }`
     pub account_ids_with_updated_liabilities: LiabilitiesAccountIdsWithUpdatedLiabilities,
 }
 impl std::fmt::Display for LiabilitiesDefaultUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LiabilitiesAccountIdsWithUpdatedLiabilities {}
 impl std::fmt::Display for LiabilitiesAccountIdsWithUpdatedLiabilities {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5868,8 +5868,8 @@ pub struct AssetsProductReadyWebhook {
     pub asset_report_id: String,
 }
 impl std::fmt::Display for AssetsProductReadyWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5888,8 +5888,8 @@ pub struct AssetsErrorWebhook {
     pub asset_report_id: String,
 }
 impl std::fmt::Display for AssetsErrorWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5914,8 +5914,8 @@ pub struct AssetsRelayWebhook {
     pub asset_report_id: String,
 }
 impl std::fmt::Display for AssetsRelayWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5930,8 +5930,8 @@ pub enum RelayEvent {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Cause {}
 impl std::fmt::Display for Cause {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5947,8 +5947,8 @@ pub struct Warning {
     pub cause: Cause,
 }
 impl std::fmt::Display for Warning {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5968,8 +5968,8 @@ pub struct PaymentAmount {
     pub value: f64,
 }
 impl std::fmt::Display for PaymentAmount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -5982,8 +5982,8 @@ pub struct PaymentConsentValidDateTime {
     pub to: Option<String>,
 }
 impl std::fmt::Display for PaymentConsentValidDateTime {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6003,8 +6003,8 @@ pub struct PaymentConsentPeriodicAmount {
     pub alignment: String,
 }
 impl std::fmt::Display for PaymentConsentPeriodicAmount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6054,8 +6054,8 @@ Format: "ddd-dd-dddd"*/
     pub email: Option<String>,
 }
 impl std::fmt::Display for AssetReportUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6074,8 +6074,8 @@ pub struct StandaloneCurrencyCodeList {
     pub unofficial_currency_code: String,
 }
 impl std::fmt::Display for StandaloneCurrencyCodeList {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6099,8 +6099,8 @@ pub struct StandaloneAccountType {
     pub other: String,
 }
 impl std::fmt::Display for StandaloneAccountType {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6133,8 +6133,8 @@ pub struct AssetReport {
     pub items: Vec<AssetReportItem>,
 }
 impl std::fmt::Display for AssetReport {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6156,8 +6156,8 @@ pub struct AssetReportItem {
     pub accounts: Vec<AccountAssets>,
 }
 impl std::fmt::Display for AssetReportItem {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6255,8 +6255,8 @@ These statuses will be removed in a future release.
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for PaymentStatusUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6299,8 +6299,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for Holding {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6380,8 +6380,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for Security {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6552,8 +6552,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for InvestmentTransaction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6578,8 +6578,8 @@ pub struct StandaloneInvestmentTransactionType {
     pub transfer: String,
 }
 impl std::fmt::Display for StandaloneInvestmentTransactionType {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6610,8 +6610,8 @@ pub struct UserPermissionRevokedWebhook {
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for UserPermissionRevokedWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6621,8 +6621,8 @@ pub struct DepositSwitchGetRequest {
     pub deposit_switch_id: String,
 }
 impl std::fmt::Display for DepositSwitchGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6694,8 +6694,8 @@ The state, or status, of the deposit switch.
     pub request_id: String,
 }
 impl std::fmt::Display for DepositSwitchGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6725,8 +6725,8 @@ For more information, see the [Deposit Switch API reference](/docs/deposit-switc
     pub deposit_switch_id: Option<String>,
 }
 impl std::fmt::Display for DepositSwitchStateUpdateWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6736,8 +6736,8 @@ pub struct AssetReportAuditCopyGetRequest {
     pub audit_copy_token: String,
 }
 impl std::fmt::Display for AssetReportAuditCopyGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6747,8 +6747,8 @@ pub struct TransferGetRequest {
     pub transfer_id: String,
 }
 impl std::fmt::Display for TransferGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6758,8 +6758,8 @@ pub struct BankTransferGetRequest {
     pub bank_transfer_id: String,
 }
 impl std::fmt::Display for BankTransferGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6772,8 +6772,8 @@ pub struct TransferGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6786,8 +6786,8 @@ pub struct BankTransferGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6876,8 +6876,8 @@ pub struct Transfer {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for Transfer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6949,8 +6949,8 @@ pub struct BankTransfer {
     pub direction: Option<String>,
 }
 impl std::fmt::Display for BankTransfer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -6983,8 +6983,8 @@ For a full listing of bank transfer errors, see [Bank Transfers errors](https://
     pub error_message: Option<String>,
 }
 impl std::fmt::Display for TransferIntentGetFailureReason {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7016,8 +7016,8 @@ pub struct TransferAuthorizationUserInRequest {
     pub address: Option<TransferUserAddressInRequest>,
 }
 impl std::fmt::Display for TransferAuthorizationUserInRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7036,8 +7036,8 @@ pub struct TransferUserInRequest {
     pub address: Option<TransferUserAddressInRequest>,
 }
 impl std::fmt::Display for TransferUserInRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7056,8 +7056,8 @@ pub struct TransferUserInResponse {
     pub address: Option<TransferUserAddressInResponse>,
 }
 impl std::fmt::Display for TransferUserInResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7079,8 +7079,8 @@ pub struct TransferUserAddressInRequest {
     pub country: Option<String>,
 }
 impl std::fmt::Display for TransferUserAddressInRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7102,8 +7102,8 @@ pub struct TransferUserAddressInResponse {
     pub country: Option<String>,
 }
 impl std::fmt::Display for TransferUserAddressInResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7119,8 +7119,8 @@ pub struct BankTransferUser {
     pub routing_number: Option<String>,
 }
 impl std::fmt::Display for BankTransferUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7160,8 +7160,8 @@ pub struct TransferAuthorizationDecisionRationale {
     pub description: String,
 }
 impl std::fmt::Display for TransferAuthorizationDecisionRationale {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7204,8 +7204,8 @@ pub struct TransferAuthorizationGuaranteeDecisionRationale {
     pub description: String,
 }
 impl std::fmt::Display for TransferAuthorizationGuaranteeDecisionRationale {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7244,8 +7244,8 @@ pub struct TransferAuthorizationProposedTransfer {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for TransferAuthorizationProposedTransfer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7258,22 +7258,22 @@ pub struct TransferAuthorizationDevice {
     pub user_agent: Option<String>,
 }
 impl std::fmt::Display for TransferAuthorizationDevice {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferMetadata {}
 impl std::fmt::Display for TransferMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferMetadata {}
 impl std::fmt::Display for BankTransferMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7353,8 +7353,8 @@ pub struct TransferFailure {
     pub description: Option<String>,
 }
 impl std::fmt::Display for TransferFailure {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7367,8 +7367,8 @@ pub struct BankTransferFailure {
     pub description: Option<String>,
 }
 impl std::fmt::Display for BankTransferFailure {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7419,8 +7419,8 @@ pub struct TransferAuthorizationCreateRequest {
     pub payment_profile_id: Option<String>,
 }
 impl std::fmt::Display for TransferAuthorizationCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7487,8 +7487,8 @@ The API supports idempotency for safely retrying requests without accidentally p
     pub payment_profile_id: Option<String>,
 }
 impl std::fmt::Display for TransferCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7550,8 +7550,8 @@ The API supports idempotency for safely retrying requests without accidentally p
     pub origination_account_id: Option<String>,
 }
 impl std::fmt::Display for BankTransferCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7564,8 +7564,8 @@ pub struct TransferAuthorizationCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferAuthorizationCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7607,8 +7607,8 @@ A decision regarding the proposed transfer.
     pub proposed_transfer: TransferAuthorizationProposedTransfer,
 }
 impl std::fmt::Display for TransferAuthorization {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7621,8 +7621,8 @@ pub struct TransferCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7635,8 +7635,8 @@ pub struct BankTransferCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7658,8 +7658,8 @@ pub struct TransferListRequest {
     pub origination_account_id: Option<String>,
 }
 impl std::fmt::Display for TransferListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7684,8 +7684,8 @@ pub struct BankTransferListRequest {
     pub direction: Option<String>,
 }
 impl std::fmt::Display for BankTransferListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7697,8 +7697,8 @@ pub struct TransferListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7710,8 +7710,8 @@ pub struct BankTransferListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7728,8 +7728,8 @@ pub struct TransferCancelRequest {
     pub transfer_id: String,
 }
 impl std::fmt::Display for TransferCancelRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7739,8 +7739,8 @@ pub struct BankTransferCancelRequest {
     pub bank_transfer_id: String,
 }
 impl std::fmt::Display for BankTransferCancelRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7750,8 +7750,8 @@ pub struct TransferCancelResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferCancelResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7761,8 +7761,8 @@ pub struct BankTransferCancelResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferCancelResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7806,8 +7806,8 @@ pub struct TransferEventListRequest {
     pub origination_account_id: Option<String>,
 }
 impl std::fmt::Display for TransferEventListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7859,8 +7859,8 @@ pub struct BankTransferEventListRequest {
     pub direction: Option<String>,
 }
 impl std::fmt::Display for BankTransferEventListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7946,8 +7946,8 @@ pub struct TransferEvent {
     pub sweep_amount: Option<String>,
 }
 impl std::fmt::Display for TransferEvent {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -7997,8 +7997,8 @@ pub struct BankTransferEvent {
     pub direction: Option<String>,
 }
 impl std::fmt::Display for BankTransferEvent {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8010,8 +8010,8 @@ pub struct TransferEventListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferEventListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8023,8 +8023,8 @@ pub struct BankTransferEventListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferEventListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8037,8 +8037,8 @@ pub struct BankTransferEventSyncRequest {
     pub count: Option<i64>,
 }
 impl std::fmt::Display for BankTransferEventSyncRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8051,8 +8051,8 @@ pub struct TransferEventSyncRequest {
     pub count: Option<i64>,
 }
 impl std::fmt::Display for TransferEventSyncRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8064,8 +8064,8 @@ pub struct BankTransferEventSyncResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferEventSyncResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8077,8 +8077,8 @@ pub struct TransferEventSyncResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferEventSyncResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8088,8 +8088,8 @@ pub struct BankTransferSweepGetRequest {
     pub sweep_id: String,
 }
 impl std::fmt::Display for BankTransferSweepGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8099,8 +8099,8 @@ pub struct TransferSweepGetRequest {
     pub sweep_id: String,
 }
 impl std::fmt::Display for TransferSweepGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8113,8 +8113,8 @@ pub struct BankTransferSweepGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferSweepGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8133,8 +8133,8 @@ The total sum of the `swept` and `return_swept` events is equal to the `amount` 
     pub request_id: String,
 }
 impl std::fmt::Display for TransferSweepGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8153,8 +8153,8 @@ pub struct BankTransferSweepListRequest {
     pub count: Option<i64>,
 }
 impl std::fmt::Display for BankTransferSweepListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8173,8 +8173,8 @@ pub struct TransferSweepListRequest {
     pub offset: Option<i64>,
 }
 impl std::fmt::Display for TransferSweepListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8186,8 +8186,8 @@ pub struct TransferSweepListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferSweepListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8199,8 +8199,8 @@ pub struct BankTransferSweepListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferSweepListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8219,8 +8219,8 @@ pub struct BankTransferSweep {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for BankTransferSweep {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8241,15 +8241,15 @@ If amount is not present, the sweep was net-settled to zero and outstanding debi
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for TransferSweep {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SimulatedTransferSweep {}
 impl std::fmt::Display for SimulatedTransferSweep {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8259,8 +8259,8 @@ pub struct BankTransferBalanceGetRequest {
     pub origination_account_id: Option<String>,
 }
 impl std::fmt::Display for BankTransferBalanceGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8276,8 +8276,8 @@ pub struct BankTransferBalanceGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferBalanceGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8290,8 +8290,8 @@ pub struct BankTransferBalance {
     pub transactable: String,
 }
 impl std::fmt::Display for BankTransferBalance {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8310,8 +8310,8 @@ pub struct BankTransferMigrateAccountRequest {
     pub account_type: String,
 }
 impl std::fmt::Display for BankTransferMigrateAccountRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8327,8 +8327,8 @@ pub struct BankTransferMigrateAccountResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for BankTransferMigrateAccountResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8347,8 +8347,8 @@ pub struct TransferMigrateAccountRequest {
     pub account_type: String,
 }
 impl std::fmt::Display for TransferMigrateAccountRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8364,8 +8364,8 @@ pub struct TransferMigrateAccountResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferMigrateAccountResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8384,8 +8384,8 @@ pub struct TransferRepaymentListRequest {
     pub offset: Option<i64>,
 }
 impl std::fmt::Display for TransferRepaymentListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8397,8 +8397,8 @@ pub struct TransferRepaymentListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferRepaymentListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8417,8 +8417,8 @@ pub struct TransferRepayment {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for TransferRepayment {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8434,8 +8434,8 @@ pub struct TransferRepaymentReturnListRequest {
     pub offset: Option<i64>,
 }
 impl std::fmt::Display for TransferRepaymentReturnListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8447,8 +8447,8 @@ pub struct TransferRepaymentReturnListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferRepaymentReturnListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8467,8 +8467,8 @@ pub struct TransferRepaymentReturn {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for TransferRepaymentReturn {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8523,8 +8523,8 @@ pub struct TransferIntentCreateRequest {
     pub require_guarantee: Option<bool>,
 }
 impl std::fmt::Display for TransferIntentCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8601,8 +8601,8 @@ pub struct TransferIntentCreate {
     pub require_guarantee: Option<bool>,
 }
 impl std::fmt::Display for TransferIntentCreate {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8615,8 +8615,8 @@ pub struct TransferIntentCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferIntentCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8626,8 +8626,8 @@ pub struct TransferIntentGetRequest {
     pub transfer_intent_id: String,
 }
 impl std::fmt::Display for TransferIntentGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8727,8 +8727,8 @@ A decision regarding the proposed transfer.
     >,
 }
 impl std::fmt::Display for TransferIntentGet {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8741,8 +8741,8 @@ pub struct TransferIntentGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for TransferIntentGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8767,8 +8767,8 @@ An error will be returned if the event type is incompatible with the current tra
     pub failure_reason: Option<BankTransferFailure>,
 }
 impl std::fmt::Display for SandboxBankTransferSimulateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8793,15 +8793,15 @@ An error will be returned if the event type is incompatible with the current tra
     pub failure_reason: Option<TransferFailure>,
 }
 impl std::fmt::Display for SandboxTransferSimulateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxTransferSweepSimulateRequest {}
 impl std::fmt::Display for SandboxTransferSweepSimulateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8811,8 +8811,8 @@ pub struct SandboxBankTransferSimulateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxBankTransferSimulateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8822,8 +8822,8 @@ pub struct SandboxTransferSimulateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxTransferSimulateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8837,15 +8837,15 @@ Can be null if there are no transfers to include in a sweep.*/
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxTransferSweepSimulateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxTransferRepaymentSimulateRequest {}
 impl std::fmt::Display for SandboxTransferRepaymentSimulateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8855,8 +8855,8 @@ pub struct SandboxTransferRepaymentSimulateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxTransferRepaymentSimulateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8875,8 +8875,8 @@ pub struct AccountFiltersResponse {
     pub investment: Option<InvestmentFilter>,
 }
 impl std::fmt::Display for AccountFiltersResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8891,8 +8891,8 @@ pub struct InstitutionsSearchAccountFilter {
     pub investment: Option<Vec<String>>,
 }
 impl std::fmt::Display for InstitutionsSearchAccountFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8906,8 +8906,8 @@ pub struct DepositoryFilter {
     pub account_subtypes: DepositoryAccountSubtypes,
 }
 impl std::fmt::Display for DepositoryFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8917,8 +8917,8 @@ pub struct CreditFilter {
     pub account_subtypes: CreditAccountSubtypes,
 }
 impl std::fmt::Display for CreditFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8928,8 +8928,8 @@ pub struct LoanFilter {
     pub account_subtypes: LoanAccountSubtypes,
 }
 impl std::fmt::Display for LoanFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -8939,8 +8939,8 @@ pub struct InvestmentFilter {
     pub account_subtypes: InvestmentAccountSubtypes,
 }
 impl std::fmt::Display for InvestmentFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9121,8 +9121,8 @@ pub struct EmployersSearchRequest {
     pub products: Vec<String>,
 }
 impl std::fmt::Display for EmployersSearchRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9135,8 +9135,8 @@ pub struct EmployersSearchResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for EmployersSearchResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9155,8 +9155,8 @@ pub struct Employer {
     pub confidence_score: f64,
 }
 impl std::fmt::Display for Employer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9172,8 +9172,8 @@ pub struct IncomeVerificationCreateRequest {
     pub options: Option<IncomeVerificationCreateRequestOptions>,
 }
 impl std::fmt::Display for IncomeVerificationCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9183,8 +9183,8 @@ pub struct IncomeVerificationCreateRequestOptions {
     pub access_tokens: Option<Vec<String>>,
 }
 impl std::fmt::Display for IncomeVerificationCreateRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9197,8 +9197,8 @@ pub struct IncomeVerificationCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for IncomeVerificationCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9219,8 +9219,8 @@ pub struct IncomeVerificationPrecheckRequest {
     pub us_military_info: Option<IncomeVerificationPrecheckMilitaryInfo>,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9239,15 +9239,15 @@ pub struct IncomeVerificationPrecheckEmployer {
     pub url: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckEmployer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IncomeVerificationPrecheckEmployerAddress {}
 impl std::fmt::Display for IncomeVerificationPrecheckEmployerAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9271,8 +9271,8 @@ Example: `"564 Main Street, APT 15"`*/
     pub street: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckEmployerAddressData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9286,8 +9286,8 @@ Valid values: 'AIR FORCE', 'ARMY', 'COAST GUARD', 'MARINES', 'NAVY', 'UNKNOWN'*/
     pub branch: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckMilitaryInfo {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9306,8 +9306,8 @@ pub struct IncomeVerificationPrecheckUser {
     pub home_address: Option<SignalAddressData>,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9329,8 +9329,8 @@ pub struct IncomeVerificationPrecheckResponse {
     pub confidence: String,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9372,8 +9372,8 @@ This field should only be used with the `payroll` income source type.*/
     pub stated_income_sources: Option<Vec<LinkTokenCreateRequestUserStatedIncomeSource>>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestIncomeVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9393,8 +9393,8 @@ pub struct LinkTokenCreateRequestIncomeVerificationBankIncome {
     pub enable_multiple_items: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestIncomeVerificationBankIncome {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9407,8 +9407,8 @@ pub struct LinkTokenCreateRequestIncomeVerificationPayrollIncome {
     pub is_update_mode: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestIncomeVerificationPayrollIncome {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9441,8 +9441,8 @@ pub struct IncomeVerificationStatusWebhook {
     pub verification_status: String,
 }
 impl std::fmt::Display for IncomeVerificationStatusWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9455,8 +9455,8 @@ pub struct IncomeVerificationRefreshRequest {
     pub access_token: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9473,8 +9473,8 @@ pub struct IncomeVerificationRefreshResponse {
     pub verification_refresh_status: String,
 }
 impl std::fmt::Display for IncomeVerificationRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9502,8 +9502,8 @@ pub struct IncomeSummary {
     pub verified_transaction: Option<TransactionData>,
 }
 impl std::fmt::Display for IncomeSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9525,8 +9525,8 @@ pub struct TransactionData {
     pub transaction_id: String,
 }
 impl std::fmt::Display for TransactionData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9549,8 +9549,8 @@ pub struct IncomeSummaryFieldString {
     pub verification_status: String,
 }
 impl std::fmt::Display for IncomeSummaryFieldString {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9577,8 +9577,8 @@ pub struct IncomeSummaryFieldNumber {
     pub verification_status: String,
 }
 impl std::fmt::Display for IncomeSummaryFieldNumber {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9607,8 +9607,8 @@ pub struct PayFrequency {
     pub verification_status: String,
 }
 impl std::fmt::Display for PayFrequency {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9658,8 +9658,8 @@ pub struct IncomeVerificationPaystubsGetRequest {
     pub access_token: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationPaystubsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9677,8 +9677,8 @@ pub struct IncomeVerificationPaystubsGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for IncomeVerificationPaystubsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9715,8 +9715,8 @@ pub struct DocumentMetadata {
     pub doc_type: Option<String>,
 }
 impl std::fmt::Display for DocumentMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9783,8 +9783,8 @@ pub struct Paystub {
     pub verification: Option<PaystubVerification>,
 }
 impl std::fmt::Display for Paystub {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9800,8 +9800,8 @@ pub struct Deductions {
     pub total: DeductionsTotal,
 }
 impl std::fmt::Display for Deductions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9825,8 +9825,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for DeductionsBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9847,8 +9847,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for DeductionsTotal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9867,8 +9867,8 @@ pub struct Total {
     pub ytd_pay: Option<Pay>,
 }
 impl std::fmt::Display for Total {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9916,8 +9916,8 @@ pub struct Pay {
     pub currency: Option<String>,
 }
 impl std::fmt::Display for Pay {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9933,8 +9933,8 @@ pub struct Earnings {
     pub total: Option<EarningsTotal>,
 }
 impl std::fmt::Display for Earnings {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -9967,8 +9967,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for EarningsBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10019,8 +10019,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for EarningsTotal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10033,8 +10033,8 @@ pub struct EmploymentDetails {
     pub hire_date: Option<String>,
 }
 impl std::fmt::Display for EmploymentDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10061,8 +10061,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub total: Option<Total>,
 }
 impl std::fmt::Display for NetPay {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10084,8 +10084,8 @@ pub struct PaystubDetails {
     pub pay_frequency: Option<String>,
 }
 impl std::fmt::Display for PaystubDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10118,8 +10118,8 @@ pub struct IncomeBreakdown {
     pub total: Option<f64>,
 }
 impl std::fmt::Display for IncomeBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10147,8 +10147,8 @@ pub struct Employee {
     pub taxpayer_id: Option<TaxpayerId>,
 }
 impl std::fmt::Display for Employee {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10164,8 +10164,8 @@ pub struct TaxpayerId {
     pub last_4_digits: Option<String>,
 }
 impl std::fmt::Display for TaxpayerId {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10178,8 +10178,8 @@ pub struct PaystubEmployer {
     pub name: Option<String>,
 }
 impl std::fmt::Display for PaystubEmployer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10212,8 +10212,8 @@ Example: `"NC"`*/
     pub state_code: Option<String>,
 }
 impl std::fmt::Display for PaystubAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10243,8 +10243,8 @@ pub struct PayPeriodDetails {
     pub start_date: Option<String>,
 }
 impl std::fmt::Display for PayPeriodDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10277,8 +10277,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub current_pay: Option<Pay>,
 }
 impl std::fmt::Display for DistributionBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10294,8 +10294,8 @@ pub struct PaystubDeduction {
     pub total: Option<f64>,
 }
 impl std::fmt::Display for PaystubDeduction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10308,8 +10308,8 @@ pub struct PaystubYtdDetails {
     pub net_earnings: Option<f64>,
 }
 impl std::fmt::Display for PaystubYtdDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10321,8 +10321,8 @@ pub struct PaystubVerification {
     pub verification_attributes: Vec<VerificationAttribute>,
 }
 impl std::fmt::Display for PaystubVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10341,8 +10341,8 @@ pub struct VerificationAttribute {
     pub type_: Option<String>,
 }
 impl std::fmt::Display for VerificationAttribute {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10358,8 +10358,8 @@ pub struct IncomeVerificationDocumentsDownloadRequest {
     pub document_id: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationDocumentsDownloadRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10372,8 +10372,8 @@ pub struct IncomeVerificationTaxformsGetRequest {
     pub access_token: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationTaxformsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10391,8 +10391,8 @@ pub struct IncomeVerificationTaxformsGetResponse {
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for IncomeVerificationTaxformsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10408,8 +10408,8 @@ pub struct Taxform {
     pub w_2: Option<W2>,
 }
 impl std::fmt::Display for Taxform {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10477,8 +10477,8 @@ pub struct W2 {
     pub state_and_local_wages: Option<Vec<W2StateAndLocalWages>>,
 }
 impl std::fmt::Display for W2 {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10491,8 +10491,8 @@ pub struct W2Box12 {
     pub amount: Option<String>,
 }
 impl std::fmt::Display for W2Box12 {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10520,8 +10520,8 @@ pub struct W2StateAndLocalWages {
     pub locality_name: Option<String>,
 }
 impl std::fmt::Display for W2StateAndLocalWages {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10530,8 +10530,8 @@ pub struct IncomeVerificationWebhookStatus {
     pub id: String,
 }
 impl std::fmt::Display for IncomeVerificationWebhookStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10541,8 +10541,8 @@ pub struct EmploymentVerificationGetRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for EmploymentVerificationGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10555,8 +10555,8 @@ pub struct EmploymentVerificationGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for EmploymentVerificationGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10581,8 +10581,8 @@ pub struct EmploymentVerification {
     pub platform_ids: Option<PlatformIds>,
 }
 impl std::fmt::Display for EmploymentVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10599,8 +10599,8 @@ pub struct EmployerVerification {
     pub name: Option<String>,
 }
 impl std::fmt::Display for EmployerVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10616,8 +10616,8 @@ pub struct PlatformIds {
     pub position_id: Option<String>,
 }
 impl std::fmt::Display for PlatformIds {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10638,8 +10638,8 @@ pub struct HealthIncident {
     pub incident_updates: Vec<IncidentUpdate>,
 }
 impl std::fmt::Display for HealthIncident {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10655,8 +10655,8 @@ pub struct IncidentUpdate {
     pub updated_date: Option<String>,
 }
 impl std::fmt::Display for IncidentUpdate {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10675,8 +10675,8 @@ pub struct DepositSwitchAltCreateRequest {
     pub country_code: Option<String>,
 }
 impl std::fmt::Display for DepositSwitchAltCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10689,8 +10689,8 @@ pub struct DepositSwitchAltCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for DepositSwitchAltCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10709,8 +10709,8 @@ pub struct DepositSwitchTargetAccount {
     pub account_subtype: String,
 }
 impl std::fmt::Display for DepositSwitchTargetAccount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10735,8 +10735,8 @@ pub struct DepositSwitchTargetUser {
     pub tax_payer_id: Option<String>,
 }
 impl std::fmt::Display for DepositSwitchTargetUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10760,8 +10760,8 @@ Example: `"564 Main Street, APT 15"`*/
     pub country: String,
 }
 impl std::fmt::Display for DepositSwitchAddressData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10774,8 +10774,8 @@ pub struct CreditBankIncomeGetRequest {
     pub options: Option<CreditBankIncomeGetRequestOptions>,
 }
 impl std::fmt::Display for CreditBankIncomeGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10785,8 +10785,8 @@ pub struct CreditBankIncomeGetRequestOptions {
     pub count: Option<i64>,
 }
 impl std::fmt::Display for CreditBankIncomeGetRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10798,8 +10798,8 @@ pub struct CreditBankIncomeGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditBankIncomeGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10809,8 +10809,8 @@ pub struct CreditBankIncomePdfGetRequest {
     pub user_token: String,
 }
 impl std::fmt::Display for CreditBankIncomePdfGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10837,8 +10837,8 @@ pub struct CreditBankIncome {
     pub warnings: Option<Vec<CreditBankIncomeWarning>>,
 }
 impl std::fmt::Display for CreditBankIncome {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10863,8 +10863,8 @@ pub struct CreditBankIncomeItem {
     pub item_id: Option<String>,
 }
 impl std::fmt::Display for CreditBankIncomeItem {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10892,8 +10892,8 @@ Note that the mask may be non-unique between an Item's accounts, and it may also
     pub owners: Option<Vec<Owner>>,
 }
 impl std::fmt::Display for CreditBankIncomeAccount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -10936,8 +10936,8 @@ The date will be returned in an ISO 8601 format (YYYY-MM-DD).*/
     pub historical_summary: Option<Vec<CreditBankIncomeHistoricalSummary>>,
 }
 impl std::fmt::Display for CreditBankIncomeSource {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11015,8 +11015,8 @@ The date will be returned in an ISO 8601 format (YYYY-MM-DD).*/
     pub historical_summary: Option<Vec<CreditBankIncomeHistoricalSummary>>,
 }
 impl std::fmt::Display for CreditBankIncomeSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11045,8 +11045,8 @@ The date will be returned in an ISO 8601 format (YYYY-MM-DD).*/
     pub transactions: Option<Vec<CreditBankIncomeTransaction>>,
 }
 impl std::fmt::Display for CreditBankIncomeHistoricalSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11085,8 +11085,8 @@ Unofficial currency codes are used for currencies that do not have official ISO 
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for CreditBankIncomeTransaction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11099,8 +11099,8 @@ pub struct CreditBankIncomeRefreshRequest {
     pub options: Option<CreditBankIncomeRefreshRequestOptions>,
 }
 impl std::fmt::Display for CreditBankIncomeRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11113,8 +11113,8 @@ pub struct CreditBankIncomeRefreshRequestOptions {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for CreditBankIncomeRefreshRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11124,8 +11124,8 @@ pub struct CreditBankIncomeRefreshResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditBankIncomeRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11135,8 +11135,8 @@ pub struct CreditPayrollIncomeRiskSignalsGetRequest {
     pub user_token: Option<String>,
 }
 impl std::fmt::Display for CreditPayrollIncomeRiskSignalsGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11152,8 +11152,8 @@ pub struct CreditPayrollIncomeRiskSignalsGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditPayrollIncomeRiskSignalsGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11166,8 +11166,8 @@ pub struct PayrollRiskSignalsItem {
     pub verification_risk_signals: Vec<DocumentRiskSignalsObject>,
 }
 impl std::fmt::Display for PayrollRiskSignalsItem {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11183,8 +11183,8 @@ pub struct DocumentRiskSignalsObject {
     pub multi_document_risk_signals: Vec<MultiDocumentRiskSignal>,
 }
 impl std::fmt::Display for DocumentRiskSignalsObject {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11197,8 +11197,8 @@ pub struct RiskSignalDocumentReference {
     pub document_name: Option<String>,
 }
 impl std::fmt::Display for RiskSignalDocumentReference {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11211,8 +11211,8 @@ pub struct SingleDocumentRiskSignal {
     pub risk_signals: Vec<DocumentRiskSignal>,
 }
 impl std::fmt::Display for SingleDocumentRiskSignal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11225,8 +11225,8 @@ pub struct MultiDocumentRiskSignal {
     pub risk_signals: Vec<DocumentRiskSignal>,
 }
 impl std::fmt::Display for MultiDocumentRiskSignal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11239,8 +11239,8 @@ pub struct CreditAuditCopyTokenCreateRequest {
     pub auditor_id: String,
 }
 impl std::fmt::Display for CreditAuditCopyTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11253,8 +11253,8 @@ pub struct CreditAuditCopyTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditAuditCopyTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11264,8 +11264,8 @@ pub struct CreditAuditCopyTokenRemoveRequest {
     pub audit_copy_token: String,
 }
 impl std::fmt::Display for CreditAuditCopyTokenRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11278,8 +11278,8 @@ pub struct CreditAuditCopyTokenRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditAuditCopyTokenRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11289,8 +11289,8 @@ pub struct CreditPayrollIncomeGetRequest {
     pub user_token: Option<String>,
 }
 impl std::fmt::Display for CreditPayrollIncomeGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11306,8 +11306,8 @@ pub struct CreditPayrollIncomeGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditPayrollIncomeGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11344,8 +11344,8 @@ pub struct CreditDocumentMetadata {
     pub status: Option<String>,
 }
 impl std::fmt::Display for CreditDocumentMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11367,8 +11367,8 @@ pub struct PayrollItem {
     pub pull_id: String,
 }
 impl std::fmt::Display for PayrollItem {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11384,8 +11384,8 @@ pub struct PayrollIncomeAccountData {
     pub pay_frequency: Option<String>,
 }
 impl std::fmt::Display for PayrollIncomeAccountData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11404,8 +11404,8 @@ pub struct PayrollIncomeObject {
     pub form_1099_s: Vec<Credit1099>,
 }
 impl std::fmt::Display for PayrollIncomeObject {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11572,8 +11572,8 @@ pub struct Credit1099 {
     pub secondary_state_income_tax: Option<f64>,
 }
 impl std::fmt::Display for Credit1099 {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11601,8 +11601,8 @@ pub struct Credit1099Payer {
     pub telephone_number: Option<String>,
 }
 impl std::fmt::Display for Credit1099Payer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11627,8 +11627,8 @@ pub struct Credit1099Recipient {
     pub second_tin_exists: Option<String>,
 }
 impl std::fmt::Display for Credit1099Recipient {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11647,8 +11647,8 @@ pub struct Credit1099Filer {
     pub type_: Option<String>,
 }
 impl std::fmt::Display for Credit1099Filer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11682,8 +11682,8 @@ pub struct CreditPayStub {
     pub verification: Option<CreditPayStubVerification>,
 }
 impl std::fmt::Display for CreditPayStub {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11695,8 +11695,8 @@ pub struct CreditPayStubDeductions {
     pub total: PayStubDeductionsTotal,
 }
 impl std::fmt::Display for CreditPayStubDeductions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11720,8 +11720,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for PayStubDeductionsBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11742,8 +11742,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for PayStubDeductionsTotal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11755,8 +11755,8 @@ pub struct CreditPayStubEarnings {
     pub total: PayStubEarningsTotal,
 }
 impl std::fmt::Display for CreditPayStubEarnings {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11789,8 +11789,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for PayStubEarningsBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11816,8 +11816,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for PayStubEarningsTotal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11836,8 +11836,8 @@ pub struct CreditPayStubEmployee {
     pub taxpayer_id: PayStubTaxpayerId,
 }
 impl std::fmt::Display for CreditPayStubEmployee {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11860,8 +11860,8 @@ Example: `"NC"`*/
     pub street: Option<String>,
 }
 impl std::fmt::Display for CreditPayStubAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11874,8 +11874,8 @@ pub struct PayStubTaxpayerId {
     pub id_mask: Option<String>,
 }
 impl std::fmt::Display for PayStubTaxpayerId {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11888,8 +11888,8 @@ pub struct CreditPayStubEmployer {
     pub name: Option<String>,
 }
 impl std::fmt::Display for CreditPayStubEmployer {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11913,8 +11913,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for CreditPayStubNetPay {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11949,8 +11949,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for PayStubPayPeriodDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11980,8 +11980,8 @@ See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code
     pub unofficial_currency_code: Option<String>,
 }
 impl std::fmt::Display for PayStubDistributionBreakdown {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -11993,8 +11993,8 @@ pub struct CreditPayStubVerification {
     pub verification_attributes: Vec<PayStubVerificationAttribute>,
 }
 impl std::fmt::Display for CreditPayStubVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12006,8 +12006,8 @@ pub struct PayStubVerificationAttribute {
     pub type_: Option<String>,
 }
 impl std::fmt::Display for PayStubVerificationAttribute {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12020,8 +12020,8 @@ pub struct ReportToken {
     pub token: Option<String>,
 }
 impl std::fmt::Display for ReportToken {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12056,8 +12056,8 @@ pub struct DocumentRiskSignal {
     pub signal_description: Option<String>,
 }
 impl std::fmt::Display for DocumentRiskSignal {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12067,8 +12067,8 @@ pub struct DocumentRiskSignalInstitutionMetadata {
     pub item_id: String,
 }
 impl std::fmt::Display for DocumentRiskSignalInstitutionMetadata {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12088,8 +12088,8 @@ pub struct PayrollItemStatus {
     pub processing_status: Option<String>,
 }
 impl std::fmt::Display for PayrollItemStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12163,8 +12163,8 @@ pub struct CreditW2 {
     pub state_and_local_wages: Vec<W2StateAndLocalWages>,
 }
 impl std::fmt::Display for CreditW2 {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12177,8 +12177,8 @@ pub struct PayrollIncomeRateOfPay {
     pub pay_amount: Option<f64>,
 }
 impl std::fmt::Display for PayrollIncomeRateOfPay {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12197,8 +12197,8 @@ pub struct CreditPayrollIncomePrecheckRequest {
     pub us_military_info: Option<IncomeVerificationPrecheckMilitaryInfo>,
 }
 impl std::fmt::Display for CreditPayrollIncomePrecheckRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12217,8 +12217,8 @@ pub struct CreditPayrollIncomePrecheckResponse {
     pub confidence: String,
 }
 impl std::fmt::Display for CreditPayrollIncomePrecheckResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12228,8 +12228,8 @@ pub struct CreditPayrollIncomeRefreshRequest {
     pub user_token: Option<String>,
 }
 impl std::fmt::Display for CreditPayrollIncomeRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12246,8 +12246,8 @@ pub struct CreditPayrollIncomeRefreshResponse {
     pub verification_refresh_status: String,
 }
 impl std::fmt::Display for CreditPayrollIncomeRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12257,8 +12257,8 @@ pub struct CreditEmploymentGetRequest {
     pub user_token: String,
 }
 impl std::fmt::Display for CreditEmploymentGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12271,8 +12271,8 @@ pub struct CreditEmploymentGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditEmploymentGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12287,8 +12287,8 @@ pub struct CreditEmploymentItem {
     pub pull_id: String,
 }
 impl std::fmt::Display for CreditEmploymentItem {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12327,8 +12327,8 @@ pub struct CreditEmploymentVerification {
     pub last_paystub_date: Option<String>,
 }
 impl std::fmt::Display for CreditEmploymentVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12342,8 +12342,8 @@ pub struct CreditEmployerVerification {
     pub name: Option<String>,
 }
 impl std::fmt::Display for CreditEmployerVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12359,8 +12359,8 @@ pub struct CreditPlatformIds {
     pub position_id: Option<String>,
 }
 impl std::fmt::Display for CreditPlatformIds {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12380,8 +12380,8 @@ pub struct CreditBankIncomeWarning {
     pub cause: Option<CreditBankIncomeCause>,
 }
 impl std::fmt::Display for CreditBankIncomeWarning {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12420,8 +12420,8 @@ This may change over time and is not safe for programmatic use.*/
     pub item_id: Option<String>,
 }
 impl std::fmt::Display for CreditBankIncomeCause {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12472,8 +12472,8 @@ pub struct CreditRelayCreateRequest {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for CreditRelayCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12486,8 +12486,8 @@ pub struct CreditRelayCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditRelayCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12500,8 +12500,8 @@ pub struct CreditRelayGetRequest {
     pub report_type: String,
 }
 impl std::fmt::Display for CreditRelayGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12517,8 +12517,8 @@ pub struct CreditRelayRefreshRequest {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for CreditRelayRefreshRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12533,8 +12533,8 @@ pub struct CreditRelayRefreshResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditRelayRefreshResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12544,8 +12544,8 @@ pub struct CreditRelayRemoveRequest {
     pub relay_token: String,
 }
 impl std::fmt::Display for CreditRelayRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12558,8 +12558,8 @@ pub struct CreditRelayRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for CreditRelayRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12569,8 +12569,8 @@ pub struct SandboxBankTransferFireWebhookRequest {
     pub webhook: String,
 }
 impl std::fmt::Display for SandboxBankTransferFireWebhookRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12580,8 +12580,8 @@ pub struct SandboxBankTransferFireWebhookResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxBankTransferFireWebhookResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12591,8 +12591,8 @@ pub struct SandboxTransferFireWebhookRequest {
     pub webhook: String,
 }
 impl std::fmt::Display for SandboxTransferFireWebhookRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12602,8 +12602,8 @@ pub struct SandboxTransferFireWebhookResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxTransferFireWebhookResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12651,8 +12651,8 @@ pub struct Application {
     pub country_code: Option<String>,
 }
 impl std::fmt::Display for Application {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12662,8 +12662,8 @@ pub struct ApplicationGetRequest {
     pub application_id: String,
 }
 impl std::fmt::Display for ApplicationGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12676,8 +12676,8 @@ pub struct ApplicationGetResponse {
     pub application: Application,
 }
 impl std::fmt::Display for ApplicationGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12711,8 +12711,8 @@ pub struct ProductAccess {
     pub customers_profiles: Option<bool>,
 }
 impl std::fmt::Display for ProductAccess {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12728,8 +12728,8 @@ pub struct AccountAccess {
     pub account_product_access: Option<AccountProductAccessNullable>,
 }
 impl std::fmt::Display for AccountAccess {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12747,8 +12747,8 @@ pub struct AccountProductAccess {
     pub tax_documents: Option<bool>,
 }
 impl std::fmt::Display for AccountProductAccess {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12765,8 +12765,8 @@ pub struct Scopes {
     pub new_accounts: Option<bool>,
 }
 impl std::fmt::Display for Scopes {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12797,8 +12797,8 @@ pub struct ItemApplicationScopesUpdateRequest {
     pub context: String,
 }
 impl std::fmt::Display for ItemApplicationScopesUpdateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12808,8 +12808,8 @@ pub struct ItemApplicationScopesUpdateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemApplicationScopesUpdateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12819,8 +12819,8 @@ pub struct ItemApplicationListRequest {
     pub access_token: Option<String>,
 }
 impl std::fmt::Display for ItemApplicationListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12833,8 +12833,8 @@ pub struct ItemApplicationListResponse {
     pub applications: Vec<ConnectedApplication>,
 }
 impl std::fmt::Display for ItemApplicationListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12865,8 +12865,8 @@ pub struct ConnectedApplication {
     pub scopes: Option<ScopesNullable>,
 }
 impl std::fmt::Display for ConnectedApplication {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12894,8 +12894,8 @@ pub struct AccountFilter {
     pub investment: Option<AccountFilterSubtypes>,
 }
 impl std::fmt::Display for AccountFilter {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12920,8 +12920,8 @@ pub struct SandboxIncomeFireWebhookRequest {
     pub verification_status: String,
 }
 impl std::fmt::Display for SandboxIncomeFireWebhookRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12931,8 +12931,8 @@ pub struct SandboxIncomeFireWebhookResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SandboxIncomeFireWebhookResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12945,8 +12945,8 @@ pub struct ItemApplicationListUserAuth {
     pub fi_username_hash: Option<String>,
 }
 impl std::fmt::Display for ItemApplicationListUserAuth {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12977,8 +12977,8 @@ pub struct SignalEvaluateRequest {
     pub device: Option<SignalDevice>,
 }
 impl std::fmt::Display for SignalEvaluateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -12997,8 +12997,8 @@ pub struct SignalUser {
     pub address: Option<SignalAddressData>,
 }
 impl std::fmt::Display for SignalUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13020,8 +13020,8 @@ pub struct SignalPersonName {
     pub suffix: Option<String>,
 }
 impl std::fmt::Display for SignalPersonName {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13045,8 +13045,8 @@ Example: `"564 Main Street, APT 15"`*/
     pub country: Option<String>,
 }
 impl std::fmt::Display for SignalAddressData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13059,8 +13059,8 @@ pub struct SignalDevice {
     pub user_agent: Option<String>,
 }
 impl std::fmt::Display for SignalDevice {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13084,8 +13084,8 @@ For the full list and detailed documentation of core attributes available, or to
     pub core_attributes: Option<SignalEvaluateCoreAttributes>,
 }
 impl std::fmt::Display for SignalEvaluateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13098,8 +13098,8 @@ pub struct SignalScores {
     pub bank_initiated_return_risk: Option<BankInitiatedReturnRisk>,
 }
 impl std::fmt::Display for SignalScores {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13124,8 +13124,8 @@ In the `customer_initiated_return_risk` object, there are five risk tiers corres
     pub risk_tier: i64,
 }
 impl std::fmt::Display for CustomerInitiatedReturnRisk {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13149,8 +13149,8 @@ pub struct BankInitiatedReturnRisk {
     pub risk_tier: i64,
 }
 impl std::fmt::Display for BankInitiatedReturnRisk {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13349,8 +13349,8 @@ pub struct SignalEvaluateCoreAttributes {
     pub p_10_eod_balance_61_d_to_90_d: Option<f64>,
 }
 impl std::fmt::Display for SignalEvaluateCoreAttributes {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13366,8 +13366,8 @@ pub struct SignalDecisionReportRequest {
     pub days_funds_on_hold: Option<i64>,
 }
 impl std::fmt::Display for SignalDecisionReportRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13377,8 +13377,8 @@ pub struct SignalDecisionReportResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SignalDecisionReportResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13391,8 +13391,8 @@ pub struct SignalReturnReportRequest {
     pub return_code: String,
 }
 impl std::fmt::Display for SignalReturnReportRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13402,8 +13402,8 @@ pub struct SignalReturnReportResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SignalReturnReportResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13413,8 +13413,8 @@ pub struct SignalPrepareRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for SignalPrepareRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13424,8 +13424,8 @@ pub struct SignalPrepareResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for SignalPrepareResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13436,15 +13436,15 @@ pub struct SandboxOauthSelectAccountsRequest {
     pub accounts: Vec<String>,
 }
 impl std::fmt::Display for SandboxOauthSelectAccountsRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxOauthSelectAccountsResponse {}
 impl std::fmt::Display for SandboxOauthSelectAccountsResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13463,8 +13463,8 @@ pub struct NewAccountsAvailableWebhook {
     pub error: Option<PlaidError>,
 }
 impl std::fmt::Display for NewAccountsAvailableWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13474,15 +13474,15 @@ pub struct WalletCreateRequest {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for WalletCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletCreateResponse {}
 impl std::fmt::Display for WalletCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13492,15 +13492,15 @@ pub struct WalletGetRequest {
     pub wallet_id: String,
 }
 impl std::fmt::Display for WalletGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletGetResponse {}
 impl std::fmt::Display for WalletGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13516,8 +13516,8 @@ pub struct WalletListRequest {
     pub count: Option<i64>,
 }
 impl std::fmt::Display for WalletListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13533,8 +13533,8 @@ pub struct WalletListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for WalletListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13550,8 +13550,8 @@ pub struct Wallet {
     pub numbers: WalletNumbers,
 }
 impl std::fmt::Display for Wallet {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13564,8 +13564,8 @@ pub struct WalletNumbers {
     pub international: Option<NumbersInternationalIban>,
 }
 impl std::fmt::Display for WalletNumbers {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13578,8 +13578,8 @@ pub struct WalletBalance {
     pub current: f64,
 }
 impl std::fmt::Display for WalletBalance {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13610,8 +13610,8 @@ The API supports idempotency for safely retrying requests without accidentally p
     pub reference: String,
 }
 impl std::fmt::Display for WalletTransactionExecuteRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13626,8 +13626,8 @@ pub struct WalletTransactionCounterparty {
     pub numbers: WalletTransactionCounterpartyNumbers,
 }
 impl std::fmt::Display for WalletTransactionCounterparty {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13640,8 +13640,8 @@ pub struct WalletTransactionCounterpartyNumbers {
     pub international: Option<WalletTransactionCounterpartyInternational>,
 }
 impl std::fmt::Display for WalletTransactionCounterpartyNumbers {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13653,8 +13653,8 @@ pub struct WalletTransactionCounterpartyInternational {
     pub iban: Option<String>,
 }
 impl std::fmt::Display for WalletTransactionCounterpartyInternational {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13667,8 +13667,8 @@ pub struct WalletTransactionAmount {
     pub value: f64,
 }
 impl std::fmt::Display for WalletTransactionAmount {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13692,8 +13692,8 @@ pub struct WalletTransactionExecuteResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for WalletTransactionExecuteResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13714,15 +13714,15 @@ pub struct WalletTransactionGetRequest {
     pub transaction_id: String,
 }
 impl std::fmt::Display for WalletTransactionGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WalletTransactionGetResponse {}
 impl std::fmt::Display for WalletTransactionGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13738,8 +13738,8 @@ pub struct WalletTransactionsListRequest {
     pub count: Option<i64>,
 }
 impl std::fmt::Display for WalletTransactionsListRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13755,8 +13755,8 @@ pub struct WalletTransactionsListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for WalletTransactionsListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13799,8 +13799,8 @@ pub struct WalletTransaction {
     pub created_at: String,
 }
 impl std::fmt::Display for WalletTransaction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13813,8 +13813,8 @@ pub struct TransactionsEnhanceGetRequest {
     pub transactions: Vec<ClientProvidedRawTransaction>,
 }
 impl std::fmt::Display for TransactionsEnhanceGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13833,8 +13833,8 @@ pub struct ClientProvidedRawTransaction {
     pub iso_currency_code: String,
 }
 impl std::fmt::Display for ClientProvidedRawTransaction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13844,8 +13844,8 @@ pub struct TransactionsEnhanceGetResponse {
     pub enhanced_transactions: Vec<ClientProvidedEnhancedTransaction>,
 }
 impl std::fmt::Display for TransactionsEnhanceGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13867,8 +13867,8 @@ pub struct ClientProvidedEnhancedTransaction {
     pub enhancements: Enhancements,
 }
 impl std::fmt::Display for ClientProvidedEnhancedTransaction {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13921,15 +13921,15 @@ See the [`taxonomy csv file`](https://plaid.com/documents/transactions-personal-
     pub personal_finance_category_icon_url: Option<String>,
 }
 impl std::fmt::Display for Enhancements {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentProfileCreateRequest {}
 impl std::fmt::Display for PaymentProfileCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13942,8 +13942,8 @@ pub struct PaymentProfileCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentProfileCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13955,8 +13955,8 @@ pub struct PaymentProfileGetRequest {
     pub payment_profile_id: String,
 }
 impl std::fmt::Display for PaymentProfileGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -13981,8 +13981,8 @@ pub struct PaymentProfileGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentProfileGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14001,8 +14001,8 @@ pub struct PaymentProfileRemoveRequest {
     pub payment_profile_id: String,
 }
 impl std::fmt::Display for PaymentProfileRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14012,8 +14012,8 @@ pub struct PaymentProfileRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentProfileRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14030,8 +14030,8 @@ pub struct PartnerCustomersCreateResponse {
     pub request_id: Option<String>,
 }
 impl std::fmt::Display for PartnerCustomersCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14040,8 +14040,8 @@ pub struct PartnerEndCustomerClient {
     pub company_name: Option<String>,
 }
 impl std::fmt::Display for PartnerEndCustomerClient {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14066,8 +14066,8 @@ pub struct CreateEntityScreeningRequest {
     pub client_user_id: Option<serde_json::Value>,
 }
 impl std::fmt::Display for CreateEntityScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14086,8 +14086,8 @@ pub struct CreateEntityWatchlistScreeningReviewRequest {
     pub entity_watchlist_screening_id: String,
 }
 impl std::fmt::Display for CreateEntityWatchlistScreeningReviewRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14106,8 +14106,8 @@ pub struct CreateIndividualWatchlistScreeningReviewRequest {
     pub watchlist_screening_id: String,
 }
 impl std::fmt::Display for CreateIndividualWatchlistScreeningReviewRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14128,8 +14128,8 @@ pub struct DashboardUser {
     pub status: String,
 }
 impl std::fmt::Display for DashboardUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14153,8 +14153,8 @@ pub struct DashboardUserResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for DashboardUserResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14178,8 +14178,8 @@ pub struct DateRange {
     pub ending: String,
 }
 impl std::fmt::Display for DateRange {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14215,8 +14215,8 @@ Note: By default, Plaid will let a user recapture document images twice before f
     pub extracted_data: Option<PhysicalDocumentExtractedDataAnalysis>,
 }
 impl std::fmt::Display for DocumentAnalysis {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14279,8 +14279,8 @@ Note: Plaid will automatically let a user submit a new set of document images up
     pub documents: Vec<DocumentaryVerificationDocument>,
 }
 impl std::fmt::Display for DocumentaryVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14302,8 +14302,8 @@ pub struct DocumentaryVerificationDocument {
     pub analysis: DocumentAnalysis,
 }
 impl std::fmt::Display for DocumentaryVerificationDocument {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14330,8 +14330,8 @@ pub struct EntityDocument {
     pub number: String,
 }
 impl std::fmt::Display for EntityDocument {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14440,8 +14440,8 @@ pub struct EntityScreeningHitAnalysis {
     pub search_terms_version: f64,
 }
 impl std::fmt::Display for EntityScreeningHitAnalysis {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14466,8 +14466,8 @@ pub struct EntityScreeningHitData {
     pub urls: Option<Vec<EntityScreeningHitUrlsItems>>,
 }
 impl std::fmt::Display for EntityScreeningHitData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14480,8 +14480,8 @@ pub struct EntityScreeningHitDocumentsItems {
     pub data: Option<EntityDocument>,
 }
 impl std::fmt::Display for EntityScreeningHitDocumentsItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14491,8 +14491,8 @@ pub struct EntityScreeningHitEmails {
     pub email_address: String,
 }
 impl std::fmt::Display for EntityScreeningHitEmails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14505,8 +14505,8 @@ pub struct EntityScreeningHitEmailsItems {
     pub data: Option<EntityScreeningHitEmails>,
 }
 impl std::fmt::Display for EntityScreeningHitEmailsItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14522,8 +14522,8 @@ pub struct EntityScreeningHitNames {
     pub weak_alias_determination: String,
 }
 impl std::fmt::Display for EntityScreeningHitNames {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14536,8 +14536,8 @@ pub struct EntityScreeningHitNamesItems {
     pub data: Option<EntityScreeningHitNames>,
 }
 impl std::fmt::Display for EntityScreeningHitNamesItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14550,8 +14550,8 @@ pub struct EntityScreeningHitPhoneNumbers {
     pub phone_number: String,
 }
 impl std::fmt::Display for EntityScreeningHitPhoneNumbers {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14561,8 +14561,8 @@ pub struct EntityScreeningHitUrls {
     pub url: String,
 }
 impl std::fmt::Display for EntityScreeningHitUrls {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14575,8 +14575,8 @@ pub struct EntityScreeningHitUrlsItems {
     pub data: Option<EntityScreeningHitUrls>,
 }
 impl std::fmt::Display for EntityScreeningHitUrlsItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14589,8 +14589,8 @@ pub struct EntityScreeningHitsPhoneNumberItems {
     pub data: Option<EntityScreeningHitPhoneNumbers>,
 }
 impl std::fmt::Display for EntityScreeningHitsPhoneNumberItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14658,8 +14658,8 @@ pub struct EntityWatchlistProgram {
     pub is_archived: bool,
 }
 impl std::fmt::Display for EntityWatchlistProgram {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14703,8 +14703,8 @@ pub struct EntityWatchlistProgramResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for EntityWatchlistProgramResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14727,8 +14727,8 @@ pub struct EntityWatchlistScreening {
     pub audit_trail: WatchlistScreeningAuditTrail,
 }
 impl std::fmt::Display for EntityWatchlistScreening {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14765,8 +14765,8 @@ pub struct EntityWatchlistScreeningHit {
     pub data: Option<EntityScreeningHitData>,
 }
 impl std::fmt::Display for EntityWatchlistScreeningHit {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14800,8 +14800,8 @@ pub struct EntityWatchlistScreeningResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for EntityWatchlistScreeningResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14823,8 +14823,8 @@ pub struct EntityWatchlistScreeningReview {
     pub audit_trail: WatchlistScreeningAuditTrail,
 }
 impl std::fmt::Display for EntityWatchlistScreeningReview {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14851,8 +14851,8 @@ pub struct EntityWatchlistScreeningReviewResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for EntityWatchlistScreeningReviewResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14878,8 +14878,8 @@ pub struct EntityWatchlistScreeningSearchTerms {
     pub version: f64,
 }
 impl std::fmt::Display for EntityWatchlistScreeningSearchTerms {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14902,8 +14902,8 @@ pub struct EntityWatchlistSearchTerms {
     pub url: Option<serde_json::Value>,
 }
 impl std::fmt::Display for EntityWatchlistSearchTerms {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14929,8 +14929,8 @@ pub struct GenericScreeningHitLocationItems {
     pub data: Option<WatchlistScreeningHitLocations>,
 }
 impl std::fmt::Display for GenericScreeningHitLocationItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14940,8 +14940,8 @@ pub struct GetDashboardUserRequest {
     pub dashboard_user_id: String,
 }
 impl std::fmt::Display for GetDashboardUserRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14951,8 +14951,8 @@ pub struct GetEntityWatchlistScreeningRequest {
     pub entity_watchlist_screening_id: String,
 }
 impl std::fmt::Display for GetEntityWatchlistScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14962,8 +14962,8 @@ pub struct GetIdentityVerificationRequest {
     pub identity_verification_id: String,
 }
 impl std::fmt::Display for GetIdentityVerificationRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14973,8 +14973,8 @@ pub struct GetIndividualWatchlistScreeningRequest {
     pub watchlist_screening_id: String,
 }
 impl std::fmt::Display for GetIndividualWatchlistScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14984,8 +14984,8 @@ pub struct GetWatchlistScreeningEntityProgramRequest {
     pub entity_watchlist_program_id: String,
 }
 impl std::fmt::Display for GetWatchlistScreeningEntityProgramRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -14995,8 +14995,8 @@ pub struct GetWatchlistScreeningIndividualProgramRequest {
     pub watchlist_program_id: String,
 }
 impl std::fmt::Display for GetWatchlistScreeningIndividualProgramRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15160,8 +15160,8 @@ pub struct IdentityVerification {
     pub watchlist_screening_id: Option<serde_json::Value>,
 }
 impl std::fmt::Display for IdentityVerification {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15205,8 +15205,8 @@ If idempotency is enabled, Plaid will return the existing Identity Verification.
     pub is_idempotent: Option<bool>,
 }
 impl std::fmt::Display for IdentityVerificationCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15235,8 +15235,8 @@ pub struct IdentityVerificationRequestUser {
     pub id_number: Option<UserIdNumber>,
 }
 impl std::fmt::Display for IdentityVerificationRequestUser {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15320,8 +15320,8 @@ pub struct IdentityVerificationResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for IdentityVerificationResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15365,8 +15365,8 @@ The `selfie_check` step is currently not supported on the sandbox server. Sandbo
     pub steps: Option<IdentityVerificationRetryRequestStepsObject>,
 }
 impl std::fmt::Display for IdentityVerificationRetryRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15385,8 +15385,8 @@ pub struct IdentityVerificationRetryRequestStepsObject {
     pub selfie_check: bool,
 }
 impl std::fmt::Display for IdentityVerificationRetryRequestStepsObject {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15454,8 +15454,8 @@ pub struct IdentityVerificationStepSummary {
     pub risk_check: String,
 }
 impl std::fmt::Display for IdentityVerificationStepSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15470,8 +15470,8 @@ pub struct IdentityVerificationTemplateReference {
     pub version: f64,
 }
 impl std::fmt::Display for IdentityVerificationTemplateReference {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15494,8 +15494,8 @@ pub struct IdentityVerificationUserAddress {
     pub country: String,
 }
 impl std::fmt::Display for IdentityVerificationUserAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15522,8 +15522,8 @@ pub struct IdentityVerificationUserData {
     pub id_number: Option<UserIdNumber>,
 }
 impl std::fmt::Display for IdentityVerificationUserData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15550,8 +15550,8 @@ pub struct IndividualScreeningHitNames {
     pub weak_alias_determination: String,
 }
 impl std::fmt::Display for IndividualScreeningHitNames {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15637,8 +15637,8 @@ pub struct IndividualWatchlistProgram {
     pub is_archived: bool,
 }
 impl std::fmt::Display for IndividualWatchlistProgram {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15680,8 +15680,8 @@ pub struct IndividualWatchlistProgramResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for IndividualWatchlistProgramResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15721,8 +15721,8 @@ Note: This value will be `no_data` when Plaid does not have sufficient data to d
     pub type_: String,
 }
 impl std::fmt::Display for KycCheckAddressSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15743,8 +15743,8 @@ pub struct KycCheckDateOfBirthSummary {
     pub summary: String,
 }
 impl std::fmt::Display for KycCheckDateOfBirthSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15769,8 +15769,8 @@ pub struct KycCheckDetails {
     pub phone_number: KycCheckPhoneSummary,
 }
 impl std::fmt::Display for KycCheckDetails {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15791,8 +15791,8 @@ pub struct KycCheckIdNumberSummary {
     pub summary: String,
 }
 impl std::fmt::Display for KycCheckIdNumberSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15813,8 +15813,8 @@ pub struct KycCheckNameSummary {
     pub summary: String,
 }
 impl std::fmt::Display for KycCheckNameSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15835,8 +15835,8 @@ pub struct KycCheckPhoneSummary {
     pub summary: String,
 }
 impl std::fmt::Display for KycCheckPhoneSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15846,8 +15846,8 @@ pub struct ListDashboardUserRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListDashboardUserRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15866,8 +15866,8 @@ pub struct ListEntityWatchlistScreeningRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListEntityWatchlistScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15883,8 +15883,8 @@ pub struct ListIdentityVerificationRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListIdentityVerificationRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15903,8 +15903,8 @@ pub struct ListIndividualWatchlistScreeningRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListIndividualWatchlistScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15917,8 +15917,8 @@ pub struct ListWatchlistScreeningEntityHistoryRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningEntityHistoryRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15931,8 +15931,8 @@ pub struct ListWatchlistScreeningEntityHitRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningEntityHitRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15942,8 +15942,8 @@ pub struct ListWatchlistScreeningEntityProgramsRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningEntityProgramsRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15956,8 +15956,8 @@ pub struct ListWatchlistScreeningEntityReviewsRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningEntityReviewsRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15970,8 +15970,8 @@ pub struct ListWatchlistScreeningIndividualHistoryRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningIndividualHistoryRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15984,8 +15984,8 @@ pub struct ListWatchlistScreeningIndividualHitRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningIndividualHitRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -15995,8 +15995,8 @@ pub struct ListWatchlistScreeningIndividualProgramsRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningIndividualProgramsRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16009,8 +16009,8 @@ pub struct ListWatchlistScreeningIndividualReviewsRequest {
     pub cursor: Option<String>,
 }
 impl std::fmt::Display for ListWatchlistScreeningIndividualReviewsRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16031,8 +16031,8 @@ pub struct MatchSummary {
     pub summary: String,
 }
 impl std::fmt::Display for MatchSummary {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16070,8 +16070,8 @@ pub struct PaginatedDashboardUserListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedDashboardUserListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16087,8 +16087,8 @@ pub struct PaginatedEntityWatchlistProgramListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedEntityWatchlistProgramListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16104,8 +16104,8 @@ pub struct PaginatedEntityWatchlistScreeningHitListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedEntityWatchlistScreeningHitListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16121,8 +16121,8 @@ pub struct PaginatedEntityWatchlistScreeningListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedEntityWatchlistScreeningListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16138,8 +16138,8 @@ pub struct PaginatedEntityWatchlistScreeningReviewListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedEntityWatchlistScreeningReviewListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16155,8 +16155,8 @@ pub struct PaginatedIdentityVerificationListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedIdentityVerificationListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16172,8 +16172,8 @@ pub struct PaginatedIndividualWatchlistProgramListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedIndividualWatchlistProgramListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16189,8 +16189,8 @@ pub struct PaginatedIndividualWatchlistScreeningHitListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedIndividualWatchlistScreeningHitListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16206,8 +16206,8 @@ pub struct PaginatedIndividualWatchlistScreeningListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedIndividualWatchlistScreeningListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16223,8 +16223,8 @@ pub struct PaginatedIndividualWatchlistScreeningReviewListResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for PaginatedIndividualWatchlistScreeningReviewListResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16274,8 +16274,8 @@ Note: This value may be different from the ID type that the user selects within 
     pub issuing_country: String,
 }
 impl std::fmt::Display for PhysicalDocumentExtractedData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16298,8 +16298,8 @@ Note: You can configure whether a `no_match` on `issuing_country` fails the `doc
     pub issuing_country: String,
 }
 impl std::fmt::Display for PhysicalDocumentExtractedDataAnalysis {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16323,8 +16323,8 @@ pub struct PhysicalDocumentImages {
     pub face: Option<String>,
 }
 impl std::fmt::Display for PhysicalDocumentImages {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16411,8 +16411,8 @@ pub struct ScreeningHitAnalysis {
     pub search_terms_version: f64,
 }
 impl std::fmt::Display for ScreeningHitAnalysis {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16431,8 +16431,8 @@ pub struct ScreeningHitData {
     pub names: Option<Vec<ScreeningHitNamesItems>>,
 }
 impl std::fmt::Display for ScreeningHitData {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16445,8 +16445,8 @@ pub struct ScreeningHitDateOfBirthItem {
     pub data: Option<DateRange>,
 }
 impl std::fmt::Display for ScreeningHitDateOfBirthItem {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16459,8 +16459,8 @@ pub struct ScreeningHitDocumentsItems {
     pub data: Option<WatchlistScreeningDocument>,
 }
 impl std::fmt::Display for ScreeningHitDocumentsItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16473,8 +16473,8 @@ pub struct ScreeningHitNamesItems {
     pub data: Option<IndividualScreeningHitNames>,
 }
 impl std::fmt::Display for ScreeningHitNamesItems {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16532,8 +16532,8 @@ pub struct UpdateEntityScreeningRequest {
     pub reset_fields: Option<UpdateEntityScreeningRequestResettableFieldList>,
 }
 impl std::fmt::Display for UpdateEntityScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16562,8 +16562,8 @@ pub struct UpdateEntityScreeningRequestSearchTerms {
     pub url: Option<serde_json::Value>,
 }
 impl std::fmt::Display for UpdateEntityScreeningRequestSearchTerms {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16585,8 +16585,8 @@ pub struct UpdateIndividualScreeningRequest {
     pub reset_fields: Option<UpdateIndividualScreeningRequestResettableFieldList>,
 }
 impl std::fmt::Display for UpdateIndividualScreeningRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16610,8 +16610,8 @@ pub struct UpdateIndividualScreeningRequestSearchTerms {
     pub country: Option<serde_json::Value>,
 }
 impl std::fmt::Display for UpdateIndividualScreeningRequestSearchTerms {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16636,8 +16636,8 @@ pub struct UserAddress {
     pub country: String,
 }
 impl std::fmt::Display for UserAddress {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16650,8 +16650,8 @@ pub struct UserIdNumber {
     pub type_: String,
 }
 impl std::fmt::Display for UserIdNumber {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16664,8 +16664,8 @@ pub struct UserName {
     pub family_name: String,
 }
 impl std::fmt::Display for UserName {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16682,8 +16682,8 @@ pub struct WatchlistScreeningAuditTrail {
     pub timestamp: String,
 }
 impl std::fmt::Display for WatchlistScreeningAuditTrail {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16695,8 +16695,8 @@ pub struct WatchlistScreeningCreateRequest {
     pub client_user_id: Option<serde_json::Value>,
 }
 impl std::fmt::Display for WatchlistScreeningCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16735,8 +16735,8 @@ pub struct WatchlistScreeningDocument {
     pub number: String,
 }
 impl std::fmt::Display for WatchlistScreeningDocument {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16804,8 +16804,8 @@ pub struct WatchlistScreeningHit {
     pub data: Option<ScreeningHitData>,
 }
 impl std::fmt::Display for WatchlistScreeningHit {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16820,8 +16820,8 @@ pub struct WatchlistScreeningHitLocations {
     pub country: String,
 }
 impl std::fmt::Display for WatchlistScreeningHitLocations {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16853,8 +16853,8 @@ pub struct WatchlistScreeningIndividual {
     pub audit_trail: WatchlistScreeningAuditTrail,
 }
 impl std::fmt::Display for WatchlistScreeningIndividual {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16884,8 +16884,8 @@ pub struct WatchlistScreeningIndividualResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for WatchlistScreeningIndividualResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16906,8 +16906,8 @@ pub struct WatchlistScreeningRequestSearchTerms {
     pub country: Option<serde_json::Value>,
 }
 impl std::fmt::Display for WatchlistScreeningRequestSearchTerms {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16929,8 +16929,8 @@ pub struct WatchlistScreeningReview {
     pub audit_trail: WatchlistScreeningAuditTrail,
 }
 impl std::fmt::Display for WatchlistScreeningReview {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16957,8 +16957,8 @@ pub struct WatchlistScreeningReviewResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for WatchlistScreeningReviewResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -16980,8 +16980,8 @@ pub struct WatchlistScreeningSearchTerms {
     pub version: f64,
 }
 impl std::fmt::Display for WatchlistScreeningSearchTerms {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17009,8 +17009,8 @@ pub struct ItemGetRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for ItemGetRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17026,8 +17026,8 @@ pub struct ItemGetResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemGetResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17037,8 +17037,8 @@ pub struct ItemRemoveRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for ItemRemoveRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17048,8 +17048,8 @@ pub struct ItemRemoveResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemRemoveResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17062,8 +17062,8 @@ pub struct ItemWebhookUpdateRequest {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for ItemWebhookUpdateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17076,8 +17076,8 @@ pub struct ItemWebhookUpdateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemWebhookUpdateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17087,8 +17087,8 @@ pub struct ItemAccessTokenInvalidateRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for ItemAccessTokenInvalidateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17101,8 +17101,8 @@ pub struct ItemAccessTokenInvalidateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemAccessTokenInvalidateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17112,8 +17112,8 @@ pub struct ItemPublicTokenExchangeRequest {
     pub public_token: String,
 }
 impl std::fmt::Display for ItemPublicTokenExchangeRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17129,8 +17129,8 @@ pub struct ItemPublicTokenExchangeResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemPublicTokenExchangeResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17140,8 +17140,8 @@ pub struct ItemPublicTokenCreateRequest {
     pub access_token: String,
 }
 impl std::fmt::Display for ItemPublicTokenCreateRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17156,8 +17156,8 @@ pub struct ItemPublicTokenCreateResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemPublicTokenCreateResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17173,8 +17173,8 @@ pub struct ItemImportRequest {
     pub options: Option<ItemImportRequestOptions>,
 }
 impl std::fmt::Display for ItemImportRequest {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17185,8 +17185,8 @@ pub struct ItemImportRequestOptions {
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for ItemImportRequestOptions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17199,8 +17199,8 @@ pub struct ItemImportRequestUserAuth {
     pub auth_token: String,
 }
 impl std::fmt::Display for ItemImportRequestUserAuth {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17213,8 +17213,8 @@ pub struct ItemImportResponse {
     pub request_id: String,
 }
 impl std::fmt::Display for ItemImportResponse {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17261,8 +17261,8 @@ Note - This is only relevant for certain OAuth-based institutions. For all other
     pub update_type: String,
 }
 impl std::fmt::Display for Item {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17278,8 +17278,8 @@ pub struct ItemStatus {
     pub last_webhook: Option<ItemStatusLastWebhook>,
 }
 impl std::fmt::Display for ItemStatus {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17294,8 +17294,8 @@ pub struct ItemStatusTransactions {
     pub last_failed_update: Option<String>,
 }
 impl std::fmt::Display for ItemStatusTransactions {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17308,8 +17308,8 @@ pub struct ItemStatusInvestments {
     pub last_failed_update: Option<String>,
 }
 impl std::fmt::Display for ItemStatusInvestments {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -17323,7 +17323,7 @@ pub struct ItemStatusLastWebhook {
     pub code_sent: Option<String>,
 }
 impl std::fmt::Display for ItemStatusLastWebhook {
-    fn fmt(&self, _f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        Ok(())
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }

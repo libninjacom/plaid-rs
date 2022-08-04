@@ -36,7 +36,7 @@ fn main() {
     modify_spec(&mut spec);
 
     generate_library(spec, GenerateLibraryOptions {
-        package_name: "plaid-openapi".to_string(),
+        package_name: "plaid".to_string(),
         service_name: "Plaid".to_string(),
         qualified_github_repo: "libninjacom/plaid-rs".to_string(),
         dest_path: "..".into(),
