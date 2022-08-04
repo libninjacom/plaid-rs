@@ -164,6 +164,7 @@ impl<'a> TransactionsRefreshRequest<'a> {
 pub struct TransactionsRecurringGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
+    pub options: serde_json::Value,
     pub account_ids: Vec<String>,
 }
 impl<'a> TransactionsRecurringGetRequest<'a> {
@@ -172,8 +173,8 @@ impl<'a> TransactionsRecurringGetRequest<'a> {
         r = r
             .json(
                 json!(
-                    { "access_token" : self.access_token, "account_ids" : self
-                    .account_ids }
+                    { "access_token" : self.access_token, "options" : self.options,
+                    "account_ids" : self.account_ids }
                 ),
             );
         r = self.client.authenticate(r);
@@ -192,6 +193,7 @@ pub struct TransactionsSyncRequest<'a> {
     pub access_token: String,
     pub cursor: String,
     pub count: i64,
+    pub options: serde_json::Value,
 }
 impl<'a> TransactionsSyncRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::TransactionsSyncResponse> {
@@ -200,7 +202,7 @@ impl<'a> TransactionsSyncRequest<'a> {
             .json(
                 json!(
                     { "access_token" : self.access_token, "cursor" : self.cursor, "count"
-                    : self.count }
+                    : self.count, "options" : self.options }
                 ),
             );
         r = self.client.authenticate(r);
@@ -389,6 +391,7 @@ pub struct SandboxPublicTokenCreateRequest<'a> {
     pub institution_id: String,
     pub initial_products: Vec<Products>,
     pub options: serde_json::Value,
+    pub user_token: String,
 }
 impl<'a> SandboxPublicTokenCreateRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::SandboxPublicTokenCreateResponse> {
@@ -397,7 +400,8 @@ impl<'a> SandboxPublicTokenCreateRequest<'a> {
             .json(
                 json!(
                     { "institution_id" : self.institution_id, "initial_products" : self
-                    .initial_products, "options" : self.options }
+                    .initial_products, "options" : self.options, "user_token" : self
+                    .user_token }
                 ),
             );
         r = self.client.authenticate(r);
@@ -414,6 +418,7 @@ impl<'a> SandboxPublicTokenCreateRequest<'a> {
 pub struct SandboxItemFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
+    pub webhook_type: String,
     pub webhook_code: String,
 }
 impl<'a> SandboxItemFireWebhookRequest<'a> {
@@ -422,8 +427,8 @@ impl<'a> SandboxItemFireWebhookRequest<'a> {
         r = r
             .json(
                 json!(
-                    { "access_token" : self.access_token, "webhook_code" : self
-                    .webhook_code }
+                    { "access_token" : self.access_token, "webhook_type" : self
+                    .webhook_type, "webhook_code" : self.webhook_code }
                 ),
             );
         r = self.client.authenticate(r);
@@ -471,6 +476,741 @@ impl<'a> IdentityGetRequest<'a> {
         r = r
             .json(
                 json!({ "access_token" : self.access_token, "options" : self.options }),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct IdentityMatchRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub access_token: String,
+    pub user: serde_json::Value,
+    pub options: serde_json::Value,
+}
+impl<'a> IdentityMatchRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::IdentityMatchResponse> {
+        let mut r = self.client.client.post("/identity/match");
+        r = r
+            .json(
+                json!(
+                    { "access_token" : self.access_token, "user" : self.user, "options" :
+                    self.options }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct DashobardUserGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub dashboard_user_id: String,
+}
+impl<'a> DashobardUserGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::DashboardUserResponse> {
+        let mut r = self.client.client.post("/dashboard_user/get");
+        r = r.json(json!({ "dashboard_user_id" : self.dashboard_user_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct DashboardUserListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub cursor: Option<String>,
+}
+impl<'a> DashboardUserListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedDashboardUserListResponse> {
+        let mut r = self.client.client.post("/dashboard_user/list");
+        r = r.json(json!({ "cursor" : self.cursor }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct IdentityVerificationCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub is_shareable: bool,
+    pub template_id: String,
+    pub gave_consent: bool,
+    pub user: serde_json::Value,
+    pub is_idempotent: Option<bool>,
+}
+impl<'a> IdentityVerificationCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::IdentityVerificationResponse> {
+        let mut r = self.client.client.post("/identity_verification/create");
+        r = r
+            .json(
+                json!(
+                    { "is_shareable" : self.is_shareable, "template_id" : self
+                    .template_id, "gave_consent" : self.gave_consent, "user" : self.user,
+                    "is_idempotent" : self.is_idempotent }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct IdentityVerificationGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub identity_verification_id: String,
+}
+impl<'a> IdentityVerificationGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::IdentityVerificationResponse> {
+        let mut r = self.client.client.post("/identity_verification/get");
+        r = r
+            .json(json!({ "identity_verification_id" : self.identity_verification_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct IdentityVerificationListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub template_id: String,
+    pub client_user_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> IdentityVerificationListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedIdentityVerificationListResponse> {
+        let mut r = self.client.client.post("/identity_verification/list");
+        r = r
+            .json(
+                json!(
+                    { "template_id" : self.template_id, "client_user_id" : self
+                    .client_user_id, "cursor" : self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct IdentityVerificationRetryRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub client_user_id: String,
+    pub template_id: String,
+    pub strategy: String,
+    pub steps: Option<serde_json::Value>,
+}
+impl<'a> IdentityVerificationRetryRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::IdentityVerificationResponse> {
+        let mut r = self.client.client.post("/identity_verification/retry");
+        r = r
+            .json(
+                json!(
+                    { "client_user_id" : self.client_user_id, "template_id" : self
+                    .template_id, "strategy" : self.strategy, "steps" : self.steps }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub search_terms: serde_json::Value,
+    pub client_user_id: Option<serde_json::Value>,
+}
+impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::EntityWatchlistScreeningResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/create");
+        r = r
+            .json(
+                json!(
+                    { "search_terms" : self.search_terms, "client_user_id" : self
+                    .client_user_id }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_screening_id: String,
+}
+impl<'a> WatchlistScreeningEntityGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::EntityWatchlistScreeningResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/get");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_screening_id" : self
+                    .entity_watchlist_screening_id }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityHistoryListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_screening_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedEntityWatchlistScreeningListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/history/list");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_screening_id" : self
+                    .entity_watchlist_screening_id, "cursor" : self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityHitsListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_screening_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningEntityHitsListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedEntityWatchlistScreeningHitListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/hit/list");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_screening_id" : self
+                    .entity_watchlist_screening_id, "cursor" : self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_program_id: String,
+    pub client_user_id: Option<serde_json::Value>,
+    pub status: Option<serde_json::Value>,
+    pub assignee: Option<serde_json::Value>,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningEntityListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedEntityWatchlistScreeningListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/list");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_program_id" : self.entity_watchlist_program_id,
+                    "client_user_id" : self.client_user_id, "status" : self.status,
+                    "assignee" : self.assignee, "cursor" : self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityProgramGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_program_id: String,
+}
+impl<'a> WatchlistScreeningEntityProgramGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::EntityWatchlistProgramResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/program/get");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_program_id" : self.entity_watchlist_program_id }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityProgramListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningEntityProgramListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedEntityWatchlistProgramListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/program/list");
+        r = r.json(json!({ "cursor" : self.cursor }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityReviewCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub confirmed_hits: Vec<EntityWatchlistScreeningHitId>,
+    pub dismissed_hits: Vec<EntityWatchlistScreeningHitId>,
+    pub comment: Option<String>,
+    pub entity_watchlist_screening_id: String,
+}
+impl<'a> WatchlistScreeningEntityReviewCreateRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::EntityWatchlistScreeningReviewResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/review/create");
+        r = r
+            .json(
+                json!(
+                    { "confirmed_hits" : self.confirmed_hits, "dismissed_hits" : self
+                    .dismissed_hits, "comment" : self.comment,
+                    "entity_watchlist_screening_id" : self.entity_watchlist_screening_id
+                    }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityReviewListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_screening_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningEntityReviewListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedEntityWatchlistScreeningReviewListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/review/list");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_screening_id" : self
+                    .entity_watchlist_screening_id, "cursor" : self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningEntityUpdateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub entity_watchlist_screening_id: String,
+    pub search_terms: Option<serde_json::Value>,
+    pub assignee: Option<serde_json::Value>,
+    pub status: Option<serde_json::Value>,
+    pub client_user_id: Option<serde_json::Value>,
+    pub reset_fields: Option<Vec<UpdateEntityScreeningRequestResettableField>>,
+}
+impl<'a> WatchlistScreeningEntityUpdateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::EntityWatchlistScreeningResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/entity/update");
+        r = r
+            .json(
+                json!(
+                    { "entity_watchlist_screening_id" : self
+                    .entity_watchlist_screening_id, "search_terms" : self.search_terms,
+                    "assignee" : self.assignee, "status" : self.status, "client_user_id"
+                    : self.client_user_id, "reset_fields" : self.reset_fields }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub search_terms: serde_json::Value,
+    pub client_user_id: Option<serde_json::Value>,
+}
+impl<'a> WatchlistScreeningIndividualCreateRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::WatchlistScreeningIndividualResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/individual/create");
+        r = r
+            .json(
+                json!(
+                    { "search_terms" : self.search_terms, "client_user_id" : self
+                    .client_user_id }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_screening_id: String,
+}
+impl<'a> WatchlistScreeningIndividualGetRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::WatchlistScreeningIndividualResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/individual/get");
+        r = r.json(json!({ "watchlist_screening_id" : self.watchlist_screening_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualHistoryListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_screening_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningIndividualHistoryListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedIndividualWatchlistScreeningListResponse> {
+        let mut r = self
+            .client
+            .client
+            .post("/watchlist_screening/individual/history/list");
+        r = r
+            .json(
+                json!(
+                    { "watchlist_screening_id" : self.watchlist_screening_id, "cursor" :
+                    self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualHitListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_screening_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningIndividualHitListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedIndividualWatchlistScreeningHitListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/individual/hit/list");
+        r = r
+            .json(
+                json!(
+                    { "watchlist_screening_id" : self.watchlist_screening_id, "cursor" :
+                    self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_program_id: String,
+    pub client_user_id: Option<serde_json::Value>,
+    pub status: Option<serde_json::Value>,
+    pub assignee: Option<serde_json::Value>,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningIndividualListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedIndividualWatchlistScreeningListResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/individual/list");
+        r = r
+            .json(
+                json!(
+                    { "watchlist_program_id" : self.watchlist_program_id,
+                    "client_user_id" : self.client_user_id, "status" : self.status,
+                    "assignee" : self.assignee, "cursor" : self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualProgramGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_program_id: String,
+}
+impl<'a> WatchlistScreeningIndividualProgramGetRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::IndividualWatchlistProgramResponse> {
+        let mut r = self
+            .client
+            .client
+            .post("/watchlist_screening/individual/program/get");
+        r = r.json(json!({ "watchlist_program_id" : self.watchlist_program_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualProgramListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningIndividualProgramListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedIndividualWatchlistProgramListResponse> {
+        let mut r = self
+            .client
+            .client
+            .post("/watchlist_screening/individual/program/list");
+        r = r.json(json!({ "cursor" : self.cursor }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualReviewCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub confirmed_hits: Vec<WatchlistScreeningHitId>,
+    pub dismissed_hits: Vec<WatchlistScreeningHitId>,
+    pub comment: Option<String>,
+    pub watchlist_screening_id: String,
+}
+impl<'a> WatchlistScreeningIndividualReviewCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::WatchlistScreeningReviewResponse> {
+        let mut r = self
+            .client
+            .client
+            .post("/watchlist_screening/individual/review/create");
+        r = r
+            .json(
+                json!(
+                    { "confirmed_hits" : self.confirmed_hits, "dismissed_hits" : self
+                    .dismissed_hits, "comment" : self.comment, "watchlist_screening_id" :
+                    self.watchlist_screening_id }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualReviewsListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_screening_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> WatchlistScreeningIndividualReviewsListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaginatedIndividualWatchlistScreeningReviewListResponse> {
+        let mut r = self
+            .client
+            .client
+            .post("/watchlist_screening/individual/review/list");
+        r = r
+            .json(
+                json!(
+                    { "watchlist_screening_id" : self.watchlist_screening_id, "cursor" :
+                    self.cursor }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WatchlistScreeningIndividualUpdateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub watchlist_screening_id: String,
+    pub search_terms: Option<serde_json::Value>,
+    pub assignee: Option<serde_json::Value>,
+    pub status: Option<serde_json::Value>,
+    pub client_user_id: Option<serde_json::Value>,
+    pub reset_fields: Option<Vec<UpdateIndividualScreeningRequestResettableField>>,
+}
+impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::WatchlistScreeningIndividualResponse> {
+        let mut r = self.client.client.post("/watchlist_screening/individual/update");
+        r = r
+            .json(
+                json!(
+                    { "watchlist_screening_id" : self.watchlist_screening_id,
+                    "search_terms" : self.search_terms, "assignee" : self.assignee,
+                    "status" : self.status, "client_user_id" : self.client_user_id,
+                    "reset_fields" : self.reset_fields }
+                ),
             );
         r = self.client.authenticate(r);
         let res = r.send().await.unwrap().error_for_status();
@@ -706,13 +1446,21 @@ impl<'a> PaymentInitiationRecipientCreateRequest<'a> {
 pub struct PaymentInitiationPaymentReverseRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_id: String,
+    pub idempotency_key: String,
+    pub reference: String,
 }
 impl<'a> PaymentInitiationPaymentReverseRequest<'a> {
     pub async fn send(
         self,
     ) -> anyhow::Result<model::PaymentInitiationPaymentReverseResponse> {
         let mut r = self.client.client.post("/payment_initiation/payment/reverse");
-        r = r.json(json!({ "payment_id" : self.payment_id }));
+        r = r
+            .json(
+                json!(
+                    { "payment_id" : self.payment_id, "idempotency_key" : self
+                    .idempotency_key, "reference" : self.reference }
+                ),
+            );
         r = self.client.authenticate(r);
         let res = r.send().await.unwrap().error_for_status();
         match res {
@@ -818,6 +1566,112 @@ impl<'a> CreatePaymentTokenRequest<'a> {
         }
     }
 }
+pub struct PaymentInitiationConsentCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub recipient_id: String,
+    pub reference: String,
+    pub scopes: Vec<PaymentInitiationConsentScope>,
+    pub constraints: serde_json::Value,
+    pub options: Option<serde_json::Value>,
+}
+impl<'a> PaymentInitiationConsentCreateRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaymentInitiationConsentCreateResponse> {
+        let mut r = self.client.client.post("/payment_initiation/consent/create");
+        r = r
+            .json(
+                json!(
+                    { "recipient_id" : self.recipient_id, "reference" : self.reference,
+                    "scopes" : self.scopes, "constraints" : self.constraints, "options" :
+                    self.options }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PaymentInitiationConsentGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub consent_id: String,
+}
+impl<'a> PaymentInitiationConsentGetRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaymentInitiationConsentGetResponse> {
+        let mut r = self.client.client.post("/payment_initiation/consent/get");
+        r = r.json(json!({ "consent_id" : self.consent_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PaymentInitiationConsentRevokeRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub consent_id: String,
+}
+impl<'a> PaymentInitiationConsentRevokeRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaymentInitiationConsentRevokeResponse> {
+        let mut r = self.client.client.post("/payment_initiation/consent/revoke");
+        r = r.json(json!({ "consent_id" : self.consent_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PaymentInitiationConsentPaymentExecuteRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub consent_id: String,
+    pub amount: serde_json::Value,
+    pub idempotency_key: String,
+}
+impl<'a> PaymentInitiationConsentPaymentExecuteRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::PaymentInitiationConsentPaymentExecuteResponse> {
+        let mut r = self
+            .client
+            .client
+            .post("/payment_initiation/consent/payment/execute");
+        r = r
+            .json(
+                json!(
+                    { "consent_id" : self.consent_id, "amount" : self.amount,
+                    "idempotency_key" : self.idempotency_key }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct SandboxItemResetLoginRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -904,6 +1758,25 @@ impl<'a> ItemCreatePublicTokenRequest<'a> {
         }
     }
 }
+pub struct UserCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub client_user_id: String,
+}
+impl<'a> UserCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::UserCreateResponse> {
+        let mut r = self.client.client.post("/user/create");
+        r = r.json(json!({ "client_user_id" : self.client_user_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct PaymentInitiationPaymentGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_id: String,
@@ -929,13 +1802,20 @@ pub struct PaymentInitiationPaymentListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub count: Option<i64>,
     pub cursor: Option<String>,
+    pub consent_id: Option<String>,
 }
 impl<'a> PaymentInitiationPaymentListRequest<'a> {
     pub async fn send(
         self,
     ) -> anyhow::Result<model::PaymentInitiationPaymentListResponse> {
         let mut r = self.client.client.post("/payment_initiation/payment/list");
-        r = r.json(json!({ "count" : self.count, "cursor" : self.cursor }));
+        r = r
+            .json(
+                json!(
+                    { "count" : self.count, "cursor" : self.cursor, "consent_id" : self
+                    .consent_id }
+                ),
+            );
         r = self.client.authenticate(r);
         let res = r.send().await.unwrap().error_for_status();
         match res {
@@ -1001,6 +1881,32 @@ impl<'a> AssetReportRefreshRequest<'a> {
         }
     }
 }
+pub struct AssetReportRelayRefreshRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub asset_relay_token: String,
+    pub webhook: Option<String>,
+}
+impl<'a> AssetReportRelayRefreshRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::AssetReportRelayRefreshResponse> {
+        let mut r = self.client.client.post("/asset_report/relay/refresh");
+        r = r
+            .json(
+                json!(
+                    { "asset_relay_token" : self.asset_relay_token, "webhook" : self
+                    .webhook }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct AssetReportRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -1050,6 +1956,7 @@ pub struct AssetReportGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
     pub include_insights: bool,
+    pub fast_report: bool,
 }
 impl<'a> AssetReportGetRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::AssetReportGetResponse> {
@@ -1058,7 +1965,7 @@ impl<'a> AssetReportGetRequest<'a> {
             .json(
                 json!(
                     { "asset_report_token" : self.asset_report_token, "include_insights"
-                    : self.include_insights }
+                    : self.include_insights, "fast_report" : self.fast_report }
                 ),
             );
         r = self.client.authenticate(r);
@@ -1110,6 +2017,72 @@ impl<'a> AssetReportAuditCopyRemoveRequest<'a> {
     ) -> anyhow::Result<model::AssetReportAuditCopyRemoveResponse> {
         let mut r = self.client.client.post("/asset_report/audit_copy/remove");
         r = r.json(json!({ "audit_copy_token" : self.audit_copy_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct AssetReportRelayCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub asset_report_token: String,
+    pub secondary_client_id: String,
+    pub webhook: Option<String>,
+}
+impl<'a> AssetReportRelayCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::AssetReportRelayCreateResponse> {
+        let mut r = self.client.client.post("/asset_report/relay/create");
+        r = r
+            .json(
+                json!(
+                    { "asset_report_token" : self.asset_report_token,
+                    "secondary_client_id" : self.secondary_client_id, "webhook" : self
+                    .webhook }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct AssetReportRelayGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub asset_relay_token: String,
+}
+impl<'a> AssetReportRelayGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::AssetReportGetResponse> {
+        let mut r = self.client.client.post("/asset_report/relay/get");
+        r = r.json(json!({ "asset_relay_token" : self.asset_relay_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct AssetReportRelayRemoveRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub asset_relay_token: String,
+}
+impl<'a> AssetReportRelayRemoveRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::AssetReportRelayRemoveResponse> {
+        let mut r = self.client.client.post("/asset_report/relay/remove");
+        r = r.json(json!({ "asset_relay_token" : self.asset_relay_token }));
         r = self.client.authenticate(r);
         let res = r.send().await.unwrap().error_for_status();
         match res {
@@ -1340,11 +2313,13 @@ pub struct LinkTokenCreateRequest<'a> {
     pub country_codes: Vec<CountryCode>,
     pub user: serde_json::Value,
     pub products: Vec<Products>,
+    pub additional_consented_products: Vec<Products>,
     pub webhook: String,
     pub access_token: String,
     pub link_customization_name: String,
     pub redirect_uri: String,
     pub android_package_name: String,
+    pub institution_data: serde_json::Value,
     pub account_filters: serde_json::Value,
     pub eu_config: serde_json::Value,
     pub institution_id: String,
@@ -1354,6 +2329,8 @@ pub struct LinkTokenCreateRequest<'a> {
     pub auth: serde_json::Value,
     pub transfer: serde_json::Value,
     pub update: serde_json::Value,
+    pub identity_verification: serde_json::Value,
+    pub user_token: String,
 }
 impl<'a> LinkTokenCreateRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::LinkTokenCreateResponse> {
@@ -1363,15 +2340,18 @@ impl<'a> LinkTokenCreateRequest<'a> {
                 json!(
                     { "client_name" : self.client_name, "language" : self.language,
                     "country_codes" : self.country_codes, "user" : self.user, "products"
-                    : self.products, "webhook" : self.webhook, "access_token" : self
-                    .access_token, "link_customization_name" : self
+                    : self.products, "additional_consented_products" : self
+                    .additional_consented_products, "webhook" : self.webhook,
+                    "access_token" : self.access_token, "link_customization_name" : self
                     .link_customization_name, "redirect_uri" : self.redirect_uri,
-                    "android_package_name" : self.android_package_name, "account_filters"
-                    : self.account_filters, "eu_config" : self.eu_config,
-                    "institution_id" : self.institution_id, "payment_initiation" : self
-                    .payment_initiation, "deposit_switch" : self.deposit_switch,
-                    "income_verification" : self.income_verification, "auth" : self.auth,
-                    "transfer" : self.transfer, "update" : self.update }
+                    "android_package_name" : self.android_package_name,
+                    "institution_data" : self.institution_data, "account_filters" : self
+                    .account_filters, "eu_config" : self.eu_config, "institution_id" :
+                    self.institution_id, "payment_initiation" : self.payment_initiation,
+                    "deposit_switch" : self.deposit_switch, "income_verification" : self
+                    .income_verification, "auth" : self.auth, "transfer" : self.transfer,
+                    "update" : self.update, "identity_verification" : self
+                    .identity_verification, "user_token" : self.user_token }
                 ),
             );
         r = self.client.authenticate(r);
@@ -1492,6 +2472,8 @@ pub struct TransferAuthorizationCreateRequest<'a> {
     pub device: serde_json::Value,
     pub origination_account_id: String,
     pub iso_currency_code: String,
+    pub user_present: Option<bool>,
+    pub payment_profile_id: String,
 }
 impl<'a> TransferAuthorizationCreateRequest<'a> {
     pub async fn send(
@@ -1505,7 +2487,8 @@ impl<'a> TransferAuthorizationCreateRequest<'a> {
                     "type" : self.type_, "network" : self.network, "amount" : self
                     .amount, "ach_class" : self.ach_class, "user" : self.user, "device" :
                     self.device, "origination_account_id" : self.origination_account_id,
-                    "iso_currency_code" : self.iso_currency_code }
+                    "iso_currency_code" : self.iso_currency_code, "user_present" : self
+                    .user_present, "payment_profile_id" : self.payment_profile_id }
                 ),
             );
         r = self.client.authenticate(r);
@@ -1534,6 +2517,7 @@ pub struct TransferCreateRequest<'a> {
     pub metadata: Option<serde_json::Value>,
     pub origination_account_id: Option<String>,
     pub iso_currency_code: String,
+    pub payment_profile_id: String,
 }
 impl<'a> TransferCreateRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::TransferCreateResponse> {
@@ -1547,7 +2531,8 @@ impl<'a> TransferCreateRequest<'a> {
                     "amount" : self.amount, "description" : self.description, "ach_class"
                     : self.ach_class, "user" : self.user, "metadata" : self.metadata,
                     "origination_account_id" : self.origination_account_id,
-                    "iso_currency_code" : self.iso_currency_code }
+                    "iso_currency_code" : self.iso_currency_code, "payment_profile_id" :
+                    self.payment_profile_id }
                 ),
             );
         r = self.client.authenticate(r);
@@ -1936,6 +2921,7 @@ pub struct BankTransferMigrateAccountRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub account_number: String,
     pub routing_number: String,
+    pub wire_routing_number: String,
     pub account_type: String,
 }
 impl<'a> BankTransferMigrateAccountRequest<'a> {
@@ -1947,7 +2933,37 @@ impl<'a> BankTransferMigrateAccountRequest<'a> {
             .json(
                 json!(
                     { "account_number" : self.account_number, "routing_number" : self
-                    .routing_number, "account_type" : self.account_type }
+                    .routing_number, "wire_routing_number" : self.wire_routing_number,
+                    "account_type" : self.account_type }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct TransferMigrateAccountRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub account_number: String,
+    pub routing_number: String,
+    pub wire_routing_number: String,
+    pub account_type: String,
+}
+impl<'a> TransferMigrateAccountRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::TransferMigrateAccountResponse> {
+        let mut r = self.client.client.post("/transfer/migrate_account");
+        r = r
+            .json(
+                json!(
+                    { "account_number" : self.account_number, "routing_number" : self
+                    .routing_number, "wire_routing_number" : self.wire_routing_number,
+                    "account_type" : self.account_type }
                 ),
             );
         r = self.client.authenticate(r);
@@ -1972,6 +2988,7 @@ pub struct TransferIntentCreateRequest<'a> {
     pub user: serde_json::Value,
     pub metadata: Option<serde_json::Value>,
     pub iso_currency_code: String,
+    pub require_guarantee: Option<bool>,
 }
 impl<'a> TransferIntentCreateRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::TransferIntentCreateResponse> {
@@ -1983,7 +3000,8 @@ impl<'a> TransferIntentCreateRequest<'a> {
                     .amount, "description" : self.description, "ach_class" : self
                     .ach_class, "origination_account_id" : self.origination_account_id,
                     "user" : self.user, "metadata" : self.metadata, "iso_currency_code" :
-                    self.iso_currency_code }
+                    self.iso_currency_code, "require_guarantee" : self.require_guarantee
+                    }
                 ),
             );
         r = self.client.authenticate(r);
@@ -2169,6 +3187,27 @@ impl<'a> SandboxTransferRepaymentSimulateRequest<'a> {
         }
     }
 }
+pub struct SandboxTransferFireWebhookRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub webhook: String,
+}
+impl<'a> SandboxTransferFireWebhookRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::SandboxTransferFireWebhookResponse> {
+        let mut r = self.client.client.post("/sandbox/transfer/fire_webhook");
+        r = r.json(json!({ "webhook" : self.webhook }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct EmployersSearchRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub query: String,
@@ -2203,62 +3242,6 @@ impl<'a> IncomeVerificationCreateRequest<'a> {
                 json!(
                     { "webhook" : self.webhook, "precheck_id" : self.precheck_id,
                     "options" : self.options }
-                ),
-            );
-        r = self.client.authenticate(r);
-        let res = r.send().await.unwrap().error_for_status();
-        match res {
-            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-            Err(res) => {
-                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                Err(anyhow::anyhow!("{:?}", text))
-            }
-        }
-    }
-}
-pub struct IncomeVerificationSummaryGetRequest<'a> {
-    pub(crate) client: &'a PlaidClient,
-    pub income_verification_id: Option<String>,
-    pub access_token: Option<String>,
-}
-impl<'a> IncomeVerificationSummaryGetRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> anyhow::Result<model::IncomeVerificationSummaryGetResponse> {
-        let mut r = self.client.client.post("/income/verification/summary/get");
-        r = r
-            .json(
-                json!(
-                    { "income_verification_id" : self.income_verification_id,
-                    "access_token" : self.access_token }
-                ),
-            );
-        r = self.client.authenticate(r);
-        let res = r.send().await.unwrap().error_for_status();
-        match res {
-            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
-            Err(res) => {
-                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
-                Err(anyhow::anyhow!("{:?}", text))
-            }
-        }
-    }
-}
-pub struct IncomeVerificationPaystubGetRequest<'a> {
-    pub(crate) client: &'a PlaidClient,
-    pub income_verification_id: Option<String>,
-    pub access_token: Option<String>,
-}
-impl<'a> IncomeVerificationPaystubGetRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> anyhow::Result<model::IncomeVerificationPaystubGetResponse> {
-        let mut r = self.client.client.post("/income/verification/paystub/get");
-        r = r
-            .json(
-                json!(
-                    { "income_verification_id" : self.income_verification_id,
-                    "access_token" : self.access_token }
                 ),
             );
         r = self.client.authenticate(r);
@@ -2435,6 +3418,284 @@ impl<'a> DepositSwitchAltCreateRequest<'a> {
         }
     }
 }
+pub struct CreditAuditCopyTokenCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub report_tokens: Vec<ReportToken>,
+    pub auditor_id: String,
+}
+impl<'a> CreditAuditCopyTokenCreateRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::CreditAuditCopyTokenCreateResponse> {
+        let mut r = self.client.client.post("/credit/audit_copy_token/create");
+        r = r
+            .json(
+                json!(
+                    { "report_tokens" : self.report_tokens, "auditor_id" : self
+                    .auditor_id }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditReportAuditCopyRemoveRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub audit_copy_token: String,
+}
+impl<'a> CreditReportAuditCopyRemoveRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::CreditAuditCopyTokenRemoveResponse> {
+        let mut r = self.client.client.post("/credit/audit_copy_token/remove");
+        r = r.json(json!({ "audit_copy_token" : self.audit_copy_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditBankIncomeGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+    pub options: serde_json::Value,
+}
+impl<'a> CreditBankIncomeGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditBankIncomeGetResponse> {
+        let mut r = self.client.client.post("/credit/bank_income/get");
+        r = r.json(json!({ "user_token" : self.user_token, "options" : self.options }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditBankIncomeRefreshRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+    pub options: serde_json::Value,
+}
+impl<'a> CreditBankIncomeRefreshRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditBankIncomeRefreshResponse> {
+        let mut r = self.client.client.post("/credit/bank_income/refresh");
+        r = r.json(json!({ "user_token" : self.user_token, "options" : self.options }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditPayrollIncomeGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+}
+impl<'a> CreditPayrollIncomeGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditPayrollIncomeGetResponse> {
+        let mut r = self.client.client.post("/credit/payroll_income/get");
+        r = r.json(json!({ "user_token" : self.user_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditPayrollIncomePrecheckRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+    pub access_tokens: Vec<AccessToken>,
+    pub employer: Option<serde_json::Value>,
+    pub us_military_info: Option<serde_json::Value>,
+}
+impl<'a> CreditPayrollIncomePrecheckRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::CreditPayrollIncomePrecheckResponse> {
+        let mut r = self.client.client.post("/credit/payroll_income/precheck");
+        r = r
+            .json(
+                json!(
+                    { "user_token" : self.user_token, "access_tokens" : self
+                    .access_tokens, "employer" : self.employer, "us_military_info" : self
+                    .us_military_info }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditEmploymentGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+}
+impl<'a> CreditEmploymentGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditEmploymentGetResponse> {
+        let mut r = self.client.client.post("/credit/employment/get");
+        r = r.json(json!({ "user_token" : self.user_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditPayrollIncomeRefreshRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+}
+impl<'a> CreditPayrollIncomeRefreshRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> anyhow::Result<model::CreditPayrollIncomeRefreshResponse> {
+        let mut r = self.client.client.post("/credit/payroll_income/refresh");
+        r = r.json(json!({ "user_token" : self.user_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditRelayCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub report_tokens: Vec<ReportToken>,
+    pub secondary_client_id: String,
+    pub webhook: Option<String>,
+}
+impl<'a> CreditRelayCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditRelayCreateResponse> {
+        let mut r = self.client.client.post("/credit/relay/create");
+        r = r
+            .json(
+                json!(
+                    { "report_tokens" : self.report_tokens, "secondary_client_id" : self
+                    .secondary_client_id, "webhook" : self.webhook }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditRelayGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub relay_token: String,
+    pub report_type: String,
+}
+impl<'a> CreditRelayGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::AssetReportGetResponse> {
+        let mut r = self.client.client.post("/credit/relay/get");
+        r = r
+            .json(
+                json!(
+                    { "relay_token" : self.relay_token, "report_type" : self.report_type
+                    }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditRelayRefreshRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub relay_token: String,
+    pub report_type: String,
+    pub webhook: Option<String>,
+}
+impl<'a> CreditRelayRefreshRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditRelayRefreshResponse> {
+        let mut r = self.client.client.post("/credit/relay/refresh");
+        r = r
+            .json(
+                json!(
+                    { "relay_token" : self.relay_token, "report_type" : self.report_type,
+                    "webhook" : self.webhook }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct CreditRelayRemoveRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub relay_token: String,
+}
+impl<'a> CreditRelayRemoveRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::CreditRelayRemoveResponse> {
+        let mut r = self.client.client.post("/credit/relay/remove");
+        r = r.json(json!({ "relay_token" : self.relay_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct SandboxBankTransferFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub webhook: String,
@@ -2458,8 +3719,8 @@ impl<'a> SandboxBankTransferFireWebhookRequest<'a> {
 }
 pub struct SandboxIncomeFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
-    pub income_verification_id: String,
     pub item_id: String,
+    pub user_id: String,
     pub webhook: String,
     pub verification_status: String,
 }
@@ -2469,9 +3730,8 @@ impl<'a> SandboxIncomeFireWebhookRequest<'a> {
         r = r
             .json(
                 json!(
-                    { "income_verification_id" : self.income_verification_id, "item_id" :
-                    self.item_id, "webhook" : self.webhook, "verification_status" : self
-                    .verification_status }
+                    { "item_id" : self.item_id, "user_id" : self.user_id, "webhook" :
+                    self.webhook, "verification_status" : self.verification_status }
                 ),
             );
         r = self.client.authenticate(r);
@@ -2600,6 +3860,44 @@ impl<'a> SignalReturnReportRequest<'a> {
         }
     }
 }
+pub struct SignalPrepareRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub access_token: String,
+}
+impl<'a> SignalPrepareRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::SignalPrepareResponse> {
+        let mut r = self.client.client.post("/signal/prepare");
+        r = r.json(json!({ "access_token" : self.access_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WalletCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub iso_currency_code: String,
+}
+impl<'a> WalletCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::WalletCreateResponse> {
+        let mut r = self.client.client.post("/wallet/create");
+        r = r.json(json!({ "iso_currency_code" : self.iso_currency_code }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct WalletGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub wallet_id: String,
@@ -2608,6 +3906,33 @@ impl<'a> WalletGetRequest<'a> {
     pub async fn send(self) -> anyhow::Result<model::WalletGetResponse> {
         let mut r = self.client.client.post("/wallet/get");
         r = r.json(json!({ "wallet_id" : self.wallet_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct WalletListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub iso_currency_code: String,
+    pub cursor: String,
+    pub count: i64,
+}
+impl<'a> WalletListRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::WalletListResponse> {
+        let mut r = self.client.client.post("/wallet/list");
+        r = r
+            .json(
+                json!(
+                    { "iso_currency_code" : self.iso_currency_code, "cursor" : self
+                    .cursor, "count" : self.count }
+                ),
+            );
         r = self.client.authenticate(r);
         let res = r.send().await.unwrap().error_for_status();
         match res {
@@ -2649,6 +3974,25 @@ impl<'a> WalletTransactionExecuteRequest<'a> {
         }
     }
 }
+pub struct WalletTransactionGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub transaction_id: String,
+}
+impl<'a> WalletTransactionGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::WalletTransactionGetResponse> {
+        let mut r = self.client.client.post("/wallet/transaction/get");
+        r = r.json(json!({ "transaction_id" : self.transaction_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
 pub struct WalletTransactionsListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub wallet_id: String,
@@ -2665,6 +4009,175 @@ impl<'a> WalletTransactionsListRequest<'a> {
                     self.count }
                 ),
             );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct TransactionsEnhanceRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub account_type: String,
+    pub transactions: Vec<ClientProvidedRawTransaction>,
+}
+impl<'a> TransactionsEnhanceRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::TransactionsEnhanceGetResponse> {
+        let mut r = self.client.client.post("/beta/transactions/v1/enhance");
+        r = r
+            .json(
+                json!(
+                    { "account_type" : self.account_type, "transactions" : self
+                    .transactions }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct TransactionsRulesCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub access_token: String,
+    pub personal_finance_category: String,
+    pub rule_details: serde_json::Value,
+}
+impl<'a> TransactionsRulesCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::TransactionsRulesCreateResponse> {
+        let mut r = self.client.client.post("/beta/transactions/rules/v1/create");
+        r = r
+            .json(
+                json!(
+                    { "access_token" : self.access_token, "personal_finance_category" :
+                    self.personal_finance_category, "rule_details" : self.rule_details }
+                ),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct TransactionsRulesListRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub access_token: String,
+}
+impl<'a> TransactionsRulesListRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::TransactionsRulesListResponse> {
+        let mut r = self.client.client.post("/beta/transactions/rules/v1/list");
+        r = r.json(json!({ "access_token" : self.access_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct TransactionsRulesRemoveRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub access_token: String,
+    pub rule_id: String,
+}
+impl<'a> TransactionsRulesRemoveRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::TransactionsRulesRemoveResponse> {
+        let mut r = self.client.client.post("/beta/transactions/rules/v1/remove");
+        r = r
+            .json(
+                json!({ "access_token" : self.access_token, "rule_id" : self.rule_id }),
+            );
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PaymentProfileCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+}
+impl<'a> PaymentProfileCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::PaymentProfileCreateResponse> {
+        let mut r = self.client.client.post("/payment_profile/create");
+        r = r;
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PaymentProfileGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub payment_profile_id: String,
+}
+impl<'a> PaymentProfileGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::PaymentProfileGetResponse> {
+        let mut r = self.client.client.post("/payment_profile/get");
+        r = r.json(json!({ "payment_profile_id" : self.payment_profile_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PaymentProfileRemoveRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub payment_profile_id: String,
+}
+impl<'a> PaymentProfileRemoveRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::PaymentProfileRemoveResponse> {
+        let mut r = self.client.client.post("/payment_profile/remove");
+        r = r.json(json!({ "payment_profile_id" : self.payment_profile_id }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => res.json().await.map_err(|e| anyhow::anyhow!("{:?}", e)),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e));
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+pub struct PartnerCustomersCreateRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+}
+impl<'a> PartnerCustomersCreateRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<model::PartnerCustomersCreateResponse> {
+        let mut r = self.client.client.post("/beta/partner/v1/customers/create");
+        r = r;
         r = self.client.authenticate(r);
         let res = r.send().await.unwrap().error_for_status();
         match res {

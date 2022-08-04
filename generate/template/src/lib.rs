@@ -4,7 +4,6 @@
 #![allow(non_camel_case_types)]
 
 use serde_json::json;
-use httpclient::RequestBuilder;
 pub mod model;
 pub mod request_model;
 use crate::model::*;
