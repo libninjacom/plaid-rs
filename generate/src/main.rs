@@ -1,39 +1,9 @@
 use std::env;
 use openapi_client_generator::{OpenAPI, read_spec, GenerateLibraryOptions};
 use openapi_client_generator::generate_library;
-use openapi_client_generator::openapiv3::{ReferenceOr, Schema, SchemaKind, Type};
+use openapi_client_generator::openapiv3::{SchemaKind, Type};
 use openapi_client_generator::sourcegen::SourceGen;
 
-
-fn get_component_name(reference: &str) -> Option<&str> {
-    let mut parts = reference.split('/');
-    if parts.next() != Some("#") {
-        return None;
-    }
-    if parts.next() != Some("components") {
-        return None;
-    }
-    if parts.next() != Some("schemas") {
-        return None;
-    }
-    parts.next()
-}
-
-
-fn resolve_mut<'a>(schema: &'a mut ReferenceOr<Schema>, spec: &'a mut OpenAPI) -> &'a mut Schema {
-    match schema {
-        ReferenceOr::Reference { reference } => {
-            let name = get_component_name(&reference).unwrap();
-            let components = spec.components.as_mut().unwrap();
-            let ref_or_schema = components.schemas.get_mut(name).unwrap();
-            match ref_or_schema {
-                ReferenceOr::Item(schema) => schema,
-                ReferenceOr::Reference { .. } => panic!("circular reference"),
-            }
-        }
-        ReferenceOr::Item(ref mut schema) => schema,
-    }
-}
 
 fn modify_spec(spec: &mut OpenAPI) {
     spec.paths.paths.iter_mut().for_each(|(_path, item)| {
