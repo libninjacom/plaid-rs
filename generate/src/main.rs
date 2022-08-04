@@ -1,3 +1,4 @@
+use std::env;
 use openapi_client_generator::{OpenAPI, read_spec, GenerateLibraryOptions};
 use openapi_client_generator::generate_library;
 use openapi_client_generator::openapiv3::{ReferenceOr, Schema, SchemaKind, Type};
@@ -60,7 +61,7 @@ fn modify_spec(spec: &mut OpenAPI) {
 fn main() {
     let version = env::var("VERSION").expect("VERSION is not set.");
     let yaml_path = env::var("YAML_FILE").expect("YAML_FILE is not set.");
-    let mut spec = read_spec(yaml_path).unwrap();
+    let mut spec = read_spec(yaml_path.as_ref()).unwrap();
 
     modify_spec(&mut spec);
 
