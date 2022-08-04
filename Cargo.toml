@@ -1,11 +1,11 @@
 [package]
-name = "plaid-openapi"
+name = "plaid"
 version = "2.0.0"
 edition = "2021"
-description = "Official Plaid client, generated from the OpenAPI spec."
+description = "Plaid client, generated from the OpenAPI spec."
 readme = "README.md"
 license = "MIT"
-documentation = "https://docs.rs/plaid-openapi"
+documentation = "https://docs.rs/plaid"
 homepage = "https://github.com/libninjacom/plaid-rs"
 repository = "https://github.com/libninjacom/plaid-rs"
 

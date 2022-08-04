@@ -11,11 +11,11 @@
         <img src="https://img.shields.io/github/workflow/status/libninjacom/plaid-rs/test?style=flat-square" alt="Build Status" />
     </a>
     
-<a href="https://crates.io/crates/plaid-openapi">
-    <img src="https://img.shields.io/crates/d/plaid-openapi?style=flat-square" alt="Downloads" />
+<a href="https://crates.io/crates/plaid">
+    <img src="https://img.shields.io/crates/d/plaid?style=flat-square" alt="Downloads" />
 </a>
-<a href="https://crates.io/crates/plaid-openapi">
-    <img src="https://img.shields.io/crates/v/plaid-openapi?style=flat-square" alt="Crates.io" />
+<a href="https://crates.io/crates/plaid">
+    <img src="https://img.shields.io/crates/v/plaid?style=flat-square" alt="Crates.io" />
 </a>
 
 </p>
