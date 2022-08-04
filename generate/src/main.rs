@@ -58,7 +58,9 @@ fn modify_spec(spec: &mut OpenAPI) {
 
 
 fn main() {
-    let mut spec = read_spec("openapi.yaml".as_ref()).unwrap();
+    let version = env::var("VERSION").expect("VERSION is not set.");
+    let yaml_path = env::var("YAML_FILE").expect("YAML_FILE is not set.");
+    let mut spec = read_spec(yaml_path).unwrap();
 
     modify_spec(&mut spec);
 
@@ -69,9 +71,7 @@ fn main() {
         dest_path: "..".into(),
         lib_rs_path: Some("template/src/lib.rs".into()),
         model_rs_path: Some("template/src/model.rs".into()),
-        package_version: "1.0.0".to_string(),
+        package_version: version.to_string(),
         generator: SourceGen::Rust
     }).unwrap();
-
-    std::fs::copy("template/Justfile", "../Justfile").unwrap();
 }
