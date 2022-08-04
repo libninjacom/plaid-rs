@@ -1,6 +1,6 @@
 [package]
 name = "plaid-openapi"
-version = "1.0.0"
+version = "2.0.0"
 edition = "2021"
 description = "Official Plaid client, generated from the OpenAPI spec."
 readme = "README.md"
