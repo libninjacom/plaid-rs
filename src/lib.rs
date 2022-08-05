@@ -40,11 +40,10 @@ impl PlaidClient {
     ) -> httpclient::RequestBuilder<'a> {
         if let Some(ref authentication) = self.authentication {
             match authentication {
-                PlaidAuthentication::ClientId { client_id, secret, .. } => {
-                    r = r
-                        .push_json(
-                            json!({ "client_id" : client_id, "secret" : secret, }),
-                        );
+                PlaidAuthentication::ClientId { client_id, secret, plaid_version } => {
+                    r = r.header("PLAID-CLIENT-ID", client_id);
+                    r = r.header("PLAID-SECRET", secret);
+                    r = r.header("Plaid-Version", plaid_version);
                 }
             }
         }
