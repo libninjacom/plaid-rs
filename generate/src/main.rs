@@ -30,8 +30,8 @@ fn modify_spec(spec: &mut OpenAPI) {
 
 fn main() {
     let version = env::var("VERSION").expect("VERSION is not set.");
-    let yaml_path = env::var("YAML_FILE").expect("YAML_FILE is not set.");
-    let mut spec = read_spec(yaml_path.as_ref()).unwrap();
+    let openapi_path = env::var("OPENAPI_PATH").expect("OPENAPI_PATH is not set.");
+    let mut spec = read_spec(openapi_path.as_ref()).unwrap();
 
     modify_spec(&mut spec);
 
