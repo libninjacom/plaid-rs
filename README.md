@@ -52,7 +52,7 @@ Add this to your Cargo.toml:
 
 ```toml
 [dependencies]
-plaid = "2"
+plaid = "3"
 ```
 
 # [Documentation](https://docs.rs/plaid-openapi/)
