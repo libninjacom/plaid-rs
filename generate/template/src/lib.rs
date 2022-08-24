@@ -5,7 +5,7 @@
 
 use serde_json::json;
 pub mod model;
-pub mod request_model;
+pub mod request;
 use crate::model::*;
 
 impl PlaidClient {

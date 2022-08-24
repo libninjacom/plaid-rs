@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AuthGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -13,7 +13,7 @@ impl std::fmt::Display for AuthGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AuthGetRequestOptions {
     #[serde(rename = "account_ids")]
     /**A list of `account_ids` to retrieve for the Item.
@@ -45,7 +45,7 @@ impl std::fmt::Display for AuthGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AuthGetNumbers {
     #[serde(rename = "ach")]
     ///An array of ACH numbers identifying accounts.
@@ -65,7 +65,7 @@ impl std::fmt::Display for AuthGetNumbers {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsGetRequest {
     #[serde(rename = "options")]
     ///An optional object to be used with the request. If specified, `options` must not be `null`.
@@ -85,7 +85,7 @@ impl std::fmt::Display for TransactionsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsGetRequestOptions {
     #[serde(rename = "account_ids")]
     /**A list of `account_ids` to retrieve for the Item
@@ -140,7 +140,7 @@ impl std::fmt::Display for TransactionsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRefreshRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -151,7 +151,7 @@ impl std::fmt::Display for TransactionsRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRefreshResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -162,7 +162,7 @@ impl std::fmt::Display for TransactionsRefreshResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRecurringGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -181,7 +181,7 @@ impl std::fmt::Display for TransactionsRecurringGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRecurringGetRequestOptions {
     #[serde(rename = "include_personal_finance_category")]
     /**Include the [`personal_finance_category`](https://plaid.com/docs/api/products/transactions/#transactions-get-response-transactions-personal-finance-category) object for each transaction stream in the response.
@@ -194,7 +194,7 @@ impl std::fmt::Display for TransactionsRecurringGetRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRecurringGetResponse {
     #[serde(rename = "inflow_streams")]
     ///An array of depository transaction streams.
@@ -248,7 +248,7 @@ impl std::fmt::Display for TransactionsRulesCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRulesListRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -259,7 +259,7 @@ impl std::fmt::Display for TransactionsRulesListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRulesListResponse {
     #[serde(rename = "rules")]
     ///A list of the Item's transaction rules
@@ -273,7 +273,7 @@ impl std::fmt::Display for TransactionsRulesListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRulesRemoveRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -287,7 +287,7 @@ impl std::fmt::Display for TransactionsRulesRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRulesRemoveResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -298,7 +298,7 @@ impl std::fmt::Display for TransactionsRulesRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsSyncRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -320,7 +320,7 @@ impl std::fmt::Display for TransactionsSyncRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsSyncRequestOptions {
     #[serde(rename = "include_original_description")]
     ///Include the raw unparsed transaction description from the financial institution. This field is disabled by default. If you need this information in addition to the parsed data provided, contact your Plaid Account Manager.
@@ -338,7 +338,7 @@ impl std::fmt::Display for TransactionsSyncRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsSyncResponse {
     #[serde(rename = "added")]
     ///Transactions that have been added to the item since `cursor` ordered by ascending last modified time.
@@ -364,7 +364,7 @@ impl std::fmt::Display for TransactionsSyncResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetRequest {
     #[serde(rename = "count")]
     ///The total number of Institutions to return.
@@ -387,7 +387,7 @@ impl std::fmt::Display for InstitutionsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetRequestOptions {
     #[serde(rename = "products")]
     ///Filter the Institutions based on which products they support.
@@ -415,7 +415,7 @@ impl std::fmt::Display for InstitutionsGetRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetResponse {
     #[serde(rename = "institutions")]
     ///A list of Plaid institutions
@@ -432,7 +432,7 @@ impl std::fmt::Display for InstitutionsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchRequest {
     #[serde(rename = "query")]
     ///The search query. Institutions with names matching the query are returned
@@ -453,7 +453,7 @@ impl std::fmt::Display for InstitutionsSearchRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchRequestOptions {
     #[serde(rename = "oauth")]
     ///Limit results to institutions with or without OAuth login flows.
@@ -476,7 +476,7 @@ impl std::fmt::Display for InstitutionsSearchRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchPaymentInitiationOptions {
     #[serde(rename = "payment_id")]
     ///A unique ID identifying the payment
@@ -490,7 +490,7 @@ impl std::fmt::Display for InstitutionsSearchPaymentInitiationOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchResponse {
     #[serde(rename = "institutions")]
     ///An array of institutions matching the search criteria
@@ -504,7 +504,7 @@ impl std::fmt::Display for InstitutionsSearchResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetByIdRequest {
     #[serde(rename = "institution_id")]
     ///The ID of the institution to get details about
@@ -522,7 +522,7 @@ impl std::fmt::Display for InstitutionsGetByIdRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetByIdRequestOptions {
     #[serde(rename = "include_optional_metadata")]
     /**When `true`, return an institution's logo, brand color, and URL. When available, the bank's logo is returned as a base64 encoded 152x152 PNG, the brand color is in hexadecimal format. The default value is `false`.
@@ -558,7 +558,7 @@ impl std::fmt::Display for InstitutionsGetByIdResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountsGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -572,7 +572,7 @@ impl std::fmt::Display for AccountsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountsGetRequestOptions {
     #[serde(rename = "account_ids")]
     ///An array of `account_ids` to retrieve for the Account.
@@ -601,14 +601,14 @@ impl std::fmt::Display for AccountsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CategoriesGetRequest {}
 impl std::fmt::Display for CategoriesGetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CategoriesGetResponse {
     #[serde(rename = "categories")]
     ///An array of all of the transaction categories used by Plaid.
@@ -626,7 +626,7 @@ impl std::fmt::Display for CategoriesGetResponse {
 pub struct SandboxOverridePassword(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SandboxOverrideUsername(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxProcessorTokenCreateRequest {
     #[serde(rename = "institution_id")]
     ///The ID of the institution the Item will be associated with
@@ -640,7 +640,7 @@ impl std::fmt::Display for SandboxProcessorTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxProcessorTokenCreateRequestOptions {
     #[serde(rename = "override_username")]
     ///Test username to use for the creation of the Sandbox Item. Default value is `user_good`.
@@ -654,7 +654,7 @@ impl std::fmt::Display for SandboxProcessorTokenCreateRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxProcessorTokenCreateResponse {
     #[serde(rename = "processor_token")]
     ///A processor token that can be used to call the `/processor/` endpoints.
@@ -668,7 +668,7 @@ impl std::fmt::Display for SandboxProcessorTokenCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateRequest {
     #[serde(rename = "institution_id")]
     ///The ID of the institution the Item will be associated with
@@ -688,7 +688,7 @@ impl std::fmt::Display for SandboxPublicTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateRequestOptions {
     #[serde(rename = "webhook")]
     ///Specify a webhook to associate with the new Item.
@@ -708,7 +708,7 @@ impl std::fmt::Display for SandboxPublicTokenCreateRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateRequestOptionsTransactions {
     #[serde(rename = "start_date")]
     ///The earliest date for which to fetch transaction history. Dates should be formatted as YYYY-MM-DD.
@@ -722,7 +722,7 @@ impl std::fmt::Display for SandboxPublicTokenCreateRequestOptionsTransactions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateResponse {
     #[serde(rename = "public_token")]
     ///A public token that can be exchanged for an access token using `/item/public_token/exchange`
@@ -736,7 +736,7 @@ impl std::fmt::Display for SandboxPublicTokenCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxItemFireWebhookRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -768,7 +768,7 @@ pub enum WebhookType {
     #[serde(rename = "TRANSACTIONS")]
     Transactions,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxItemFireWebhookResponse {
     #[serde(rename = "webhook_fired")]
     ///Value is `true`  if the test` webhook_code`  was successfully fired.
@@ -782,7 +782,7 @@ impl std::fmt::Display for SandboxItemFireWebhookResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountsBalanceGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -796,7 +796,7 @@ impl std::fmt::Display for AccountsBalanceGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountsBalanceGetRequestOptions {
     #[serde(rename = "account_ids")]
     /**A list of `account_ids` to retrieve for the Item. The default value is `null`.
@@ -818,7 +818,7 @@ impl std::fmt::Display for AccountsBalanceGetRequestOptions {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MinLastUpdatedDatetime(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -832,7 +832,7 @@ impl std::fmt::Display for IdentityGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityGetRequestOptions {
     #[serde(rename = "account_ids")]
     /**A list of `account_ids` to retrieve for the Item.
@@ -861,7 +861,7 @@ impl std::fmt::Display for IdentityGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityMatchRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -878,7 +878,7 @@ impl std::fmt::Display for IdentityMatchRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityMatchRequestOptions {
     #[serde(rename = "account_ids")]
     ///An array of `account_ids` to perform fuzzy match
@@ -889,7 +889,7 @@ impl std::fmt::Display for IdentityMatchRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityMatchUser {
     #[serde(rename = "legal_name")]
     ///The user's full legal name.
@@ -909,7 +909,7 @@ impl std::fmt::Display for IdentityMatchUser {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityMatchResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -920,7 +920,7 @@ impl std::fmt::Display for IdentityMatchResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorAuthGetRequest {
     #[serde(rename = "processor_token")]
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
@@ -1022,7 +1022,7 @@ impl std::fmt::Display for ProcessorBankTransferCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorNumber {
     #[serde(rename = "ach")]
     ///Identifying information for transferring money to or from a US account via ACH or wire transfer.
@@ -1042,7 +1042,7 @@ impl std::fmt::Display for ProcessorNumber {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorIdentityGetRequest {
     #[serde(rename = "processor_token")]
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
@@ -1067,7 +1067,7 @@ impl std::fmt::Display for ProcessorIdentityGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorBalanceGetRequest {
     #[serde(rename = "processor_token")]
     ///The processor token obtained from the Plaid integration partner. Processor tokens are in the format: `processor-<environment>-<identifier>`
@@ -1081,7 +1081,7 @@ impl std::fmt::Display for ProcessorBalanceGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorBalanceGetRequestOptions {
     #[serde(rename = "min_last_updated_datetime")]
     /**Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDTHH:mm:ssZ`) indicating the oldest acceptable balance when making a request to `/accounts/balance/get`.
@@ -1110,7 +1110,7 @@ impl std::fmt::Display for ProcessorBalanceGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WebhookVerificationKeyGetRequest {
     #[serde(rename = "key_id")]
     ///The key ID ( `kid` ) from the JWT header.
@@ -1135,7 +1135,7 @@ impl std::fmt::Display for WebhookVerificationKeyGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct JwkPublicKey {
     #[serde(rename = "alg")]
     ///The alg member identifies the cryptographic algorithm family used with the key.
@@ -1170,7 +1170,7 @@ impl std::fmt::Display for JwkPublicKey {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LiabilitiesGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -1184,7 +1184,7 @@ impl std::fmt::Display for LiabilitiesGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LiabilitiesGetRequestOptions {
     #[serde(rename = "account_ids")]
     /**A list of accounts to retrieve for the Item.
@@ -1217,7 +1217,7 @@ impl std::fmt::Display for LiabilitiesGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientCreateRequest {
     #[serde(rename = "name")]
     ///The name of the recipient. We recommend using strings of length 18 or less and avoid special characters to ensure compatibility with all institutions.
@@ -1237,7 +1237,7 @@ impl std::fmt::Display for PaymentInitiationRecipientCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientCreateResponse {
     #[serde(rename = "recipient_id")]
     ///A unique ID identifying the recipient
@@ -1262,7 +1262,7 @@ pub enum PaymentInitiationRefundStatus {
     #[serde(rename = "FAILED")]
     Failed,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentReverseResponse {
     #[serde(rename = "refund_id")]
     ///A unique ID identifying the refund
@@ -1287,7 +1287,7 @@ impl std::fmt::Display for PaymentInitiationPaymentReverseResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientGetRequest {
     #[serde(rename = "recipient_id")]
     ///The ID of the recipient
@@ -1299,8 +1299,8 @@ impl std::fmt::Display for PaymentInitiationRecipientGetRequest {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PaymentInitiationRecipientGetResponse(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct PaymentInitiationRecipientGetResponse(pub PaymentInitiationRecipient);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipient {
     #[serde(rename = "recipient_id")]
     ///The ID of the recipient.
@@ -1323,14 +1323,14 @@ impl std::fmt::Display for PaymentInitiationRecipient {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientListRequest {}
 impl std::fmt::Display for PaymentInitiationRecipientListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientListResponse {
     #[serde(rename = "recipients")]
     ///An array of payment recipients created for Payment Initiation
@@ -1367,7 +1367,7 @@ impl std::fmt::Display for PaymentInitiationPaymentCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentReverseRequest {
     #[serde(rename = "payment_id")]
     ///The ID of the payment to reverse
@@ -1391,7 +1391,7 @@ pub enum PaymentInitiationPaymentCreateStatus {
     #[serde(rename = "PAYMENT_STATUS_INPUT_NEEDED")]
     PaymentStatusInputNeeded,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentCreateResponse {
     #[serde(rename = "payment_id")]
     ///A unique ID identifying the payment
@@ -1410,7 +1410,7 @@ impl std::fmt::Display for PaymentInitiationPaymentCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxItemResetLoginRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -1421,7 +1421,7 @@ impl std::fmt::Display for SandboxItemResetLoginRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxItemResetLoginResponse {
     #[serde(rename = "reset_login")]
     ///`true` if the call succeeded
@@ -1435,7 +1435,7 @@ impl std::fmt::Display for SandboxItemResetLoginResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxItemSetVerificationStatusRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -1452,7 +1452,7 @@ impl std::fmt::Display for SandboxItemSetVerificationStatusRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxItemSetVerificationStatusResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -1463,7 +1463,7 @@ impl std::fmt::Display for SandboxItemSetVerificationStatusResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UserCreateRequest {
     #[serde(rename = "client_user_id")]
     ///A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the `client_user_id`.
@@ -1474,7 +1474,7 @@ impl std::fmt::Display for UserCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UserCreateResponse {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -1491,7 +1491,7 @@ impl std::fmt::Display for UserCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentGetRequest {
     #[serde(rename = "payment_id")]
     ///The `payment_id` returned from `/payment_initiation/payment/create`.
@@ -1503,7 +1503,7 @@ impl std::fmt::Display for PaymentInitiationPaymentGetRequest {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PaymentInitiationPaymentGetResponse(pub serde_json::Value);
+pub struct PaymentInitiationPaymentGetResponse(pub PaymentInitiationPayment);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentInitiationPaymentStatus {
     #[serde(rename = "PAYMENT_STATUS_INPUT_NEEDED")]
@@ -1630,7 +1630,7 @@ impl std::fmt::Display for PaymentInitiationPayment {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentTokenCreateRequest {
     #[serde(rename = "payment_id")]
     ///The `payment_id` returned from `/payment_initiation/payment/create`.
@@ -1641,7 +1641,7 @@ impl std::fmt::Display for PaymentInitiationPaymentTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentTokenCreateResponse {
     #[serde(rename = "payment_token")]
     ///A `payment_token` that can be provided to Link initialization to enter the payment initiation flow
@@ -1681,7 +1681,7 @@ impl std::fmt::Display for PaymentInitiationConsentCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentCreateResponse {
     #[serde(rename = "consent_id")]
     ///A unique ID identifying the payment consent.
@@ -1708,7 +1708,7 @@ impl std::fmt::Display for PaymentInitiationConsentCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentGetRequest {
     #[serde(rename = "consent_id")]
     ///The `consent_id` returned from `/payment_initiation/consent/create`.
@@ -1719,7 +1719,7 @@ impl std::fmt::Display for PaymentInitiationConsentGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentGetResponse {}
 impl std::fmt::Display for PaymentInitiationConsentGetResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -1778,7 +1778,7 @@ pub enum PaymentInitiationConsentStatus {
     #[serde(rename = "EXPIRED")]
     Expired,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentRevokeRequest {
     #[serde(rename = "consent_id")]
     ///The consent ID.
@@ -1789,7 +1789,7 @@ impl std::fmt::Display for PaymentInitiationConsentRevokeRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentRevokeResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -1819,7 +1819,7 @@ impl std::fmt::Display for PaymentInitiationConsentPaymentExecuteRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentPaymentExecuteResponse {
     #[serde(rename = "payment_id")]
     ///A unique ID identifying the payment
@@ -1865,7 +1865,7 @@ impl std::fmt::Display for PaymentInitiationConsentPaymentExecuteResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentListRequest {
     #[serde(rename = "count")]
     ///The maximum number of payments to return. If `count` is not specified, a maximum of 10 payments will be returned, beginning with the most recent payment before the cursor (if specified).
@@ -1882,7 +1882,7 @@ impl std::fmt::Display for PaymentInitiationPaymentListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentListResponse {
     #[serde(rename = "payments")]
     ///An array of payments that have been created, associated with the given `client_id`.
@@ -1899,7 +1899,7 @@ impl std::fmt::Display for PaymentInitiationPaymentListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportCreateRequest {
     #[serde(rename = "access_tokens")]
     ///An array of access tokens corresponding to the Items that will be included in the report. The `assets` product must have been initialized for the Items during link; the Assets product cannot be added after initialization.
@@ -1918,7 +1918,7 @@ impl std::fmt::Display for AssetReportCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportCreateRequestOptions {
     #[serde(rename = "client_report_id")]
     ///Client-generated identifier, which can be used by lenders to track loan applications.
@@ -1941,7 +1941,7 @@ impl std::fmt::Display for AssetReportCreateRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportCreateResponse {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -1958,7 +1958,7 @@ impl std::fmt::Display for AssetReportCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRefreshRequest {
     #[serde(rename = "asset_report_token")]
     ///The `asset_report_token` returned by the original call to `/asset_report/create`
@@ -1975,7 +1975,7 @@ impl std::fmt::Display for AssetReportRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRefreshRequestOptions {
     #[serde(rename = "client_report_id")]
     ///Client-generated identifier, which can be used by lenders to track loan applications.
@@ -1992,7 +1992,7 @@ impl std::fmt::Display for AssetReportRefreshRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRefreshResponse {
     #[serde(rename = "asset_report_id")]
     ///A unique ID identifying an Asset Report. Like all Plaid identifiers, this ID is case sensitive.
@@ -2009,7 +2009,7 @@ impl std::fmt::Display for AssetReportRefreshResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayRefreshRequest {
     #[serde(rename = "asset_relay_token")]
     pub asset_relay_token: String,
@@ -2022,7 +2022,7 @@ impl std::fmt::Display for AssetReportRelayRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayRefreshResponse {
     #[serde(rename = "asset_relay_token")]
     pub asset_relay_token: String,
@@ -2038,7 +2038,7 @@ impl std::fmt::Display for AssetReportRelayRefreshResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRemoveRequest {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2049,7 +2049,7 @@ impl std::fmt::Display for AssetReportRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRemoveResponse {
     #[serde(rename = "removed")]
     ///`true` if the Asset Report was successfully removed.
@@ -2063,7 +2063,7 @@ impl std::fmt::Display for AssetReportRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportFilterRequest {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2077,7 +2077,7 @@ impl std::fmt::Display for AssetReportFilterRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportFilterResponse {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2094,7 +2094,7 @@ impl std::fmt::Display for AssetReportFilterResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportGetRequest {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2128,7 +2128,7 @@ impl std::fmt::Display for AssetReportGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportPdfGetRequest {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2141,7 +2141,7 @@ impl std::fmt::Display for AssetReportPdfGetRequest {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportPdfGetResponse(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportAuditCopyCreateRequest {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2155,7 +2155,7 @@ impl std::fmt::Display for AssetReportAuditCopyCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportAuditCopyCreateResponse {
     #[serde(rename = "audit_copy_token")]
     ///A token that can be shared with a third party auditor to allow them to obtain access to the Asset Report. This token should be stored securely.
@@ -2169,7 +2169,7 @@ impl std::fmt::Display for AssetReportAuditCopyCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportAuditCopyRemoveRequest {
     #[serde(rename = "audit_copy_token")]
     ///The `audit_copy_token` granting access to the Audit Copy you would like to revoke.
@@ -2180,7 +2180,7 @@ impl std::fmt::Display for AssetReportAuditCopyRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportAuditCopyRemoveResponse {
     #[serde(rename = "removed")]
     ///`true` if the Audit Copy was successfully removed.
@@ -2194,7 +2194,7 @@ impl std::fmt::Display for AssetReportAuditCopyRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayCreateRequest {
     #[serde(rename = "asset_report_token")]
     ///A token that can be provided to endpoints such as `/asset_report/get` or `/asset_report/pdf/get` to fetch or update an Asset Report.
@@ -2211,7 +2211,7 @@ impl std::fmt::Display for AssetReportRelayCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayCreateResponse {
     #[serde(rename = "asset_relay_token")]
     ///A token that can be shared with a third party to allow them to access the Asset Report. This token should be stored securely.
@@ -2225,7 +2225,7 @@ impl std::fmt::Display for AssetReportRelayCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayGetRequest {
     #[serde(rename = "asset_relay_token")]
     ///The `asset_relay_token` granting access to the Asset Report you would like to get.
@@ -2236,7 +2236,7 @@ impl std::fmt::Display for AssetReportRelayGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayRemoveRequest {
     #[serde(rename = "asset_relay_token")]
     ///The `asset_relay_token` you would like to revoke.
@@ -2247,7 +2247,7 @@ impl std::fmt::Display for AssetReportRelayRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportRelayRemoveResponse {
     #[serde(rename = "removed")]
     ///`true` if the Asset Relay token was successfully removed.
@@ -2261,7 +2261,7 @@ impl std::fmt::Display for AssetReportRelayRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentsHoldingsGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -2275,7 +2275,7 @@ impl std::fmt::Display for InvestmentsHoldingsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentHoldingsGetRequestOptions {
     #[serde(rename = "account_ids")]
     ///An array of `account_id`s to retrieve for the Item. An error will be returned if a provided `account_id` is not associated with the Item.
@@ -2309,7 +2309,7 @@ impl std::fmt::Display for InvestmentsHoldingsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentsTransactionsGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -2329,7 +2329,7 @@ impl std::fmt::Display for InvestmentsTransactionsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentsTransactionsGetRequestOptions {
     #[serde(rename = "account_ids")]
     ///An array of `account_ids` to retrieve for the Item.
@@ -2373,7 +2373,7 @@ impl std::fmt::Display for InvestmentsTransactionsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorTokenCreateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -2390,7 +2390,7 @@ impl std::fmt::Display for ProcessorTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorTokenCreateResponse {
     #[serde(rename = "processor_token")]
     ///The `processor_token` that can then be used by the Plaid partner to make API requests
@@ -2404,7 +2404,7 @@ impl std::fmt::Display for ProcessorTokenCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorStripeBankAccountTokenCreateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -2418,7 +2418,7 @@ impl std::fmt::Display for ProcessorStripeBankAccountTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorStripeBankAccountTokenCreateResponse {
     #[serde(rename = "stripe_bank_account_token")]
     ///A token that can be sent to Stripe for use in making API calls to Plaid
@@ -2432,7 +2432,7 @@ impl std::fmt::Display for ProcessorStripeBankAccountTokenCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProcessorApexProcessorTokenCreateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -2446,7 +2446,7 @@ impl std::fmt::Display for ProcessorApexProcessorTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchCreateRequest {
     #[serde(rename = "target_access_token")]
     ///Access token for the target Item, typically provided in the Import Item response.
@@ -2466,7 +2466,7 @@ impl std::fmt::Display for DepositSwitchCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchCreateRequestOptions {
     #[serde(rename = "webhook")]
     /**The URL registered to receive webhooks when the status of a deposit switch request has changed.
@@ -2481,7 +2481,7 @@ impl std::fmt::Display for DepositSwitchCreateRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchCreateResponse {
     #[serde(rename = "deposit_switch_id")]
     ///ID of the deposit switch. This ID is persisted throughout the lifetime of the deposit switch.
@@ -2495,7 +2495,7 @@ impl std::fmt::Display for DepositSwitchCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTokenCreateRequest {
     #[serde(rename = "deposit_switch_id")]
     ///The ID of the deposit switch
@@ -2506,7 +2506,7 @@ impl std::fmt::Display for DepositSwitchTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTokenCreateResponse {
     #[serde(rename = "deposit_switch_token")]
     ///Deposit switch token, used to initialize Link for the Deposit Switch product
@@ -2523,7 +2523,7 @@ impl std::fmt::Display for DepositSwitchTokenCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenGetRequest {
     #[serde(rename = "link_token")]
     ///A `link_token` from a previous invocation of `/link/token/create`
@@ -2642,7 +2642,7 @@ impl std::fmt::Display for LinkTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenAccountFilters {
     #[serde(rename = "depository")]
     ///A filter to apply to `depository`-type accounts
@@ -2662,7 +2662,7 @@ impl std::fmt::Display for LinkTokenAccountFilters {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenEuConfig {
     #[serde(rename = "headless")]
     ///If `true`, open Link without an initial UI. Defaults to `false`.
@@ -2673,7 +2673,7 @@ impl std::fmt::Display for LinkTokenEuConfig {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestPaymentInitiation {
     #[serde(rename = "payment_id")]
     ///The `payment_id` provided by the `/payment_initiation/payment/create` endpoint.
@@ -2687,7 +2687,7 @@ impl std::fmt::Display for LinkTokenCreateRequestPaymentInitiation {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestDepositSwitch {
     #[serde(rename = "deposit_switch_id")]
     ///The `deposit_switch_id` provided by the `/deposit_switch/create` endpoint.
@@ -2698,7 +2698,7 @@ impl std::fmt::Display for LinkTokenCreateRequestDepositSwitch {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestTransfer {
     #[serde(rename = "intent_id")]
     ///The `id` returned by the `/transfer/intent/create` endpoint.
@@ -2712,7 +2712,7 @@ impl std::fmt::Display for LinkTokenCreateRequestTransfer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestUserStatedIncomeSource {
     #[serde(rename = "employer")]
     ///The employer corresponding to an income source specified by the user
@@ -2785,7 +2785,7 @@ pub enum UserStatedIncomeSourcePayType {
     #[serde(rename = "NET")]
     Net,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestAuth {
     #[serde(rename = "auth_type_select_enabled")]
     ///Specifies whether Auth Type Select is enabled for the Link session, allowing the end user to choose between linking instantly or manually prior to selecting their financial institution. Note that this can only be true if `same_day_microdeposits_enabled` is set to true.
@@ -2808,13 +2808,13 @@ impl std::fmt::Display for LinkTokenCreateRequestAuth {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestIdentityVerification {
     #[serde(rename = "template_id")]
     ///ID of the associated Identity Verification template.
     pub template_id: String,
     #[serde(rename = "consent")]
-    pub consent: Option<serde_json::Value>,
+    pub consent: Option<bool>,
     #[serde(rename = "gave_consent")]
     /**A flag specifying whether the end user has already agreed to a privacy policy specifying that their data will be shared with Plaid for verification purposes.
 
@@ -2826,7 +2826,7 @@ impl std::fmt::Display for LinkTokenCreateRequestIdentityVerification {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateInstitutionData {
     #[serde(rename = "routing_number")]
     ///The routing number of the bank to highlight.
@@ -2837,7 +2837,7 @@ impl std::fmt::Display for LinkTokenCreateInstitutionData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestUser {
     #[serde(rename = "client_user_id")]
     ///A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the `client_user_id`. It is currently used as a means of searching logs for the given user in the Plaid Dashboard.
@@ -2847,7 +2847,7 @@ pub struct LinkTokenCreateRequestUser {
     pub legal_name: Option<String>,
     #[serde(rename = "name")]
     ///The user's full name. Optional if using the [Identity Verification](https://plaid.com/docs/api/products/identity-verification) product; if not using Identity Verification, this field is not allowed. Users will not be asked for their name when this field is provided.
-    pub name: Option<serde_json::Value>,
+    pub name: Option<UserName>,
     #[serde(rename = "phone_number")]
     ///The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user).
     pub phone_number: Option<String>,
@@ -2887,7 +2887,7 @@ impl std::fmt::Display for LinkTokenCreateRequestUser {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestUpdate {
     #[serde(rename = "account_selection_enabled")]
     ///If `true`, enables [update mode with Account Select](https://plaid.com/docs/link/update-mode/#using-update-mode-to-request-new-accounts).
@@ -2898,7 +2898,7 @@ impl std::fmt::Display for LinkTokenCreateRequestUpdate {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestAccountSubtypes {
     #[serde(rename = "depository")]
     ///A filter to apply to `depository`-type accounts
@@ -2918,44 +2918,44 @@ impl std::fmt::Display for LinkTokenCreateRequestAccountSubtypes {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateDepositoryFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<DepositoryAccountSubtypes>,
+    pub account_subtypes: Option<Vec<String>>,
 }
 impl std::fmt::Display for LinkTokenCreateDepositoryFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateCreditFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<CreditAccountSubtypes>,
+    pub account_subtypes: Option<Vec<String>>,
 }
 impl std::fmt::Display for LinkTokenCreateCreditFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateLoanFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<LoanAccountSubtypes>,
+    pub account_subtypes: Option<Vec<String>>,
 }
 impl std::fmt::Display for LinkTokenCreateLoanFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateInvestmentFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: Option<InvestmentAccountSubtypes>,
+    pub account_subtypes: Option<Vec<String>>,
 }
 impl std::fmt::Display for LinkTokenCreateInvestmentFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -2985,7 +2985,7 @@ impl std::fmt::Display for LinkTokenGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenGetMetadataResponse {
     #[serde(rename = "initial_products")]
     ///The `products` specified in the `/link/token/create` call.
@@ -3018,7 +3018,7 @@ impl std::fmt::Display for LinkTokenGetMetadataResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateResponse {
     #[serde(rename = "link_token")]
     ///A `link_token`, which can be supplied to Link in order to initialize it and receive a `public_token`, which can be exchanged for an `access_token`.
@@ -3036,8 +3036,8 @@ impl std::fmt::Display for LinkTokenCreateResponse {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PlaidError(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct PlaidError(pub Error);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Error {
     #[serde(rename = "error_type")]
     ///A broad categorization of the error. Safe for programmatic use.
@@ -3167,7 +3167,7 @@ impl std::fmt::Display for AccountBase {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountBalance {
     #[serde(rename = "available")]
     /**The amount of funds available to be withdrawn from the account, as determined by the financial institution.
@@ -3370,7 +3370,7 @@ pub enum AccountSubtype {
     #[serde(rename = "payroll")]
     Payroll,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NumbersAch {
     #[serde(rename = "account_id")]
     ///The Plaid account ID associated with the account numbers
@@ -3393,8 +3393,8 @@ impl std::fmt::Display for NumbersAch {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct NumbersAchNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct NumbersAchNullable(pub NumbersAch);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NumbersEft {
     #[serde(rename = "account_id")]
     ///The Plaid account ID associated with the account numbers
@@ -3415,8 +3415,8 @@ impl std::fmt::Display for NumbersEft {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct NumbersEftNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct NumbersEftNullable(pub NumbersEft);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NumbersInternational {
     #[serde(rename = "account_id")]
     ///The Plaid account ID associated with the account numbers
@@ -3434,8 +3434,8 @@ impl std::fmt::Display for NumbersInternational {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct NumbersInternationalNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct NumbersInternationalNullable(pub NumbersInternational);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NumbersBacs {
     #[serde(rename = "account_id")]
     ///The Plaid account ID associated with the account numbers
@@ -3453,8 +3453,8 @@ impl std::fmt::Display for NumbersBacs {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct NumbersBacsNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct NumbersBacsNullable(pub NumbersBacs);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NumbersInternationalIban {
     #[serde(rename = "iban")]
     ///International Bank Account Number (IBAN).
@@ -3472,7 +3472,7 @@ impl std::fmt::Display for NumbersInternationalIban {
 pub struct NumbersIban(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NumbersIbanNullable(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct RecipientBacs {
     #[serde(rename = "account")]
     ///The account number of the account. Maximum of 10 characters.
@@ -3487,14 +3487,14 @@ impl std::fmt::Display for RecipientBacs {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct RecipientBacsNullable(pub serde_json::Value);
+pub struct RecipientBacsNullable(pub RecipientBacs);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct SenderBacsNullable(pub serde_json::Value);
+pub struct SenderBacsNullable(pub RecipientBacs);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PaymentInitiationOptionalRestrictionBacs(pub serde_json::Value);
+pub struct PaymentInitiationOptionalRestrictionBacs(pub RecipientBacs);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditPullId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct RemovedTransaction {
     #[serde(rename = "transaction_id")]
     ///The ID of the removed transaction.
@@ -3507,7 +3507,7 @@ impl std::fmt::Display for RemovedTransaction {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RequestId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRuleDetails {
     #[serde(rename = "field")]
     ///Transaction field for which the rule is defined.
@@ -3541,7 +3541,7 @@ pub enum TransactionsRuleType {
     #[serde(rename = "SUBSTRING_MATCH")]
     SubstringMatch,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsCategoryRule {
     #[serde(rename = "id")]
     ///A unique identifier of the rule created
@@ -3568,7 +3568,7 @@ impl std::fmt::Display for TransactionsCategoryRule {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionBase {
     #[serde(rename = "transaction_type")]
     /**Please use the `payment_channel` field, `transaction_type` will be deprecated in the future.
@@ -3650,8 +3650,8 @@ impl std::fmt::Display for TransactionBase {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Transaction(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct Transaction(pub TransactionBase);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Location {
     #[serde(rename = "address")]
     ///The street address where the transaction occurred.
@@ -3756,7 +3756,7 @@ impl std::fmt::Display for TransactionStream {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionStreamAmount {
     #[serde(rename = "amount")]
     ///Represents the numerical value of an amount.
@@ -3799,7 +3799,7 @@ pub enum TransactionStreamStatus {
     #[serde(rename = "TOMBSTONED")]
     Tombstoned,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Institution {
     #[serde(rename = "institution_id")]
     ///Unique identifier for the institution
@@ -3846,7 +3846,7 @@ impl std::fmt::Display for Institution {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionStatus {
     #[serde(rename = "item_logins")]
     ///A representation of the status health of a request type. Auth requests, Balance requests, Identity requests, Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item logins each have their own status object.
@@ -3902,7 +3902,7 @@ pub enum CountryCode {
     #[serde(rename = "IT")]
     It,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentMeta {
     #[serde(rename = "reference_number")]
     ///The transaction reference number supplied by the financial institution.
@@ -3961,7 +3961,7 @@ pub enum TransactionCode {
     #[serde(rename = "transfer")]
     Transfer,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Category {
     #[serde(rename = "category_id")]
     ///An identifying number for the category. `category_id` is a Plaid-specific identifier and does not necessarily correspond to merchant category codes.
@@ -3978,7 +3978,7 @@ impl std::fmt::Display for Category {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PersonalFinanceCategory {
     #[serde(rename = "primary")]
     ///A high level category that communicates the broad category of the transaction.
@@ -4091,7 +4091,7 @@ impl std::fmt::Display for IdentityVerificationStatusUpdatedWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsRemovedWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSACTIONS`
@@ -4114,7 +4114,7 @@ impl std::fmt::Display for TransactionsRemovedWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DefaultUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSACTIONS`
@@ -4137,7 +4137,7 @@ impl std::fmt::Display for DefaultUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SyncUpdatesAvailableWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSACTIONS`
@@ -4160,7 +4160,7 @@ impl std::fmt::Display for SyncUpdatesAvailableWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct RecurringTransactionsUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSACTIONS`
@@ -4206,7 +4206,7 @@ impl std::fmt::Display for IdentityDefaultUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountIdsWithUpdatedIdentity {}
 impl std::fmt::Display for AccountIdsWithUpdatedIdentity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -4224,7 +4224,7 @@ pub enum IdentityUpdateTypes {
     #[serde(rename = "NAMES")]
     Names,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct HistoricalUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSACTIONS`
@@ -4247,7 +4247,7 @@ impl std::fmt::Display for HistoricalUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InitialUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSACTIONS`
@@ -4270,7 +4270,7 @@ impl std::fmt::Display for InitialUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PhoneNumber {
     #[serde(rename = "data")]
     ///The phone number.
@@ -4287,7 +4287,7 @@ impl std::fmt::Display for PhoneNumber {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Email {
     #[serde(rename = "data")]
     ///The email address.
@@ -4319,10 +4319,10 @@ impl std::fmt::Display for Address {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AddressNullable(pub serde_json::Value);
+pub struct AddressNullable(pub Address);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AddressDataNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct AddressDataNullable(pub AddressData);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AddressData {
     #[serde(rename = "city")]
     ///The full city name
@@ -4349,7 +4349,7 @@ impl std::fmt::Display for AddressData {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessorToken(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct HistoricalBalance {
     #[serde(rename = "date")]
     ///The date of the calculated historical balance, in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD)
@@ -4373,7 +4373,7 @@ impl std::fmt::Display for HistoricalBalance {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Owner {
     #[serde(rename = "names")]
     /**A list of names associated with the account by the financial institution. These should always be the names of individuals, even for business accounts. If the name of a business is reported, please contact Plaid Support. In the case of a joint account, Plaid will make a best effort to report the names of all account holders.
@@ -4395,7 +4395,7 @@ impl std::fmt::Display for Owner {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct OwnerOverride {
     #[serde(rename = "names")]
     ///A list of names associated with the account by the financial institution. These should always be the names of individuals, even for business accounts. Note that the same name data will be used for all accounts associated with an Item.
@@ -4415,7 +4415,7 @@ impl std::fmt::Display for OwnerOverride {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LiabilitiesObject {
     #[serde(rename = "credit")]
     ///The credit accounts returned.
@@ -4515,7 +4515,7 @@ impl std::fmt::Display for StudentLoan {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditCardLiability {
     #[serde(rename = "account_id")]
     ///The ID of the account that this liability belongs to.
@@ -4618,7 +4618,7 @@ impl std::fmt::Display for MortgageLiability {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct MortgageInterestRate {
     #[serde(rename = "percentage")]
     ///Percentage value (interest rate of current mortgage, not APR) of interest payable on a loan.
@@ -4632,7 +4632,7 @@ impl std::fmt::Display for MortgageInterestRate {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct MortgagePropertyAddress {
     #[serde(rename = "city")]
     ///The city name.
@@ -4655,7 +4655,7 @@ impl std::fmt::Display for MortgagePropertyAddress {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct StudentLoanStatus {
     #[serde(rename = "end_date")]
     /**The date until which the loan will be in its current status. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
@@ -4670,7 +4670,7 @@ impl std::fmt::Display for StudentLoanStatus {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct StudentRepaymentPlan {
     #[serde(rename = "description")]
     ///The description of the repayment plan as provided by the servicer.
@@ -4684,7 +4684,7 @@ impl std::fmt::Display for StudentRepaymentPlan {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PslfStatus {
     #[serde(rename = "estimated_eligibility_date")]
     ///The estimated date borrower will have completed 120 qualifying monthly payments. Returned in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
@@ -4701,7 +4701,7 @@ impl std::fmt::Display for PslfStatus {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ServicerAddressData {
     #[serde(rename = "city")]
     ///The full city name
@@ -4726,7 +4726,7 @@ impl std::fmt::Display for ServicerAddressData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Apr {
     #[serde(rename = "apr_percentage")]
     /**Annual Percentage Rate applied.
@@ -4747,7 +4747,7 @@ impl std::fmt::Display for Apr {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AuthMetadata {
     #[serde(rename = "supported_methods")]
     ///Metadata specifically related to which auth methods an institution supports.
@@ -4758,7 +4758,7 @@ impl std::fmt::Display for AuthMetadata {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AuthSupportedMethods {
     #[serde(rename = "instant_auth")]
     ///Indicates if instant auth is supported.
@@ -4801,14 +4801,14 @@ impl std::fmt::Display for PaymentInitiationMetadata {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationMaximumPaymentAmount {}
 impl std::fmt::Display for PaymentInitiationMaximumPaymentAmount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationStandingOrderMetadata {
     #[serde(rename = "supports_standing_order_end_date")]
     ///Indicates whether the institution supports closed-ended standing orders by providing an end date.
@@ -4825,7 +4825,7 @@ impl std::fmt::Display for PaymentInitiationStandingOrderMetadata {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationAddress {
     #[serde(rename = "street")]
     ///An array of length 1-2 representing the street address where the recipient is located. Maximum of 70 characters.
@@ -4845,7 +4845,7 @@ impl std::fmt::Display for PaymentInitiationAddress {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentScheduleBase {
     #[serde(rename = "interval")]
     ///The frequency interval of the payment.
@@ -4876,7 +4876,7 @@ impl std::fmt::Display for ExternalPaymentScheduleBase {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ExternalPaymentScheduleRequest(pub serde_json::Value);
+pub struct ExternalPaymentScheduleRequest(pub ExternalPaymentScheduleBase);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentScheduleInterval {
     #[serde(rename = "WEEKLY")]
@@ -4900,7 +4900,7 @@ pub enum PaymentInitiationConsentScope {
     #[serde(rename = "EXTERNAL")]
     External,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentInitiationConsentOptions {
     #[serde(rename = "wallet_id")]
     ///The EMI (E-Money Institution) wallet that this payment consent is associated with, if any. This wallet is used as an intermediary account to enable Plaid to reconcile the settlement of funds for Payment Initiation requests.
@@ -4938,10 +4938,10 @@ impl std::fmt::Display for PaymentInitiationConsentConstraints {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PaymentConsentMaxPaymentAmount(pub serde_json::Value);
+pub struct PaymentConsentMaxPaymentAmount(pub PaymentAmount);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ConsentPaymentIdempotencyKey(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentOptions {
     #[serde(rename = "request_refund_details")]
     ///When `true`, Plaid will attempt to request refund details from the payee's financial institution.  Support varies between financial institutions and will not always be available.  If refund details could be retrieved, they will be available in the `/payment_initiation/payment/get` response.
@@ -4970,7 +4970,7 @@ impl std::fmt::Display for ExternalPaymentOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentRefundDetails {
     #[serde(rename = "name")]
     ///The name of the account holder.
@@ -4988,7 +4988,7 @@ impl std::fmt::Display for ExternalPaymentRefundDetails {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ExternalPaymentScheduleGet(pub serde_json::Value);
+pub struct ExternalPaymentScheduleGet(pub ExternalPaymentScheduleBase);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Products {
     #[serde(rename = "assets")]
@@ -5048,7 +5048,7 @@ impl std::fmt::Display for ProductStatus {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProductStatusBreakdown {
     #[serde(rename = "success")]
     ///The percentage of login attempts that are successful, expressed as a decimal.
@@ -5110,7 +5110,7 @@ impl std::fmt::Display for UserCustomPassword {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Mfa {
     #[serde(rename = "type")]
     /**Possible values are `device`, `selections`, or `questions`.
@@ -5203,7 +5203,7 @@ impl std::fmt::Display for OverrideAccounts {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Meta {
     #[serde(rename = "name")]
     ///The account's name
@@ -5220,7 +5220,7 @@ impl std::fmt::Display for Meta {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Numbers {
     #[serde(rename = "account")]
     ///Will be used for the account number.
@@ -5252,7 +5252,7 @@ impl std::fmt::Display for Numbers {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionOverride {
     #[serde(rename = "date_transacted")]
     ///The date of the transaction, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format. Transactions in Sandbox will move from pending to posted once their transaction date has been reached. If a `date_transacted` is not provided by the institution, a transaction date may be available in the [`authorized_date`](https://plaid.com/docs/api/products/transactions/#transactions-get-response-transactions-authorized-date) field.
@@ -5275,7 +5275,7 @@ impl std::fmt::Display for TransactionOverride {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SecurityOverride {
     #[serde(rename = "isin")]
     ///12-character ISIN, a globally unique securities identifier.
@@ -5327,7 +5327,7 @@ impl std::fmt::Display for HoldingsOverride {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentsTransactionsOverride {
     #[serde(rename = "date")]
     ///Posting date for the transaction. Must be formatted as an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) date.
@@ -5444,7 +5444,7 @@ impl std::fmt::Display for LiabilityOverride {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct StudentLoanRepaymentModel {
     #[serde(rename = "type")]
     ///The only currently supported value for this field is `standard`.
@@ -5461,7 +5461,7 @@ impl std::fmt::Display for StudentLoanRepaymentModel {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InflowModel {
     #[serde(rename = "type")]
     /**Inflow model. One of the following:
@@ -5492,7 +5492,7 @@ impl std::fmt::Display for InflowModel {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeOverride {
     #[serde(rename = "paystubs")]
     ///A list of paystubs associated with the account.
@@ -5503,7 +5503,7 @@ impl std::fmt::Display for IncomeOverride {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubOverride {
     #[serde(rename = "employer")]
     ///The employer on the paystub.
@@ -5522,7 +5522,7 @@ impl std::fmt::Display for PaystubOverride {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubOverrideEmployer {
     #[serde(rename = "name")]
     ///The name of the employer.
@@ -5533,7 +5533,7 @@ impl std::fmt::Display for PaystubOverrideEmployer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubOverrideEmployee {
     #[serde(rename = "name")]
     ///The name of the employee.
@@ -5547,7 +5547,7 @@ impl std::fmt::Display for PaystubOverrideEmployee {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubOverrideEmployeeAddress {
     #[serde(rename = "city")]
     ///The full city name.
@@ -5576,7 +5576,7 @@ impl std::fmt::Display for PaystubOverrideEmployeeAddress {
 pub struct ItemId(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AutomaticallyVerifiedWebhook {
     #[serde(rename = "webhook_type")]
     ///`AUTH`
@@ -5596,7 +5596,7 @@ impl std::fmt::Display for AutomaticallyVerifiedWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct JwtHeader {
     #[serde(rename = "id")]
     pub id: String,
@@ -5606,7 +5606,7 @@ impl std::fmt::Display for JwtHeader {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct VerificationExpiredWebhook {
     #[serde(rename = "webhook_type")]
     ///`AUTH`
@@ -5626,7 +5626,7 @@ impl std::fmt::Display for VerificationExpiredWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WebhookUpdateAcknowledgedWebhook {
     #[serde(rename = "webhook_type")]
     ///`ITEM`
@@ -5649,7 +5649,7 @@ impl std::fmt::Display for WebhookUpdateAcknowledgedWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PendingExpirationWebhook {
     #[serde(rename = "webhook_type")]
     ///`ITEM`
@@ -5669,7 +5669,7 @@ impl std::fmt::Display for PendingExpirationWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemErrorWebhook {
     #[serde(rename = "webhook_type")]
     ///`ITEM`
@@ -5689,7 +5689,7 @@ impl std::fmt::Display for ItemErrorWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemProductReadyWebhook {
     #[serde(rename = "webhook_type")]
     ///`INCOME`
@@ -5709,7 +5709,7 @@ impl std::fmt::Display for ItemProductReadyWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct RecaptchaRequiredError {
     #[serde(rename = "error_type")]
     ///RECAPTCHA_ERROR
@@ -5739,7 +5739,7 @@ impl std::fmt::Display for RecaptchaRequiredError {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransfersEventsUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`BANK_TRANSFERS`
@@ -5753,7 +5753,7 @@ impl std::fmt::Display for BankTransfersEventsUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferEventsUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`TRANSFER`
@@ -5767,7 +5767,7 @@ impl std::fmt::Display for TransferEventsUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentsDefaultUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`INVESTMENTS_TRANSACTIONS`
@@ -5793,7 +5793,7 @@ impl std::fmt::Display for InvestmentsDefaultUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct HoldingsDefaultUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`HOLDINGS`
@@ -5848,14 +5848,14 @@ impl std::fmt::Display for LiabilitiesDefaultUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LiabilitiesAccountIdsWithUpdatedLiabilities {}
 impl std::fmt::Display for LiabilitiesAccountIdsWithUpdatedLiabilities {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetsProductReadyWebhook {
     #[serde(rename = "webhook_type")]
     ///`ASSETS`
@@ -5872,7 +5872,7 @@ impl std::fmt::Display for AssetsProductReadyWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetsErrorWebhook {
     #[serde(rename = "webhook_type")]
     ///`ASSETS`
@@ -5892,7 +5892,7 @@ impl std::fmt::Display for AssetsErrorWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetsRelayWebhook {
     #[serde(rename = "webhook_type")]
     ///`ASSETS`
@@ -5927,7 +5927,7 @@ pub enum RelayEvent {
     #[serde(rename = "AUDIT_COPY_CREATE_CALLED")]
     AuditCopyCreateCalled,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Cause {}
 impl std::fmt::Display for Cause {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -5958,7 +5958,7 @@ pub enum PaymentAmountCurrency {
     #[serde(rename = "EUR")]
     Eur,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentAmount {
     #[serde(rename = "currency")]
     ///The ISO-4217 currency code of the payment. For standing orders and payment consents, `"GBP"` must be used.
@@ -5972,7 +5972,7 @@ impl std::fmt::Display for PaymentAmount {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentConsentValidDateTime {
     #[serde(rename = "from")]
     ///The date and time from which the consent should be active, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
@@ -6008,7 +6008,7 @@ impl std::fmt::Display for PaymentConsentPeriodicAmount {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PaymentConsentPeriodicAmountAmount(pub serde_json::Value);
+pub struct PaymentConsentPeriodicAmountAmount(pub PaymentAmount);
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PaymentConsentPeriodicInterval {
     #[serde(rename = "DAY")]
@@ -6027,7 +6027,7 @@ pub enum PaymentConsentPeriodicAlignment {
     #[serde(rename = "CONSENT")]
     Consent,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportUser {
     #[serde(rename = "client_user_id")]
     ///An identifier you determine and submit for the user.
@@ -6064,7 +6064,7 @@ pub struct AssetReportId(pub String);
 pub struct AssetReportToken(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AssetReportRefreshAssetReportToken(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct StandaloneCurrencyCodeList {
     #[serde(rename = "iso_currency_code")]
     ///Plaid supports all ISO 4217 currency codes.
@@ -6080,7 +6080,7 @@ impl std::fmt::Display for StandaloneCurrencyCodeList {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UnofficialCurrencyCodeList(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct StandaloneAccountType {
     #[serde(rename = "depository")]
     ///An account type holding cash, in which funds are deposited. Supported products for `depository` accounts are: Auth (`checking` and `savings` types only), Balance, Transactions, Identity, Payment Initiation, and Assets.
@@ -6137,7 +6137,7 @@ impl std::fmt::Display for AssetReport {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportItem {
     #[serde(rename = "item_id")]
     ///The `item_id` of the Item associated with this webhook, warning, or error
@@ -6160,7 +6160,7 @@ impl std::fmt::Display for AssetReportItem {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentStatusUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`PAYMENT_INITIATION`
@@ -6259,7 +6259,7 @@ impl std::fmt::Display for PaymentStatusUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Holding {
     #[serde(rename = "account_id")]
     ///The Plaid `account_id` associated with the holding.
@@ -6303,7 +6303,7 @@ impl std::fmt::Display for Holding {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Security {
     #[serde(rename = "security_id")]
     ///A unique, Plaid-specific identifier for the security, used to associate securities with holdings. Like all Plaid identifiers, the `security_id` is case sensitive.
@@ -6496,7 +6496,7 @@ pub enum InvestmentTransactionSubtype {
     #[serde(rename = "withdrawal")]
     Withdrawal,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentTransaction {
     #[serde(rename = "investment_transaction_id")]
     ///The ID of the Investment transaction, unique across all Plaid transactions. Like all Plaid identifiers, the `investment_transaction_id` is case sensitive.
@@ -6556,7 +6556,7 @@ impl std::fmt::Display for InvestmentTransaction {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct StandaloneInvestmentTransactionType {
     #[serde(rename = "buy")]
     ///Buying an investment
@@ -6594,7 +6594,7 @@ pub struct StandaloneInvestmentTransactionSellType(pub String);
 pub struct StandaloneInvestmentTransactionTransferType(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountSubtypes(pub Vec<String>);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UserPermissionRevokedWebhook {
     #[serde(rename = "webhook_type")]
     ///`ITEM`
@@ -6614,7 +6614,7 @@ impl std::fmt::Display for UserPermissionRevokedWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchGetRequest {
     #[serde(rename = "deposit_switch_id")]
     ///The ID of the deposit switch
@@ -6625,7 +6625,7 @@ impl std::fmt::Display for DepositSwitchGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchGetResponse {
     #[serde(rename = "deposit_switch_id")]
     ///The ID of the deposit switch.
@@ -6698,7 +6698,7 @@ impl std::fmt::Display for DepositSwitchGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchStateUpdateWebhook {
     #[serde(rename = "webhook_type")]
     ///`"DEPOSIT_SWITCH"`
@@ -6729,7 +6729,7 @@ impl std::fmt::Display for DepositSwitchStateUpdateWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AssetReportAuditCopyGetRequest {
     #[serde(rename = "audit_copy_token")]
     ///The `audit_copy_token` granting access to the Audit Copy you would like to get.
@@ -6740,7 +6740,7 @@ impl std::fmt::Display for AssetReportAuditCopyGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferGetRequest {
     #[serde(rename = "transfer_id")]
     ///Plaid’s unique identifier for a transfer.
@@ -6751,7 +6751,7 @@ impl std::fmt::Display for TransferGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferGetRequest {
     #[serde(rename = "bank_transfer_id")]
     ///Plaid’s unique identifier for a bank transfer.
@@ -6968,7 +6968,7 @@ pub enum AchClass {
 pub struct TransferAmount(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TransferSweepAmount(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferIntentGetFailureReason {
     #[serde(rename = "error_type")]
     ///A broad categorization of the error.
@@ -7000,7 +7000,7 @@ pub struct BankTransferAmount(pub String);
 pub struct TransferCreateIdempotencyKey(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankTransferIdempotencyKey(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferAuthorizationUserInRequest {
     #[serde(rename = "legal_name")]
     ///The user's legal name.
@@ -7020,7 +7020,7 @@ impl std::fmt::Display for TransferAuthorizationUserInRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferUserInRequest {
     #[serde(rename = "legal_name")]
     ///The user's legal name.
@@ -7040,7 +7040,7 @@ impl std::fmt::Display for TransferUserInRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferUserInResponse {
     #[serde(rename = "legal_name")]
     ///The user's legal name.
@@ -7060,7 +7060,7 @@ impl std::fmt::Display for TransferUserInResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferUserAddressInRequest {
     #[serde(rename = "street")]
     ///The street number and name (i.e., "100 Market St.").
@@ -7083,7 +7083,7 @@ impl std::fmt::Display for TransferUserAddressInRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferUserAddressInResponse {
     #[serde(rename = "street")]
     ///The street number and name (i.e., "100 Market St.").
@@ -7106,7 +7106,7 @@ impl std::fmt::Display for TransferUserAddressInResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferUser {
     #[serde(rename = "legal_name")]
     ///The account holder’s full legal name. If the transfer `ach_class` is `ccd`, this should be the business name of the account holder.
@@ -7138,7 +7138,7 @@ pub enum TransferAuthorizationDecisionRationaleCode {
     #[serde(rename = "ERROR")]
     Error,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferAuthorizationDecisionRationale {
     #[serde(rename = "code")]
     /**A code representing the rationale for approving or declining the proposed transfer. Possible values are:
@@ -7184,7 +7184,7 @@ pub enum TransferAuthorizationGuaranteeDecisionRationaleCode {
     #[serde(rename = "REQUIRED_PARAM_MISSING")]
     RequiredParamMissing,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferAuthorizationGuaranteeDecisionRationale {
     #[serde(rename = "code")]
     /**A code representing the reason Plaid declined to guarantee this transfer:
@@ -7248,7 +7248,7 @@ impl std::fmt::Display for TransferAuthorizationProposedTransfer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferAuthorizationDevice {
     #[serde(rename = "ip_address")]
     ///The IP address of the device being used to initiate the authorization. Required for guaranteed ACH customers.
@@ -7262,14 +7262,14 @@ impl std::fmt::Display for TransferAuthorizationDevice {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferMetadata {}
 impl std::fmt::Display for TransferMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferMetadata {}
 impl std::fmt::Display for BankTransferMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -7343,7 +7343,7 @@ pub enum BankTransferNetwork {
     #[serde(rename = "wire")]
     Wire,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferFailure {
     #[serde(rename = "ach_return_code")]
     ///The ACH return code, e.g. `R01`.  A return code will be provided if and only if the transfer status is `returned`. For a full listing of ACH return codes, see [Transfer errors](https://plaid.com/docs/errors/transfer/#ach-return-codes).
@@ -7357,7 +7357,7 @@ impl std::fmt::Display for TransferFailure {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferFailure {
     #[serde(rename = "ach_return_code")]
     ///The ACH return code, e.g. `R01`.  A return code will be provided if and only if the transfer status is `reversed`. For a full listing of ACH return codes, see [Bank Transfers errors](https://plaid.com/docs/errors/bank-transfers/#ach-return-codes).
@@ -7639,7 +7639,7 @@ impl std::fmt::Display for BankTransferCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferListRequest {
     #[serde(rename = "start_date")]
     ///The start datetime of transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
@@ -7662,7 +7662,7 @@ impl std::fmt::Display for TransferListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferListRequest {
     #[serde(rename = "start_date")]
     ///The start datetime of bank transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
@@ -7688,7 +7688,7 @@ impl std::fmt::Display for BankTransferListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferListResponse {
     #[serde(rename = "transfers")]
     pub transfers: Vec<Transfer>,
@@ -7701,7 +7701,7 @@ impl std::fmt::Display for TransferListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferListResponse {
     #[serde(rename = "bank_transfers")]
     pub bank_transfers: Vec<BankTransfer>,
@@ -7721,7 +7721,7 @@ pub enum BankTransferDirection {
     #[serde(rename = "inbound")]
     Inbound,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferCancelRequest {
     #[serde(rename = "transfer_id")]
     ///Plaid’s unique identifier for a transfer.
@@ -7732,7 +7732,7 @@ impl std::fmt::Display for TransferCancelRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferCancelRequest {
     #[serde(rename = "bank_transfer_id")]
     ///Plaid’s unique identifier for a bank transfer.
@@ -7743,7 +7743,7 @@ impl std::fmt::Display for BankTransferCancelRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferCancelResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -7754,7 +7754,7 @@ impl std::fmt::Display for TransferCancelResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferCancelResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -7772,7 +7772,7 @@ pub enum TransferEventListTransferType {
     #[serde(rename = "credit")]
     Credit,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferEventListRequest {
     #[serde(rename = "start_date")]
     ///The start datetime of transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
@@ -7824,7 +7824,7 @@ pub enum BankTransferEventListDirection {
     #[serde(rename = "outbound")]
     Outbound,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferEventListRequest {
     #[serde(rename = "start_date")]
     ///The start datetime of bank transfers to list. This should be in RFC 3339 format (i.e. `2019-12-06T22:35:49Z`)
@@ -7895,7 +7895,7 @@ pub enum BankTransferEventType {
     #[serde(rename = "reversed")]
     Reversed,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferEvent {
     #[serde(rename = "event_id")]
     ///Plaid’s unique identifier for this event. IDs are sequential unsigned 64-bit integers.
@@ -7950,7 +7950,7 @@ impl std::fmt::Display for TransferEvent {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferEvent {
     #[serde(rename = "event_id")]
     ///Plaid’s unique identifier for this event. IDs are sequential unsigned 64-bit integers.
@@ -8001,7 +8001,7 @@ impl std::fmt::Display for BankTransferEvent {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferEventListResponse {
     #[serde(rename = "transfer_events")]
     pub transfer_events: Vec<TransferEvent>,
@@ -8014,7 +8014,7 @@ impl std::fmt::Display for TransferEventListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferEventListResponse {
     #[serde(rename = "bank_transfer_events")]
     pub bank_transfer_events: Vec<BankTransferEvent>,
@@ -8027,7 +8027,7 @@ impl std::fmt::Display for BankTransferEventListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferEventSyncRequest {
     #[serde(rename = "after_id")]
     ///The latest (largest) `event_id` fetched via the sync endpoint, or 0 initially.
@@ -8041,7 +8041,7 @@ impl std::fmt::Display for BankTransferEventSyncRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferEventSyncRequest {
     #[serde(rename = "after_id")]
     ///The latest (largest) `event_id` fetched via the sync endpoint, or 0 initially.
@@ -8055,7 +8055,7 @@ impl std::fmt::Display for TransferEventSyncRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferEventSyncResponse {
     #[serde(rename = "bank_transfer_events")]
     pub bank_transfer_events: Vec<BankTransferEvent>,
@@ -8068,7 +8068,7 @@ impl std::fmt::Display for BankTransferEventSyncResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferEventSyncResponse {
     #[serde(rename = "transfer_events")]
     pub transfer_events: Vec<TransferEvent>,
@@ -8081,7 +8081,7 @@ impl std::fmt::Display for TransferEventSyncResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferSweepGetRequest {
     #[serde(rename = "sweep_id")]
     ///Identifier of the sweep.
@@ -8092,7 +8092,7 @@ impl std::fmt::Display for BankTransferSweepGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferSweepGetRequest {
     #[serde(rename = "sweep_id")]
     ///Plaid’s unique identifier for a sweep.
@@ -8137,7 +8137,7 @@ impl std::fmt::Display for TransferSweepGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferSweepListRequest {
     #[serde(rename = "origination_account_id")]
     ///If multiple origination accounts are available, `origination_account_id` must be used to specify the account that the sweeps belong to.
@@ -8157,7 +8157,7 @@ impl std::fmt::Display for BankTransferSweepListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferSweepListRequest {
     #[serde(rename = "start_date")]
     ///The start datetime of sweeps to return (RFC 3339 format).
@@ -8177,7 +8177,7 @@ impl std::fmt::Display for TransferSweepListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferSweepListResponse {
     #[serde(rename = "sweeps")]
     pub sweeps: Vec<TransferSweep>,
@@ -8190,7 +8190,7 @@ impl std::fmt::Display for TransferSweepListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferSweepListResponse {
     #[serde(rename = "sweeps")]
     pub sweeps: Vec<BankTransferSweep>,
@@ -8203,7 +8203,7 @@ impl std::fmt::Display for BankTransferSweepListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferSweep {
     #[serde(rename = "id")]
     ///Identifier of the sweep.
@@ -8223,7 +8223,7 @@ impl std::fmt::Display for BankTransferSweep {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferSweep {
     #[serde(rename = "id")]
     ///Identifier of the sweep.
@@ -8245,14 +8245,14 @@ impl std::fmt::Display for TransferSweep {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SimulatedTransferSweep {}
 impl std::fmt::Display for SimulatedTransferSweep {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferBalanceGetRequest {
     #[serde(rename = "origination_account_id")]
     ///If multiple origination accounts are available, `origination_account_id` must be used to specify the account for which balance will be returned.
@@ -8280,7 +8280,7 @@ impl std::fmt::Display for BankTransferBalanceGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferBalance {
     #[serde(rename = "available")]
     ///The total available balance - the sum of all successful debit transfer amounts minus all credit transfer amounts.
@@ -8294,7 +8294,7 @@ impl std::fmt::Display for BankTransferBalance {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferMigrateAccountRequest {
     #[serde(rename = "account_number")]
     ///The user's account number.
@@ -8314,7 +8314,7 @@ impl std::fmt::Display for BankTransferMigrateAccountRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankTransferMigrateAccountResponse {
     #[serde(rename = "access_token")]
     ///The Plaid `access_token` for the newly created Item.
@@ -8331,7 +8331,7 @@ impl std::fmt::Display for BankTransferMigrateAccountResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferMigrateAccountRequest {
     #[serde(rename = "account_number")]
     ///The user's account number.
@@ -8351,7 +8351,7 @@ impl std::fmt::Display for TransferMigrateAccountRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferMigrateAccountResponse {
     #[serde(rename = "access_token")]
     ///The Plaid `access_token` for the newly created Item.
@@ -8368,7 +8368,7 @@ impl std::fmt::Display for TransferMigrateAccountResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferRepaymentListRequest {
     #[serde(rename = "start_date")]
     ///The start datetime of repayments to return (RFC 3339 format).
@@ -8388,7 +8388,7 @@ impl std::fmt::Display for TransferRepaymentListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferRepaymentListResponse {
     #[serde(rename = "repayments")]
     pub repayments: Vec<TransferRepayment>,
@@ -8401,7 +8401,7 @@ impl std::fmt::Display for TransferRepaymentListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferRepayment {
     #[serde(rename = "repayment_id")]
     ///Identifier of the repayment.
@@ -8421,7 +8421,7 @@ impl std::fmt::Display for TransferRepayment {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferRepaymentReturnListRequest {
     #[serde(rename = "repayment_id")]
     ///Identifier of the repayment to query.
@@ -8438,7 +8438,7 @@ impl std::fmt::Display for TransferRepaymentReturnListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferRepaymentReturnListResponse {
     #[serde(rename = "repayment_returns")]
     pub repayment_returns: Vec<TransferRepaymentReturn>,
@@ -8451,7 +8451,7 @@ impl std::fmt::Display for TransferRepaymentReturnListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferRepaymentReturn {
     #[serde(rename = "transfer_id")]
     ///The unique identifier of the guaranteed transfer that was returned.
@@ -8619,7 +8619,7 @@ impl std::fmt::Display for TransferIntentCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransferIntentGetRequest {
     #[serde(rename = "transfer_intent_id")]
     ///Plaid's unique identifier for a transfer intent object.
@@ -8745,7 +8745,7 @@ impl std::fmt::Display for TransferIntentGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxBankTransferSimulateRequest {
     #[serde(rename = "bank_transfer_id")]
     ///Plaid’s unique identifier for a bank transfer.
@@ -8771,7 +8771,7 @@ impl std::fmt::Display for SandboxBankTransferSimulateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferSimulateRequest {
     #[serde(rename = "transfer_id")]
     ///Plaid’s unique identifier for a transfer.
@@ -8797,14 +8797,14 @@ impl std::fmt::Display for SandboxTransferSimulateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferSweepSimulateRequest {}
 impl std::fmt::Display for SandboxTransferSweepSimulateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxBankTransferSimulateResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -8815,7 +8815,7 @@ impl std::fmt::Display for SandboxBankTransferSimulateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferSimulateResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -8826,7 +8826,7 @@ impl std::fmt::Display for SandboxTransferSimulateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferSweepSimulateResponse {
     #[serde(rename = "sweep")]
     /**A sweep returned from the `/sandbox/transfer/sweep/simulate` endpoint.
@@ -8841,14 +8841,14 @@ impl std::fmt::Display for SandboxTransferSweepSimulateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferRepaymentSimulateRequest {}
 impl std::fmt::Display for SandboxTransferRepaymentSimulateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferRepaymentSimulateResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -8859,7 +8859,7 @@ impl std::fmt::Display for SandboxTransferRepaymentSimulateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountFiltersResponse {
     #[serde(rename = "depository")]
     ///A filter to apply to `depository`-type accounts
@@ -8879,7 +8879,7 @@ impl std::fmt::Display for AccountFiltersResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchAccountFilter {
     #[serde(rename = "loan")]
     pub loan: Option<Vec<String>>,
@@ -8896,47 +8896,47 @@ impl std::fmt::Display for InstitutionsSearchAccountFilter {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AccountIdentity(pub serde_json::Value);
+pub struct AccountIdentity(pub AccountBase);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AccountAssets(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct AccountAssets(pub AccountBase);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositoryFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: DepositoryAccountSubtypes,
+    pub account_subtypes: Vec<String>,
 }
 impl std::fmt::Display for DepositoryFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: CreditAccountSubtypes,
+    pub account_subtypes: Vec<String>,
 }
 impl std::fmt::Display for CreditFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LoanFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: LoanAccountSubtypes,
+    pub account_subtypes: Vec<String>,
 }
 impl std::fmt::Display for LoanFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct InvestmentFilter {
     #[serde(rename = "account_subtypes")]
     ///An array of account subtypes to display in Link. If not specified, all account subtypes will be shown. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
-    pub account_subtypes: InvestmentAccountSubtypes,
+    pub account_subtypes: Vec<String>,
 }
 impl std::fmt::Display for InvestmentFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -9111,7 +9111,7 @@ pub enum InvestmentAccountSubtype {
     #[serde(rename = "all")]
     All,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmployersSearchRequest {
     #[serde(rename = "query")]
     ///The employer name to be searched for.
@@ -9125,7 +9125,7 @@ impl std::fmt::Display for EmployersSearchRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmployersSearchResponse {
     #[serde(rename = "employers")]
     ///A list of employers matching the search criteria.
@@ -9139,7 +9139,7 @@ impl std::fmt::Display for EmployersSearchResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Employer {
     #[serde(rename = "employer_id")]
     ///Plaid's unique identifier for the employer.
@@ -9159,7 +9159,7 @@ impl std::fmt::Display for Employer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationCreateRequest {
     #[serde(rename = "webhook")]
     ///The URL endpoint to which Plaid should send webhooks related to the progress of the income verification process.
@@ -9176,7 +9176,7 @@ impl std::fmt::Display for IncomeVerificationCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationCreateRequestOptions {
     #[serde(rename = "access_tokens")]
     ///An array of access tokens corresponding to the Items that will be cross-referenced with the product data. Plaid will attempt to correlate transaction history from these Items with data from the user's paystub, such as date and amount. The `verification` status of the paystub as returned by `/income/verification/paystubs/get` will indicate if the verification status was successful, or, if not, why it failed. If the `transactions` product was not initialized for the Items during Link, it will be initialized after this Link session.
@@ -9187,7 +9187,7 @@ impl std::fmt::Display for IncomeVerificationCreateRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationCreateResponse {
     #[serde(rename = "income_verification_id")]
     ///ID of the verification. This ID is persisted throughout the lifetime of the verification.
@@ -9201,7 +9201,7 @@ impl std::fmt::Display for IncomeVerificationCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckRequest {
     #[serde(rename = "user")]
     ///Information about the user whose eligibility is being evaluated.
@@ -9210,7 +9210,7 @@ pub struct IncomeVerificationPrecheckRequest {
     ///Information about the end user's employer
     pub employer: Option<IncomeVerificationPrecheckEmployer>,
     #[serde(rename = "transactions_access_token")]
-    pub transactions_access_token: Option<serde_json::Value>,
+    pub transactions_access_token: Option<String>,
     #[serde(rename = "transactions_access_tokens")]
     ///An array of access tokens corresponding to Items belonging to the user whose eligibility is being checked. Note that if the Items specified here are not already initialized with `transactions`, providing them in this field will cause these Items to be initialized with (and billed for) the Transactions product.
     pub transactions_access_tokens: Option<Vec<String>>,
@@ -9223,7 +9223,7 @@ impl std::fmt::Display for IncomeVerificationPrecheckRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckEmployer {
     #[serde(rename = "name")]
     ///The employer's name
@@ -9243,14 +9243,14 @@ impl std::fmt::Display for IncomeVerificationPrecheckEmployer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckEmployerAddress {}
 impl std::fmt::Display for IncomeVerificationPrecheckEmployerAddress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckEmployerAddressData {
     #[serde(rename = "city")]
     ///The full city name
@@ -9275,7 +9275,7 @@ impl std::fmt::Display for IncomeVerificationPrecheckEmployerAddressData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckMilitaryInfo {
     #[serde(rename = "is_active_duty")]
     ///Is the user currently active duty in the US military
@@ -9290,7 +9290,7 @@ impl std::fmt::Display for IncomeVerificationPrecheckMilitaryInfo {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckUser {
     #[serde(rename = "first_name")]
     ///The user's first name
@@ -9310,7 +9310,7 @@ impl std::fmt::Display for IncomeVerificationPrecheckUser {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckResponse {
     #[serde(rename = "precheck_id")]
     ///ID of the precheck. Provide this value when calling `/link/token/create` in order to optimize Link conversion.
@@ -9342,7 +9342,7 @@ pub enum IncomeVerificationPrecheckConfidence {
     #[serde(rename = "UNKNOWN")]
     Unknown,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestIncomeVerification {
     #[serde(rename = "income_verification_id")]
     ///The `income_verification_id` of the verification instance, as provided by `/income/verification/create`.
@@ -9383,7 +9383,7 @@ pub enum IncomeVerificationSourceType {
     #[serde(rename = "payroll")]
     Payroll,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestIncomeVerificationBankIncome {
     #[serde(rename = "days_requested")]
     ///The number of days of data to request for the Bank Income product
@@ -9397,7 +9397,7 @@ impl std::fmt::Display for LinkTokenCreateRequestIncomeVerificationBankIncome {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestIncomeVerificationPayrollIncome {
     #[serde(rename = "flow_types")]
     ///The types of payroll income verification to enable for the link session. If none are specified, then users will see both document and digital payroll income.
@@ -9418,7 +9418,7 @@ pub enum IncomeVerificationPayrollFlowType {
     #[serde(rename = "payroll_document_income")]
     PayrollDocumentIncome,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationStatusWebhook {
     #[serde(rename = "webhook_type")]
     ///`"INCOME"`
@@ -9445,7 +9445,7 @@ impl std::fmt::Display for IncomeVerificationStatusWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationRefreshRequest {
     #[serde(rename = "income_verification_id")]
     ///The ID of the verification.
@@ -9459,7 +9459,7 @@ impl std::fmt::Display for IncomeVerificationRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationRefreshResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -9506,7 +9506,7 @@ impl std::fmt::Display for IncomeSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionData {
     #[serde(rename = "description")]
     ///The description of the transaction.
@@ -9529,7 +9529,7 @@ impl std::fmt::Display for TransactionData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeSummaryFieldString {
     #[serde(rename = "value")]
     ///The value of the field.
@@ -9554,10 +9554,10 @@ impl std::fmt::Display for IncomeSummaryFieldString {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct EmployerIncomeSummaryFieldString(pub serde_json::Value);
+pub struct EmployerIncomeSummaryFieldString(pub IncomeSummaryFieldString);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct EmployeeIncomeSummaryFieldString(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct EmployeeIncomeSummaryFieldString(pub IncomeSummaryFieldString);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeSummaryFieldNumber {
     #[serde(rename = "value")]
     ///The value of the field.
@@ -9582,12 +9582,12 @@ impl std::fmt::Display for IncomeSummaryFieldNumber {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct YtdGrossIncomeSummaryFieldNumber(pub serde_json::Value);
+pub struct YtdGrossIncomeSummaryFieldNumber(pub IncomeSummaryFieldNumber);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct YtdNetIncomeSummaryFieldNumber(pub serde_json::Value);
+pub struct YtdNetIncomeSummaryFieldNumber(pub IncomeSummaryFieldNumber);
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ProjectedIncomeSummaryFieldNumber(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct ProjectedIncomeSummaryFieldNumber(pub IncomeSummaryFieldNumber);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayFrequency {
     #[serde(rename = "value")]
     ///The frequency of the pay period.
@@ -9648,7 +9648,7 @@ pub enum VerificationRefreshStatus {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditPayrollIncomeRefreshStatus(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPaystubsGetRequest {
     #[serde(rename = "income_verification_id")]
     ///The ID of the verification for which to get paystub information.
@@ -9662,7 +9662,7 @@ impl std::fmt::Display for IncomeVerificationPaystubsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPaystubsGetResponse {
     #[serde(rename = "document_metadata")]
     ///Metadata for an income document.
@@ -9681,7 +9681,7 @@ impl std::fmt::Display for IncomeVerificationPaystubsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DocumentMetadata {
     #[serde(rename = "name")]
     ///The name of the document.
@@ -9804,7 +9804,7 @@ impl std::fmt::Display for Deductions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DeductionsBreakdown {
     #[serde(rename = "current_amount")]
     ///Raw amount of the deduction
@@ -9829,7 +9829,7 @@ impl std::fmt::Display for DeductionsBreakdown {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DeductionsTotal {
     #[serde(rename = "current_amount")]
     ///Raw amount of the deduction
@@ -9851,7 +9851,7 @@ impl std::fmt::Display for DeductionsTotal {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Total {
     #[serde(rename = "canonical_description")]
     ///Commonly used term to describe the line item.
@@ -9906,7 +9906,7 @@ pub enum TotalCanonicalDescription {
     #[serde(rename = "OTHER")]
     Other,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Pay {
     #[serde(rename = "amount")]
     ///A numerical amount of a specific currency.
@@ -9920,7 +9920,7 @@ impl std::fmt::Display for Pay {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Earnings {
     #[serde(rename = "subtotals")]
     pub subtotals: Option<Vec<EarningsTotal>>,
@@ -9937,7 +9937,7 @@ impl std::fmt::Display for Earnings {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EarningsBreakdown {
     #[serde(rename = "canonical_description")]
     ///Commonly used term to describe the earning line item.
@@ -9992,7 +9992,7 @@ pub enum EarningsBreakdownCanonicalDescription {
     #[serde(rename = "OTHER")]
     Other,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EarningsTotal {
     #[serde(rename = "current_amount")]
     ///Total amount of the earnings for this pay period
@@ -10023,7 +10023,7 @@ impl std::fmt::Display for EarningsTotal {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmploymentDetails {
     #[serde(rename = "annual_salary")]
     ///An object representing a monetary amount.
@@ -10037,7 +10037,7 @@ impl std::fmt::Display for EmploymentDetails {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NetPay {
     #[serde(rename = "current_amount")]
     ///Raw amount of the net pay for the pay period
@@ -10065,7 +10065,7 @@ impl std::fmt::Display for NetPay {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubDetails {
     #[serde(rename = "pay_period_start_date")]
     ///Beginning date of the pay period on the paystub in the 'YYYY-MM-DD' format.
@@ -10099,7 +10099,7 @@ pub enum PaystubPayFrequency {
     #[serde(rename = "SEMI-MONTHLY")]
     SemiMonthly,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeBreakdown {
     #[serde(rename = "type")]
     /**The type of income. Possible values include:
@@ -10151,7 +10151,7 @@ impl std::fmt::Display for Employee {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TaxpayerId {
     #[serde(rename = "id_type")]
     ///Type of ID, e.g. 'SSN'
@@ -10161,14 +10161,14 @@ pub struct TaxpayerId {
     pub id_mask: Option<String>,
     #[serde(rename = "last_4_digits")]
     ///Last 4 digits of unique number of ID.
-    pub last_4_digits: Option<String>,
+    pub last4_digits: Option<String>,
 }
 impl std::fmt::Display for TaxpayerId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubEmployer {
     #[serde(rename = "address")]
     ///Address on the paystub
@@ -10182,7 +10182,7 @@ impl std::fmt::Display for PaystubEmployer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubAddress {
     #[serde(rename = "city")]
     ///The full city name.
@@ -10202,10 +10202,10 @@ Example: `"NC"`*/
     pub street: Option<String>,
     #[serde(rename = "line1")]
     ///Street address line 1.
-    pub line_1: Option<String>,
+    pub line1: Option<String>,
     #[serde(rename = "line2")]
     ///Street address line 2.
-    pub line_2: Option<String>,
+    pub line2: Option<String>,
     #[serde(rename = "state_code")]
     /**The region or state
 Example: `"NC"`*/
@@ -10216,7 +10216,7 @@ impl std::fmt::Display for PaystubAddress {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayPeriodDetails {
     #[serde(rename = "check_amount")]
     ///The amount of the paycheck.
@@ -10247,7 +10247,7 @@ impl std::fmt::Display for PayPeriodDetails {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DistributionBreakdown {
     #[serde(rename = "account_name")]
     ///Name of the account for the given distribution.
@@ -10281,7 +10281,7 @@ impl std::fmt::Display for DistributionBreakdown {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubDeduction {
     #[serde(rename = "type")]
     ///The description of the deduction, as provided on the paystub. For example: `"401(k)"`, `"FICA MED TAX"`.
@@ -10298,7 +10298,7 @@ impl std::fmt::Display for PaystubDeduction {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubYtdDetails {
     #[serde(rename = "gross_earnings")]
     ///Year-to-date gross earnings.
@@ -10312,7 +10312,7 @@ impl std::fmt::Display for PaystubYtdDetails {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaystubVerification {
     #[serde(rename = "verification_status")]
     ///Derived verification status.
@@ -10334,7 +10334,7 @@ pub enum PaystubVerificationStatus {
     #[serde(rename = "PAYSTUB_VERIFICATION_STATUS_FRAUDULENT")]
     PaystubVerificationStatusFraudulent,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct VerificationAttribute {
     #[serde(rename = "type")]
     ///Message indicating the reason as to why the verification failed
@@ -10345,7 +10345,7 @@ impl std::fmt::Display for VerificationAttribute {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationDocumentsDownloadRequest {
     #[serde(rename = "income_verification_id")]
     ///The ID of the verification.
@@ -10362,7 +10362,7 @@ impl std::fmt::Display for IncomeVerificationDocumentsDownloadRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationTaxformsGetRequest {
     #[serde(rename = "income_verification_id")]
     ///The ID of the verification.
@@ -10376,7 +10376,7 @@ impl std::fmt::Display for IncomeVerificationTaxformsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationTaxformsGetResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -10395,7 +10395,7 @@ impl std::fmt::Display for IncomeVerificationTaxformsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Taxform {
     #[serde(rename = "doc_id")]
     ///An identifier of the document referenced by the document metadata.
@@ -10405,14 +10405,14 @@ pub struct Taxform {
     pub document_type: String,
     #[serde(rename = "w2")]
     ///W2 is an object that represents income data taken from a W2 tax document.
-    pub w_2: Option<W2>,
+    pub w2: Option<W2>,
 }
 impl std::fmt::Display for Taxform {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct W2 {
     #[serde(rename = "employer")]
     ///Information about the employer on the paystub
@@ -10452,7 +10452,7 @@ pub struct W2 {
     pub allocated_tips: Option<String>,
     #[serde(rename = "box_9")]
     ///Contents from box 9 on the W2.
-    pub box_9: Option<String>,
+    pub box9: Option<String>,
     #[serde(rename = "dependent_care_benefits")]
     ///Dependent care benefits.
     pub dependent_care_benefits: Option<String>,
@@ -10460,7 +10460,7 @@ pub struct W2 {
     ///Nonqualified plans.
     pub nonqualified_plans: Option<String>,
     #[serde(rename = "box_12")]
-    pub box_12: Option<Vec<W2Box12>>,
+    pub box12: Option<Vec<W2Box12>>,
     #[serde(rename = "statutory_employee")]
     ///Statutory employee.
     pub statutory_employee: Option<String>,
@@ -10481,7 +10481,7 @@ impl std::fmt::Display for W2 {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct W2Box12 {
     #[serde(rename = "code")]
     ///W2 Box 12 code.
@@ -10495,7 +10495,7 @@ impl std::fmt::Display for W2Box12 {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct W2StateAndLocalWages {
     #[serde(rename = "state")]
     ///State associated with the wage.
@@ -10524,7 +10524,7 @@ impl std::fmt::Display for W2StateAndLocalWages {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationWebhookStatus {
     #[serde(rename = "id")]
     pub id: String,
@@ -10534,7 +10534,7 @@ impl std::fmt::Display for IncomeVerificationWebhookStatus {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmploymentVerificationGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -10545,7 +10545,7 @@ impl std::fmt::Display for EmploymentVerificationGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmploymentVerificationGetResponse {
     #[serde(rename = "employments")]
     ///A list of employment verification summaries.
@@ -10559,7 +10559,7 @@ impl std::fmt::Display for EmploymentVerificationGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmploymentVerification {
     #[serde(rename = "status")]
     ///Current employment status.
@@ -10592,7 +10592,7 @@ pub enum EmploymentVerificationStatus {
     #[serde(rename = "EMPLOYMENT_STATUS_INACTIVE")]
     EmploymentStatusInactive,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EmployerVerification {
     #[serde(rename = "name")]
     ///Name of employer.
@@ -10603,7 +10603,7 @@ impl std::fmt::Display for EmployerVerification {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PlatformIds {
     #[serde(rename = "employee_id")]
     ///The ID of an employee as given by their employer
@@ -10621,8 +10621,8 @@ impl std::fmt::Display for PlatformIds {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AssetReportTransaction(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct AssetReportTransaction(pub TransactionBase);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct HealthIncident {
     #[serde(rename = "start_date")]
     ///The start date of the incident, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format, e.g. `"2020-10-30T15:26:48Z"`.
@@ -10642,7 +10642,7 @@ impl std::fmt::Display for HealthIncident {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IncidentUpdate {
     #[serde(rename = "description")]
     ///The content of the update.
@@ -10679,7 +10679,7 @@ impl std::fmt::Display for DepositSwitchAltCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchAltCreateResponse {
     #[serde(rename = "deposit_switch_id")]
     ///ID of the deposit switch. This ID is persisted throughout the lifetime of the deposit switch.
@@ -10693,7 +10693,7 @@ impl std::fmt::Display for DepositSwitchAltCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTargetAccount {
     #[serde(rename = "account_number")]
     ///Account number for deposit switch destination
@@ -10713,7 +10713,7 @@ impl std::fmt::Display for DepositSwitchTargetAccount {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTargetUser {
     #[serde(rename = "given_name")]
     ///The given name (first name) of the user.
@@ -10739,7 +10739,7 @@ impl std::fmt::Display for DepositSwitchTargetUser {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DepositSwitchAddressData {
     #[serde(rename = "city")]
     ///The full city name
@@ -10764,7 +10764,7 @@ impl std::fmt::Display for DepositSwitchAddressData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeGetRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -10778,7 +10778,7 @@ impl std::fmt::Display for CreditBankIncomeGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeGetRequestOptions {
     #[serde(rename = "count")]
     ///How many Bank Income Reports should be fetched. Multiple reports may be available if the report has been re-created or refreshed. If more than one report is available, the most recent reports will be returned first.
@@ -10789,7 +10789,7 @@ impl std::fmt::Display for CreditBankIncomeGetRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeGetResponse {
     #[serde(rename = "bank_income")]
     pub bank_income: Option<Vec<CreditBankIncome>>,
@@ -10802,7 +10802,7 @@ impl std::fmt::Display for CreditBankIncomeGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomePdfGetRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -10815,7 +10815,7 @@ impl std::fmt::Display for CreditBankIncomePdfGetRequest {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditBankIncomePdfGetResponse(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncome {
     #[serde(rename = "bank_income_id")]
     ///The unique identifier associated with the Bank Income Report.
@@ -10841,7 +10841,7 @@ impl std::fmt::Display for CreditBankIncome {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeItem {
     #[serde(rename = "bank_income_accounts")]
     ///The Item's accounts that have Bank Income data.
@@ -10867,7 +10867,7 @@ impl std::fmt::Display for CreditBankIncomeItem {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeAccount {
     #[serde(rename = "account_id")]
     ///Plaid's unique identifier for the account.
@@ -10901,7 +10901,7 @@ pub enum CreditBankIncomeAccountType {
     #[serde(rename = "depository")]
     Depository,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeSource {
     #[serde(rename = "income_source_id")]
     ///A unique identifier for an income source.
@@ -10982,7 +10982,7 @@ pub enum CreditBankIncomePayFrequency {
 pub struct CreditIsoCurrencyCode(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditUnofficialCurrencyCode(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeSummary {
     #[serde(rename = "total_amount")]
     ///Total amount of earnings across all the income sources in the end user's Items for the days requested by the client.
@@ -11019,7 +11019,7 @@ impl std::fmt::Display for CreditBankIncomeSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeHistoricalSummary {
     #[serde(rename = "total_amount")]
     ///Total amount of earnings for the income source(s) of the user for the month in the summary.
@@ -11049,7 +11049,7 @@ impl std::fmt::Display for CreditBankIncomeHistoricalSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeTransaction {
     #[serde(rename = "amount")]
     /**The settled value of the transaction, denominated in the transactions's currency as stated in `iso_currency_code` or `unofficial_currency_code`.
@@ -11089,7 +11089,7 @@ impl std::fmt::Display for CreditBankIncomeTransaction {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeRefreshRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -11103,7 +11103,7 @@ impl std::fmt::Display for CreditBankIncomeRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeRefreshRequestOptions {
     #[serde(rename = "days_requested")]
     ///How many days of data to include in the refresh. If not specified, this will default to the days requested in the most recently generated bank income report for the user.
@@ -11117,7 +11117,7 @@ impl std::fmt::Display for CreditBankIncomeRefreshRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeRefreshResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -11128,7 +11128,7 @@ impl std::fmt::Display for CreditBankIncomeRefreshResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeRiskSignalsGetRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -11139,7 +11139,7 @@ impl std::fmt::Display for CreditPayrollIncomeRiskSignalsGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeRiskSignalsGetResponse {
     #[serde(rename = "items")]
     ///Array of payroll items.
@@ -11156,7 +11156,7 @@ impl std::fmt::Display for CreditPayrollIncomeRiskSignalsGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayrollRiskSignalsItem {
     #[serde(rename = "item_id")]
     ///The `item_id` of the Item associated with this webhook, warning, or error
@@ -11170,7 +11170,7 @@ impl std::fmt::Display for PayrollRiskSignalsItem {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DocumentRiskSignalsObject {
     #[serde(rename = "account_id")]
     ///ID of the payroll provider account.
@@ -11187,7 +11187,7 @@ impl std::fmt::Display for DocumentRiskSignalsObject {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct RiskSignalDocumentReference {
     #[serde(rename = "document_id")]
     ///An identifier of the document referenced by the document metadata.
@@ -11215,7 +11215,7 @@ impl std::fmt::Display for SingleDocumentRiskSignal {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct MultiDocumentRiskSignal {
     #[serde(rename = "document_references")]
     ///Array of objects containing attributes that could indicate if a document is fraudulent
@@ -11229,7 +11229,7 @@ impl std::fmt::Display for MultiDocumentRiskSignal {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditAuditCopyTokenCreateRequest {
     #[serde(rename = "report_tokens")]
     ///List of report tokens; can include both Asset Report tokens and Income Report tokens.
@@ -11243,7 +11243,7 @@ impl std::fmt::Display for CreditAuditCopyTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditAuditCopyTokenCreateResponse {
     #[serde(rename = "audit_copy_token")]
     ///A token that can be shared with a third party auditor to allow them to obtain access to the Asset or Income Report. This token should be stored securely.
@@ -11257,7 +11257,7 @@ impl std::fmt::Display for CreditAuditCopyTokenCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditAuditCopyTokenRemoveRequest {
     #[serde(rename = "audit_copy_token")]
     ///The `audit_copy_token` granting access to the Audit Copy you would like to revoke.
@@ -11268,7 +11268,7 @@ impl std::fmt::Display for CreditAuditCopyTokenRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditAuditCopyTokenRemoveResponse {
     #[serde(rename = "removed")]
     ///`true` if the Audit Copy was successfully removed.
@@ -11282,7 +11282,7 @@ impl std::fmt::Display for CreditAuditCopyTokenRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeGetRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -11293,7 +11293,7 @@ impl std::fmt::Display for CreditPayrollIncomeGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeGetResponse {
     #[serde(rename = "items")]
     ///Array of payroll items.
@@ -11310,7 +11310,7 @@ impl std::fmt::Display for CreditPayrollIncomeGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditDocumentMetadata {
     #[serde(rename = "name")]
     ///The name of the document.
@@ -11350,7 +11350,7 @@ impl std::fmt::Display for CreditDocumentMetadata {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditDocumentType(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayrollItem {
     #[serde(rename = "item_id")]
     ///The `item_id` of the Item associated with this webhook, warning, or error
@@ -11388,7 +11388,7 @@ impl std::fmt::Display for PayrollIncomeAccountData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayrollIncomeObject {
     #[serde(rename = "account_id")]
     ///ID of the payroll provider account.
@@ -11398,17 +11398,17 @@ pub struct PayrollIncomeObject {
     pub pay_stubs: Vec<CreditPayStub>,
     #[serde(rename = "w2s")]
     ///Array of tax form W-2s.
-    pub w_2_s: Vec<CreditW2>,
+    pub w2_s: Vec<CreditW2>,
     #[serde(rename = "form1099s")]
     ///Array of tax form 1099s.
-    pub form_1099_s: Vec<Credit1099>,
+    pub form1099_s: Vec<Credit1099>,
 }
 impl std::fmt::Display for PayrollIncomeObject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Credit1099 {
     #[serde(rename = "document_id")]
     ///An identifier of the document referenced by the document metadata.
@@ -11418,7 +11418,7 @@ pub struct Credit1099 {
     pub document_metadata: Option<CreditDocumentMetadata>,
     #[serde(rename = "form_1099_type")]
     ///Form 1099 Type
-    pub form_1099_type: Option<String>,
+    pub form1099_type: Option<String>,
     #[serde(rename = "recipient")]
     ///An object representing a recipient used in both 1099-K and 1099-MISC tax documents.
     pub recipient: Option<Credit1099Recipient>,
@@ -11459,7 +11459,7 @@ pub struct Credit1099 {
         rename = "payer_made_direct_sales_of_5000_or_more_of_consumer_products_to_buyer"
     )]
     ///Whether or not payer made direct sales over $5000 of consumer products.
-    pub payer_made_direct_sales_of_5000_or_more_of_consumer_products_to_buyer: Option<
+    pub payer_made_direct_sales_of5000_or_more_of_consumer_products_to_buyer: Option<
         String,
     >,
     #[serde(rename = "crop_insurance_proceeds")]
@@ -11473,10 +11473,10 @@ pub struct Credit1099 {
     pub gross_proceeds_paid_to_an_attorney: Option<f64>,
     #[serde(rename = "section_409a_deferrals")]
     ///Amount of 409A deferrals earned by payer.
-    pub section_409_a_deferrals: Option<f64>,
+    pub section409_a_deferrals: Option<f64>,
     #[serde(rename = "section_409a_income")]
     ///Amount of 409A income earned by payer.
-    pub section_409_a_income: Option<f64>,
+    pub section409_a_income: Option<f64>,
     #[serde(rename = "state_tax_withheld")]
     ///Amount of state tax withheld of payer for primary state.
     pub state_tax_withheld: Option<f64>,
@@ -11585,7 +11585,7 @@ pub enum Form1099Type {
     #[serde(rename = "FORM_1099_TYPE_K")]
     Form1099TypeK,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Credit1099Payer {
     #[serde(rename = "address")]
     ///Address on the pay stub.
@@ -11605,7 +11605,7 @@ impl std::fmt::Display for Credit1099Payer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Credit1099Recipient {
     #[serde(rename = "address")]
     ///Address on the pay stub.
@@ -11631,7 +11631,7 @@ impl std::fmt::Display for Credit1099Recipient {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Credit1099Filer {
     #[serde(rename = "address")]
     ///Address on the pay stub.
@@ -11699,7 +11699,7 @@ impl std::fmt::Display for CreditPayStubDeductions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubDeductionsBreakdown {
     #[serde(rename = "current_amount")]
     ///Raw amount of the deduction
@@ -11724,7 +11724,7 @@ impl std::fmt::Display for PayStubDeductionsBreakdown {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubDeductionsTotal {
     #[serde(rename = "current_amount")]
     ///Raw amount of the deduction
@@ -11759,7 +11759,7 @@ impl std::fmt::Display for CreditPayStubEarnings {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubEarningsBreakdown {
     #[serde(rename = "canonical_description")]
     ///Commonly used term to describe the earning line item.
@@ -11795,7 +11795,7 @@ impl std::fmt::Display for PayStubEarningsBreakdown {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PayStubEarningsBreakdownCanonicalDescription(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubEarningsTotal {
     #[serde(rename = "current_amount")]
     ///Total amount of the earnings for this pay period.
@@ -11840,7 +11840,7 @@ impl std::fmt::Display for CreditPayStubEmployee {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayStubAddress {
     #[serde(rename = "city")]
     ///The full city name.
@@ -11864,7 +11864,7 @@ impl std::fmt::Display for CreditPayStubAddress {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubTaxpayerId {
     #[serde(rename = "id_type")]
     ///Type of ID, e.g. 'SSN'.
@@ -11892,7 +11892,7 @@ impl std::fmt::Display for CreditPayStubEmployer {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayStubNetPay {
     #[serde(rename = "current_amount")]
     ///Raw amount of the net pay for the pay period.
@@ -11917,7 +11917,7 @@ impl std::fmt::Display for CreditPayStubNetPay {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubPayPeriodDetails {
     #[serde(rename = "pay_amount")]
     ///The amount of the paycheck.
@@ -11953,7 +11953,7 @@ impl std::fmt::Display for PayStubPayPeriodDetails {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubDistributionBreakdown {
     #[serde(rename = "account_name")]
     ///Name of the account for the given distribution.
@@ -11984,7 +11984,7 @@ impl std::fmt::Display for PayStubDistributionBreakdown {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayStubVerification {
     #[serde(rename = "verification_status")]
     ///Derived verification status.
@@ -11999,7 +11999,7 @@ impl std::fmt::Display for CreditPayStubVerification {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditPayStubVerificationStatus(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayStubVerificationAttribute {
     #[serde(rename = "type")]
     ///Message indicating the reason as to why the verification failed.
@@ -12010,7 +12010,7 @@ impl std::fmt::Display for PayStubVerificationAttribute {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ReportToken {
     #[serde(rename = "report_type")]
     ///The report type. It can be `assets` or `income`.
@@ -12031,7 +12031,7 @@ pub enum ReportType {
     #[serde(rename = "income")]
     Income,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DocumentRiskSignal {
     #[serde(rename = "type")]
     ///The result from the risk signal check.
@@ -12060,7 +12060,7 @@ impl std::fmt::Display for DocumentRiskSignal {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DocumentRiskSignalInstitutionMetadata {
     #[serde(rename = "item_id")]
     ///The `item_id` of the Item associated with this webhook, warning, or error
@@ -12071,7 +12071,7 @@ impl std::fmt::Display for DocumentRiskSignalInstitutionMetadata {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayrollItemStatus {
     #[serde(rename = "processing_status")]
     /**Denotes the processing status for the verification.
@@ -12138,7 +12138,7 @@ pub struct CreditW2 {
     pub allocated_tips: Option<String>,
     #[serde(rename = "box_9")]
     ///Contents from box 9 on the W2.
-    pub box_9: Option<String>,
+    pub box9: Option<String>,
     #[serde(rename = "dependent_care_benefits")]
     ///Dependent care benefits.
     pub dependent_care_benefits: Option<String>,
@@ -12146,7 +12146,7 @@ pub struct CreditW2 {
     ///Nonqualified plans.
     pub nonqualified_plans: Option<String>,
     #[serde(rename = "box_12")]
-    pub box_12: Vec<W2Box12>,
+    pub box12: Vec<W2Box12>,
     #[serde(rename = "statutory_employee")]
     ///Statutory employee.
     pub statutory_employee: Option<String>,
@@ -12167,7 +12167,7 @@ impl std::fmt::Display for CreditW2 {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PayrollIncomeRateOfPay {
     #[serde(rename = "pay_rate")]
     ///The rate at which an employee is paid.
@@ -12181,7 +12181,7 @@ impl std::fmt::Display for PayrollIncomeRateOfPay {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomePrecheckRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -12201,7 +12201,7 @@ impl std::fmt::Display for CreditPayrollIncomePrecheckRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomePrecheckResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12221,7 +12221,7 @@ impl std::fmt::Display for CreditPayrollIncomePrecheckResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeRefreshRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -12232,7 +12232,7 @@ impl std::fmt::Display for CreditPayrollIncomeRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeRefreshResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12250,7 +12250,7 @@ impl std::fmt::Display for CreditPayrollIncomeRefreshResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditEmploymentGetRequest {
     #[serde(rename = "user_token")]
     ///The user token associated with the User data is being requested for.
@@ -12261,7 +12261,7 @@ impl std::fmt::Display for CreditEmploymentGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditEmploymentGetResponse {
     #[serde(rename = "items")]
     ///Array of employment items.
@@ -12275,7 +12275,7 @@ impl std::fmt::Display for CreditEmploymentGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditEmploymentItem {
     #[serde(rename = "item_id")]
     ///The `item_id` of the Item associated with this webhook, warning, or error
@@ -12335,7 +12335,7 @@ impl std::fmt::Display for CreditEmploymentVerification {
 pub struct CreditEmploymentEmployeeType(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreditEmploymentVerificationStatus(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditEmployerVerification {
     #[serde(rename = "name")]
     ///Name of employer.
@@ -12346,7 +12346,7 @@ impl std::fmt::Display for CreditEmployerVerification {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditPlatformIds {
     #[serde(rename = "employee_id")]
     ///The ID of an employee as given by their employer.
@@ -12363,7 +12363,7 @@ impl std::fmt::Display for CreditPlatformIds {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeWarning {
     #[serde(rename = "warning_type")]
     ///The warning type which will always be `BANK_INCOME_WARNING`.
@@ -12400,7 +12400,7 @@ pub enum CreditBankIncomeWarningCode {
     #[serde(rename = "REPORT_DELETED")]
     ReportDeleted,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeCause {
     #[serde(rename = "error_type")]
     ///A broad categorization of the error. Safe for programmatic use.
@@ -12459,7 +12459,7 @@ pub enum CreditBankIncomeErrorType {
     #[serde(rename = "ACCESS_NOT_GRANTED")]
     AccessNotGranted,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayCreateRequest {
     #[serde(rename = "report_tokens")]
     ///List of report tokens, with at most one token of each report type. Currently only Asset Report token is supported.
@@ -12476,7 +12476,7 @@ impl std::fmt::Display for CreditRelayCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayCreateResponse {
     #[serde(rename = "relay_token")]
     ///A token that can be shared with a third party to allow them to access the Asset Report. This token should be stored securely.
@@ -12490,7 +12490,7 @@ impl std::fmt::Display for CreditRelayCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayGetRequest {
     #[serde(rename = "relay_token")]
     ///The `relay_token` granting access to the report you would like to get.
@@ -12504,7 +12504,7 @@ impl std::fmt::Display for CreditRelayGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayRefreshRequest {
     #[serde(rename = "relay_token")]
     ///The `relay_token` granting access to the report you would like to refresh.
@@ -12521,7 +12521,7 @@ impl std::fmt::Display for CreditRelayRefreshRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayRefreshResponse {
     #[serde(rename = "relay_token")]
     pub relay_token: String,
@@ -12537,7 +12537,7 @@ impl std::fmt::Display for CreditRelayRefreshResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayRemoveRequest {
     #[serde(rename = "relay_token")]
     ///The `relay_token` you would like to revoke.
@@ -12548,7 +12548,7 @@ impl std::fmt::Display for CreditRelayRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreditRelayRemoveResponse {
     #[serde(rename = "removed")]
     ///`true` if the Relay token was successfully removed.
@@ -12562,7 +12562,7 @@ impl std::fmt::Display for CreditRelayRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxBankTransferFireWebhookRequest {
     #[serde(rename = "webhook")]
     ///The URL to which the webhook should be sent.
@@ -12573,7 +12573,7 @@ impl std::fmt::Display for SandboxBankTransferFireWebhookRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxBankTransferFireWebhookResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12584,7 +12584,7 @@ impl std::fmt::Display for SandboxBankTransferFireWebhookResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferFireWebhookRequest {
     #[serde(rename = "webhook")]
     ///The URL to which the webhook should be sent.
@@ -12595,7 +12595,7 @@ impl std::fmt::Display for SandboxTransferFireWebhookRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxTransferFireWebhookResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12608,7 +12608,7 @@ impl std::fmt::Display for SandboxTransferFireWebhookResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ApplicationId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Application {
     #[serde(rename = "application_id")]
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
@@ -12655,7 +12655,7 @@ impl std::fmt::Display for Application {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ApplicationGetRequest {
     #[serde(rename = "application_id")]
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
@@ -12680,7 +12680,7 @@ impl std::fmt::Display for ApplicationGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ProductAccess {
     #[serde(rename = "statements")]
     ///Allow access to statements. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
@@ -12715,7 +12715,7 @@ impl std::fmt::Display for ProductAccess {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountAccess {
     #[serde(rename = "unique_id")]
     ///The unique account identifier for this account. This value must match that returned by the data access API for this account.
@@ -12733,8 +12733,8 @@ impl std::fmt::Display for AccountAccess {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct AccountProductAccessNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct AccountProductAccessNullable(pub AccountProductAccess);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountProductAccess {
     #[serde(rename = "account_data")]
     ///Allow the application to access account data. Only used by certain partners. If relevant to the partner and unset, defaults to `true`.
@@ -12752,8 +12752,8 @@ impl std::fmt::Display for AccountProductAccess {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ScopesNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct ScopesNullable(pub Scopes);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Scopes {
     #[serde(rename = "product_access")]
     ///The product access being requested. Used to or disallow product access across all accounts. If unset, defaults to all products allowed.
@@ -12801,7 +12801,7 @@ impl std::fmt::Display for ItemApplicationScopesUpdateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemApplicationScopesUpdateResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12812,7 +12812,7 @@ impl std::fmt::Display for ItemApplicationScopesUpdateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemApplicationListRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -12823,7 +12823,7 @@ impl std::fmt::Display for ItemApplicationListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemApplicationListResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12837,7 +12837,7 @@ impl std::fmt::Display for ItemApplicationListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ConnectedApplication {
     #[serde(rename = "application_id")]
     ///This field will map to the application ID that is returned from /item/applications/list, or provided to the institution in an oauth redirect.
@@ -12878,20 +12878,20 @@ pub enum AccountSelectionCardinality {
     #[serde(rename = "ALL")]
     All,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccountFilter {
     #[serde(rename = "depository")]
     ///A list of account subtypes to be filtered.
-    pub depository: Option<AccountFilterSubtypes>,
+    pub depository: Option<Vec<String>>,
     #[serde(rename = "credit")]
     ///A list of account subtypes to be filtered.
-    pub credit: Option<AccountFilterSubtypes>,
+    pub credit: Option<Vec<String>>,
     #[serde(rename = "loan")]
     ///A list of account subtypes to be filtered.
-    pub loan: Option<AccountFilterSubtypes>,
+    pub loan: Option<Vec<String>>,
     #[serde(rename = "investment")]
     ///A list of account subtypes to be filtered.
-    pub investment: Option<AccountFilterSubtypes>,
+    pub investment: Option<Vec<String>>,
 }
 impl std::fmt::Display for AccountFilter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -12900,7 +12900,7 @@ impl std::fmt::Display for AccountFilter {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountFilterSubtypes(pub Vec<String>);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxIncomeFireWebhookRequest {
     #[serde(rename = "item_id")]
     ///The Item ID associated with the verification.
@@ -12924,7 +12924,7 @@ impl std::fmt::Display for SandboxIncomeFireWebhookRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxIncomeFireWebhookResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -12935,7 +12935,7 @@ impl std::fmt::Display for SandboxIncomeFireWebhookResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemApplicationListUserAuth {
     #[serde(rename = "user_id")]
     ///Account username.
@@ -12949,7 +12949,7 @@ impl std::fmt::Display for ItemApplicationListUserAuth {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalEvaluateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -12981,7 +12981,7 @@ impl std::fmt::Display for SignalEvaluateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalUser {
     #[serde(rename = "name")]
     ///The user's legal name
@@ -13001,7 +13001,7 @@ impl std::fmt::Display for SignalUser {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalPersonName {
     #[serde(rename = "prefix")]
     ///The user's name prefix (e.g. "Mr.")
@@ -13024,7 +13024,7 @@ impl std::fmt::Display for SignalPersonName {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalAddressData {
     #[serde(rename = "city")]
     ///The full city name
@@ -13049,7 +13049,7 @@ impl std::fmt::Display for SignalAddressData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalDevice {
     #[serde(rename = "ip_address")]
     ///The IP address of the device that initiated the transaction
@@ -13088,7 +13088,7 @@ impl std::fmt::Display for SignalEvaluateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalScores {
     #[serde(rename = "customer_initiated_return_risk")]
     ///The object contains a risk score and a risk tier that evaluate the transaction return risk of an unauthorized debit. Common return codes in this category include: "R05", "R07", "R10", "R11", "R29". These returns typically have a return time frame of up to 60 calendar days. During this period, the customer of financial institutions can dispute a transaction as unauthorized.
@@ -13106,7 +13106,7 @@ impl std::fmt::Display for SignalScores {
 pub struct SignalScore(pub i64);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CustomerInitiatedRiskTier(pub i64);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CustomerInitiatedReturnRisk {
     #[serde(rename = "score")]
     ///A score from 0-99 that indicates the transaction return risk: a higher risk score suggests a higher return likelihood.
@@ -13130,7 +13130,7 @@ impl std::fmt::Display for CustomerInitiatedReturnRisk {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BankInitiatedRiskTier(pub i64);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct BankInitiatedReturnRisk {
     #[serde(rename = "score")]
     ///A score from 0-99 that indicates the transaction return risk: a higher risk score suggests a higher return likelihood.
@@ -13153,41 +13153,41 @@ impl std::fmt::Display for BankInitiatedReturnRisk {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalEvaluateCoreAttributes {
     #[serde(rename = "unauthorized_transactions_count_7d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to unauthorized transactions over the past 7 days from the account that will be debited.
-    pub unauthorized_transactions_count_7_d: Option<i64>,
+    pub unauthorized_transactions_count7_d: Option<i64>,
     #[serde(rename = "unauthorized_transactions_count_30d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to unauthorized transactions over the past 30 days from the account that will be debited.
-    pub unauthorized_transactions_count_30_d: Option<i64>,
+    pub unauthorized_transactions_count30_d: Option<i64>,
     #[serde(rename = "unauthorized_transactions_count_60d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to unauthorized transactions over the past 60 days from the account that will be debited.
-    pub unauthorized_transactions_count_60_d: Option<i64>,
+    pub unauthorized_transactions_count60_d: Option<i64>,
     #[serde(rename = "unauthorized_transactions_count_90d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to unauthorized transactions over the past 90 days from the account that will be debited.
-    pub unauthorized_transactions_count_90_d: Option<i64>,
+    pub unauthorized_transactions_count90_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_7d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to non-sufficient funds/overdrafts over the past 7 days from the account that will be debited.
-    pub nsf_overdraft_transactions_count_7_d: Option<i64>,
+    pub nsf_overdraft_transactions_count7_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_30d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to non-sufficient funds/overdrafts over the past 30 days from the account that will be debited.
-    pub nsf_overdraft_transactions_count_30_d: Option<i64>,
+    pub nsf_overdraft_transactions_count30_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_60d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to non-sufficient funds/overdrafts over the past 60 days from the account that will be debited.
-    pub nsf_overdraft_transactions_count_60_d: Option<i64>,
+    pub nsf_overdraft_transactions_count60_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_90d")]
     ///We parse and analyze historical transaction metadata to identify the number of possible past returns due to non-sufficient funds/overdrafts over the past 90 days from the account that will be debited.
-    pub nsf_overdraft_transactions_count_90_d: Option<i64>,
+    pub nsf_overdraft_transactions_count90_d: Option<i64>,
     #[serde(rename = "days_since_first_plaid_connection")]
     ///The number of days since the first time the Item was connected to an application via Plaid
     pub days_since_first_plaid_connection: Option<i64>,
     #[serde(rename = "plaid_connections_count_7d")]
     ///The number of times the Item has been connected to applications via Plaid over the past 7 days
-    pub plaid_connections_count_7_d: Option<i64>,
+    pub plaid_connections_count7_d: Option<i64>,
     #[serde(rename = "plaid_connections_count_30d")]
     ///The number of times the Item has been connected to applications via Plaid over the past 30 days
-    pub plaid_connections_count_30_d: Option<i64>,
+    pub plaid_connections_count30_d: Option<i64>,
     #[serde(rename = "total_plaid_connections_count")]
     ///The total number of times the Item has been connected to applications via Plaid
     pub total_plaid_connections_count: Option<i64>,
@@ -13196,43 +13196,43 @@ pub struct SignalEvaluateCoreAttributes {
     pub is_savings_or_money_market_account: Option<bool>,
     #[serde(rename = "total_credit_transactions_amount_10d")]
     ///The total credit (inflow) transaction amount over the past 10 days from the account that will be debited
-    pub total_credit_transactions_amount_10_d: Option<f64>,
+    pub total_credit_transactions_amount10_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_10d")]
     ///The total debit (outflow) transaction amount over the past 10 days from the account that will be debited
-    pub total_debit_transactions_amount_10_d: Option<f64>,
+    pub total_debit_transactions_amount10_d: Option<f64>,
     #[serde(rename = "p50_credit_transactions_amount_28d")]
     ///The 50th percentile of all credit (inflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p_50_credit_transactions_amount_28_d: Option<f64>,
+    pub p50_credit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "p50_debit_transactions_amount_28d")]
     ///The 50th percentile of all debit (outflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p_50_debit_transactions_amount_28_d: Option<f64>,
+    pub p50_debit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "p95_credit_transactions_amount_28d")]
     ///The 95th percentile of all credit (inflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p_95_credit_transactions_amount_28_d: Option<f64>,
+    pub p95_credit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "p95_debit_transactions_amount_28d")]
     ///The 95th percentile of all debit (outflow) transaction amounts over the past 28 days from the account that will be debited
-    pub p_95_debit_transactions_amount_28_d: Option<f64>,
+    pub p95_debit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "days_with_negative_balance_count_90d")]
     ///The number of days within the past 90 days when the account that will be debited had a negative end-of-day available balance
-    pub days_with_negative_balance_count_90_d: Option<i64>,
+    pub days_with_negative_balance_count90_d: Option<i64>,
     #[serde(rename = "p90_eod_balance_30d")]
     ///The 90th percentile of the end-of-day available balance over the past 30 days of the account that will be debited
-    pub p_90_eod_balance_30_d: Option<f64>,
+    pub p90_eod_balance30_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_60d")]
     ///The 90th percentile of the end-of-day available balance over the past 60 days of the account that will be debited
-    pub p_90_eod_balance_60_d: Option<f64>,
+    pub p90_eod_balance60_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_90d")]
     ///The 90th percentile of the end-of-day available balance over the past 90 days of the account that will be debited
-    pub p_90_eod_balance_90_d: Option<f64>,
+    pub p90_eod_balance90_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_30d")]
     ///The 10th percentile of the end-of-day available balance over the past 30 days of the account that will be debited
-    pub p_10_eod_balance_30_d: Option<f64>,
+    pub p10_eod_balance30_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_60d")]
     ///The 10th percentile of the end-of-day available balance over the past 60 days of the account that will be debited
-    pub p_10_eod_balance_60_d: Option<f64>,
+    pub p10_eod_balance60_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_90d")]
     ///The 10th percentile of the end-of-day available balance over the past 90 days of the account that will be debited
-    pub p_10_eod_balance_90_d: Option<f64>,
+    pub p10_eod_balance90_d: Option<f64>,
     #[serde(rename = "available_balance")]
     ///Available balance, as of the `balance_last_updated` time. The available balance is the current balance less any outstanding holds or debits that have not yet posted to the account.
     pub available_balance: Option<f64>,
@@ -13244,116 +13244,116 @@ pub struct SignalEvaluateCoreAttributes {
     pub balance_last_updated: Option<String>,
     #[serde(rename = "phone_change_count_28d")]
     ///The number of times the account's phone numbers on file have changed over the past 28 days
-    pub phone_change_count_28_d: Option<i64>,
+    pub phone_change_count28_d: Option<i64>,
     #[serde(rename = "phone_change_count_90d")]
     ///The number of times the account's phone numbers on file have changed over the past 90 days
-    pub phone_change_count_90_d: Option<i64>,
+    pub phone_change_count90_d: Option<i64>,
     #[serde(rename = "email_change_count_28d")]
     ///The number of times the account's email addresses on file have changed over the past 28 days
-    pub email_change_count_28_d: Option<i64>,
+    pub email_change_count28_d: Option<i64>,
     #[serde(rename = "email_change_count_90d")]
     ///The number of times the account's email addresses on file have changed over the past 90 days
-    pub email_change_count_90_d: Option<i64>,
+    pub email_change_count90_d: Option<i64>,
     #[serde(rename = "address_change_count_28d")]
     ///The number of times the account's addresses on file have changed over the past 28 days
-    pub address_change_count_28_d: Option<i64>,
+    pub address_change_count28_d: Option<i64>,
     #[serde(rename = "address_change_count_90d")]
     ///The number of times the account's addresses on file have changed over the past 90 days
-    pub address_change_count_90_d: Option<i64>,
+    pub address_change_count90_d: Option<i64>,
     #[serde(rename = "plaid_non_oauth_authentication_attempts_count_3d")]
     ///The number of non-OAuth authentication attempts via Plaid for this bank account over the past 3 days
-    pub plaid_non_oauth_authentication_attempts_count_3_d: Option<i64>,
+    pub plaid_non_oauth_authentication_attempts_count3_d: Option<i64>,
     #[serde(rename = "plaid_non_oauth_authentication_attempts_count_7d")]
     ///The number of non-OAuth authentication attempts via Plaid for this bank account over the past 7 days
-    pub plaid_non_oauth_authentication_attempts_count_7_d: Option<i64>,
+    pub plaid_non_oauth_authentication_attempts_count7_d: Option<i64>,
     #[serde(rename = "plaid_non_oauth_authentication_attempts_count_30d")]
     ///The number of non-OAuth authentication attempts via Plaid for this bank account over the past 30 days
-    pub plaid_non_oauth_authentication_attempts_count_30_d: Option<i64>,
+    pub plaid_non_oauth_authentication_attempts_count30_d: Option<i64>,
     #[serde(rename = "failed_plaid_non_oauth_authentication_attempts_count_3d")]
     ///The number of failed non-OAuth authentication attempts via Plaid for this bank account over the past 3 days
-    pub failed_plaid_non_oauth_authentication_attempts_count_3_d: Option<i64>,
+    pub failed_plaid_non_oauth_authentication_attempts_count3_d: Option<i64>,
     #[serde(rename = "failed_plaid_non_oauth_authentication_attempts_count_7d")]
     ///The number of failed non-OAuth authentication attempts via Plaid for this bank account over the past 7 days
-    pub failed_plaid_non_oauth_authentication_attempts_count_7_d: Option<i64>,
+    pub failed_plaid_non_oauth_authentication_attempts_count7_d: Option<i64>,
     #[serde(rename = "failed_plaid_non_oauth_authentication_attempts_count_30d")]
     ///The number of failed non-OAuth authentication attempts via Plaid for this bank account over the past 30 days
-    pub failed_plaid_non_oauth_authentication_attempts_count_30_d: Option<i64>,
+    pub failed_plaid_non_oauth_authentication_attempts_count30_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_10d")]
     ///The total number of debit (outflow) transactions over the past 10 days from the account that will be debited
-    pub debit_transactions_count_10_d: Option<i64>,
+    pub debit_transactions_count10_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_10d")]
     ///The total number of credit (inflow) transactions over the past 10 days from the account that will be debited
-    pub credit_transactions_count_10_d: Option<i64>,
+    pub credit_transactions_count10_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_30d")]
     ///The total number of debit (outflow) transactions over the past 30 days from the account that will be debited
-    pub debit_transactions_count_30_d: Option<i64>,
+    pub debit_transactions_count30_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_30d")]
     ///The total number of credit (inflow) transactions over the past 30 days from the account that will be debited
-    pub credit_transactions_count_30_d: Option<i64>,
+    pub credit_transactions_count30_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_60d")]
     ///The total number of debit (outflow) transactions over the past 60 days from the account that will be debited
-    pub debit_transactions_count_60_d: Option<i64>,
+    pub debit_transactions_count60_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_60d")]
     ///The total number of credit (inflow) transactions over the past 60 days from the account that will be debited
-    pub credit_transactions_count_60_d: Option<i64>,
+    pub credit_transactions_count60_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_90d")]
     ///The total number of debit (outflow) transactions over the past 90 days from the account that will be debited
-    pub debit_transactions_count_90_d: Option<i64>,
+    pub debit_transactions_count90_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_90d")]
     ///The total number of credit (inflow) transactions over the past 90 days from the account that will be debited
-    pub credit_transactions_count_90_d: Option<i64>,
+    pub credit_transactions_count90_d: Option<i64>,
     #[serde(rename = "total_debit_transactions_amount_30d")]
     ///The total debit (outflow) transaction amount over the past 30 days from the account that will be debited
-    pub total_debit_transactions_amount_30_d: Option<f64>,
+    pub total_debit_transactions_amount30_d: Option<f64>,
     #[serde(rename = "total_credit_transactions_amount_30d")]
     ///The total credit (inflow) transaction amount over the past 30 days from the account that will be debited
-    pub total_credit_transactions_amount_30_d: Option<f64>,
+    pub total_credit_transactions_amount30_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_60d")]
     ///The total debit (outflow) transaction amount over the past 60 days from the account that will be debited
-    pub total_debit_transactions_amount_60_d: Option<f64>,
+    pub total_debit_transactions_amount60_d: Option<f64>,
     #[serde(rename = "total_credit_transactions_amount_60d")]
     ///The total credit (inflow) transaction amount over the past 60 days from the account that will be debited
-    pub total_credit_transactions_amount_60_d: Option<f64>,
+    pub total_credit_transactions_amount60_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_90d")]
     ///The total debit (outflow) transaction amount over the past 90 days from the account that will be debited
-    pub total_debit_transactions_amount_90_d: Option<f64>,
+    pub total_debit_transactions_amount90_d: Option<f64>,
     #[serde(rename = "total_credit_transactions_amount_90d")]
     ///The total credit (inflow) transaction amount over the past 90 days from the account that will be debited
-    pub total_credit_transactions_amount_90_d: Option<f64>,
+    pub total_credit_transactions_amount90_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_30d")]
     ///The 50th percentile of the end-of-day available balance over the past 30 days of the account that will be debited
-    pub p_50_eod_balance_30_d: Option<f64>,
+    pub p50_eod_balance30_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_60d")]
     ///The 50th percentile of the end-of-day available balance over the past 60 days of the account that will be debited
-    pub p_50_eod_balance_60_d: Option<f64>,
+    pub p50_eod_balance60_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_90d")]
     ///The 50th percentile of the end-of-day available balance over the past 90 days of the account that will be debited
-    pub p_50_eod_balance_90_d: Option<f64>,
+    pub p50_eod_balance90_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_31d_to_60d")]
     ///The 50th percentile of the end-of-day available balance between day 31 and day 60 over the past 60 days of the account that will be debited
-    pub p_50_eod_balance_31_d_to_60_d: Option<f64>,
+    pub p50_eod_balance31_d_to60_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_61d_to_90d")]
     ///The 50th percentile of the end-of-day available balance between day 61 and day 90 over the past 60 days of the account that will be debited
-    pub p_50_eod_balance_61_d_to_90_d: Option<f64>,
+    pub p50_eod_balance61_d_to90_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_31d_to_60d")]
     ///The 90th percentile of the end-of-day available balance between day 31 and day 60 over the past 60 days of the account that will be debited
-    pub p_90_eod_balance_31_d_to_60_d: Option<f64>,
+    pub p90_eod_balance31_d_to60_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_61d_to_90d")]
     ///The 90th percentile of the end-of-day available balance between day 61 and day 90 over the past 60 days of the account that will be debited
-    pub p_90_eod_balance_61_d_to_90_d: Option<f64>,
+    pub p90_eod_balance61_d_to90_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_31d_to_60d")]
     ///The 10th percentile of the end-of-day available balance between day 31 and day 60 over the past 60 days of the account that will be debited
-    pub p_10_eod_balance_31_d_to_60_d: Option<f64>,
+    pub p10_eod_balance31_d_to60_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_61d_to_90d")]
     ///The 10th percentile of the end-of-day available balance between day 61 and day 90 over the past 60 days of the account that will be debited
-    pub p_10_eod_balance_61_d_to_90_d: Option<f64>,
+    pub p10_eod_balance61_d_to90_d: Option<f64>,
 }
 impl std::fmt::Display for SignalEvaluateCoreAttributes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalDecisionReportRequest {
     #[serde(rename = "client_transaction_id")]
     ///Must be the same as the `client_transaction_id` supplied when calling `/signal/evaluate`
@@ -13370,7 +13370,7 @@ impl std::fmt::Display for SignalDecisionReportRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalDecisionReportResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -13381,7 +13381,7 @@ impl std::fmt::Display for SignalDecisionReportResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalReturnReportRequest {
     #[serde(rename = "client_transaction_id")]
     ///Must be the same as the `client_transaction_id` supplied when calling `/signal/evaluate`
@@ -13395,7 +13395,7 @@ impl std::fmt::Display for SignalReturnReportRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalReturnReportResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -13406,7 +13406,7 @@ impl std::fmt::Display for SignalReturnReportResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalPrepareRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -13417,7 +13417,7 @@ impl std::fmt::Display for SignalPrepareRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignalPrepareResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -13428,7 +13428,7 @@ impl std::fmt::Display for SignalPrepareResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxOauthSelectAccountsRequest {
     #[serde(rename = "oauth_state_id")]
     pub oauth_state_id: String,
@@ -13440,14 +13440,14 @@ impl std::fmt::Display for SandboxOauthSelectAccountsRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SandboxOauthSelectAccountsResponse {}
 impl std::fmt::Display for SandboxOauthSelectAccountsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct NewAccountsAvailableWebhook {
     #[serde(rename = "webhook_type")]
     ///`ITEM`
@@ -13467,7 +13467,7 @@ impl std::fmt::Display for NewAccountsAvailableWebhook {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletCreateRequest {
     #[serde(rename = "iso_currency_code")]
     ///An ISO-4217 currency code, used with e-wallets and transactions.
@@ -13478,14 +13478,14 @@ impl std::fmt::Display for WalletCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletCreateResponse {}
 impl std::fmt::Display for WalletCreateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletGetRequest {
     #[serde(rename = "wallet_id")]
     ///The ID of the e-wallet
@@ -13496,14 +13496,14 @@ impl std::fmt::Display for WalletGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletGetResponse {}
 impl std::fmt::Display for WalletGetResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletListRequest {
     #[serde(rename = "iso_currency_code")]
     ///An ISO-4217 currency code, used with e-wallets and transactions.
@@ -13520,7 +13520,7 @@ impl std::fmt::Display for WalletListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletListResponse {
     #[serde(rename = "wallets")]
     ///An array of e-wallets
@@ -13554,7 +13554,7 @@ impl std::fmt::Display for Wallet {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletNumbers {
     #[serde(rename = "bacs")]
     ///An object containing a BACS account number and sort code. If an IBAN is not provided or if you need to accept domestic GBP-denominated payments, BACS data is required.
@@ -13568,7 +13568,7 @@ impl std::fmt::Display for WalletNumbers {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletBalance {
     #[serde(rename = "iso_currency_code")]
     ///The ISO-4217 currency code of the balance
@@ -13630,7 +13630,7 @@ impl std::fmt::Display for WalletTransactionCounterparty {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionCounterpartyNumbers {
     #[serde(rename = "bacs")]
     ///The account number and sort code of the counterparty's account
@@ -13645,8 +13645,8 @@ impl std::fmt::Display for WalletTransactionCounterpartyNumbers {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct WalletTransactionCounterpartyBacs(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct WalletTransactionCounterpartyBacs(pub RecipientBacs);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionCounterpartyInternational {
     #[serde(rename = "iban")]
     ///International Bank Account Number (IBAN).
@@ -13657,7 +13657,7 @@ impl std::fmt::Display for WalletTransactionCounterpartyInternational {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionAmount {
     #[serde(rename = "iso_currency_code")]
     ///An ISO-4217 currency code, used with e-wallets and transactions.
@@ -13671,7 +13671,7 @@ impl std::fmt::Display for WalletTransactionAmount {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionExecuteResponse {
     #[serde(rename = "transaction_id")]
     ///A unique ID identifying the transaction
@@ -13707,7 +13707,7 @@ pub enum WalletTransactionStatus {
     #[serde(rename = "FAILED")]
     Failed,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionGetRequest {
     #[serde(rename = "transaction_id")]
     ///The ID of the transaction to fetch
@@ -13718,14 +13718,14 @@ impl std::fmt::Display for WalletTransactionGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionGetResponse {}
 impl std::fmt::Display for WalletTransactionGetResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionsListRequest {
     #[serde(rename = "wallet_id")]
     ///The ID of the e-wallet to fetch transactions from
@@ -13742,7 +13742,7 @@ impl std::fmt::Display for WalletTransactionsListRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WalletTransactionsListResponse {
     #[serde(rename = "transactions")]
     ///An array of transactions of an e-wallet, associated with the given `wallet_id`
@@ -13803,7 +13803,7 @@ impl std::fmt::Display for WalletTransaction {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsEnhanceGetRequest {
     #[serde(rename = "account_type")]
     ///The type of account for the requested transactions (`depository` or `credit`).
@@ -13817,7 +13817,7 @@ impl std::fmt::Display for TransactionsEnhanceGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ClientProvidedRawTransaction {
     #[serde(rename = "id")]
     ///Unique transaction identifier to tie transactions back to clients' systems.
@@ -13837,7 +13837,7 @@ impl std::fmt::Display for ClientProvidedRawTransaction {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct TransactionsEnhanceGetResponse {
     #[serde(rename = "enhanced_transactions")]
     ///An array of enhanced transactions.
@@ -13925,14 +13925,14 @@ impl std::fmt::Display for Enhancements {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentProfileCreateRequest {}
 impl std::fmt::Display for PaymentProfileCreateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentProfileCreateResponse {
     #[serde(rename = "payment_profile_id")]
     ///Plaid’s unique identifier for a payment profile.
@@ -13948,7 +13948,7 @@ impl std::fmt::Display for PaymentProfileCreateResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentProfileId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentProfileGetRequest {
     #[serde(rename = "payment_profile_id")]
     ///Plaid’s unique identifier for a payment profile.
@@ -13959,7 +13959,7 @@ impl std::fmt::Display for PaymentProfileGetRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentProfileGetResponse {
     #[serde(rename = "updated_at")]
     ///Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDTHH:mm:ssZ`) indicating the last time the given Payment Profile was updated at
@@ -13994,7 +13994,7 @@ pub enum PaymentProfileStatus {
     #[serde(rename = "REMOVED")]
     Removed,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentProfileRemoveRequest {
     #[serde(rename = "payment_profile_id")]
     ///Plaid’s unique identifier for a payment profile.
@@ -14005,7 +14005,7 @@ impl std::fmt::Display for PaymentProfileRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaymentProfileRemoveResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -14016,9 +14016,27 @@ impl std::fmt::Display for PaymentProfileRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
-pub struct PartnerCustomersCreateRequest(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
+pub struct PartnerCustomersCreateRequest {
+    #[serde(rename = "company_name")]
+    ///The company name of the end customer being created.
+    pub company_name: String,
+    #[serde(rename = "is_diligence_attested")]
+    ///Denotes whether or not the partner has completed attestation of diligence for the end customer to be created.
+    pub is_diligence_attested: bool,
+    #[serde(rename = "products")]
+    ///The products to be enabled on for the end customer.
+    pub products: Vec<String>,
+    #[serde(rename = "create_link_customization")]
+    ///If true, sets end customer's link customization to match partner's link customization.
+    pub create_link_customization: Option<bool>,
+}
+impl std::fmt::Display for PartnerCustomersCreateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
+    }
+}
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PartnerCustomersCreateResponse {
     #[serde(rename = "end_customer")]
     ///The end customer details for the newly-created customer client.
@@ -14034,7 +14052,7 @@ impl std::fmt::Display for PartnerCustomersCreateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PartnerEndCustomerClient {
     #[serde(rename = "company_name")]
     pub company_name: Option<String>,
@@ -14063,14 +14081,14 @@ pub struct CreateEntityScreeningRequest {
     ///Search inputs for creating an entity watchlist screening
     pub search_terms: EntityWatchlistSearchTerms,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
 }
 impl std::fmt::Display for CreateEntityScreeningRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreateEntityWatchlistScreeningReviewRequest {
     #[serde(rename = "confirmed_hits")]
     ///Hits to mark as a true positive after thorough manual review. These hits will never recur or be updated once dismissed. In most cases, confirmed hits indicate that the customer should be rejected.
@@ -14090,7 +14108,7 @@ impl std::fmt::Display for CreateEntityWatchlistScreeningReviewRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct CreateIndividualWatchlistScreeningReviewRequest {
     #[serde(rename = "confirmed_hits")]
     ///Hits to mark as a true positive after thorough manual review. These hits will never recur or be updated once dismissed. In most cases, confirmed hits indicate that the customer should be rejected.
@@ -14112,7 +14130,7 @@ impl std::fmt::Display for CreateIndividualWatchlistScreeningReviewRequest {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Cursor(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DashboardUser {
     #[serde(rename = "id")]
     ///ID of the associated user.
@@ -14134,7 +14152,7 @@ impl std::fmt::Display for DashboardUser {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DashboardUserId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DashboardUserResponse {
     #[serde(rename = "id")]
     ///ID of the associated user.
@@ -14168,7 +14186,7 @@ pub enum DashboardUserStatus {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Date(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DateRange {
     #[serde(rename = "beginning")]
     ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
@@ -14182,7 +14200,7 @@ impl std::fmt::Display for DateRange {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DocumentAnalysis {
     #[serde(rename = "authenticity")]
     /**High level summary of whether the document in the provided image matches the formatting rules and security checks for the associated jurisdiction.
@@ -14267,7 +14285,7 @@ pub enum DocumentStatus {
     #[serde(rename = "manually_approved")]
     ManuallyApproved,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct DocumentaryVerification {
     #[serde(rename = "status")]
     ///The outcome status for the associated Identity Verification attempt's `documentary_verification` step. This field will always have the same value as `steps.documentary_verification`.
@@ -14308,7 +14326,7 @@ impl std::fmt::Display for DocumentaryVerificationDocument {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmailAddress(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityDocument {
     #[serde(rename = "type")]
     /**The kind of official document represented by this object.
@@ -14349,7 +14367,7 @@ pub enum EntityDocumentType {
     #[serde(rename = "tax_id")]
     TaxId,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitAnalysis {
     #[serde(rename = "documents")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -14444,7 +14462,7 @@ impl std::fmt::Display for EntityScreeningHitAnalysis {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitData {
     #[serde(rename = "documents")]
     ///Documents associated with the watchlist hit
@@ -14470,7 +14488,7 @@ impl std::fmt::Display for EntityScreeningHitData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitDocumentsItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -14484,7 +14502,7 @@ impl std::fmt::Display for EntityScreeningHitDocumentsItems {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitEmails {
     #[serde(rename = "email_address")]
     ///A valid email address.
@@ -14495,7 +14513,7 @@ impl std::fmt::Display for EntityScreeningHitEmails {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitEmailsItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -14509,7 +14527,7 @@ impl std::fmt::Display for EntityScreeningHitEmailsItems {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitNames {
     #[serde(rename = "full")]
     ///The full name of the entity.
@@ -14526,7 +14544,7 @@ impl std::fmt::Display for EntityScreeningHitNames {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitNamesItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -14540,7 +14558,7 @@ impl std::fmt::Display for EntityScreeningHitNamesItems {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitPhoneNumbers {
     #[serde(rename = "type")]
     ///An enum indicating whether a phone number is a phone line or a fax line.
@@ -14554,7 +14572,7 @@ impl std::fmt::Display for EntityScreeningHitPhoneNumbers {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitUrls {
     #[serde(rename = "url")]
     ///An 'http' or 'https' URL (must begin with either of those).
@@ -14565,7 +14583,7 @@ impl std::fmt::Display for EntityScreeningHitUrls {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitUrlsItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -14579,7 +14597,7 @@ impl std::fmt::Display for EntityScreeningHitUrlsItems {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitsPhoneNumberItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -14716,12 +14734,12 @@ pub struct EntityWatchlistScreening {
     ///Search terms associated with an entity used for searching against watchlists
     pub search_terms: EntityWatchlistScreeningSearchTerms,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "status")]
     ///A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared.
     pub status: String,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "audit_trail")]
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
     pub audit_trail: WatchlistScreeningAuditTrail,
@@ -14731,7 +14749,7 @@ impl std::fmt::Display for EntityWatchlistScreening {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityWatchlistScreeningHit {
     #[serde(rename = "id")]
     ///ID of the associated entity screening hit.
@@ -14786,12 +14804,12 @@ pub struct EntityWatchlistScreeningResponse {
     ///Search terms associated with an entity used for searching against watchlists
     pub search_terms: EntityWatchlistScreeningSearchTerms,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "status")]
     ///A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared.
     pub status: String,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "audit_trail")]
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
     pub audit_trail: WatchlistScreeningAuditTrail,
@@ -14855,7 +14873,7 @@ impl std::fmt::Display for EntityWatchlistScreeningReviewResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityWatchlistScreeningSearchTerms {
     #[serde(rename = "entity_watchlist_program_id")]
     ///ID of the associated entity program.
@@ -14864,15 +14882,15 @@ pub struct EntityWatchlistScreeningSearchTerms {
     ///The name of the organization being screened.
     pub legal_name: String,
     #[serde(rename = "document_number")]
-    pub document_number: Option<serde_json::Value>,
+    pub document_number: Option<String>,
     #[serde(rename = "email_address")]
-    pub email_address: Option<serde_json::Value>,
+    pub email_address: Option<String>,
     #[serde(rename = "country")]
-    pub country: Option<serde_json::Value>,
+    pub country: Option<String>,
     #[serde(rename = "phone_number")]
-    pub phone_number: Option<serde_json::Value>,
+    pub phone_number: Option<String>,
     #[serde(rename = "url")]
-    pub url: Option<serde_json::Value>,
+    pub url: Option<String>,
     #[serde(rename = "version")]
     ///The current version of the search terms. Starts at `1` and increments with each edit to `search_terms`.
     pub version: f64,
@@ -14882,7 +14900,7 @@ impl std::fmt::Display for EntityWatchlistScreeningSearchTerms {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct EntityWatchlistSearchTerms {
     #[serde(rename = "entity_watchlist_program_id")]
     ///ID of the associated entity program.
@@ -14891,15 +14909,15 @@ pub struct EntityWatchlistSearchTerms {
     ///The name of the organization being screened.
     pub legal_name: String,
     #[serde(rename = "document_number")]
-    pub document_number: Option<serde_json::Value>,
+    pub document_number: Option<String>,
     #[serde(rename = "email_address")]
-    pub email_address: Option<serde_json::Value>,
+    pub email_address: Option<String>,
     #[serde(rename = "country")]
-    pub country: Option<serde_json::Value>,
+    pub country: Option<String>,
     #[serde(rename = "phone_number")]
-    pub phone_number: Option<serde_json::Value>,
+    pub phone_number: Option<String>,
     #[serde(rename = "url")]
-    pub url: Option<serde_json::Value>,
+    pub url: Option<String>,
 }
 impl std::fmt::Display for EntityWatchlistSearchTerms {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -14919,7 +14937,7 @@ pub enum ExpirationDate {
 pub struct FamilyNameField(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GenericCountryCode(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GenericScreeningHitLocationItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -14933,7 +14951,7 @@ impl std::fmt::Display for GenericScreeningHitLocationItems {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GetDashboardUserRequest {
     #[serde(rename = "dashboard_user_id")]
     ///ID of the associated user.
@@ -14944,7 +14962,7 @@ impl std::fmt::Display for GetDashboardUserRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GetEntityWatchlistScreeningRequest {
     #[serde(rename = "entity_watchlist_screening_id")]
     ///ID of the associated entity screening.
@@ -14955,7 +14973,7 @@ impl std::fmt::Display for GetEntityWatchlistScreeningRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GetIdentityVerificationRequest {
     #[serde(rename = "identity_verification_id")]
     ///ID of the associated Identity Verification attempt.
@@ -14966,7 +14984,7 @@ impl std::fmt::Display for GetIdentityVerificationRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GetIndividualWatchlistScreeningRequest {
     #[serde(rename = "watchlist_screening_id")]
     ///ID of the associated screening.
@@ -14977,7 +14995,7 @@ impl std::fmt::Display for GetIndividualWatchlistScreeningRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GetWatchlistScreeningEntityProgramRequest {
     #[serde(rename = "entity_watchlist_program_id")]
     ///ID of the associated entity program.
@@ -14988,7 +15006,7 @@ impl std::fmt::Display for GetWatchlistScreeningEntityProgramRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct GetWatchlistScreeningIndividualProgramRequest {
     #[serde(rename = "watchlist_program_id")]
     ///ID of the associated program.
@@ -15157,7 +15175,7 @@ pub struct IdentityVerification {
     ///The outcome of the `kyc_check` step.
     pub kyc_check: Option<KycCheckDetails>,
     #[serde(rename = "watchlist_screening_id")]
-    pub watchlist_screening_id: Option<serde_json::Value>,
+    pub watchlist_screening_id: Option<String>,
 }
 impl std::fmt::Display for IdentityVerification {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -15211,13 +15229,13 @@ impl std::fmt::Display for IdentityVerificationCreateRequest {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IdentityVerificationId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationRequestUser {
     #[serde(rename = "client_user_id")]
     ///An identifier to help you connect this object to your internal systems. For example, your database ID corresponding to this object.
     pub client_user_id: String,
     #[serde(rename = "email_address")]
-    pub email_address: Option<serde_json::Value>,
+    pub email_address: Option<String>,
     #[serde(rename = "phone_number")]
     ///A phone number in E.164 format.
     pub phone_number: Option<String>,
@@ -15314,7 +15332,7 @@ pub struct IdentityVerificationResponse {
     ///The outcome of the `kyc_check` step.
     pub kyc_check: Option<KycCheckDetails>,
     #[serde(rename = "watchlist_screening_id")]
-    pub watchlist_screening_id: Option<serde_json::Value>,
+    pub watchlist_screening_id: Option<String>,
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
@@ -15324,7 +15342,7 @@ impl std::fmt::Display for IdentityVerificationResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationRetryRequest {
     #[serde(rename = "client_user_id")]
     ///An identifier to help you connect this object to your internal systems. For example, your database ID corresponding to this object.
@@ -15369,7 +15387,7 @@ impl std::fmt::Display for IdentityVerificationRetryRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationRetryRequestStepsObject {
     #[serde(rename = "verify_sms")]
     ///A boolean field specifying whether the new session should require or skip the `verify_sms` step.
@@ -15429,7 +15447,7 @@ pub enum IdentityVerificationStepStatus {
     #[serde(rename = "manually_rejected")]
     ManuallyRejected,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationStepSummary {
     #[serde(rename = "accept_tos")]
     ///The status of a step in the identity verification process.
@@ -15460,7 +15478,7 @@ impl std::fmt::Display for IdentityVerificationStepSummary {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IdentityVerificationTemplateId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationTemplateReference {
     #[serde(rename = "id")]
     ///ID of the associated Identity Verification template.
@@ -15476,19 +15494,19 @@ impl std::fmt::Display for IdentityVerificationTemplateReference {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IdentityVerificationTemplateVersion(pub f64);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationUserAddress {
     #[serde(rename = "street")]
-    pub street: Option<serde_json::Value>,
+    pub street: Option<String>,
     #[serde(rename = "street2")]
     ///Extra street information, like an apartment or suite number.
-    pub street_2: Option<String>,
+    pub street2: Option<String>,
     #[serde(rename = "city")]
-    pub city: Option<serde_json::Value>,
+    pub city: Option<String>,
     #[serde(rename = "region")]
-    pub region: Option<serde_json::Value>,
+    pub region: Option<String>,
     #[serde(rename = "postal_code")]
-    pub postal_code: Option<serde_json::Value>,
+    pub postal_code: Option<String>,
     #[serde(rename = "country")]
     ///Valid, capitalized, two-letter ISO code representing the country of this object. Must be in ISO 3166-1 alpha-2 form.
     pub country: String,
@@ -15498,7 +15516,7 @@ impl std::fmt::Display for IdentityVerificationUserAddress {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationUserData {
     #[serde(rename = "phone_number")]
     ///A phone number in E.164 format.
@@ -15510,7 +15528,7 @@ pub struct IdentityVerificationUserData {
     ///An IPv4 or IPV6 address.
     pub ip_address: Option<String>,
     #[serde(rename = "email_address")]
-    pub email_address: Option<serde_json::Value>,
+    pub email_address: Option<String>,
     #[serde(rename = "name")]
     ///The full name provided by the user. If the user has not submitted their name, this field will be null. Otherwise, both fields are guaranteed to be filled.
     pub name: Option<UserName>,
@@ -15537,7 +15555,7 @@ pub enum ImageQuality {
     #[serde(rename = "low")]
     Low,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct IndividualScreeningHitNames {
     #[serde(rename = "full")]
     ///The full name of the individual, including all parts.
@@ -15695,7 +15713,7 @@ pub enum IssuingCountry {
     #[serde(rename = "no_match")]
     NoMatch,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct KycCheckAddressSummary {
     #[serde(rename = "summary")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -15725,7 +15743,7 @@ impl std::fmt::Display for KycCheckAddressSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct KycCheckDateOfBirthSummary {
     #[serde(rename = "summary")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -15773,7 +15791,7 @@ impl std::fmt::Display for KycCheckDetails {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct KycCheckIdNumberSummary {
     #[serde(rename = "summary")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -15795,7 +15813,7 @@ impl std::fmt::Display for KycCheckIdNumberSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct KycCheckNameSummary {
     #[serde(rename = "summary")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -15817,7 +15835,7 @@ impl std::fmt::Display for KycCheckNameSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct KycCheckPhoneSummary {
     #[serde(rename = "summary")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -15839,7 +15857,7 @@ impl std::fmt::Display for KycCheckPhoneSummary {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListDashboardUserRequest {
     #[serde(rename = "cursor")]
     ///An identifier that determines which page of results you receive.
@@ -15850,17 +15868,17 @@ impl std::fmt::Display for ListDashboardUserRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListEntityWatchlistScreeningRequest {
     #[serde(rename = "entity_watchlist_program_id")]
     ///ID of the associated entity program.
     pub entity_watchlist_program_id: String,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "status")]
-    pub status: Option<serde_json::Value>,
+    pub status: Option<String>,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "cursor")]
     ///An identifier that determines which page of results you receive.
     pub cursor: Option<String>,
@@ -15870,7 +15888,7 @@ impl std::fmt::Display for ListEntityWatchlistScreeningRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListIdentityVerificationRequest {
     #[serde(rename = "template_id")]
     ///ID of the associated Identity Verification template.
@@ -15887,17 +15905,17 @@ impl std::fmt::Display for ListIdentityVerificationRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListIndividualWatchlistScreeningRequest {
     #[serde(rename = "watchlist_program_id")]
     ///ID of the associated program.
     pub watchlist_program_id: String,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "status")]
-    pub status: Option<serde_json::Value>,
+    pub status: Option<String>,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "cursor")]
     ///An identifier that determines which page of results you receive.
     pub cursor: Option<String>,
@@ -15907,7 +15925,7 @@ impl std::fmt::Display for ListIndividualWatchlistScreeningRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningEntityHistoryRequest {
     #[serde(rename = "entity_watchlist_screening_id")]
     ///ID of the associated entity screening.
@@ -15921,7 +15939,7 @@ impl std::fmt::Display for ListWatchlistScreeningEntityHistoryRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningEntityHitRequest {
     #[serde(rename = "entity_watchlist_screening_id")]
     ///ID of the associated entity screening.
@@ -15935,7 +15953,7 @@ impl std::fmt::Display for ListWatchlistScreeningEntityHitRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningEntityProgramsRequest {
     #[serde(rename = "cursor")]
     ///An identifier that determines which page of results you receive.
@@ -15946,7 +15964,7 @@ impl std::fmt::Display for ListWatchlistScreeningEntityProgramsRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningEntityReviewsRequest {
     #[serde(rename = "entity_watchlist_screening_id")]
     ///ID of the associated entity screening.
@@ -15960,7 +15978,7 @@ impl std::fmt::Display for ListWatchlistScreeningEntityReviewsRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningIndividualHistoryRequest {
     #[serde(rename = "watchlist_screening_id")]
     ///ID of the associated screening.
@@ -15974,7 +15992,7 @@ impl std::fmt::Display for ListWatchlistScreeningIndividualHistoryRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningIndividualHitRequest {
     #[serde(rename = "watchlist_screening_id")]
     ///ID of the associated screening.
@@ -15988,7 +16006,7 @@ impl std::fmt::Display for ListWatchlistScreeningIndividualHitRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningIndividualProgramsRequest {
     #[serde(rename = "cursor")]
     ///An identifier that determines which page of results you receive.
@@ -15999,7 +16017,7 @@ impl std::fmt::Display for ListWatchlistScreeningIndividualProgramsRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ListWatchlistScreeningIndividualReviewsRequest {
     #[serde(rename = "watchlist_screening_id")]
     ///ID of the associated screening.
@@ -16013,7 +16031,7 @@ impl std::fmt::Display for ListWatchlistScreeningIndividualReviewsRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct MatchSummary {
     #[serde(rename = "summary")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -16057,7 +16075,7 @@ pub enum PoBoxStatus {
     #[serde(rename = "no_data")]
     NoData,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedDashboardUserListResponse {
     #[serde(rename = "dashboard_users")]
     ///List of dashboard users
@@ -16074,7 +16092,7 @@ impl std::fmt::Display for PaginatedDashboardUserListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedEntityWatchlistProgramListResponse {
     #[serde(rename = "entity_watchlist_programs")]
     ///List of entity watchlist screening programs
@@ -16091,7 +16109,7 @@ impl std::fmt::Display for PaginatedEntityWatchlistProgramListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedEntityWatchlistScreeningHitListResponse {
     #[serde(rename = "entity_watchlist_screening_hits")]
     ///List of entity watchlist screening hits
@@ -16108,7 +16126,7 @@ impl std::fmt::Display for PaginatedEntityWatchlistScreeningHitListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedEntityWatchlistScreeningListResponse {
     #[serde(rename = "entity_watchlist_screenings")]
     ///List of entity watchlist screening
@@ -16125,7 +16143,7 @@ impl std::fmt::Display for PaginatedEntityWatchlistScreeningListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedEntityWatchlistScreeningReviewListResponse {
     #[serde(rename = "entity_watchlist_screening_reviews")]
     ///List of entity watchlist screening reviews
@@ -16142,7 +16160,7 @@ impl std::fmt::Display for PaginatedEntityWatchlistScreeningReviewListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedIdentityVerificationListResponse {
     #[serde(rename = "identity_verifications")]
     ///List of Plaid sessions
@@ -16159,7 +16177,7 @@ impl std::fmt::Display for PaginatedIdentityVerificationListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedIndividualWatchlistProgramListResponse {
     #[serde(rename = "watchlist_programs")]
     ///List of individual watchlist screening programs
@@ -16176,7 +16194,7 @@ impl std::fmt::Display for PaginatedIndividualWatchlistProgramListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedIndividualWatchlistScreeningHitListResponse {
     #[serde(rename = "watchlist_screening_hits")]
     ///List of individual watchlist screening hits
@@ -16193,7 +16211,7 @@ impl std::fmt::Display for PaginatedIndividualWatchlistScreeningHitListResponse 
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedIndividualWatchlistScreeningListResponse {
     #[serde(rename = "watchlist_screenings")]
     ///List of individual watchlist screenings
@@ -16210,7 +16228,7 @@ impl std::fmt::Display for PaginatedIndividualWatchlistScreeningListResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PaginatedIndividualWatchlistScreeningReviewListResponse {
     #[serde(rename = "watchlist_screening_reviews")]
     ///List of screening reviews
@@ -16247,7 +16265,7 @@ pub enum PhysicalDocumentCategory {
     #[serde(rename = "resident_card")]
     ResidentCard,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PhysicalDocumentExtractedData {
     #[serde(rename = "id_number")]
     ///Alpha-numeric ID number extracted via OCR from the user's document image.
@@ -16268,7 +16286,7 @@ pub struct PhysicalDocumentExtractedData {
 Note: This value may be different from the ID type that the user selects within Link. For example, if they select "Driver's License" but then submit a picture of a passport, this field will say `passport`*/
     pub category: String,
     #[serde(rename = "expiration_date")]
-    pub expiration_date: Option<serde_json::Value>,
+    pub expiration_date: Option<String>,
     #[serde(rename = "issuing_country")]
     ///Valid, capitalized, two-letter ISO code representing the country of this object. Must be in ISO 3166-1 alpha-2 form.
     pub issuing_country: String,
@@ -16278,7 +16296,7 @@ impl std::fmt::Display for PhysicalDocumentExtractedData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PhysicalDocumentExtractedDataAnalysis {
     #[serde(rename = "name")]
     ///A match summary describing the cross comparison between the subject's name, extracted from the document image, and the name they separately provided to identity verification attempt.
@@ -16304,7 +16322,7 @@ impl std::fmt::Display for PhysicalDocumentExtractedDataAnalysis {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PhysicalDocumentIdNumber(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct PhysicalDocumentImages {
     #[serde(rename = "original_front")]
     ///Temporary URL that expires after 60 seconds for downloading the uncropped original image of the front of the document.
@@ -16348,7 +16366,7 @@ pub enum ProgramNameSensitivity {
 pub struct Region(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ReviewComment(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ScreeningHitAnalysis {
     #[serde(rename = "dates_of_birth")]
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -16415,7 +16433,7 @@ impl std::fmt::Display for ScreeningHitAnalysis {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ScreeningHitData {
     #[serde(rename = "dates_of_birth")]
     ///Dates of birth associated with the watchlist hit
@@ -16435,7 +16453,7 @@ impl std::fmt::Display for ScreeningHitData {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ScreeningHitDateOfBirthItem {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -16449,7 +16467,7 @@ impl std::fmt::Display for ScreeningHitDateOfBirthItem {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ScreeningHitDocumentsItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -16463,7 +16481,7 @@ impl std::fmt::Display for ScreeningHitDocumentsItems {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ScreeningHitNamesItems {
     #[serde(rename = "analysis")]
     ///Summary object reflecting the match result of the associated data
@@ -16513,7 +16531,7 @@ pub struct Timestamp(pub String);
 pub struct TimestampNullable(pub String);
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Url(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UpdateEntityScreeningRequest {
     #[serde(rename = "entity_watchlist_screening_id")]
     ///ID of the associated entity screening.
@@ -16522,14 +16540,14 @@ pub struct UpdateEntityScreeningRequest {
     ///Search terms for editing an entity watchlist screening
     pub search_terms: Option<UpdateEntityScreeningRequestSearchTerms>,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "status")]
-    pub status: Option<serde_json::Value>,
+    pub status: Option<String>,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "reset_fields")]
     ///A list of fields to reset back to null
-    pub reset_fields: Option<UpdateEntityScreeningRequestResettableFieldList>,
+    pub reset_fields: Option<Vec<String>>,
 }
 impl std::fmt::Display for UpdateEntityScreeningRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -16543,30 +16561,30 @@ pub enum UpdateEntityScreeningRequestResettableField {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UpdateEntityScreeningRequestResettableFieldList(pub Vec<String>);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UpdateEntityScreeningRequestSearchTerms {
     #[serde(rename = "entity_watchlist_program_id")]
     ///ID of the associated entity program.
     pub entity_watchlist_program_id: String,
     #[serde(rename = "legal_name")]
-    pub legal_name: Option<serde_json::Value>,
+    pub legal_name: Option<String>,
     #[serde(rename = "document_number")]
-    pub document_number: Option<serde_json::Value>,
+    pub document_number: Option<String>,
     #[serde(rename = "email_address")]
-    pub email_address: Option<serde_json::Value>,
+    pub email_address: Option<String>,
     #[serde(rename = "country")]
-    pub country: Option<serde_json::Value>,
+    pub country: Option<String>,
     #[serde(rename = "phone_number")]
-    pub phone_number: Option<serde_json::Value>,
+    pub phone_number: Option<String>,
     #[serde(rename = "url")]
-    pub url: Option<serde_json::Value>,
+    pub url: Option<String>,
 }
 impl std::fmt::Display for UpdateEntityScreeningRequestSearchTerms {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UpdateIndividualScreeningRequest {
     #[serde(rename = "watchlist_screening_id")]
     ///ID of the associated screening.
@@ -16575,14 +16593,14 @@ pub struct UpdateIndividualScreeningRequest {
     ///Search terms for editing an individual watchlist screening
     pub search_terms: Option<UpdateIndividualScreeningRequestSearchTerms>,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "status")]
-    pub status: Option<serde_json::Value>,
+    pub status: Option<String>,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "reset_fields")]
     ///A list of fields to reset back to null
-    pub reset_fields: Option<UpdateIndividualScreeningRequestResettableFieldList>,
+    pub reset_fields: Option<Vec<String>>,
 }
 impl std::fmt::Display for UpdateIndividualScreeningRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -16596,32 +16614,32 @@ pub enum UpdateIndividualScreeningRequestResettableField {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UpdateIndividualScreeningRequestResettableFieldList(pub Vec<String>);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UpdateIndividualScreeningRequestSearchTerms {
     #[serde(rename = "watchlist_program_id")]
-    pub watchlist_program_id: Option<serde_json::Value>,
+    pub watchlist_program_id: Option<String>,
     #[serde(rename = "legal_name")]
-    pub legal_name: Option<serde_json::Value>,
+    pub legal_name: Option<String>,
     #[serde(rename = "date_of_birth")]
-    pub date_of_birth: Option<serde_json::Value>,
+    pub date_of_birth: Option<String>,
     #[serde(rename = "document_number")]
-    pub document_number: Option<serde_json::Value>,
+    pub document_number: Option<String>,
     #[serde(rename = "country")]
-    pub country: Option<serde_json::Value>,
+    pub country: Option<String>,
 }
 impl std::fmt::Display for UpdateIndividualScreeningRequestSearchTerms {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UserAddress {
     #[serde(rename = "street")]
     ///The primary street portion of an address. If the user has submitted their address, this field will always be filled.
     pub street: String,
     #[serde(rename = "street2")]
     ///Extra street information, like an apartment or suite number.
-    pub street_2: Option<String>,
+    pub street2: Option<String>,
     #[serde(rename = "city")]
     ///City from the end user's address
     pub city: String,
@@ -16640,7 +16658,7 @@ impl std::fmt::Display for UserAddress {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UserIdNumber {
     #[serde(rename = "value")]
     ///Value of identity document value typed in by user. Alpha-numeric, with all formatting characters stripped.
@@ -16654,7 +16672,7 @@ impl std::fmt::Display for UserIdNumber {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct UserName {
     #[serde(rename = "given_name")]
     ///A string with at least one non-whitespace character, with a max length of 100 characters.
@@ -16670,13 +16688,13 @@ impl std::fmt::Display for UserName {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WatchlistProgramId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningAuditTrail {
     #[serde(rename = "source")]
     ///A type indicating whether a dashboard user, an API-based user, or Plaid last touched this object.
     pub source: String,
     #[serde(rename = "dashboard_user_id")]
-    pub dashboard_user_id: Option<serde_json::Value>,
+    pub dashboard_user_id: Option<String>,
     #[serde(rename = "timestamp")]
     ///An ISO8601 formatted timestamp.
     pub timestamp: String,
@@ -16692,14 +16710,14 @@ pub struct WatchlistScreeningCreateRequest {
     ///Search inputs for creating a watchlist screening
     pub search_terms: WatchlistScreeningRequestSearchTerms,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
 }
 impl std::fmt::Display for WatchlistScreeningCreateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningDocument {
     #[serde(rename = "type")]
     /**The kind of official document represented by this object.
@@ -16770,7 +16788,7 @@ pub enum WatchlistScreeningDocumentType {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WatchlistScreeningDocumentValue(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningHit {
     #[serde(rename = "id")]
     ///ID of the associated screening hit.
@@ -16810,7 +16828,7 @@ impl std::fmt::Display for WatchlistScreeningHit {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WatchlistScreeningHitId(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningHitLocations {
     #[serde(rename = "full")]
     ///The full location string, potentially including elements like street, city, postal codes and country codes. Note that this is not necessarily a complete or well-formatted address.
@@ -16842,12 +16860,12 @@ pub struct WatchlistScreeningIndividual {
     ///Search terms for creating an individual watchlist screening
     pub search_terms: WatchlistScreeningSearchTerms,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "status")]
     ///A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared.
     pub status: String,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "audit_trail")]
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
     pub audit_trail: WatchlistScreeningAuditTrail,
@@ -16870,12 +16888,12 @@ pub struct WatchlistScreeningIndividualResponse {
     ///Search terms for creating an individual watchlist screening
     pub search_terms: WatchlistScreeningSearchTerms,
     #[serde(rename = "assignee")]
-    pub assignee: Option<serde_json::Value>,
+    pub assignee: Option<String>,
     #[serde(rename = "status")]
     ///A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared.
     pub status: String,
     #[serde(rename = "client_user_id")]
-    pub client_user_id: Option<serde_json::Value>,
+    pub client_user_id: Option<String>,
     #[serde(rename = "audit_trail")]
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
     pub audit_trail: WatchlistScreeningAuditTrail,
@@ -16890,7 +16908,7 @@ impl std::fmt::Display for WatchlistScreeningIndividualResponse {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WatchlistScreeningPhoneNumber(pub String);
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningRequestSearchTerms {
     #[serde(rename = "watchlist_program_id")]
     ///ID of the associated program.
@@ -16899,11 +16917,11 @@ pub struct WatchlistScreeningRequestSearchTerms {
     ///The legal name of the individual being screened.
     pub legal_name: String,
     #[serde(rename = "date_of_birth")]
-    pub date_of_birth: Option<serde_json::Value>,
+    pub date_of_birth: Option<String>,
     #[serde(rename = "document_number")]
-    pub document_number: Option<serde_json::Value>,
+    pub document_number: Option<String>,
     #[serde(rename = "country")]
-    pub country: Option<serde_json::Value>,
+    pub country: Option<String>,
 }
 impl std::fmt::Display for WatchlistScreeningRequestSearchTerms {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
@@ -16961,7 +16979,7 @@ impl std::fmt::Display for WatchlistScreeningReviewResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningSearchTerms {
     #[serde(rename = "watchlist_program_id")]
     ///ID of the associated program.
@@ -16970,11 +16988,11 @@ pub struct WatchlistScreeningSearchTerms {
     ///The legal name of the individual being screened.
     pub legal_name: String,
     #[serde(rename = "date_of_birth")]
-    pub date_of_birth: Option<serde_json::Value>,
+    pub date_of_birth: Option<String>,
     #[serde(rename = "document_number")]
-    pub document_number: Option<serde_json::Value>,
+    pub document_number: Option<String>,
     #[serde(rename = "country")]
-    pub country: Option<serde_json::Value>,
+    pub country: Option<String>,
     #[serde(rename = "version")]
     ///The current version of the search terms. Starts at `1` and increments with each edit to `search_terms`.
     pub version: f64,
@@ -17002,7 +17020,7 @@ pub enum WeakAliasDetermination {
     #[serde(rename = "plaid")]
     Plaid,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemGetRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17030,7 +17048,7 @@ impl std::fmt::Display for ItemGetResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemRemoveRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17041,7 +17059,7 @@ impl std::fmt::Display for ItemRemoveRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemRemoveResponse {
     #[serde(rename = "request_id")]
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
@@ -17052,7 +17070,7 @@ impl std::fmt::Display for ItemRemoveResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemWebhookUpdateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17080,7 +17098,7 @@ impl std::fmt::Display for ItemWebhookUpdateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemAccessTokenInvalidateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17091,7 +17109,7 @@ impl std::fmt::Display for ItemAccessTokenInvalidateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemAccessTokenInvalidateResponse {
     #[serde(rename = "new_access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17105,7 +17123,7 @@ impl std::fmt::Display for ItemAccessTokenInvalidateResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemPublicTokenExchangeRequest {
     #[serde(rename = "public_token")]
     ///Your `public_token`, obtained from the Link `onSuccess` callback or `/sandbox/item/public_token/create`.
@@ -17116,7 +17134,7 @@ impl std::fmt::Display for ItemPublicTokenExchangeRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemPublicTokenExchangeResponse {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17133,7 +17151,7 @@ impl std::fmt::Display for ItemPublicTokenExchangeResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemPublicTokenCreateRequest {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17144,7 +17162,7 @@ impl std::fmt::Display for ItemPublicTokenCreateRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemPublicTokenCreateResponse {
     #[serde(rename = "public_token")]
     ///A `public_token` for the particular Item corresponding to the specified `access_token`
@@ -17177,7 +17195,7 @@ impl std::fmt::Display for ItemImportRequest {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemImportRequestOptions {
     #[serde(rename = "webhook")]
     /**Specifies a webhook URL to associate with an Item. Plaid fires a webhook if credentials fail.
@@ -17189,7 +17207,7 @@ impl std::fmt::Display for ItemImportRequestOptions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemImportRequestUserAuth {
     #[serde(rename = "user_id")]
     ///Opaque user identifier
@@ -17203,7 +17221,7 @@ impl std::fmt::Display for ItemImportRequestUserAuth {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemImportResponse {
     #[serde(rename = "access_token")]
     ///The access token associated with the Item data is being requested for.
@@ -17217,7 +17235,7 @@ impl std::fmt::Display for ItemImportResponse {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Item {
     #[serde(rename = "item_id")]
     ///The Plaid Item ID. The `item_id` is always unique; linking the same account at the same institution twice will result in two Items with different `item_id` values. Like all Plaid identifiers, the `item_id` is case-sensitive.
@@ -17265,7 +17283,7 @@ impl std::fmt::Display for Item {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemStatus {
     #[serde(rename = "investments")]
     ///Information about the last successful and failed investments update for the Item.
@@ -17283,8 +17301,8 @@ impl std::fmt::Display for ItemStatus {
     }
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ItemStatusNullable(pub serde_json::Value);
-#[derive(Debug, Serialize, Deserialize)]
+pub struct ItemStatusNullable(pub ItemStatus);
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemStatusTransactions {
     #[serde(rename = "last_successful_update")]
     ///[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of the last successful transactions update for the Item. The status will update each time Plaid successfully connects with the institution, regardless of whether any new data is available in the update.
@@ -17298,7 +17316,7 @@ impl std::fmt::Display for ItemStatusTransactions {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemStatusInvestments {
     #[serde(rename = "last_successful_update")]
     ///[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of the last successful investments update for the Item. The status will update each time Plaid successfully connects with the institution, regardless of whether any new data is available in the update.
@@ -17312,7 +17330,7 @@ impl std::fmt::Display for ItemStatusInvestments {
         write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct ItemStatusLastWebhook {
     #[serde(rename = "sent_at")]
     /**[ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp of when the webhook was fired.

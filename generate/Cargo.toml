@@ -6,7 +6,8 @@ edition = "2021"
 
 [dependencies]
 openapi-client-generator = { git = "https://github.com/libninjacom/openapi-client-generator" }
+serde_yaml = "0.8.23"
 
 # Use this for local development. Example:
-# [patch."https://github.com/libninjacom/openapi-client-generator"]
-# openapi-client-generator = { path = "/Users/kurt/work/openapi-client-generator" }
+[patch."https://github.com/libninjacom/openapi-client-generator"]
+openapi-client-generator = { path = "/Users/kurt/work/openapi-client-generator" }
