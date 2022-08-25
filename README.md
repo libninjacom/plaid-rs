@@ -55,7 +55,7 @@ Add this to your Cargo.toml:
 plaid = "3"
 ```
 
-# [Documentation](https://docs.rs/plaid-openapi/)
+# [Documentation](https://docs.rs/plaid/)
 
 # Previous Versions
 
