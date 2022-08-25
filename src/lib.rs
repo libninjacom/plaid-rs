@@ -210,12 +210,14 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
     pub fn transactions_sync(
         &self,
         access_token: &str,
+        cursor: &Option<String>,
+        count: &Option<i64>,
     ) -> request::TransactionsSyncRequest {
         request::TransactionsSyncRequest {
             client: &self,
             access_token: access_token.to_owned(),
-            cursor: None,
-            count: None,
+            cursor: cursor.clone(),
+            count: count.clone(),
             options: None,
         }
     }
