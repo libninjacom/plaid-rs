@@ -1,8 +1,8 @@
 use std::env;
 use std::fs::File;
-use openapi_client_generator::{OpenAPI, read_spec, GenerateLibraryOptions};
+use openapi_client_generator::{OpenAPI, GenerateLibraryOptions};
 use openapi_client_generator::generate_library;
-use openapi_client_generator::openapiv3::{ObjectType, SchemaKind, Type};
+use openapi_client_generator::openapiv3::{SchemaKind, Type};
 use openapi_client_generator::sourcegen::SourceGen;
 use serde_yaml::Value;
 

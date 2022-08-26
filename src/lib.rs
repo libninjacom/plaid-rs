@@ -3,7 +3,6 @@
 //! Library created with [`libninja`](https://www.libninja.com).
 #![allow(non_camel_case_types)]
 
-use serde_json::json;
 pub mod model;
 pub mod request;
 use crate::model::*;
@@ -19,6 +18,7 @@ impl PlaidClient {
             .with_authentication(PlaidAuthentication::from_env())
     }
 }
+///
 pub struct PlaidClient {
     pub(crate) client: httpclient::Client,
     authentication: Option<PlaidAuthentication>,
