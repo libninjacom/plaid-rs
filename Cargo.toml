@@ -9,6 +9,9 @@ readme = "README.md"
 license = "MIT"
 repository = "https://github.com/libninjacom/plaid-rs"
 
+[workspace]
+members = []
+
 [dependencies]
 anyhow = "1.0.57"
 httpclient = "0.2.0"
@@ -33,6 +36,574 @@ crate-type = ["rlib"]
 required-features = []
 
 [[example]]
+path = "examples/accounts_balance_get.rs"
+name = "accounts_balance_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/accounts_get.rs"
+name = "accounts_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/application_get.rs"
+name = "application_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_audit_copy_create.rs"
+name = "asset_report_audit_copy_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_audit_copy_get.rs"
+name = "asset_report_audit_copy_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_audit_copy_remove.rs"
+name = "asset_report_audit_copy_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_create.rs"
+name = "asset_report_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_filter.rs"
+name = "asset_report_filter"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_get.rs"
+name = "asset_report_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_pdf_get.rs"
+name = "asset_report_pdf_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_refresh.rs"
+name = "asset_report_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_relay_create.rs"
+name = "asset_report_relay_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_relay_get.rs"
+name = "asset_report_relay_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_relay_refresh.rs"
+name = "asset_report_relay_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_relay_remove.rs"
+name = "asset_report_relay_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/asset_report_remove.rs"
+name = "asset_report_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/auth_get.rs"
+name = "auth_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_balance_get.rs"
+name = "bank_transfer_balance_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_cancel.rs"
+name = "bank_transfer_cancel"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_create.rs"
+name = "bank_transfer_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_event_list.rs"
+name = "bank_transfer_event_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_event_sync.rs"
+name = "bank_transfer_event_sync"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_get.rs"
+name = "bank_transfer_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_list.rs"
+name = "bank_transfer_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_migrate_account.rs"
+name = "bank_transfer_migrate_account"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_sweep_get.rs"
+name = "bank_transfer_sweep_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/bank_transfer_sweep_list.rs"
+name = "bank_transfer_sweep_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/categories_get.rs"
+name = "categories_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/create_payment_token.rs"
+name = "create_payment_token"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_audit_copy_token_create.rs"
+name = "credit_audit_copy_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_bank_income_get.rs"
+name = "credit_bank_income_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_bank_income_pdf_get.rs"
+name = "credit_bank_income_pdf_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_bank_income_refresh.rs"
+name = "credit_bank_income_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_employment_get.rs"
+name = "credit_employment_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_payroll_income_get.rs"
+name = "credit_payroll_income_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_payroll_income_precheck.rs"
+name = "credit_payroll_income_precheck"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_payroll_income_refresh.rs"
+name = "credit_payroll_income_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_relay_create.rs"
+name = "credit_relay_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_relay_get.rs"
+name = "credit_relay_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_relay_refresh.rs"
+name = "credit_relay_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_relay_remove.rs"
+name = "credit_relay_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_report_audit_copy_remove.rs"
+name = "credit_report_audit_copy_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/dashboard_user_list.rs"
+name = "dashboard_user_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/dashobard_user_get.rs"
+name = "dashobard_user_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/deposit_switch_alt_create.rs"
+name = "deposit_switch_alt_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/deposit_switch_create.rs"
+name = "deposit_switch_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/deposit_switch_get.rs"
+name = "deposit_switch_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/deposit_switch_token_create.rs"
+name = "deposit_switch_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/employers_search.rs"
+name = "employers_search"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/employment_verification_get.rs"
+name = "employment_verification_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/identity_get.rs"
+name = "identity_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/identity_match.rs"
+name = "identity_match"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/identity_verification_create.rs"
+name = "identity_verification_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/identity_verification_get.rs"
+name = "identity_verification_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/identity_verification_list.rs"
+name = "identity_verification_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/identity_verification_retry.rs"
+name = "identity_verification_retry"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/income_verification_create.rs"
+name = "income_verification_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/income_verification_documents_download.rs"
+name = "income_verification_documents_download"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/income_verification_paystubs_get.rs"
+name = "income_verification_paystubs_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/income_verification_precheck.rs"
+name = "income_verification_precheck"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/income_verification_refresh.rs"
+name = "income_verification_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/income_verification_taxforms_get.rs"
+name = "income_verification_taxforms_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/institutions_get.rs"
+name = "institutions_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/institutions_get_by_id.rs"
+name = "institutions_get_by_id"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/institutions_search.rs"
+name = "institutions_search"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/investments_holdings_get.rs"
+name = "investments_holdings_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/investments_transactions_get.rs"
+name = "investments_transactions_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_access_token_invalidate.rs"
+name = "item_access_token_invalidate"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_application_list.rs"
+name = "item_application_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_application_scopes_update.rs"
+name = "item_application_scopes_update"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_create_public_token.rs"
+name = "item_create_public_token"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/item_get.rs"
 name = "item_get"
 plugin = false
@@ -41,8 +612,776 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/item_import.rs"
+name = "item_import"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_public_token_exchange.rs"
+name = "item_public_token_exchange"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_remove.rs"
+name = "item_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/item_webhook_update.rs"
+name = "item_webhook_update"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/liabilities_get.rs"
+name = "liabilities_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/link.rs"
+name = "link"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/link_token_create.rs"
+name = "link_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/link_token_get.rs"
+name = "link_token_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/partner_customers_create.rs"
+name = "partner_customers_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_consent_create.rs"
+name = "payment_initiation_consent_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_consent_get.rs"
+name = "payment_initiation_consent_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_consent_payment_execute.rs"
+name = "payment_initiation_consent_payment_execute"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_consent_revoke.rs"
+name = "payment_initiation_consent_revoke"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_payment_create.rs"
+name = "payment_initiation_payment_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_payment_get.rs"
+name = "payment_initiation_payment_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_payment_list.rs"
+name = "payment_initiation_payment_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_payment_reverse.rs"
+name = "payment_initiation_payment_reverse"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_recipient_create.rs"
+name = "payment_initiation_recipient_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_recipient_get.rs"
+name = "payment_initiation_recipient_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_initiation_recipient_list.rs"
+name = "payment_initiation_recipient_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_profile_create.rs"
+name = "payment_profile_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_profile_get.rs"
+name = "payment_profile_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/payment_profile_remove.rs"
+name = "payment_profile_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_apex_processor_token_create.rs"
+name = "processor_apex_processor_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_auth_get.rs"
+name = "processor_auth_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_balance_get.rs"
+name = "processor_balance_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_bank_transfer_create.rs"
+name = "processor_bank_transfer_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_identity_get.rs"
+name = "processor_identity_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_stripe_bank_account_token_create.rs"
+name = "processor_stripe_bank_account_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_token_create.rs"
+name = "processor_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_bank_transfer_fire_webhook.rs"
+name = "sandbox_bank_transfer_fire_webhook"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_bank_transfer_simulate.rs"
+name = "sandbox_bank_transfer_simulate"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_income_fire_webhook.rs"
+name = "sandbox_income_fire_webhook"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_item_fire_webhook.rs"
+name = "sandbox_item_fire_webhook"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_item_reset_login.rs"
+name = "sandbox_item_reset_login"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_item_set_verification_status.rs"
+name = "sandbox_item_set_verification_status"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_oauth_select_accounts.rs"
+name = "sandbox_oauth_select_accounts"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_processor_token_create.rs"
+name = "sandbox_processor_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_public_token_create.rs"
+name = "sandbox_public_token_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_fire_webhook.rs"
+name = "sandbox_transfer_fire_webhook"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_repayment_simulate.rs"
+name = "sandbox_transfer_repayment_simulate"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_simulate.rs"
+name = "sandbox_transfer_simulate"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_sweep_simulate.rs"
+name = "sandbox_transfer_sweep_simulate"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/signal_decision_report.rs"
+name = "signal_decision_report"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/signal_evaluate.rs"
+name = "signal_evaluate"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/signal_prepare.rs"
+name = "signal_prepare"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/signal_return_report.rs"
+name = "signal_return_report"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_enhance.rs"
+name = "transactions_enhance"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/transactions_get.rs"
 name = "transactions_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_recurring_get.rs"
+name = "transactions_recurring_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_refresh.rs"
+name = "transactions_refresh"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_rules_create.rs"
+name = "transactions_rules_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_rules_list.rs"
+name = "transactions_rules_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_rules_remove.rs"
+name = "transactions_rules_remove"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_sync.rs"
+name = "transactions_sync"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_authorization_create.rs"
+name = "transfer_authorization_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_cancel.rs"
+name = "transfer_cancel"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_create.rs"
+name = "transfer_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_event_list.rs"
+name = "transfer_event_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_event_sync.rs"
+name = "transfer_event_sync"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_get.rs"
+name = "transfer_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_intent_create.rs"
+name = "transfer_intent_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_intent_get.rs"
+name = "transfer_intent_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_list.rs"
+name = "transfer_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_migrate_account.rs"
+name = "transfer_migrate_account"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_repayment_list.rs"
+name = "transfer_repayment_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_repayment_return_list.rs"
+name = "transfer_repayment_return_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_sweep_get.rs"
+name = "transfer_sweep_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_sweep_list.rs"
+name = "transfer_sweep_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/user_create.rs"
+name = "user_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/wallet_create.rs"
+name = "wallet_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/wallet_get.rs"
+name = "wallet_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/wallet_list.rs"
+name = "wallet_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/wallet_transaction_execute.rs"
+name = "wallet_transaction_execute"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/wallet_transaction_get.rs"
+name = "wallet_transaction_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/wallet_transactions_list.rs"
+name = "wallet_transactions_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_create.rs"
+name = "watchlist_screening_entity_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_get.rs"
+name = "watchlist_screening_entity_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_history_list.rs"
+name = "watchlist_screening_entity_history_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_hits_list.rs"
+name = "watchlist_screening_entity_hits_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_list.rs"
+name = "watchlist_screening_entity_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_program_get.rs"
+name = "watchlist_screening_entity_program_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_program_list.rs"
+name = "watchlist_screening_entity_program_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_review_create.rs"
+name = "watchlist_screening_entity_review_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_review_list.rs"
+name = "watchlist_screening_entity_review_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_update.rs"
+name = "watchlist_screening_entity_update"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_create.rs"
+name = "watchlist_screening_individual_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_get.rs"
+name = "watchlist_screening_individual_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_history_list.rs"
+name = "watchlist_screening_individual_history_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_hit_list.rs"
+name = "watchlist_screening_individual_hit_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_list.rs"
+name = "watchlist_screening_individual_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_program_get.rs"
+name = "watchlist_screening_individual_program_get"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_program_list.rs"
+name = "watchlist_screening_individual_program_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_review_create.rs"
+name = "watchlist_screening_individual_review_create"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_reviews_list.rs"
+name = "watchlist_screening_individual_reviews_list"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_update.rs"
+name = "watchlist_screening_individual_update"
+plugin = false
+proc-macro = false
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/webhook_verification_key_get.rs"
+name = "webhook_verification_key_get"
 plugin = false
 proc-macro = false
 edition = "2021"

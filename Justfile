@@ -56,3 +56,6 @@ patch: test
 
 doc:
     cargo doc --no-deps --open
+
+example example:
+    cargo run --example $(basename {{example}} .rs)

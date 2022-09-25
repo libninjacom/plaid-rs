@@ -1,9 +1,9 @@
 use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
-/**Represents a itemApplicationList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemApplicationListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: Option<String>,
@@ -24,14 +24,14 @@ impl<'a> ItemApplicationListRequest<'a> {
             }
         }
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
 }
-/**Represents a itemApplicationScopesUpdate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemApplicationScopesUpdateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -60,12 +60,11 @@ impl<'a> ItemApplicationScopesUpdateRequest<'a> {
             }
         }
     }
-    pub fn state(mut self, state: String) -> Self {
-        self.state = Some(state);
+    pub fn state(mut self, state: &str) -> Self {
+        self.state = Some(state.to_owned());
         self
     }
 }
-///
 pub struct ItemApplicationScopesUpdateRequired<'a> {
     pub access_token: &'a str,
     pub application_id: &'a str,
@@ -73,9 +72,9 @@ pub struct ItemApplicationScopesUpdateRequired<'a> {
     pub context: &'a str,
 }
 impl<'a> ItemApplicationScopesUpdateRequired<'a> {}
-/**Represents a applicationGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ApplicationGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub application_id: String,
@@ -95,9 +94,9 @@ impl<'a> ApplicationGetRequest<'a> {
         }
     }
 }
-/**Represents a itemGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -117,9 +116,9 @@ impl<'a> ItemGetRequest<'a> {
         }
     }
 }
-/**Represents a authGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AuthGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -147,9 +146,9 @@ impl<'a> AuthGetRequest<'a> {
         self
     }
 }
-/**Represents a transactionsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub options: Option<TransactionsGetRequestOptions>,
@@ -181,9 +180,9 @@ impl<'a> TransactionsGetRequest<'a> {
         self
     }
 }
-/**Represents a transactionsRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -203,9 +202,9 @@ impl<'a> TransactionsRefreshRequest<'a> {
         }
     }
 }
-/**Represents a transactionsRecurringGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsRecurringGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -235,9 +234,9 @@ impl<'a> TransactionsRecurringGetRequest<'a> {
         self
     }
 }
-/**Represents a transactionsSync request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsSyncRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -268,8 +267,8 @@ impl<'a> TransactionsSyncRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -281,9 +280,9 @@ impl<'a> TransactionsSyncRequest<'a> {
         self
     }
 }
-/**Represents a institutionsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct InstitutionsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub count: i64,
@@ -315,9 +314,9 @@ impl<'a> InstitutionsGetRequest<'a> {
         self
     }
 }
-/**Represents a institutionsSearch request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct InstitutionsSearchRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub query: String,
@@ -361,9 +360,9 @@ impl<'a> InstitutionsSearchRequest<'a> {
         self
     }
 }
-/**Represents a institutionsGetById request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct InstitutionsGetByIdRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub institution_id: String,
@@ -393,9 +392,9 @@ impl<'a> InstitutionsGetByIdRequest<'a> {
         self
     }
 }
-/**Represents a itemRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -415,9 +414,9 @@ impl<'a> ItemRemoveRequest<'a> {
         }
     }
 }
-/**Represents a accountsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AccountsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -445,9 +444,9 @@ impl<'a> AccountsGetRequest<'a> {
         self
     }
 }
-/**Represents a categoriesGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CategoriesGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
 }
@@ -465,9 +464,9 @@ impl<'a> CategoriesGetRequest<'a> {
         }
     }
 }
-/**Represents a sandboxProcessorTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxProcessorTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub institution_id: String,
@@ -498,9 +497,9 @@ impl<'a> SandboxProcessorTokenCreateRequest<'a> {
         self
     }
 }
-/**Represents a sandboxPublicTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxPublicTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub institution_id: String,
@@ -533,14 +532,14 @@ impl<'a> SandboxPublicTokenCreateRequest<'a> {
         self.options = Some(options);
         self
     }
-    pub fn user_token(mut self, user_token: String) -> Self {
-        self.user_token = Some(user_token);
+    pub fn user_token(mut self, user_token: &str) -> Self {
+        self.user_token = Some(user_token.to_owned());
         self
     }
 }
-/**Represents a sandboxItemFireWebhook request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxItemFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -565,14 +564,14 @@ impl<'a> SandboxItemFireWebhookRequest<'a> {
             }
         }
     }
-    pub fn webhook_type(mut self, webhook_type: String) -> Self {
-        self.webhook_type = Some(webhook_type);
+    pub fn webhook_type(mut self, webhook_type: &str) -> Self {
+        self.webhook_type = Some(webhook_type.to_owned());
         self
     }
 }
-/**Represents a accountsBalanceGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AccountsBalanceGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -600,9 +599,9 @@ impl<'a> AccountsBalanceGetRequest<'a> {
         self
     }
 }
-/**Represents a identityGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IdentityGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -630,9 +629,9 @@ impl<'a> IdentityGetRequest<'a> {
         self
     }
 }
-/**Represents a identityMatch request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IdentityMatchRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -668,9 +667,9 @@ impl<'a> IdentityMatchRequest<'a> {
         self
     }
 }
-/**Represents a dashobardUserGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct DashobardUserGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub dashboard_user_id: String,
@@ -690,9 +689,9 @@ impl<'a> DashobardUserGetRequest<'a> {
         }
     }
 }
-/**Represents a dashboardUserList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct DashboardUserListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub cursor: Option<String>,
@@ -713,14 +712,14 @@ impl<'a> DashboardUserListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a identityVerificationCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IdentityVerificationCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub is_shareable: bool,
@@ -754,7 +753,6 @@ impl<'a> IdentityVerificationCreateRequest<'a> {
         self
     }
 }
-///
 pub struct IdentityVerificationCreateRequired<'a> {
     pub is_shareable: bool,
     pub template_id: &'a str,
@@ -762,9 +760,9 @@ pub struct IdentityVerificationCreateRequired<'a> {
     pub user: IdentityVerificationRequestUser,
 }
 impl<'a> IdentityVerificationCreateRequired<'a> {}
-/**Represents a identityVerificationGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IdentityVerificationGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub identity_verification_id: String,
@@ -787,9 +785,9 @@ impl<'a> IdentityVerificationGetRequest<'a> {
         }
     }
 }
-/**Represents a identityVerificationList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IdentityVerificationListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub template_id: String,
@@ -816,14 +814,14 @@ impl<'a> IdentityVerificationListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a identityVerificationRetry request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IdentityVerificationRetryRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub client_user_id: String,
@@ -855,9 +853,9 @@ impl<'a> IdentityVerificationRetryRequest<'a> {
         self
     }
 }
-/**Represents a watchlistScreeningEntityCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub search_terms: EntityWatchlistSearchTerms,
@@ -880,14 +878,14 @@ impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
             }
         }
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_screening_id: String,
@@ -913,9 +911,9 @@ impl<'a> WatchlistScreeningEntityGetRequest<'a> {
         }
     }
 }
-/**Represents a watchlistScreeningEntityHistoryList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityHistoryListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_screening_id: String,
@@ -946,14 +944,14 @@ impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityHitsList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityHitsListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_screening_id: String,
@@ -984,14 +982,14 @@ impl<'a> WatchlistScreeningEntityHitsListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_program_id: String,
@@ -1033,26 +1031,26 @@ impl<'a> WatchlistScreeningEntityListRequest<'a> {
             }
         }
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
-    pub fn status(mut self, status: String) -> Self {
-        self.status = Some(status);
+    pub fn status(mut self, status: &str) -> Self {
+        self.status = Some(status.to_owned());
         self
     }
-    pub fn assignee(mut self, assignee: String) -> Self {
-        self.assignee = Some(assignee);
+    pub fn assignee(mut self, assignee: &str) -> Self {
+        self.assignee = Some(assignee.to_owned());
         self
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityProgramGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityProgramGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_program_id: String,
@@ -1077,9 +1075,9 @@ impl<'a> WatchlistScreeningEntityProgramGetRequest<'a> {
         }
     }
 }
-/**Represents a watchlistScreeningEntityProgramList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityProgramListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub cursor: Option<String>,
@@ -1102,14 +1100,14 @@ impl<'a> WatchlistScreeningEntityProgramListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityReviewCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityReviewCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub confirmed_hits: Vec<String>,
@@ -1142,14 +1140,14 @@ impl<'a> WatchlistScreeningEntityReviewCreateRequest<'a> {
             }
         }
     }
-    pub fn comment(mut self, comment: String) -> Self {
-        self.comment = Some(comment);
+    pub fn comment(mut self, comment: &str) -> Self {
+        self.comment = Some(comment.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityReviewList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityReviewListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_screening_id: String,
@@ -1180,14 +1178,14 @@ impl<'a> WatchlistScreeningEntityReviewListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningEntityUpdate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningEntityUpdateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub entity_watchlist_screening_id: String,
@@ -1239,26 +1237,32 @@ impl<'a> WatchlistScreeningEntityUpdateRequest<'a> {
         self.search_terms = Some(search_terms);
         self
     }
-    pub fn assignee(mut self, assignee: String) -> Self {
-        self.assignee = Some(assignee);
+    pub fn assignee(mut self, assignee: &str) -> Self {
+        self.assignee = Some(assignee.to_owned());
         self
     }
-    pub fn status(mut self, status: String) -> Self {
-        self.status = Some(status);
+    pub fn status(mut self, status: &str) -> Self {
+        self.status = Some(status.to_owned());
         self
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
-    pub fn reset_fields(mut self, reset_fields: Vec<String>) -> Self {
-        self.reset_fields = Some(reset_fields);
+    pub fn reset_fields(
+        mut self,
+        reset_fields: impl IntoIterator<Item = impl AsRef<str>>,
+    ) -> Self {
+        self
+            .reset_fields = Some(
+            reset_fields.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+        );
         self
     }
 }
-/**Represents a watchlistScreeningIndividualCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub search_terms: WatchlistScreeningRequestSearchTerms,
@@ -1281,14 +1285,14 @@ impl<'a> WatchlistScreeningIndividualCreateRequest<'a> {
             }
         }
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_screening_id: String,
@@ -1311,9 +1315,9 @@ impl<'a> WatchlistScreeningIndividualGetRequest<'a> {
         }
     }
 }
-/**Represents a watchlistScreeningIndividualHistoryList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualHistoryListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_screening_id: String,
@@ -1344,14 +1348,14 @@ impl<'a> WatchlistScreeningIndividualHistoryListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualHitList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualHitListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_screening_id: String,
@@ -1379,14 +1383,14 @@ impl<'a> WatchlistScreeningIndividualHitListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_program_id: String,
@@ -1423,26 +1427,26 @@ impl<'a> WatchlistScreeningIndividualListRequest<'a> {
             }
         }
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
-    pub fn status(mut self, status: String) -> Self {
-        self.status = Some(status);
+    pub fn status(mut self, status: &str) -> Self {
+        self.status = Some(status.to_owned());
         self
     }
-    pub fn assignee(mut self, assignee: String) -> Self {
-        self.assignee = Some(assignee);
+    pub fn assignee(mut self, assignee: &str) -> Self {
+        self.assignee = Some(assignee.to_owned());
         self
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualProgramGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualProgramGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_program_id: String,
@@ -1465,9 +1469,9 @@ impl<'a> WatchlistScreeningIndividualProgramGetRequest<'a> {
         }
     }
 }
-/**Represents a watchlistScreeningIndividualProgramList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualProgramListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub cursor: Option<String>,
@@ -1493,14 +1497,14 @@ impl<'a> WatchlistScreeningIndividualProgramListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualReviewCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualReviewCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub confirmed_hits: Vec<String>,
@@ -1533,14 +1537,14 @@ impl<'a> WatchlistScreeningIndividualReviewCreateRequest<'a> {
             }
         }
     }
-    pub fn comment(mut self, comment: String) -> Self {
-        self.comment = Some(comment);
+    pub fn comment(mut self, comment: &str) -> Self {
+        self.comment = Some(comment.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualReviewsList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualReviewsListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_screening_id: String,
@@ -1571,14 +1575,14 @@ impl<'a> WatchlistScreeningIndividualReviewsListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }
-/**Represents a watchlistScreeningIndividualUpdate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WatchlistScreeningIndividualUpdateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub watchlist_screening_id: String,
@@ -1627,26 +1631,32 @@ impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
         self.search_terms = Some(search_terms);
         self
     }
-    pub fn assignee(mut self, assignee: String) -> Self {
-        self.assignee = Some(assignee);
+    pub fn assignee(mut self, assignee: &str) -> Self {
+        self.assignee = Some(assignee.to_owned());
         self
     }
-    pub fn status(mut self, status: String) -> Self {
-        self.status = Some(status);
+    pub fn status(mut self, status: &str) -> Self {
+        self.status = Some(status.to_owned());
         self
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
-    pub fn reset_fields(mut self, reset_fields: Vec<String>) -> Self {
-        self.reset_fields = Some(reset_fields);
+    pub fn reset_fields(
+        mut self,
+        reset_fields: impl IntoIterator<Item = impl AsRef<str>>,
+    ) -> Self {
+        self
+            .reset_fields = Some(
+            reset_fields.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+        );
         self
     }
 }
-/**Represents a processorAuthGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorAuthGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub processor_token: String,
@@ -1666,9 +1676,9 @@ impl<'a> ProcessorAuthGetRequest<'a> {
         }
     }
 }
-/**Represents a processorBankTransferCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorBankTransferCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub idempotency_key: String,
@@ -1717,24 +1727,23 @@ impl<'a> ProcessorBankTransferCreateRequest<'a> {
             }
         }
     }
-    pub fn ach_class(mut self, ach_class: String) -> Self {
-        self.ach_class = Some(ach_class);
+    pub fn ach_class(mut self, ach_class: &str) -> Self {
+        self.ach_class = Some(ach_class.to_owned());
         self
     }
-    pub fn custom_tag(mut self, custom_tag: String) -> Self {
-        self.custom_tag = Some(custom_tag);
+    pub fn custom_tag(mut self, custom_tag: &str) -> Self {
+        self.custom_tag = Some(custom_tag.to_owned());
         self
     }
     pub fn metadata(mut self, metadata: BankTransferMetadata) -> Self {
         self.metadata = Some(metadata);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
 }
-///
 pub struct ProcessorBankTransferCreateRequired<'a> {
     pub idempotency_key: &'a str,
     pub processor_token: &'a str,
@@ -1746,9 +1755,9 @@ pub struct ProcessorBankTransferCreateRequired<'a> {
     pub user: BankTransferUser,
 }
 impl<'a> ProcessorBankTransferCreateRequired<'a> {}
-/**Represents a processorIdentityGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorIdentityGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub processor_token: String,
@@ -1768,9 +1777,9 @@ impl<'a> ProcessorIdentityGetRequest<'a> {
         }
     }
 }
-/**Represents a processorBalanceGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorBalanceGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub processor_token: String,
@@ -1798,9 +1807,9 @@ impl<'a> ProcessorBalanceGetRequest<'a> {
         self
     }
 }
-/**Represents a itemWebhookUpdate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemWebhookUpdateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -1823,14 +1832,14 @@ impl<'a> ItemWebhookUpdateRequest<'a> {
             }
         }
     }
-    pub fn webhook(mut self, webhook: String) -> Self {
-        self.webhook = Some(webhook);
+    pub fn webhook(mut self, webhook: &str) -> Self {
+        self.webhook = Some(webhook.to_owned());
         self
     }
 }
-/**Represents a itemAccessTokenInvalidate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemAccessTokenInvalidateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -1850,9 +1859,9 @@ impl<'a> ItemAccessTokenInvalidateRequest<'a> {
         }
     }
 }
-/**Represents a webhookVerificationKeyGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WebhookVerificationKeyGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub key_id: String,
@@ -1872,9 +1881,9 @@ impl<'a> WebhookVerificationKeyGetRequest<'a> {
         }
     }
 }
-/**Represents a liabilitiesGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct LiabilitiesGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -1902,9 +1911,9 @@ impl<'a> LiabilitiesGetRequest<'a> {
         self
     }
 }
-/**Represents a paymentInitiationRecipientCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationRecipientCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub name: String,
@@ -1935,8 +1944,8 @@ impl<'a> PaymentInitiationRecipientCreateRequest<'a> {
             }
         }
     }
-    pub fn iban(mut self, iban: String) -> Self {
-        self.iban = Some(iban);
+    pub fn iban(mut self, iban: &str) -> Self {
+        self.iban = Some(iban.to_owned());
         self
     }
     pub fn bacs(mut self, bacs: RecipientBacsNullable) -> Self {
@@ -1948,9 +1957,9 @@ impl<'a> PaymentInitiationRecipientCreateRequest<'a> {
         self
     }
 }
-/**Represents a paymentInitiationPaymentReverse request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationPaymentReverseRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_id: String,
@@ -1974,9 +1983,9 @@ impl<'a> PaymentInitiationPaymentReverseRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationRecipientGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationRecipientGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub recipient_id: String,
@@ -1996,9 +2005,9 @@ impl<'a> PaymentInitiationRecipientGetRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationRecipientList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationRecipientListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
 }
@@ -2016,9 +2025,9 @@ impl<'a> PaymentInitiationRecipientListRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationPaymentCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationPaymentCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub recipient_id: String,
@@ -2058,9 +2067,9 @@ impl<'a> PaymentInitiationPaymentCreateRequest<'a> {
         self
     }
 }
-/**Represents a createPaymentToken request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreatePaymentTokenRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_id: String,
@@ -2082,9 +2091,9 @@ impl<'a> CreatePaymentTokenRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationConsentCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationConsentCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub recipient_id: String,
@@ -2118,7 +2127,6 @@ impl<'a> PaymentInitiationConsentCreateRequest<'a> {
         self
     }
 }
-///
 pub struct PaymentInitiationConsentCreateRequired<'a> {
     pub recipient_id: &'a str,
     pub reference: &'a str,
@@ -2126,9 +2134,9 @@ pub struct PaymentInitiationConsentCreateRequired<'a> {
     pub constraints: PaymentInitiationConsentConstraints,
 }
 impl<'a> PaymentInitiationConsentCreateRequired<'a> {}
-/**Represents a paymentInitiationConsentGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationConsentGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub consent_id: String,
@@ -2148,9 +2156,9 @@ impl<'a> PaymentInitiationConsentGetRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationConsentRevoke request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationConsentRevokeRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub consent_id: String,
@@ -2170,9 +2178,9 @@ impl<'a> PaymentInitiationConsentRevokeRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationConsentPaymentExecute request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationConsentPaymentExecuteRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub consent_id: String,
@@ -2201,9 +2209,9 @@ impl<'a> PaymentInitiationConsentPaymentExecuteRequest<'a> {
         }
     }
 }
-/**Represents a sandboxItemResetLogin request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxItemResetLoginRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2223,9 +2231,9 @@ impl<'a> SandboxItemResetLoginRequest<'a> {
         }
     }
 }
-/**Represents a sandboxItemSetVerificationStatus request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxItemSetVerificationStatusRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2249,9 +2257,9 @@ impl<'a> SandboxItemSetVerificationStatusRequest<'a> {
         }
     }
 }
-/**Represents a itemPublicTokenExchange request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemPublicTokenExchangeRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub public_token: String,
@@ -2271,9 +2279,9 @@ impl<'a> ItemPublicTokenExchangeRequest<'a> {
         }
     }
 }
-/**Represents a itemCreatePublicToken request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemCreatePublicTokenRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2293,9 +2301,9 @@ impl<'a> ItemCreatePublicTokenRequest<'a> {
         }
     }
 }
-/**Represents a userCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct UserCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub client_user_id: String,
@@ -2315,9 +2323,9 @@ impl<'a> UserCreateRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationPaymentGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationPaymentGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_id: String,
@@ -2337,9 +2345,9 @@ impl<'a> PaymentInitiationPaymentGetRequest<'a> {
         }
     }
 }
-/**Represents a paymentInitiationPaymentList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentInitiationPaymentListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub count: Option<i64>,
@@ -2372,18 +2380,18 @@ impl<'a> PaymentInitiationPaymentListRequest<'a> {
         self.count = Some(count);
         self
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
-    pub fn consent_id(mut self, consent_id: String) -> Self {
-        self.consent_id = Some(consent_id);
+    pub fn consent_id(mut self, consent_id: &str) -> Self {
+        self.consent_id = Some(consent_id.to_owned());
         self
     }
 }
-/**Represents a assetReportCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_tokens: Vec<String>,
@@ -2413,9 +2421,9 @@ impl<'a> AssetReportCreateRequest<'a> {
         self
     }
 }
-/**Represents a assetReportRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -2451,9 +2459,9 @@ impl<'a> AssetReportRefreshRequest<'a> {
         self
     }
 }
-/**Represents a assetReportRelayRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportRelayRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_relay_token: String,
@@ -2476,14 +2484,14 @@ impl<'a> AssetReportRelayRefreshRequest<'a> {
             }
         }
     }
-    pub fn webhook(mut self, webhook: String) -> Self {
-        self.webhook = Some(webhook);
+    pub fn webhook(mut self, webhook: &str) -> Self {
+        self.webhook = Some(webhook.to_owned());
         self
     }
 }
-/**Represents a assetReportRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -2503,9 +2511,9 @@ impl<'a> AssetReportRemoveRequest<'a> {
         }
     }
 }
-/**Represents a assetReportFilter request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportFilterRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -2530,9 +2538,9 @@ impl<'a> AssetReportFilterRequest<'a> {
         }
     }
 }
-/**Represents a assetReportGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -2568,9 +2576,31 @@ impl<'a> AssetReportGetRequest<'a> {
         self
     }
 }
-/**Represents a assetReportAuditCopyCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+pub struct AssetReportPdfGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub asset_report_token: String,
+}
+impl<'a> AssetReportPdfGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<()> {
+        let mut r = self.client.client.post("/asset_report/pdf/get");
+        r = r.push_json(json!({ "asset_report_token" : self.asset_report_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => Ok(()),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e))?;
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+/**Create this with the associated client method.
+
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportAuditCopyCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -2592,9 +2622,9 @@ impl<'a> AssetReportAuditCopyCreateRequest<'a> {
         }
     }
 }
-/**Represents a assetReportAuditCopyRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportAuditCopyRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub audit_copy_token: String,
@@ -2614,9 +2644,9 @@ impl<'a> AssetReportAuditCopyRemoveRequest<'a> {
         }
     }
 }
-/**Represents a assetReportRelayCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportRelayCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_report_token: String,
@@ -2641,14 +2671,14 @@ impl<'a> AssetReportRelayCreateRequest<'a> {
             }
         }
     }
-    pub fn webhook(mut self, webhook: String) -> Self {
-        self.webhook = Some(webhook);
+    pub fn webhook(mut self, webhook: &str) -> Self {
+        self.webhook = Some(webhook.to_owned());
         self
     }
 }
-/**Represents a assetReportRelayGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportRelayGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_relay_token: String,
@@ -2668,9 +2698,9 @@ impl<'a> AssetReportRelayGetRequest<'a> {
         }
     }
 }
-/**Represents a assetReportRelayRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportRelayRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub asset_relay_token: String,
@@ -2690,9 +2720,9 @@ impl<'a> AssetReportRelayRemoveRequest<'a> {
         }
     }
 }
-/**Represents a investmentsHoldingsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct InvestmentsHoldingsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2720,9 +2750,9 @@ impl<'a> InvestmentsHoldingsGetRequest<'a> {
         self
     }
 }
-/**Represents a investmentsTransactionsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct InvestmentsTransactionsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2754,9 +2784,9 @@ impl<'a> InvestmentsTransactionsGetRequest<'a> {
         self
     }
 }
-/**Represents a processorTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2780,9 +2810,9 @@ impl<'a> ProcessorTokenCreateRequest<'a> {
         }
     }
 }
-/**Represents a processorStripeBankAccountTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorStripeBankAccountTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2809,9 +2839,9 @@ impl<'a> ProcessorStripeBankAccountTokenCreateRequest<'a> {
         }
     }
 }
-/**Represents a processorApexProcessorTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ProcessorApexProcessorTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -2833,9 +2863,9 @@ impl<'a> ProcessorApexProcessorTokenCreateRequest<'a> {
         }
     }
 }
-/**Represents a depositSwitchCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct DepositSwitchCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub target_access_token: String,
@@ -2864,8 +2894,8 @@ impl<'a> DepositSwitchCreateRequest<'a> {
             }
         }
     }
-    pub fn country_code(mut self, country_code: String) -> Self {
-        self.country_code = Some(country_code);
+    pub fn country_code(mut self, country_code: &str) -> Self {
+        self.country_code = Some(country_code.to_owned());
         self
     }
     pub fn options(mut self, options: DepositSwitchCreateRequestOptions) -> Self {
@@ -2873,9 +2903,9 @@ impl<'a> DepositSwitchCreateRequest<'a> {
         self
     }
 }
-/**Represents a itemImport request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct ItemImportRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub products: Vec<String>,
@@ -2905,9 +2935,9 @@ impl<'a> ItemImportRequest<'a> {
         self
     }
 }
-/**Represents a depositSwitchTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct DepositSwitchTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub deposit_switch_id: String,
@@ -2927,9 +2957,9 @@ impl<'a> DepositSwitchTokenCreateRequest<'a> {
         }
     }
 }
-/**Represents a linkTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct LinkTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub client_name: String,
@@ -3053,24 +3083,24 @@ impl<'a> LinkTokenCreateRequest<'a> {
         );
         self
     }
-    pub fn webhook(mut self, webhook: String) -> Self {
-        self.webhook = Some(webhook);
+    pub fn webhook(mut self, webhook: &str) -> Self {
+        self.webhook = Some(webhook.to_owned());
         self
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
-    pub fn link_customization_name(mut self, link_customization_name: String) -> Self {
-        self.link_customization_name = Some(link_customization_name);
+    pub fn link_customization_name(mut self, link_customization_name: &str) -> Self {
+        self.link_customization_name = Some(link_customization_name.to_owned());
         self
     }
-    pub fn redirect_uri(mut self, redirect_uri: String) -> Self {
-        self.redirect_uri = Some(redirect_uri);
+    pub fn redirect_uri(mut self, redirect_uri: &str) -> Self {
+        self.redirect_uri = Some(redirect_uri.to_owned());
         self
     }
-    pub fn android_package_name(mut self, android_package_name: String) -> Self {
-        self.android_package_name = Some(android_package_name);
+    pub fn android_package_name(mut self, android_package_name: &str) -> Self {
+        self.android_package_name = Some(android_package_name.to_owned());
         self
     }
     pub fn institution_data(
@@ -3088,8 +3118,8 @@ impl<'a> LinkTokenCreateRequest<'a> {
         self.eu_config = Some(eu_config);
         self
     }
-    pub fn institution_id(mut self, institution_id: String) -> Self {
-        self.institution_id = Some(institution_id);
+    pub fn institution_id(mut self, institution_id: &str) -> Self {
+        self.institution_id = Some(institution_id.to_owned());
         self
     }
     pub fn payment_initiation(
@@ -3132,12 +3162,11 @@ impl<'a> LinkTokenCreateRequest<'a> {
         self.identity_verification = Some(identity_verification);
         self
     }
-    pub fn user_token(mut self, user_token: String) -> Self {
-        self.user_token = Some(user_token);
+    pub fn user_token(mut self, user_token: &str) -> Self {
+        self.user_token = Some(user_token.to_owned());
         self
     }
 }
-///
 pub struct LinkTokenCreateRequired<'a> {
     pub client_name: &'a str,
     pub language: &'a str,
@@ -3145,9 +3174,9 @@ pub struct LinkTokenCreateRequired<'a> {
     pub user: LinkTokenCreateRequestUser,
 }
 impl<'a> LinkTokenCreateRequired<'a> {}
-/**Represents a linkTokenGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct LinkTokenGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub link_token: String,
@@ -3167,9 +3196,9 @@ impl<'a> LinkTokenGetRequest<'a> {
         }
     }
 }
-/**Represents a assetReportAuditCopyGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct AssetReportAuditCopyGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub audit_copy_token: String,
@@ -3189,9 +3218,9 @@ impl<'a> AssetReportAuditCopyGetRequest<'a> {
         }
     }
 }
-/**Represents a depositSwitchGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct DepositSwitchGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub deposit_switch_id: String,
@@ -3211,9 +3240,9 @@ impl<'a> DepositSwitchGetRequest<'a> {
         }
     }
 }
-/**Represents a transferGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub transfer_id: String,
@@ -3233,9 +3262,9 @@ impl<'a> TransferGetRequest<'a> {
         }
     }
 }
-/**Represents a bankTransferGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub bank_transfer_id: String,
@@ -3255,9 +3284,9 @@ impl<'a> BankTransferGetRequest<'a> {
         }
     }
 }
-/**Represents a transferAuthorizationCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferAuthorizationCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: Option<String>,
@@ -3312,36 +3341,35 @@ impl<'a> TransferAuthorizationCreateRequest<'a> {
             }
         }
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
-    pub fn account_id(mut self, account_id: String) -> Self {
-        self.account_id = Some(account_id);
+    pub fn account_id(mut self, account_id: &str) -> Self {
+        self.account_id = Some(account_id.to_owned());
         self
     }
     pub fn device(mut self, device: TransferAuthorizationDevice) -> Self {
         self.device = Some(device);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
-    pub fn iso_currency_code(mut self, iso_currency_code: String) -> Self {
-        self.iso_currency_code = Some(iso_currency_code);
+    pub fn iso_currency_code(mut self, iso_currency_code: &str) -> Self {
+        self.iso_currency_code = Some(iso_currency_code.to_owned());
         self
     }
     pub fn user_present(mut self, user_present: bool) -> Self {
         self.user_present = Some(user_present);
         self
     }
-    pub fn payment_profile_id(mut self, payment_profile_id: String) -> Self {
-        self.payment_profile_id = Some(payment_profile_id);
+    pub fn payment_profile_id(mut self, payment_profile_id: &str) -> Self {
+        self.payment_profile_id = Some(payment_profile_id.to_owned());
         self
     }
 }
-///
 pub struct TransferAuthorizationCreateRequired<'a> {
     pub type_: &'a str,
     pub network: &'a str,
@@ -3350,9 +3378,9 @@ pub struct TransferAuthorizationCreateRequired<'a> {
     pub user: TransferAuthorizationUserInRequest,
 }
 impl<'a> TransferAuthorizationCreateRequired<'a> {}
-/**Represents a transferCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub idempotency_key: Option<String>,
@@ -3411,36 +3439,35 @@ impl<'a> TransferCreateRequest<'a> {
             }
         }
     }
-    pub fn idempotency_key(mut self, idempotency_key: String) -> Self {
-        self.idempotency_key = Some(idempotency_key);
+    pub fn idempotency_key(mut self, idempotency_key: &str) -> Self {
+        self.idempotency_key = Some(idempotency_key.to_owned());
         self
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
-    pub fn account_id(mut self, account_id: String) -> Self {
-        self.account_id = Some(account_id);
+    pub fn account_id(mut self, account_id: &str) -> Self {
+        self.account_id = Some(account_id.to_owned());
         self
     }
     pub fn metadata(mut self, metadata: TransferMetadata) -> Self {
         self.metadata = Some(metadata);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
-    pub fn iso_currency_code(mut self, iso_currency_code: String) -> Self {
-        self.iso_currency_code = Some(iso_currency_code);
+    pub fn iso_currency_code(mut self, iso_currency_code: &str) -> Self {
+        self.iso_currency_code = Some(iso_currency_code.to_owned());
         self
     }
-    pub fn payment_profile_id(mut self, payment_profile_id: String) -> Self {
-        self.payment_profile_id = Some(payment_profile_id);
+    pub fn payment_profile_id(mut self, payment_profile_id: &str) -> Self {
+        self.payment_profile_id = Some(payment_profile_id.to_owned());
         self
     }
 }
-///
 pub struct TransferCreateRequired<'a> {
     pub authorization_id: &'a str,
     pub type_: &'a str,
@@ -3451,9 +3478,9 @@ pub struct TransferCreateRequired<'a> {
     pub user: TransferUserInRequest,
 }
 impl<'a> TransferCreateRequired<'a> {}
-/**Represents a bankTransferCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub idempotency_key: String,
@@ -3504,24 +3531,23 @@ impl<'a> BankTransferCreateRequest<'a> {
             }
         }
     }
-    pub fn ach_class(mut self, ach_class: String) -> Self {
-        self.ach_class = Some(ach_class);
+    pub fn ach_class(mut self, ach_class: &str) -> Self {
+        self.ach_class = Some(ach_class.to_owned());
         self
     }
-    pub fn custom_tag(mut self, custom_tag: String) -> Self {
-        self.custom_tag = Some(custom_tag);
+    pub fn custom_tag(mut self, custom_tag: &str) -> Self {
+        self.custom_tag = Some(custom_tag.to_owned());
         self
     }
     pub fn metadata(mut self, metadata: BankTransferMetadata) -> Self {
         self.metadata = Some(metadata);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
 }
-///
 pub struct BankTransferCreateRequired<'a> {
     pub idempotency_key: &'a str,
     pub access_token: &'a str,
@@ -3534,9 +3560,9 @@ pub struct BankTransferCreateRequired<'a> {
     pub user: BankTransferUser,
 }
 impl<'a> BankTransferCreateRequired<'a> {}
-/**Represents a transferList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub start_date: Option<String>,
@@ -3573,12 +3599,12 @@ impl<'a> TransferListRequest<'a> {
             }
         }
     }
-    pub fn start_date(mut self, start_date: String) -> Self {
-        self.start_date = Some(start_date);
+    pub fn start_date(mut self, start_date: &str) -> Self {
+        self.start_date = Some(start_date.to_owned());
         self
     }
-    pub fn end_date(mut self, end_date: String) -> Self {
-        self.end_date = Some(end_date);
+    pub fn end_date(mut self, end_date: &str) -> Self {
+        self.end_date = Some(end_date.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -3589,14 +3615,14 @@ impl<'a> TransferListRequest<'a> {
         self.offset = Some(offset);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
 }
-/**Represents a bankTransferList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub start_date: Option<String>,
@@ -3637,12 +3663,12 @@ impl<'a> BankTransferListRequest<'a> {
             }
         }
     }
-    pub fn start_date(mut self, start_date: String) -> Self {
-        self.start_date = Some(start_date);
+    pub fn start_date(mut self, start_date: &str) -> Self {
+        self.start_date = Some(start_date.to_owned());
         self
     }
-    pub fn end_date(mut self, end_date: String) -> Self {
-        self.end_date = Some(end_date);
+    pub fn end_date(mut self, end_date: &str) -> Self {
+        self.end_date = Some(end_date.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -3653,18 +3679,18 @@ impl<'a> BankTransferListRequest<'a> {
         self.offset = Some(offset);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
-    pub fn direction(mut self, direction: String) -> Self {
-        self.direction = Some(direction);
+    pub fn direction(mut self, direction: &str) -> Self {
+        self.direction = Some(direction.to_owned());
         self
     }
 }
-/**Represents a transferCancel request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferCancelRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub transfer_id: String,
@@ -3684,9 +3710,9 @@ impl<'a> TransferCancelRequest<'a> {
         }
     }
 }
-/**Represents a bankTransferCancel request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferCancelRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub bank_transfer_id: String,
@@ -3706,9 +3732,9 @@ impl<'a> BankTransferCancelRequest<'a> {
         }
     }
 }
-/**Represents a transferEventList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferEventListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub start_date: Option<String>,
@@ -3765,24 +3791,24 @@ impl<'a> TransferEventListRequest<'a> {
             }
         }
     }
-    pub fn start_date(mut self, start_date: String) -> Self {
-        self.start_date = Some(start_date);
+    pub fn start_date(mut self, start_date: &str) -> Self {
+        self.start_date = Some(start_date.to_owned());
         self
     }
-    pub fn end_date(mut self, end_date: String) -> Self {
-        self.end_date = Some(end_date);
+    pub fn end_date(mut self, end_date: &str) -> Self {
+        self.end_date = Some(end_date.to_owned());
         self
     }
-    pub fn transfer_id(mut self, transfer_id: String) -> Self {
-        self.transfer_id = Some(transfer_id);
+    pub fn transfer_id(mut self, transfer_id: &str) -> Self {
+        self.transfer_id = Some(transfer_id.to_owned());
         self
     }
-    pub fn account_id(mut self, account_id: String) -> Self {
-        self.account_id = Some(account_id);
+    pub fn account_id(mut self, account_id: &str) -> Self {
+        self.account_id = Some(account_id.to_owned());
         self
     }
-    pub fn transfer_type(mut self, transfer_type: String) -> Self {
-        self.transfer_type = Some(transfer_type);
+    pub fn transfer_type(mut self, transfer_type: &str) -> Self {
+        self.transfer_type = Some(transfer_type.to_owned());
         self
     }
     pub fn event_types(
@@ -3795,8 +3821,8 @@ impl<'a> TransferEventListRequest<'a> {
         );
         self
     }
-    pub fn sweep_id(mut self, sweep_id: String) -> Self {
-        self.sweep_id = Some(sweep_id);
+    pub fn sweep_id(mut self, sweep_id: &str) -> Self {
+        self.sweep_id = Some(sweep_id.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -3807,14 +3833,14 @@ impl<'a> TransferEventListRequest<'a> {
         self.offset = Some(offset);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
 }
-/**Represents a bankTransferEventList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferEventListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub start_date: Option<String>,
@@ -3871,24 +3897,24 @@ impl<'a> BankTransferEventListRequest<'a> {
             }
         }
     }
-    pub fn start_date(mut self, start_date: String) -> Self {
-        self.start_date = Some(start_date);
+    pub fn start_date(mut self, start_date: &str) -> Self {
+        self.start_date = Some(start_date.to_owned());
         self
     }
-    pub fn end_date(mut self, end_date: String) -> Self {
-        self.end_date = Some(end_date);
+    pub fn end_date(mut self, end_date: &str) -> Self {
+        self.end_date = Some(end_date.to_owned());
         self
     }
-    pub fn bank_transfer_id(mut self, bank_transfer_id: String) -> Self {
-        self.bank_transfer_id = Some(bank_transfer_id);
+    pub fn bank_transfer_id(mut self, bank_transfer_id: &str) -> Self {
+        self.bank_transfer_id = Some(bank_transfer_id.to_owned());
         self
     }
-    pub fn account_id(mut self, account_id: String) -> Self {
-        self.account_id = Some(account_id);
+    pub fn account_id(mut self, account_id: &str) -> Self {
+        self.account_id = Some(account_id.to_owned());
         self
     }
-    pub fn bank_transfer_type(mut self, bank_transfer_type: String) -> Self {
-        self.bank_transfer_type = Some(bank_transfer_type);
+    pub fn bank_transfer_type(mut self, bank_transfer_type: &str) -> Self {
+        self.bank_transfer_type = Some(bank_transfer_type.to_owned());
         self
     }
     pub fn event_types(
@@ -3909,18 +3935,18 @@ impl<'a> BankTransferEventListRequest<'a> {
         self.offset = Some(offset);
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
-    pub fn direction(mut self, direction: String) -> Self {
-        self.direction = Some(direction);
+    pub fn direction(mut self, direction: &str) -> Self {
+        self.direction = Some(direction.to_owned());
         self
     }
 }
-/**Represents a transferEventSync request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferEventSyncRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub after_id: i64,
@@ -3948,9 +3974,9 @@ impl<'a> TransferEventSyncRequest<'a> {
         self
     }
 }
-/**Represents a bankTransferEventSync request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferEventSyncRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub after_id: i64,
@@ -3978,9 +4004,9 @@ impl<'a> BankTransferEventSyncRequest<'a> {
         self
     }
 }
-/**Represents a transferSweepGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferSweepGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub sweep_id: String,
@@ -4000,9 +4026,9 @@ impl<'a> TransferSweepGetRequest<'a> {
         }
     }
 }
-/**Represents a bankTransferSweepGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferSweepGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub sweep_id: String,
@@ -4022,9 +4048,9 @@ impl<'a> BankTransferSweepGetRequest<'a> {
         }
     }
 }
-/**Represents a transferSweepList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferSweepListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub start_date: Option<String>,
@@ -4057,12 +4083,12 @@ impl<'a> TransferSweepListRequest<'a> {
             }
         }
     }
-    pub fn start_date(mut self, start_date: String) -> Self {
-        self.start_date = Some(start_date);
+    pub fn start_date(mut self, start_date: &str) -> Self {
+        self.start_date = Some(start_date.to_owned());
         self
     }
-    pub fn end_date(mut self, end_date: String) -> Self {
-        self.end_date = Some(end_date);
+    pub fn end_date(mut self, end_date: &str) -> Self {
+        self.end_date = Some(end_date.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -4074,9 +4100,9 @@ impl<'a> TransferSweepListRequest<'a> {
         self
     }
 }
-/**Represents a bankTransferSweepList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferSweepListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub origination_account_id: Option<String>,
@@ -4109,16 +4135,16 @@ impl<'a> BankTransferSweepListRequest<'a> {
             }
         }
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
-    pub fn start_time(mut self, start_time: String) -> Self {
-        self.start_time = Some(start_time);
+    pub fn start_time(mut self, start_time: &str) -> Self {
+        self.start_time = Some(start_time.to_owned());
         self
     }
-    pub fn end_time(mut self, end_time: String) -> Self {
-        self.end_time = Some(end_time);
+    pub fn end_time(mut self, end_time: &str) -> Self {
+        self.end_time = Some(end_time.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -4126,9 +4152,9 @@ impl<'a> BankTransferSweepListRequest<'a> {
         self
     }
 }
-/**Represents a bankTransferBalanceGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferBalanceGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub origination_account_id: Option<String>,
@@ -4149,14 +4175,14 @@ impl<'a> BankTransferBalanceGetRequest<'a> {
             }
         }
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
 }
-/**Represents a bankTransferMigrateAccount request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct BankTransferMigrateAccountRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub account_number: String,
@@ -4183,14 +4209,14 @@ impl<'a> BankTransferMigrateAccountRequest<'a> {
             }
         }
     }
-    pub fn wire_routing_number(mut self, wire_routing_number: String) -> Self {
-        self.wire_routing_number = Some(wire_routing_number);
+    pub fn wire_routing_number(mut self, wire_routing_number: &str) -> Self {
+        self.wire_routing_number = Some(wire_routing_number.to_owned());
         self
     }
 }
-/**Represents a transferMigrateAccount request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferMigrateAccountRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub account_number: String,
@@ -4217,14 +4243,14 @@ impl<'a> TransferMigrateAccountRequest<'a> {
             }
         }
     }
-    pub fn wire_routing_number(mut self, wire_routing_number: String) -> Self {
-        self.wire_routing_number = Some(wire_routing_number);
+    pub fn wire_routing_number(mut self, wire_routing_number: &str) -> Self {
+        self.wire_routing_number = Some(wire_routing_number.to_owned());
         self
     }
 }
-/**Represents a transferIntentCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferIntentCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub account_id: Option<String>,
@@ -4271,20 +4297,20 @@ impl<'a> TransferIntentCreateRequest<'a> {
             }
         }
     }
-    pub fn account_id(mut self, account_id: String) -> Self {
-        self.account_id = Some(account_id);
+    pub fn account_id(mut self, account_id: &str) -> Self {
+        self.account_id = Some(account_id.to_owned());
         self
     }
-    pub fn origination_account_id(mut self, origination_account_id: String) -> Self {
-        self.origination_account_id = Some(origination_account_id);
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.origination_account_id = Some(origination_account_id.to_owned());
         self
     }
     pub fn metadata(mut self, metadata: TransferMetadata) -> Self {
         self.metadata = Some(metadata);
         self
     }
-    pub fn iso_currency_code(mut self, iso_currency_code: String) -> Self {
-        self.iso_currency_code = Some(iso_currency_code);
+    pub fn iso_currency_code(mut self, iso_currency_code: &str) -> Self {
+        self.iso_currency_code = Some(iso_currency_code.to_owned());
         self
     }
     pub fn require_guarantee(mut self, require_guarantee: bool) -> Self {
@@ -4292,7 +4318,6 @@ impl<'a> TransferIntentCreateRequest<'a> {
         self
     }
 }
-///
 pub struct TransferIntentCreateRequired<'a> {
     pub mode: &'a str,
     pub amount: &'a str,
@@ -4301,9 +4326,9 @@ pub struct TransferIntentCreateRequired<'a> {
     pub user: TransferUserInRequest,
 }
 impl<'a> TransferIntentCreateRequired<'a> {}
-/**Represents a transferIntentGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferIntentGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub transfer_intent_id: String,
@@ -4323,9 +4348,9 @@ impl<'a> TransferIntentGetRequest<'a> {
         }
     }
 }
-/**Represents a transferRepaymentList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferRepaymentListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub start_date: Option<String>,
@@ -4358,12 +4383,12 @@ impl<'a> TransferRepaymentListRequest<'a> {
             }
         }
     }
-    pub fn start_date(mut self, start_date: String) -> Self {
-        self.start_date = Some(start_date);
+    pub fn start_date(mut self, start_date: &str) -> Self {
+        self.start_date = Some(start_date.to_owned());
         self
     }
-    pub fn end_date(mut self, end_date: String) -> Self {
-        self.end_date = Some(end_date);
+    pub fn end_date(mut self, end_date: &str) -> Self {
+        self.end_date = Some(end_date.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -4375,9 +4400,9 @@ impl<'a> TransferRepaymentListRequest<'a> {
         self
     }
 }
-/**Represents a transferRepaymentReturnList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransferRepaymentReturnListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub repayment_id: String,
@@ -4413,9 +4438,9 @@ impl<'a> TransferRepaymentReturnListRequest<'a> {
         self
     }
 }
-/**Represents a sandboxBankTransferSimulate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxBankTransferSimulateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub bank_transfer_id: String,
@@ -4445,9 +4470,9 @@ impl<'a> SandboxBankTransferSimulateRequest<'a> {
         self
     }
 }
-/**Represents a sandboxTransferSweepSimulate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxTransferSweepSimulateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
 }
@@ -4465,9 +4490,9 @@ impl<'a> SandboxTransferSweepSimulateRequest<'a> {
         }
     }
 }
-/**Represents a sandboxTransferSimulate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxTransferSimulateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub transfer_id: String,
@@ -4497,9 +4522,9 @@ impl<'a> SandboxTransferSimulateRequest<'a> {
         self
     }
 }
-/**Represents a sandboxTransferRepaymentSimulate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxTransferRepaymentSimulateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
 }
@@ -4517,9 +4542,9 @@ impl<'a> SandboxTransferRepaymentSimulateRequest<'a> {
         }
     }
 }
-/**Represents a sandboxTransferFireWebhook request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxTransferFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub webhook: String,
@@ -4539,9 +4564,9 @@ impl<'a> SandboxTransferFireWebhookRequest<'a> {
         }
     }
 }
-/**Represents a employersSearch request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct EmployersSearchRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub query: String,
@@ -4563,9 +4588,9 @@ impl<'a> EmployersSearchRequest<'a> {
         }
     }
 }
-/**Represents a incomeVerificationCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IncomeVerificationCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub webhook: String,
@@ -4592,8 +4617,8 @@ impl<'a> IncomeVerificationCreateRequest<'a> {
             }
         }
     }
-    pub fn precheck_id(mut self, precheck_id: String) -> Self {
-        self.precheck_id = Some(precheck_id);
+    pub fn precheck_id(mut self, precheck_id: &str) -> Self {
+        self.precheck_id = Some(precheck_id.to_owned());
         self
     }
     pub fn options(mut self, options: IncomeVerificationCreateRequestOptions) -> Self {
@@ -4601,9 +4626,9 @@ impl<'a> IncomeVerificationCreateRequest<'a> {
         self
     }
 }
-/**Represents a incomeVerificationPaystubsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IncomeVerificationPaystubsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub income_verification_id: Option<String>,
@@ -4628,18 +4653,62 @@ impl<'a> IncomeVerificationPaystubsGetRequest<'a> {
             }
         }
     }
-    pub fn income_verification_id(mut self, income_verification_id: String) -> Self {
-        self.income_verification_id = Some(income_verification_id);
+    pub fn income_verification_id(mut self, income_verification_id: &str) -> Self {
+        self.income_verification_id = Some(income_verification_id.to_owned());
         self
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
 }
-/**Represents a incomeVerificationRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+pub struct IncomeVerificationDocumentsDownloadRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub income_verification_id: Option<String>,
+    pub access_token: Option<String>,
+    pub document_id: Option<String>,
+}
+impl<'a> IncomeVerificationDocumentsDownloadRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<()> {
+        let mut r = self.client.client.post("/income/verification/documents/download");
+        if let Some(ref unwrapped) = self.income_verification_id {
+            r = r.push_json(json!({ "income_verification_id" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.access_token {
+            r = r.push_json(json!({ "access_token" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.document_id {
+            r = r.push_json(json!({ "document_id" : unwrapped }));
+        }
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => Ok(()),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e))?;
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+    pub fn income_verification_id(mut self, income_verification_id: &str) -> Self {
+        self.income_verification_id = Some(income_verification_id.to_owned());
+        self
+    }
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
+        self
+    }
+    pub fn document_id(mut self, document_id: &str) -> Self {
+        self.document_id = Some(document_id.to_owned());
+        self
+    }
+}
+/**Create this with the associated client method.
+
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IncomeVerificationRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub income_verification_id: Option<String>,
@@ -4664,18 +4733,18 @@ impl<'a> IncomeVerificationRefreshRequest<'a> {
             }
         }
     }
-    pub fn income_verification_id(mut self, income_verification_id: String) -> Self {
-        self.income_verification_id = Some(income_verification_id);
+    pub fn income_verification_id(mut self, income_verification_id: &str) -> Self {
+        self.income_verification_id = Some(income_verification_id.to_owned());
         self
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
 }
-/**Represents a incomeVerificationTaxformsGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IncomeVerificationTaxformsGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub income_verification_id: Option<String>,
@@ -4700,18 +4769,18 @@ impl<'a> IncomeVerificationTaxformsGetRequest<'a> {
             }
         }
     }
-    pub fn income_verification_id(mut self, income_verification_id: String) -> Self {
-        self.income_verification_id = Some(income_verification_id);
+    pub fn income_verification_id(mut self, income_verification_id: &str) -> Self {
+        self.income_verification_id = Some(income_verification_id.to_owned());
         self
     }
-    pub fn access_token(mut self, access_token: String) -> Self {
-        self.access_token = Some(access_token);
+    pub fn access_token(mut self, access_token: &str) -> Self {
+        self.access_token = Some(access_token.to_owned());
         self
     }
 }
-/**Represents a incomeVerificationPrecheck request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct IncomeVerificationPrecheckRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user: Option<IncomeVerificationPrecheckUser>,
@@ -4756,11 +4825,8 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         self.employer = Some(employer);
         self
     }
-    pub fn transactions_access_token(
-        mut self,
-        transactions_access_token: String,
-    ) -> Self {
-        self.transactions_access_token = Some(transactions_access_token);
+    pub fn transactions_access_token(mut self, transactions_access_token: &str) -> Self {
+        self.transactions_access_token = Some(transactions_access_token.to_owned());
         self
     }
     pub fn transactions_access_tokens(
@@ -4784,9 +4850,9 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         self
     }
 }
-/**Represents a employmentVerificationGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct EmploymentVerificationGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -4806,9 +4872,9 @@ impl<'a> EmploymentVerificationGetRequest<'a> {
         }
     }
 }
-/**Represents a depositSwitchAltCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct DepositSwitchAltCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub target_account: DepositSwitchTargetAccount,
@@ -4841,14 +4907,14 @@ impl<'a> DepositSwitchAltCreateRequest<'a> {
         self.options = Some(options);
         self
     }
-    pub fn country_code(mut self, country_code: String) -> Self {
-        self.country_code = Some(country_code);
+    pub fn country_code(mut self, country_code: &str) -> Self {
+        self.country_code = Some(country_code.to_owned());
         self
     }
 }
-/**Represents a creditAuditCopyTokenCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditAuditCopyTokenCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub report_tokens: Vec<ReportToken>,
@@ -4870,9 +4936,9 @@ impl<'a> CreditAuditCopyTokenCreateRequest<'a> {
         }
     }
 }
-/**Represents a creditReportAuditCopyRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditReportAuditCopyRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub audit_copy_token: String,
@@ -4892,9 +4958,9 @@ impl<'a> CreditReportAuditCopyRemoveRequest<'a> {
         }
     }
 }
-/**Represents a creditBankIncomeGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditBankIncomeGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user_token: Option<String>,
@@ -4919,8 +4985,8 @@ impl<'a> CreditBankIncomeGetRequest<'a> {
             }
         }
     }
-    pub fn user_token(mut self, user_token: String) -> Self {
-        self.user_token = Some(user_token);
+    pub fn user_token(mut self, user_token: &str) -> Self {
+        self.user_token = Some(user_token.to_owned());
         self
     }
     pub fn options(mut self, options: CreditBankIncomeGetRequestOptions) -> Self {
@@ -4928,9 +4994,31 @@ impl<'a> CreditBankIncomeGetRequest<'a> {
         self
     }
 }
-/**Represents a creditBankIncomeRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+pub struct CreditBankIncomePdfGetRequest<'a> {
+    pub(crate) client: &'a PlaidClient,
+    pub user_token: String,
+}
+impl<'a> CreditBankIncomePdfGetRequest<'a> {
+    pub async fn send(self) -> anyhow::Result<()> {
+        let mut r = self.client.client.post("/credit/bank_income/pdf/get");
+        r = r.push_json(json!({ "user_token" : self.user_token }));
+        r = self.client.authenticate(r);
+        let res = r.send().await.unwrap().error_for_status();
+        match res {
+            Ok(res) => Ok(()),
+            Err(res) => {
+                let text = res.text().await.map_err(|e| anyhow::anyhow!("{:?}", e))?;
+                Err(anyhow::anyhow!("{:?}", text))
+            }
+        }
+    }
+}
+/**Create this with the associated client method.
+
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditBankIncomeRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user_token: String,
@@ -4958,9 +5046,9 @@ impl<'a> CreditBankIncomeRefreshRequest<'a> {
         self
     }
 }
-/**Represents a creditPayrollIncomeGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditPayrollIncomeGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user_token: Option<String>,
@@ -4981,14 +5069,14 @@ impl<'a> CreditPayrollIncomeGetRequest<'a> {
             }
         }
     }
-    pub fn user_token(mut self, user_token: String) -> Self {
-        self.user_token = Some(user_token);
+    pub fn user_token(mut self, user_token: &str) -> Self {
+        self.user_token = Some(user_token.to_owned());
         self
     }
 }
-/**Represents a creditPayrollIncomePrecheck request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditPayrollIncomePrecheckRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user_token: Option<String>,
@@ -5021,8 +5109,8 @@ impl<'a> CreditPayrollIncomePrecheckRequest<'a> {
             }
         }
     }
-    pub fn user_token(mut self, user_token: String) -> Self {
-        self.user_token = Some(user_token);
+    pub fn user_token(mut self, user_token: &str) -> Self {
+        self.user_token = Some(user_token.to_owned());
         self
     }
     pub fn access_tokens(
@@ -5047,9 +5135,9 @@ impl<'a> CreditPayrollIncomePrecheckRequest<'a> {
         self
     }
 }
-/**Represents a creditEmploymentGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditEmploymentGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user_token: String,
@@ -5069,9 +5157,9 @@ impl<'a> CreditEmploymentGetRequest<'a> {
         }
     }
 }
-/**Represents a creditPayrollIncomeRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditPayrollIncomeRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub user_token: Option<String>,
@@ -5092,14 +5180,14 @@ impl<'a> CreditPayrollIncomeRefreshRequest<'a> {
             }
         }
     }
-    pub fn user_token(mut self, user_token: String) -> Self {
-        self.user_token = Some(user_token);
+    pub fn user_token(mut self, user_token: &str) -> Self {
+        self.user_token = Some(user_token.to_owned());
         self
     }
 }
-/**Represents a creditRelayCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditRelayCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub report_tokens: Vec<ReportToken>,
@@ -5124,14 +5212,14 @@ impl<'a> CreditRelayCreateRequest<'a> {
             }
         }
     }
-    pub fn webhook(mut self, webhook: String) -> Self {
-        self.webhook = Some(webhook);
+    pub fn webhook(mut self, webhook: &str) -> Self {
+        self.webhook = Some(webhook.to_owned());
         self
     }
 }
-/**Represents a creditRelayGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditRelayGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub relay_token: String,
@@ -5153,9 +5241,9 @@ impl<'a> CreditRelayGetRequest<'a> {
         }
     }
 }
-/**Represents a creditRelayRefresh request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditRelayRefreshRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub relay_token: String,
@@ -5180,14 +5268,14 @@ impl<'a> CreditRelayRefreshRequest<'a> {
             }
         }
     }
-    pub fn webhook(mut self, webhook: String) -> Self {
-        self.webhook = Some(webhook);
+    pub fn webhook(mut self, webhook: &str) -> Self {
+        self.webhook = Some(webhook.to_owned());
         self
     }
 }
-/**Represents a creditRelayRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct CreditRelayRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub relay_token: String,
@@ -5207,9 +5295,9 @@ impl<'a> CreditRelayRemoveRequest<'a> {
         }
     }
 }
-/**Represents a sandboxBankTransferFireWebhook request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxBankTransferFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub webhook: String,
@@ -5229,9 +5317,9 @@ impl<'a> SandboxBankTransferFireWebhookRequest<'a> {
         }
     }
 }
-/**Represents a sandboxIncomeFireWebhook request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxIncomeFireWebhookRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub item_id: String,
@@ -5258,14 +5346,14 @@ impl<'a> SandboxIncomeFireWebhookRequest<'a> {
             }
         }
     }
-    pub fn user_id(mut self, user_id: String) -> Self {
-        self.user_id = Some(user_id);
+    pub fn user_id(mut self, user_id: &str) -> Self {
+        self.user_id = Some(user_id.to_owned());
         self
     }
 }
-/**Represents a sandboxOauthSelectAccounts request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SandboxOauthSelectAccountsRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub oauth_state_id: String,
@@ -5287,9 +5375,9 @@ impl<'a> SandboxOauthSelectAccountsRequest<'a> {
         }
     }
 }
-/**Represents a signalEvaluate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SignalEvaluateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -5334,8 +5422,8 @@ impl<'a> SignalEvaluateRequest<'a> {
         self.user_present = Some(user_present);
         self
     }
-    pub fn client_user_id(mut self, client_user_id: String) -> Self {
-        self.client_user_id = Some(client_user_id);
+    pub fn client_user_id(mut self, client_user_id: &str) -> Self {
+        self.client_user_id = Some(client_user_id.to_owned());
         self
     }
     pub fn user(mut self, user: SignalUser) -> Self {
@@ -5347,7 +5435,6 @@ impl<'a> SignalEvaluateRequest<'a> {
         self
     }
 }
-///
 pub struct SignalEvaluateRequired<'a> {
     pub access_token: &'a str,
     pub account_id: &'a str,
@@ -5355,9 +5442,9 @@ pub struct SignalEvaluateRequired<'a> {
     pub amount: f64,
 }
 impl<'a> SignalEvaluateRequired<'a> {}
-/**Represents a signalDecisionReport request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SignalDecisionReportRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub client_transaction_id: String,
@@ -5387,9 +5474,9 @@ impl<'a> SignalDecisionReportRequest<'a> {
         self
     }
 }
-/**Represents a signalReturnReport request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SignalReturnReportRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub client_transaction_id: String,
@@ -5411,9 +5498,9 @@ impl<'a> SignalReturnReportRequest<'a> {
         }
     }
 }
-/**Represents a signalPrepare request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct SignalPrepareRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -5433,9 +5520,9 @@ impl<'a> SignalPrepareRequest<'a> {
         }
     }
 }
-/**Represents a walletCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WalletCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub iso_currency_code: String,
@@ -5455,9 +5542,9 @@ impl<'a> WalletCreateRequest<'a> {
         }
     }
 }
-/**Represents a walletGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WalletGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub wallet_id: String,
@@ -5477,9 +5564,9 @@ impl<'a> WalletGetRequest<'a> {
         }
     }
 }
-/**Represents a walletList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WalletListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub iso_currency_code: Option<String>,
@@ -5508,12 +5595,12 @@ impl<'a> WalletListRequest<'a> {
             }
         }
     }
-    pub fn iso_currency_code(mut self, iso_currency_code: String) -> Self {
-        self.iso_currency_code = Some(iso_currency_code);
+    pub fn iso_currency_code(mut self, iso_currency_code: &str) -> Self {
+        self.iso_currency_code = Some(iso_currency_code.to_owned());
         self
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -5521,9 +5608,9 @@ impl<'a> WalletListRequest<'a> {
         self
     }
 }
-/**Represents a walletTransactionExecute request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WalletTransactionExecuteRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub idempotency_key: String,
@@ -5551,7 +5638,6 @@ impl<'a> WalletTransactionExecuteRequest<'a> {
         }
     }
 }
-///
 pub struct WalletTransactionExecuteRequired<'a> {
     pub idempotency_key: &'a str,
     pub wallet_id: &'a str,
@@ -5560,9 +5646,9 @@ pub struct WalletTransactionExecuteRequired<'a> {
     pub reference: &'a str,
 }
 impl<'a> WalletTransactionExecuteRequired<'a> {}
-/**Represents a walletTransactionGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WalletTransactionGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub transaction_id: String,
@@ -5582,9 +5668,9 @@ impl<'a> WalletTransactionGetRequest<'a> {
         }
     }
 }
-/**Represents a walletTransactionsList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct WalletTransactionsListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub wallet_id: String,
@@ -5611,8 +5697,8 @@ impl<'a> WalletTransactionsListRequest<'a> {
             }
         }
     }
-    pub fn cursor(mut self, cursor: String) -> Self {
-        self.cursor = Some(cursor);
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
     pub fn count(mut self, count: i64) -> Self {
@@ -5620,9 +5706,9 @@ impl<'a> WalletTransactionsListRequest<'a> {
         self
     }
 }
-/**Represents a transactionsEnhance request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsEnhanceRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub account_type: String,
@@ -5644,9 +5730,9 @@ impl<'a> TransactionsEnhanceRequest<'a> {
         }
     }
 }
-/**Represents a transactionsRulesCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsRulesCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -5673,9 +5759,9 @@ impl<'a> TransactionsRulesCreateRequest<'a> {
         }
     }
 }
-/**Represents a transactionsRulesList request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsRulesListRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -5695,9 +5781,9 @@ impl<'a> TransactionsRulesListRequest<'a> {
         }
     }
 }
-/**Represents a transactionsRulesRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct TransactionsRulesRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub access_token: String,
@@ -5719,9 +5805,9 @@ impl<'a> TransactionsRulesRemoveRequest<'a> {
         }
     }
 }
-/**Represents a paymentProfileCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentProfileCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
 }
@@ -5739,9 +5825,9 @@ impl<'a> PaymentProfileCreateRequest<'a> {
         }
     }
 }
-/**Represents a paymentProfileGet request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentProfileGetRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_profile_id: String,
@@ -5761,9 +5847,9 @@ impl<'a> PaymentProfileGetRequest<'a> {
         }
     }
 }
-/**Represents a paymentProfileRemove request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PaymentProfileRemoveRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub payment_profile_id: String,
@@ -5783,9 +5869,9 @@ impl<'a> PaymentProfileRemoveRequest<'a> {
         }
     }
 }
-/**Represents a partnerCustomersCreate request. Create it with the associated client method.
+/**Create this with the associated client method.
 
-The client method takes required values as arguments. Set optional values using the builder methods on this struct.*/
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
 pub struct PartnerCustomersCreateRequest<'a> {
     pub(crate) client: &'a PlaidClient,
     pub company_name: String,

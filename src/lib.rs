@@ -18,7 +18,6 @@ impl PlaidClient {
             .with_authentication(PlaidAuthentication::from_env())
     }
 }
-///
 pub struct PlaidClient {
     pub(crate) client: httpclient::Client,
     authentication: Option<PlaidAuthentication>,
@@ -1378,6 +1377,24 @@ See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportge
             fast_report: None,
         }
     }
+    /**Retrieve a PDF Asset Report
+
+The `/asset_report/pdf/get` endpoint retrieves the Asset Report in PDF format. Before calling `/asset_report/pdf/get`, you must first create the Asset Report using `/asset_report/create` (or filter an Asset Report using `/asset_report/filter`) and then wait for the [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook to fire, indicating that the Report is ready to be retrieved.
+
+The response to `/asset_report/pdf/get` is the PDF binary data. The `request_id`  is returned in the `Plaid-Request-ID` header.
+
+[View a sample PDF Asset Report](https://plaid.com/documents/sample-asset-report.pdf).
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportpdfget>.*/
+    pub fn asset_report_pdf_get(
+        &self,
+        asset_report_token: &str,
+    ) -> request::AssetReportPdfGetRequest {
+        request::AssetReportPdfGetRequest {
+            client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+        }
+    }
     /**Create Asset Report Audit Copy
 
 Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf. For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day 1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
@@ -2216,6 +2233,29 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
             access_token: None,
         }
     }
+    /**(Deprecated) Download the original documents used for income verification
+
+`/income/verification/documents/download` provides the ability to download the source documents associated with the verification.
+
+If Document Income was used, the documents will be those the user provided in Link. For Payroll Income, the most recent files available
+for download from the payroll provider will be available from this endpoint.
+
+The response to `/income/verification/documents/download` is a ZIP file in binary data. If a `document_id` is passed, a single document will be contained in this file.
+If not, the response will contain all documents associated with the verification.
+
+The `request_id` is returned in the `Plaid-Request-ID` header.
+
+See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverificationdocumentsdownload>.*/
+    pub fn income_verification_documents_download(
+        &self,
+    ) -> request::IncomeVerificationDocumentsDownloadRequest {
+        request::IncomeVerificationDocumentsDownloadRequest {
+            client: &self,
+            income_verification_id: None,
+            access_token: None,
+            document_id: None,
+        }
+    }
     /**(Deprecated) Refresh an income verification
 
 `/income/verification/refresh` refreshes a given income verification.
@@ -2343,6 +2383,20 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_inc
             client: &self,
             user_token: None,
             options: None,
+        }
+    }
+    /**Retrieve information from the bank accounts used for income verification in PDF format
+
+`/credit/bank_income/pdf/get` returns the most recent bank income report for a specified user in PDF format.
+
+See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_incomepdfget>.*/
+    pub fn credit_bank_income_pdf_get(
+        &self,
+        user_token: &str,
+    ) -> request::CreditBankIncomePdfGetRequest {
+        request::CreditBankIncomePdfGetRequest {
+            client: &self,
+            user_token: user_token.to_owned(),
         }
     }
     /**Refresh a user's bank income information
