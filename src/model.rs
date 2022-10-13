@@ -3069,8 +3069,13 @@ pub struct TransactionBase {
     pub transaction_type: Option<String>,
     ///The ID of a posted transaction's associated pending transaction, where applicable.
     pub pending_transaction_id: Option<String>,
+    // The channel used to make a payment.
     pub payment_channel: String,
+    /** Information describing the intent of the transaction. Most relevant for personal finance use cases, but not limited to such use cases. */
     pub personal_finance_category: Option<PersonalFinanceCategory>,
+    /** An identifier classifying the transaction type.
+This field is only populated for European institutions. For institutions in the US and Canada, this field is set to null. */
+    pub transaction_code: Option<String>,
     /**The ID of the category to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/transactions/#categoriesget).
 
 If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
