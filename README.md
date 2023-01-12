@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/github/stars/libninjacom/plaid-rs.svg?style=flat-square" alt="Stars" />
     </a>
     <a href="https://github.com/libninjacom/plaid-rs/actions">
-        <img src="https://img.shields.io/github/workflow/status/libninjacom/plaid-rs/test?style=flat-square" alt="Build Status" />
+        <img src="https://img.shields.io/github/actions/workflow/status/libninjacom/plaid-rs/test.yaml?style=flat-square" alt="Build Status" />
     </a>
     
 <a href="https://crates.io/crates/plaid">
