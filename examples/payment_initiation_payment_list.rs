@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
         .count(1)
         .cursor("your cursor")
         .consent_id("your consent id")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

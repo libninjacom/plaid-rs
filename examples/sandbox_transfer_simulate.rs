@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -11,7 +12,6 @@ async fn main() {
             ach_return_code: Some("your ach return code".to_owned()),
             description: Some("your description".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

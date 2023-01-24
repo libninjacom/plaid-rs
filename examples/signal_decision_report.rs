@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
     let response = client
         .signal_decision_report(client_transaction_id, initiated)
         .days_funds_on_hold(1)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

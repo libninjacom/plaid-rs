@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -7,7 +8,6 @@ async fn main() {
     let account_id = "your account id";
     let response = client
         .processor_stripe_bank_account_token_create(access_token, account_id)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

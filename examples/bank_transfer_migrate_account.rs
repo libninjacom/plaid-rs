@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -9,7 +10,6 @@ async fn main() {
     let response = client
         .bank_transfer_migrate_account(account_number, routing_number, account_type)
         .wire_routing_number("your wire routing number")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

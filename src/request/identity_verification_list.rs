@@ -1,0 +1,39 @@
+use serde_json::json;
+use crate::model::*;
+use crate::PlaidClient;
+/**Create this with the associated client method.
+
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+#[derive(Clone)]
+pub struct IdentityVerificationListRequest<'a> {
+    pub(crate) http_client: &'a PlaidClient,
+    pub template_id: String,
+    pub client_user_id: String,
+    pub cursor: Option<String>,
+}
+impl<'a> IdentityVerificationListRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> ::httpclient::InMemoryResult<PaginatedIdentityVerificationListResponse> {
+        let mut r = self.http_client.client.post("/identity_verification/list");
+        r = r.json(json!({ "template_id" : self.template_id }));
+        r = r.json(json!({ "client_user_id" : self.client_user_id }));
+        if let Some(ref unwrapped) = self.cursor {
+            r = r.json(json!({ "cursor" : unwrapped }));
+        }
+        r = self.http_client.authenticate(r);
+        let res = r.send_awaiting_body().await?;
+        res.json()
+    }
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
+        self
+    }
+}
+impl<'a> ::std::future::IntoFuture for IdentityVerificationListRequest<'a> {
+    type Output = httpclient::InMemoryResult<PaginatedIdentityVerificationListResponse>;
+    type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
+    fn into_future(self) -> Self::IntoFuture {
+        Box::pin(self.send())
+    }
+}

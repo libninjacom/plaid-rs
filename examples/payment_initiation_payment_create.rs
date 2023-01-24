@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -11,28 +12,27 @@ async fn main() {
     };
     let response = client
         .payment_initiation_payment_create(recipient_id, reference, amount)
-        .schedule(
-            ExternalPaymentScheduleRequest(ExternalPaymentScheduleBase {
-                start_date: Some("your start date".to_owned()),
+        .schedule(ExternalPaymentScheduleRequest {
+            external_payment_schedule_base: Some(ExternalPaymentScheduleBase {
                 adjusted_start_date: Some("your adjusted start date".to_owned()),
-                interval_execution_day: Some(1),
-                interval: Some("your interval".to_owned()),
                 end_date: Some("your end date".to_owned()),
+                interval: Some("your interval".to_owned()),
+                interval_execution_day: Some(1),
+                start_date: Some("your start date".to_owned()),
             }),
-        )
+        })
         .options(ExternalPaymentOptions {
-            iban: Some("your iban".to_owned()),
-            scheme: Some("your scheme".to_owned()),
-            bacs: Some(
-                PaymentInitiationOptionalRestrictionBacs(RecipientBacs {
+            bacs: Some(PaymentInitiationOptionalRestrictionBacs {
+                recipient_bacs: Some(RecipientBacs {
                     account: Some("your account".to_owned()),
                     sort_code: Some("your sort code".to_owned()),
                 }),
-            ),
-            wallet_id: Some("your wallet id".to_owned()),
+            }),
+            iban: Some("your iban".to_owned()),
             request_refund_details: Some(true),
+            scheme: Some(PaymentScheme(::serde_json::json!({}))),
+            wallet_id: Some("your wallet id".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

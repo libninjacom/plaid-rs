@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
         .wallet_transactions_list(wallet_id)
         .cursor("your cursor")
         .count(1)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

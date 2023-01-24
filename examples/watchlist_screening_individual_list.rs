@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,7 +11,6 @@ async fn main() {
         .status("your status")
         .assignee("your assignee")
         .cursor("your cursor")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

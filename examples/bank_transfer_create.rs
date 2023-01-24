@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 use plaid::request::BankTransferCreateRequired;
@@ -5,19 +6,19 @@ use plaid::request::BankTransferCreateRequired;
 async fn main() {
     let client = PlaidClient::from_env();
     let args = BankTransferCreateRequired {
-        iso_currency_code: "your iso currency code",
-        idempotency_key: "your idempotency key",
-        description: "your description",
         access_token: "your access token",
-        network: "your network",
+        account_id: "your account id",
         amount: "your amount",
+        description: "your description",
+        idempotency_key: "your idempotency key",
+        iso_currency_code: "your iso currency code",
+        network: "your network",
+        type_: "your type",
         user: BankTransferUser {
-            legal_name: "your legal name".to_owned(),
             email_address: Some("your email address".to_owned()),
+            legal_name: "your legal name".to_owned(),
             routing_number: Some("your routing number".to_owned()),
         },
-        type_: "your type",
-        account_id: "your account id",
     };
     let response = client
         .bank_transfer_create(args)
@@ -25,7 +26,6 @@ async fn main() {
         .custom_tag("your custom tag")
         .metadata(BankTransferMetadata {})
         .origination_account_id("your origination account id")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

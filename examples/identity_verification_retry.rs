@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,11 +11,10 @@ async fn main() {
         .identity_verification_retry(client_user_id, template_id, strategy)
         .steps(IdentityVerificationRetryRequestStepsObject {
             documentary_verification: true,
-            verify_sms: true,
             kyc_check: true,
             selfie_check: true,
+            verify_sms: true,
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

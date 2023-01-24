@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,12 +9,11 @@ async fn main() {
     let response = client
         .institutions_get_by_id(institution_id, country_codes)
         .options(InstitutionsGetByIdRequestOptions {
-            include_payment_initiation_metadata: Some(true),
-            include_status: Some(true),
             include_auth_metadata: Some(true),
             include_optional_metadata: Some(true),
+            include_payment_initiation_metadata: Some(true),
+            include_status: Some(true),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

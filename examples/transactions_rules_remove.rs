@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -7,7 +8,6 @@ async fn main() {
     let rule_id = "your rule id";
     let response = client
         .transactions_rules_remove(access_token, rule_id)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

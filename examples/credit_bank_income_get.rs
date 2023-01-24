@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -9,7 +10,6 @@ async fn main() {
         .options(CreditBankIncomeGetRequestOptions {
             count: Some(1),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

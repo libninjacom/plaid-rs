@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -11,7 +12,6 @@ async fn main() {
     let idempotency_key = "your idempotency key";
     let response = client
         .payment_initiation_consent_payment_execute(consent_id, amount, idempotency_key)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,7 +11,6 @@ async fn main() {
         .options(IncomeVerificationCreateRequestOptions {
             access_tokens: Some(vec!["your access tokens".to_owned()]),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

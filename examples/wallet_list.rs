@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
         .iso_currency_code("your iso currency code")
         .cursor("your cursor")
         .count(1)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

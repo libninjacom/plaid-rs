@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,7 +11,6 @@ async fn main() {
     let auditor_id = "your auditor id";
     let response = client
         .credit_audit_copy_token_create(report_tokens, auditor_id)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

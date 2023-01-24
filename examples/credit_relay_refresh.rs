@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
     let response = client
         .credit_relay_refresh(relay_token, report_type)
         .webhook("your webhook")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

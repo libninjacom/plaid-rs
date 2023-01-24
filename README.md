@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/github/stars/libninjacom/plaid-rs.svg?style=flat-square" alt="Stars" />
     </a>
     <a href="https://github.com/libninjacom/plaid-rs/actions">
-        <img src="https://img.shields.io/github/actions/workflow/status/libninjacom/plaid-rs/test.yaml?style=flat-square" alt="Build Status" />
+        <img src="https://img.shields.io/github/actions/workflow/status/libninjacom/plaid-rs/ci.yaml?style=flat-square" alt="Build Status" />
     </a>
     
 <a href="https://crates.io/crates/plaid">
@@ -20,31 +20,38 @@
 
 </p>
 
+Plaid client, generated from the OpenAPI spec.
+
 # Usage
+
 ```rust
 use plaid::PlaidClient;
-
+use plaid::model::*;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    // Add this middleware to record requests, e.g. for testing.
-    // Do not use the middleware in production!
-    // .with_middleware(httpclient::middleware::RecorderMiddleware::new());
-    let access_token = "access-sandbox-b4957595-eae2-4130-9da7-114d14726a62";
-    let item_get = client.item_get(access_token)
+    let response = client
+        .item_application_list()
+        .access_token("your access token")
         .send()
         .await
         .unwrap();
-    println!("{:#?}", item_get);
+    println!("{:#?}", response);
 }
+
 ```
 
-This example loads the client from the environment variables, specifically:
+This example loads configuration from environment variables, specifically:
+
+* `PLAID_ENV`
 
 * `PLAID_CLIENT_ID`
+
 * `PLAID_SECRET`
+
 * `PLAID_VERSION`
-* `PLAID_ENV`: one of `sandbox`, `development`, or `production`
+
+
 
 # Installation
 
@@ -52,22 +59,21 @@ Add this to your Cargo.toml:
 
 ```toml
 [dependencies]
-plaid = "3"
+plaid = "5.0"
 ```
 
-# [Documentation](https://docs.rs/plaid/)
 
-# Previous Versions
+# Documentation
 
-This library has undergone several iterations due to being a community effort rather than officially supported by Plaid.
 
-- **1.x**: The source code can be found at https://github.com/ammubhave/plaid-rs. 
-- **<= 0.2.0**: The source code can be found at https://github.com/nathankot/plaid-rust.
- 
+
+* [Client Library Documentation](https://docs.rs/plaid)
+
+
+You can see working examples of every API call in the `examples/` directory.
+
 # Contributing
 
-Your contribution is highly appreciated. Do not hesitate to open an issue or a pull request. Note that any contribution
-submitted for inclusion in the project will be licensed according to the terms given in the project license.
+Contributions are welcome!
 
 *Library created with [Libninja](https://www.libninja.com).*
-

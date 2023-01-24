@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
     let response = client
         .sandbox_item_fire_webhook(access_token, webhook_code)
         .webhook_type("your webhook type")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

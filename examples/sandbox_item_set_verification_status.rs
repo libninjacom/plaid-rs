@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -12,7 +13,6 @@ async fn main() {
             account_id,
             verification_status,
         )
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -12,7 +13,6 @@ async fn main() {
             include_original_description: Some(true),
             include_personal_finance_category: Some(true),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

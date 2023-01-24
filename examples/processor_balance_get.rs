@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -9,7 +10,6 @@ async fn main() {
         .options(ProcessorBalanceGetRequestOptions {
             min_last_updated_datetime: Some("your min last updated datetime".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -11,12 +11,6 @@ run *args:
     cargo run {{args}}
 alias r := run
 
-generate:
-    cd generate && cargo update && cargo run || true
-    cp generate/template/Justfile .
-
-alias gen := generate
-
 release:
     cargo build --release
 
@@ -57,5 +51,8 @@ patch: test
 doc:
     cargo doc --no-deps --open
 
-example example:
-    cargo run --example $(basename {{example}} .rs)
+test-full:
+    #!/usr/bin/env bash -euxo pipefail
+    for file in $(ls examples); do
+        cargo run --example "$(basename "$file" .rs)"
+    done

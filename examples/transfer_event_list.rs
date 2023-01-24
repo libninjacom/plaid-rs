@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -9,13 +10,12 @@ async fn main() {
         .end_date("your end date")
         .transfer_id("your transfer id")
         .account_id("your account id")
-        .transfer_type("your transfer type")
+        .transfer_type(TransferEventListTransferType(::serde_json::json!({})))
         .event_types(&["your event types"])
         .sweep_id("your sweep id")
         .count(1)
         .offset(1)
         .origination_account_id("your origination account id")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

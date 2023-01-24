@@ -1,0 +1,79 @@
+use serde_json::json;
+use crate::model::*;
+use crate::PlaidClient;
+/**Create this with the associated client method.
+
+That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+#[derive(Clone)]
+pub struct IncomeVerificationPrecheckRequest<'a> {
+    pub(crate) http_client: &'a PlaidClient,
+    pub user: Option<IncomeVerificationPrecheckUser>,
+    pub employer: Option<IncomeVerificationPrecheckEmployer>,
+    pub transactions_access_token: Option<String>,
+    pub transactions_access_tokens: Option<Vec<String>>,
+    pub us_military_info: Option<IncomeVerificationPrecheckMilitaryInfo>,
+}
+impl<'a> IncomeVerificationPrecheckRequest<'a> {
+    pub async fn send(
+        self,
+    ) -> ::httpclient::InMemoryResult<IncomeVerificationPrecheckResponse> {
+        let mut r = self.http_client.client.post("/income/verification/precheck");
+        if let Some(ref unwrapped) = self.user {
+            r = r.json(json!({ "user" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.employer {
+            r = r.json(json!({ "employer" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.transactions_access_token {
+            r = r.json(json!({ "transactions_access_token" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.transactions_access_tokens {
+            r = r.json(json!({ "transactions_access_tokens" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.us_military_info {
+            r = r.json(json!({ "us_military_info" : unwrapped }));
+        }
+        r = self.http_client.authenticate(r);
+        let res = r.send_awaiting_body().await?;
+        res.json()
+    }
+    pub fn user(mut self, user: IncomeVerificationPrecheckUser) -> Self {
+        self.user = Some(user);
+        self
+    }
+    pub fn employer(mut self, employer: IncomeVerificationPrecheckEmployer) -> Self {
+        self.employer = Some(employer);
+        self
+    }
+    pub fn transactions_access_token(mut self, transactions_access_token: &str) -> Self {
+        self.transactions_access_token = Some(transactions_access_token.to_owned());
+        self
+    }
+    pub fn transactions_access_tokens(
+        mut self,
+        transactions_access_tokens: impl IntoIterator<Item = impl AsRef<str>>,
+    ) -> Self {
+        self
+            .transactions_access_tokens = Some(
+            transactions_access_tokens
+                .into_iter()
+                .map(|s| s.as_ref().to_owned())
+                .collect(),
+        );
+        self
+    }
+    pub fn us_military_info(
+        mut self,
+        us_military_info: IncomeVerificationPrecheckMilitaryInfo,
+    ) -> Self {
+        self.us_military_info = Some(us_military_info);
+        self
+    }
+}
+impl<'a> ::std::future::IntoFuture for IncomeVerificationPrecheckRequest<'a> {
+    type Output = httpclient::InMemoryResult<IncomeVerificationPrecheckResponse>;
+    type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
+    fn into_future(self) -> Self::IntoFuture {
+        Box::pin(self.send())
+    }
+}

@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -7,7 +8,6 @@ async fn main() {
         .income_verification_taxforms_get()
         .income_verification_id("your income verification id")
         .access_token("your access token")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

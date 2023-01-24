@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -9,7 +10,6 @@ async fn main() {
     let response = client
         .partner_customers_create(company_name, is_diligence_attested, products)
         .create_link_customization(true)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

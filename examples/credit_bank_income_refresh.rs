@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -7,10 +8,9 @@ async fn main() {
     let response = client
         .credit_bank_income_refresh(user_token)
         .options(CreditBankIncomeRefreshRequestOptions {
-            webhook: Some("your webhook".to_owned()),
             days_requested: Some(1),
+            webhook: Some("your webhook".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

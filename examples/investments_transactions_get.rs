@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,10 +11,9 @@ async fn main() {
         .investments_transactions_get(access_token, start_date, end_date)
         .options(InvestmentsTransactionsGetRequestOptions {
             account_ids: Some(vec!["your account ids".to_owned()]),
-            offset: Some(1),
             count: Some(1),
+            offset: Some(1),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -13,7 +14,6 @@ async fn main() {
         .options(ItemImportRequestOptions {
             webhook: Some("your webhook".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

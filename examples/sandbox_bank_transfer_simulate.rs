@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,10 +9,9 @@ async fn main() {
     let response = client
         .sandbox_bank_transfer_simulate(bank_transfer_id, event_type)
         .failure_reason(BankTransferFailure {
-            description: Some("your description".to_owned()),
             ach_return_code: Some("your ach return code".to_owned()),
+            description: Some("your description".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

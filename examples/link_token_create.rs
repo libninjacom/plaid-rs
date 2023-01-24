@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 use plaid::request::LinkTokenCreateRequired;
@@ -5,7 +6,21 @@ use plaid::request::LinkTokenCreateRequired;
 async fn main() {
     let client = PlaidClient::from_env();
     let args = LinkTokenCreateRequired {
+        client_name: "your client name",
+        country_codes: &["your country codes"],
+        language: "your language",
         user: LinkTokenCreateRequestUser {
+            address: Some(UserAddress {
+                city: "your city".to_owned(),
+                country: "your country".to_owned(),
+                postal_code: "your postal code".to_owned(),
+                region: "your region".to_owned(),
+                street: "your street".to_owned(),
+                street2: Some("your street 2".to_owned()),
+            }),
+            client_user_id: "your client user id".to_owned(),
+            date_of_birth: Some("your date of birth".to_owned()),
+            email_address: Some("your email address".to_owned()),
             email_address_verified_time: Some(
                 "your email address verified time".to_owned(),
             ),
@@ -13,31 +28,17 @@ async fn main() {
                 type_: "your type".to_owned(),
                 value: "your value".to_owned(),
             }),
-            address: Some(UserAddress {
-                street: "your street".to_owned(),
-                street2: Some("your street 2".to_owned()),
-                city: "your city".to_owned(),
-                region: "your region".to_owned(),
-                country: "your country".to_owned(),
-                postal_code: "your postal code".to_owned(),
-            }),
             legal_name: Some("your legal name".to_owned()),
-            ssn: Some("your ssn".to_owned()),
-            date_of_birth: Some("your date of birth".to_owned()),
-            client_user_id: "your client user id".to_owned(),
+            name: Some(UserName {
+                family_name: "your family name".to_owned(),
+                given_name: "your given name".to_owned(),
+            }),
+            phone_number: Some("your phone number".to_owned()),
             phone_number_verified_time: Some(
                 "your phone number verified time".to_owned(),
             ),
-            name: Some(UserName {
-                given_name: "your given name".to_owned(),
-                family_name: "your family name".to_owned(),
-            }),
-            phone_number: Some("your phone number".to_owned()),
-            email_address: Some("your email address".to_owned()),
+            ssn: Some("your ssn".to_owned()),
         },
-        language: "your language",
-        client_name: "your client name",
-        country_codes: &["your country codes"],
     };
     let response = client
         .link_token_create(args)
@@ -52,10 +53,10 @@ async fn main() {
             routing_number: Some("your routing number".to_owned()),
         })
         .account_filters(LinkTokenAccountFilters {
-            depository: Some(DepositoryFilter {
+            credit: Some(CreditFilter {
                 account_subtypes: vec!["your account subtypes".to_owned()],
             }),
-            credit: Some(CreditFilter {
+            depository: Some(DepositoryFilter {
                 account_subtypes: vec!["your account subtypes".to_owned()],
             }),
             investment: Some(InvestmentFilter {
@@ -70,57 +71,56 @@ async fn main() {
         })
         .institution_id("your institution id")
         .payment_initiation(LinkTokenCreateRequestPaymentInitiation {
-            payment_id: "your payment id".to_owned(),
             consent_id: Some("your consent id".to_owned()),
+            payment_id: "your payment id".to_owned(),
         })
         .deposit_switch(LinkTokenCreateRequestDepositSwitch {
             deposit_switch_id: "your deposit switch id".to_owned(),
         })
         .income_verification(LinkTokenCreateRequestIncomeVerification {
             access_tokens: Some(vec!["your access tokens".to_owned()]),
-            income_source_types: Some(vec!["your income source types".to_owned()]),
-            stated_income_sources: Some(
-                vec![
-                    LinkTokenCreateRequestUserStatedIncomeSource { pay_type :
-                    Some("your pay type".to_owned()), employer : Some("your employer"
-                    .to_owned()), category : Some("your category".to_owned()),
-                    pay_per_cycle : Some(1.0), pay_annual : Some(1.0), pay_frequency :
-                    Some("your pay frequency".to_owned()) }
-                ],
-            ),
-            payroll_income: Some(LinkTokenCreateRequestIncomeVerificationPayrollIncome {
-                is_update_mode: Some(true),
-                flow_types: Some(vec!["your flow types".to_owned()]),
-            }),
             asset_report_id: Some("your asset report id".to_owned()),
             bank_income: Some(LinkTokenCreateRequestIncomeVerificationBankIncome {
-                enable_multiple_items: Some(true),
                 days_requested: Some(1),
+                enable_multiple_items: Some(true),
             }),
+            income_source_types: Some(vec!["your income source types".to_owned()]),
             income_verification_id: Some("your income verification id".to_owned()),
+            payroll_income: Some(LinkTokenCreateRequestIncomeVerificationPayrollIncome {
+                flow_types: Some(vec!["your flow types".to_owned()]),
+                is_update_mode: Some(true),
+            }),
             precheck_id: Some("your precheck id".to_owned()),
+            stated_income_sources: Some(
+                vec![
+                    LinkTokenCreateRequestUserStatedIncomeSource { category :
+                    Some("your category".to_owned()), employer : Some("your employer"
+                    .to_owned()), pay_annual : Some(1.0), pay_frequency :
+                    Some("your pay frequency".to_owned()), pay_per_cycle : Some(1.0),
+                    pay_type : Some("your pay type".to_owned()) }
+                ],
+            ),
         })
         .auth(LinkTokenCreateRequestAuth {
-            same_day_microdeposits_enabled: Some(true),
-            flow_type: Some("your flow type".to_owned()),
-            automated_microdeposits_enabled: Some(true),
             auth_type_select_enabled: Some(true),
+            automated_microdeposits_enabled: Some(true),
+            flow_type: Some("your flow type".to_owned()),
             instant_match_enabled: Some(true),
+            same_day_microdeposits_enabled: Some(true),
         })
         .transfer(LinkTokenCreateRequestTransfer {
-            payment_profile_id: Some("your payment profile id".to_owned()),
             intent_id: Some("your intent id".to_owned()),
+            payment_profile_id: Some("your payment profile id".to_owned()),
         })
         .update(LinkTokenCreateRequestUpdate {
             account_selection_enabled: Some(true),
         })
         .identity_verification(LinkTokenCreateRequestIdentityVerification {
+            consent: Some(true),
             gave_consent: Some(true),
             template_id: "your template id".to_owned(),
-            consent: Some(true),
         })
         .user_token("your user token")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

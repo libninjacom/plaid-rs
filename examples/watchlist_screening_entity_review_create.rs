@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -13,7 +14,6 @@ async fn main() {
             entity_watchlist_screening_id,
         )
         .comment("your comment")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

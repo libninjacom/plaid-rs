@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 use plaid::request::TransferAuthorizationCreateRequired;
@@ -5,22 +6,22 @@ use plaid::request::TransferAuthorizationCreateRequired;
 async fn main() {
     let client = PlaidClient::from_env();
     let args = TransferAuthorizationCreateRequired {
+        ach_class: "your ach class",
         amount: "your amount",
+        network: "your network",
         type_: "your type",
         user: TransferAuthorizationUserInRequest {
             address: Some(TransferUserAddressInRequest {
                 city: Some("your city".to_owned()),
-                postal_code: Some("your postal code".to_owned()),
                 country: Some("your country".to_owned()),
-                street: Some("your street".to_owned()),
+                postal_code: Some("your postal code".to_owned()),
                 region: Some("your region".to_owned()),
+                street: Some("your street".to_owned()),
             }),
+            email_address: Some("your email address".to_owned()),
             legal_name: "your legal name".to_owned(),
             phone_number: Some("your phone number".to_owned()),
-            email_address: Some("your email address".to_owned()),
         },
-        ach_class: "your ach class",
-        network: "your network",
     };
     let response = client
         .transfer_authorization_create(args)
@@ -34,7 +35,6 @@ async fn main() {
         .iso_currency_code("your iso currency code")
         .user_present(true)
         .payment_profile_id("your payment profile id")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

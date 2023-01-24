@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,7 +11,6 @@ async fn main() {
             override_password: Some("your override password".to_owned()),
             override_username: Some("your override username".to_owned()),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

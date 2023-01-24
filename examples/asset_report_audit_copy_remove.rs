@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -6,7 +7,6 @@ async fn main() {
     let audit_copy_token = "your audit copy token";
     let response = client
         .asset_report_audit_copy_remove(audit_copy_token)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

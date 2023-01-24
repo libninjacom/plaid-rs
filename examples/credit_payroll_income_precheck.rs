@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -10,15 +11,14 @@ async fn main() {
         .employer(IncomeVerificationPrecheckEmployer {
             address: Some(IncomeVerificationPrecheckEmployerAddress {
             }),
-            url: Some("your url".to_owned()),
-            tax_id: Some("your tax id".to_owned()),
             name: Some("your name".to_owned()),
+            tax_id: Some("your tax id".to_owned()),
+            url: Some("your url".to_owned()),
         })
         .us_military_info(IncomeVerificationPrecheckMilitaryInfo {
-            is_active_duty: Some(true),
             branch: Some("your branch".to_owned()),
+            is_active_duty: Some(true),
         })
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

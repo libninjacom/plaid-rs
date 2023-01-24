@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
         .transfer_repayment_return_list(repayment_id)
         .count(1)
         .offset(1)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);

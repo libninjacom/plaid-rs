@@ -1,3 +1,4 @@
+#![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
 #[tokio::main]
@@ -8,7 +9,6 @@ async fn main() {
     let processor = "your processor";
     let response = client
         .processor_token_create(access_token, account_id, processor)
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);
