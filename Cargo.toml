@@ -99,30 +99,6 @@ edition = "2021"
 required-features = []
 
 [[example]]
-path = "examples/asset_report_relay_create.rs"
-name = "asset_report_relay_create"
-edition = "2021"
-required-features = []
-
-[[example]]
-path = "examples/asset_report_relay_get.rs"
-name = "asset_report_relay_get"
-edition = "2021"
-required-features = []
-
-[[example]]
-path = "examples/asset_report_relay_refresh.rs"
-name = "asset_report_relay_refresh"
-edition = "2021"
-required-features = []
-
-[[example]]
-path = "examples/asset_report_relay_remove.rs"
-name = "asset_report_relay_remove"
-edition = "2021"
-required-features = []
-
-[[example]]
 path = "examples/asset_report_remove.rs"
 name = "asset_report_remove"
 edition = "2021"
@@ -321,12 +297,6 @@ edition = "2021"
 required-features = []
 
 [[example]]
-path = "examples/dashobard_user_get.rs"
-name = "dashobard_user_get"
-edition = "2021"
-required-features = []
-
-[[example]]
 path = "examples/deposit_switch_alt_create.rs"
 name = "deposit_switch_alt_create"
 edition = "2021"
@@ -425,12 +395,6 @@ required-features = []
 [[example]]
 path = "examples/income_verification_precheck.rs"
 name = "income_verification_precheck"
-edition = "2021"
-required-features = []
-
-[[example]]
-path = "examples/income_verification_refresh.rs"
-name = "income_verification_refresh"
 edition = "2021"
 required-features = []
 
@@ -593,12 +557,6 @@ required-features = []
 [[example]]
 path = "examples/partner_customer_remove.rs"
 name = "partner_customer_remove"
-edition = "2021"
-required-features = []
-
-[[example]]
-path = "examples/partner_customers_create.rs"
-name = "partner_customers_create"
 edition = "2021"
 required-features = []
 
@@ -1143,12 +1101,6 @@ edition = "2021"
 required-features = []
 
 [[example]]
-path = "examples/watchlist_screening_entity_hits_list.rs"
-name = "watchlist_screening_entity_hits_list"
-edition = "2021"
-required-features = []
-
-[[example]]
 path = "examples/watchlist_screening_entity_list.rs"
 name = "watchlist_screening_entity_list"
 edition = "2021"
@@ -1235,12 +1187,6 @@ required-features = []
 [[example]]
 path = "examples/watchlist_screening_individual_review_list.rs"
 name = "watchlist_screening_individual_review_list"
-edition = "2021"
-required-features = []
-
-[[example]]
-path = "examples/watchlist_screening_individual_reviews_list.rs"
-name = "watchlist_screening_individual_reviews_list"
 edition = "2021"
 required-features = []
 
