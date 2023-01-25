@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::FdxFiAttribute;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct FdxNotificationPayload {
     #[serde(rename = "customFields")]

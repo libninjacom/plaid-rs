@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{CreditBankIncomeAccount, CreditBankIncomeSource};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeItem {
     pub bank_income_accounts: Option<Vec<CreditBankIncomeAccount>>,

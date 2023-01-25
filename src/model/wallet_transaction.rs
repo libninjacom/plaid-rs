@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{WalletTransactionAmount, WalletTransactionCounterparty};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransaction {
     pub amount: WalletTransactionAmount,

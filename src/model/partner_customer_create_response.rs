@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PartnerEndCustomerWithSecrets;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartnerCustomerCreateResponse {
     pub end_customer: Option<PartnerEndCustomerWithSecrets>,

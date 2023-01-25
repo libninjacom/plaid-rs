@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransactionsCategoryRule;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionsRulesCreateResponse {
     pub request_id: String,

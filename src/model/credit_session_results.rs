@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    CreditSessionDocumentIncomeResult, CreditSessionBankIncomeResult,
+    CreditSessionItemAddResult, CreditSessionPayrollIncomeResult,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditSessionResults {
     pub bank_income_results: Option<Vec<CreditSessionBankIncomeResult>>,

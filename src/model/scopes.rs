@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{AccountAccess, ProductAccess};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Scopes {
     pub accounts: Option<Vec<AccountAccess>>,

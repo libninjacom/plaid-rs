@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{WatchlistScreeningHitLocations, MatchSummary};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct GenericScreeningHitLocationItems {
     pub analysis: Option<MatchSummary>,

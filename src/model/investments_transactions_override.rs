@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::SecurityOverride;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InvestmentsTransactionsOverride {
     pub currency: String,

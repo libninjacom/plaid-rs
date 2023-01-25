@@ -1,13 +1,13 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use super::Scopes;
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Activity {
     pub activity: String,
     pub id: String,
     pub initiated_date: String,
     pub initiator: String,
-    pub scopes: ScopesNullable,
+    pub scopes: Option<Scopes>,
     pub state: String,
     pub target_application_id: Option<String>,
 }

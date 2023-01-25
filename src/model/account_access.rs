@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use super::AccountProductAccess;
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AccountAccess {
-    pub account_product_access: AccountProductAccessNullable,
+    pub account_product_access: Option<AccountProductAccess>,
     pub authorized: Option<bool>,
     pub unique_id: String,
 }

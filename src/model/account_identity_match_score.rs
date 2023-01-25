@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    AddressMatchScore, EmailAddressMatchScore, NameMatchScore, PhoneNumberMatchScore,
+    AccountBase,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AccountIdentityMatchScore {
     #[serde(flatten)]

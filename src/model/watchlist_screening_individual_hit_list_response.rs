@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::WatchlistScreeningHit;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningIndividualHitListResponse {
     pub next_cursor: Option<String>,

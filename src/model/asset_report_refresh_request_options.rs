@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AssetReportUser;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetReportRefreshRequestOptions {
     pub client_report_id: Option<String>,

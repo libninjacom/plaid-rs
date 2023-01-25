@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{AssetReport, Warning};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportGetResponse {
     pub report: AssetReport,

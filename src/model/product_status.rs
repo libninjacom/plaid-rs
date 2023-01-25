@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::ProductStatusBreakdown;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProductStatus {
     pub breakdown: ProductStatusBreakdown,

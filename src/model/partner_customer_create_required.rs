@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PartnerEndCustomerAddress;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartnerCustomerCreateRequired {
     pub address: PartnerEndCustomerAddress,

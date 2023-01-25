@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    SandboxPublicTokenCreateRequestOptionsIncomeVerification,
+    SandboxPublicTokenCreateRequestOptionsTransactions,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateRequestOptions {
     pub income_verification: Option<

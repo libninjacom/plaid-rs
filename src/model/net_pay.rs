@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Total;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct NetPay {
     pub current_amount: Option<f64>,

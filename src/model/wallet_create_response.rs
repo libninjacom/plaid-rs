@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WalletCreateResponse {}
 impl std::fmt::Display for WalletCreateResponse {

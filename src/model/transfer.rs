@@ -1,6 +1,10 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    TransferMetadata, TransferAuthorizationGuaranteeDecisionRationale,
+    TransferUserInResponse, TransferAuthorizationGuaranteeDecision, TransferFailure,
+    TransferRefund, TransferSweepStatus,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Transfer {
     pub account_id: Option<String>,

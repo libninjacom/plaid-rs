@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentInitiationConsentConstraints;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationConsentCreateRequired {
     pub constraints: PaymentInitiationConsentConstraints,

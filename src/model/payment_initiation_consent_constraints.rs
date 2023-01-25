@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    PaymentConsentMaxPaymentAmount, PaymentConsentPeriodicAmount,
+    PaymentConsentValidDateTime,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationConsentConstraints {
     pub max_payment_amount: PaymentConsentMaxPaymentAmount,

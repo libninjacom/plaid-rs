@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::SecurityOverride;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HoldingsOverride {
     pub cost_basis: Option<f64>,

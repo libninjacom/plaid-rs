@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Owner;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeAccount {
     pub account_id: Option<String>,

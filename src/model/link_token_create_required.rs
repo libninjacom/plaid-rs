@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::LinkTokenCreateRequestUser;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequired {
     pub client_name: String,

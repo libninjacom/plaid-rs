@@ -1,12 +1,12 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use super::{NumbersEft, NumbersAch, NumbersInternational, NumbersBacs};
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ProcessorNumber {
-    pub ach: NumbersAchNullable,
-    pub bacs: NumbersBacsNullable,
-    pub eft: NumbersEftNullable,
-    pub international: NumbersInternationalNullable,
+    pub ach: Option<NumbersAch>,
+    pub bacs: Option<NumbersBacs>,
+    pub eft: Option<NumbersEft>,
+    pub international: Option<NumbersInternational>,
 }
 impl std::fmt::Display for ProcessorNumber {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

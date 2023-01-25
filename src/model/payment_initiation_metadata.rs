@@ -1,6 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    PaymentInitiationMaximumPaymentAmount, PaymentInitiationStandingOrderMetadata,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationMetadata {
     pub maximum_payment_amount: PaymentInitiationMaximumPaymentAmount,

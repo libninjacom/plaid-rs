@@ -1,6 +1,10 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    EntityScreeningHitEmailsItems, EntityScreeningHitNamesItems,
+    GenericScreeningHitLocationItems, EntityScreeningHitUrlsItems,
+    EntityScreeningHitDocumentsItems, EntityScreeningHitsPhoneNumberItems,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitData {
     pub documents: Option<Vec<EntityScreeningHitDocumentsItems>>,

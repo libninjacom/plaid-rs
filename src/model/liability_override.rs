@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{Address, PslfStatus, StudentLoanRepaymentModel, StudentLoanStatus};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LiabilityOverride {
     pub balance_transfer_apr: f64,

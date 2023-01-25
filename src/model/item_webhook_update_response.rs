@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Item;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ItemWebhookUpdateResponse {
     pub item: Item,

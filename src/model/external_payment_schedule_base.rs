@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentScheduleBase {
     pub adjusted_start_date: Option<String>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{TransferUserInResponse, TransferRecurringSchedule};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecurringTransfer {
     pub account_id: String,

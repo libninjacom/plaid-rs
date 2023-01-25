@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{SignalEvaluateCoreAttributes, SignalScores};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SignalEvaluateResponse {
     pub core_attributes: Option<SignalEvaluateCoreAttributes>,

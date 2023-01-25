@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::CreditEmploymentVerification;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditEmploymentItem {
     pub employment_report_token: Option<String>,

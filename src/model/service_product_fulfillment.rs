@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::ServiceProductFulfillmentDetail;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ServiceProductFulfillment {
     #[serde(rename = "SERVICE_PRODUCT_FULFILLMENT_DETAIL")]

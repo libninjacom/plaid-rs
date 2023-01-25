@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{Credit1099, CreditW2, CreditPayStub};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayrollIncomeObject {
     pub account_id: Option<String>,

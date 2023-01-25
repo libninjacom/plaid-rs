@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransactionsRuleDetails;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsCategoryRule {
     pub created_at: Option<String>,

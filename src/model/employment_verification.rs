@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{EmployerVerification, EmploymentVerificationStatus, PlatformIds};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EmploymentVerification {
     pub employer: Option<EmployerVerification>,

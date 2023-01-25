@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::DepositSwitchAddressData;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTargetUser {
     pub address: Option<DepositSwitchAddressData>,

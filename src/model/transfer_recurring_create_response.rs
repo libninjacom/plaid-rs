@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{RecurringTransferNullable, TransferAuthorizationDecisionRationale};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferRecurringCreateResponse {
     pub decision: String,

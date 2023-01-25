@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AuthSupportedMethods;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AuthMetadata {
     pub supported_methods: Option<AuthSupportedMethods>,

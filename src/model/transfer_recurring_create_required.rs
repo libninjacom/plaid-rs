@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{TransferDevice, TransferUserInRequest, TransferRecurringSchedule};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRecurringCreateRequired {
     pub access_token: String,

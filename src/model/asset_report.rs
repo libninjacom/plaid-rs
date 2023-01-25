@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{AssetReportUser, AssetReportItem};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReport {
     pub asset_report_id: String,

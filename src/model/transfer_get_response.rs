@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Transfer;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferGetResponse {
     pub request_id: String,

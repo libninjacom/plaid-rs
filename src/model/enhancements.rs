@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{Counterparty, Location, PersonalFinanceCategory};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Enhancements {
     pub category: Vec<String>,

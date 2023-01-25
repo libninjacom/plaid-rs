@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::BankTransferEvent;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BankTransferEventSyncResponse {
     pub bank_transfer_events: Vec<BankTransferEvent>,

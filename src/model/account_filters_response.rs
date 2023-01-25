@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{LoanFilter, InvestmentFilter, DepositoryFilter, CreditFilter};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AccountFiltersResponse {
     pub credit: Option<CreditFilter>,

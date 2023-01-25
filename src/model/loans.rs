@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Loan;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Loans {
     #[serde(rename = "LOAN")]

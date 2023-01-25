@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AssetTransaction;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetTransactions {
     #[serde(rename = "ASSET_TRANSACTION")]

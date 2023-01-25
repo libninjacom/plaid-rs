@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{TransactionBase, CreditCategory};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportTransaction {
     #[serde(flatten)]

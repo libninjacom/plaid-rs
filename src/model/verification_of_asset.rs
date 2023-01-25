@@ -1,6 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    ServiceProductFulfillment, VerificationOfAssetResponse, ReportingInformation,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerificationOfAsset {
     #[serde(rename = "REPORTING_INFORMATION")]

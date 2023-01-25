@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::IncomeVerificationPrecheckEmployerAddress;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckEmployer {
     pub address: Option<IncomeVerificationPrecheckEmployerAddress>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::SandboxPublicTokenCreateRequestIncomeVerificationBankIncome;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateRequestOptionsIncomeVerification {
     pub bank_income: Option<SandboxPublicTokenCreateRequestIncomeVerificationBankIncome>,

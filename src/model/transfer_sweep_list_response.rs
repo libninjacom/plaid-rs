@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferSweep;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferSweepListResponse {
     pub request_id: String,

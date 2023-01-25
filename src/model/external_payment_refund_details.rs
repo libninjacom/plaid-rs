@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use super::RecipientBacs;
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentRefundDetails {
-    pub bacs: RecipientBacsNullable,
+    pub bacs: Option<RecipientBacs>,
     pub iban: Option<String>,
     pub name: String,
 }

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{DocumentMetadata, Paystub, PlaidError};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPaystubsGetResponse {
     pub document_metadata: Option<Vec<DocumentMetadata>>,

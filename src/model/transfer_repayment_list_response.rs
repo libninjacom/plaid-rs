@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferRepayment;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferRepaymentListResponse {
     pub repayments: Vec<TransferRepayment>,

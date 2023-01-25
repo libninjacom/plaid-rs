@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Cause;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Warning {
     pub cause: Cause,

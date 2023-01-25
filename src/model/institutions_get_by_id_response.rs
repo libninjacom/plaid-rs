@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Institution;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InstitutionsGetByIdResponse {
     pub institution: Institution,

@@ -1,6 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    CreditDocumentMetadata, Credit1099Filer, Credit1099Recipient, Credit1099Payer,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Credit1099 {
     pub april_amount: Option<f64>,

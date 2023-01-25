@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferFailure;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferEvent {
     pub account_id: String,

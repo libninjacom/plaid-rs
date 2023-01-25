@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{Location, PaymentMeta};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionBase {
     pub account_id: String,

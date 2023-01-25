@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentInitiationRecipient;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationRecipientGetResponse {
     #[serde(flatten)]

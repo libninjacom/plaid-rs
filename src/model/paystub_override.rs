@@ -1,6 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    IncomeBreakdown, PaystubOverrideEmployee, PayPeriodDetails, PaystubOverrideEmployer,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaystubOverride {
     pub employee: Option<PaystubOverrideEmployee>,

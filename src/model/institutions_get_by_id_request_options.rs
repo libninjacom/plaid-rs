@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetByIdRequestOptions {
     pub include_auth_metadata: Option<bool>,

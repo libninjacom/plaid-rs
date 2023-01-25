@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{CreditBankIncomeItem, CreditBankIncomeSummary, CreditBankIncomeWarning};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankIncome {
     pub bank_income_id: Option<String>,

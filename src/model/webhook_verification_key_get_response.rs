@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::JwkPublicKey;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WebhookVerificationKeyGetResponse {
     pub key: JwkPublicKey,

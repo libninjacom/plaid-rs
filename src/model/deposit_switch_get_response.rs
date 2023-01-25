@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchGetResponse {
     pub account_has_multiple_allocations: Option<bool>,

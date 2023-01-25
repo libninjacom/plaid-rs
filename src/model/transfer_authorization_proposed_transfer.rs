@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferUserInResponse;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationProposedTransfer {
     pub account_id: Option<String>,

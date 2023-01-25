@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{RemovedTransaction, Transaction};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsSyncResponse {
     pub added: Vec<Transaction>,

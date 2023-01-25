@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{UserAddress, UserIdNumber};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestUser {
     pub address: Option<UserAddress>,

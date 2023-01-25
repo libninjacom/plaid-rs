@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PartnerEndCustomerOAuthInstitution;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartnerCustomerOAuthInstitutionsGetResponse {
     pub flowdown_status: Option<String>,

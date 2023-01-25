@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::InstitutionsSearchPaymentInitiationOptions;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchRequestOptions {
     pub include_auth_metadata: Option<bool>,

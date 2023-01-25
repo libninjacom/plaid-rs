@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PayrollIncomeRateOfPay;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PayrollIncomeAccountData {
     pub account_id: Option<String>,

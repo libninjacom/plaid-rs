@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::LinkTokenGetMetadataResponse;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkTokenGetResponse {
     pub created_at: Option<String>,

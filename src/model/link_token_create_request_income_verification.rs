@@ -1,6 +1,10 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    LinkTokenCreateRequestUserStatedIncomeSource,
+    LinkTokenCreateRequestIncomeVerificationBankIncome,
+    LinkTokenCreateRequestIncomeVerificationPayrollIncome,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestIncomeVerification {
     pub access_tokens: Option<Vec<String>>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::EarningsBreakdownCanonicalDescription;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EarningsBreakdown {
     pub canonical_description: Option<EarningsBreakdownCanonicalDescription>,

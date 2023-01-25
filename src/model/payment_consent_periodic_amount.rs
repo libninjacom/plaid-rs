@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentConsentPeriodicAmountAmount;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentConsentPeriodicAmount {
     pub alignment: String,

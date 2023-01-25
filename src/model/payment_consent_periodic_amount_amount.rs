@@ -1,4 +1,4 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentAmount;
 pub type PaymentConsentPeriodicAmountAmount = PaymentAmount;

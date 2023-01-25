@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PlaidError;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Item {
     pub available_products: Vec<String>,

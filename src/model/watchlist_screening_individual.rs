@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{WatchlistScreeningSearchTerms, WatchlistScreeningAuditTrail};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningIndividual {
     pub assignee: Option<String>,

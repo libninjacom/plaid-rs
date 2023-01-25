@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TaxpayerIdentifier;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TaxpayerIdentifiers {
     #[serde(rename = "TAXPAYER_IDENTIFIER")]

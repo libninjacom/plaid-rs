@@ -1,6 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    WalletTransactionCounterpartyInternational, WalletTransactionCounterpartyBacs,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WalletTransactionCounterpartyNumbers {
     pub bacs: Option<WalletTransactionCounterpartyBacs>,

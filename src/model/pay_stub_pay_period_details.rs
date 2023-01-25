@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PayStubDistributionBreakdown;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayStubPayPeriodDetails {
     pub distribution_breakdown: Vec<PayStubDistributionBreakdown>,

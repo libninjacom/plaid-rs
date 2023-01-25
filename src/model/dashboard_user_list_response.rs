@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::DashboardUser;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DashboardUserListResponse {
     pub dashboard_users: Vec<DashboardUser>,

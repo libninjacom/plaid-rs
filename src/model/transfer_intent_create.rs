@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{TransferMetadata, TransferUserInResponse};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentCreate {
     pub account_id: Option<String>,

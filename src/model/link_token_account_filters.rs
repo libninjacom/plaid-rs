@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{LoanFilter, CreditFilter, InvestmentFilter, DepositoryFilter};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenAccountFilters {
     pub credit: Option<CreditFilter>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::RecurringTransfer;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRecurringGetResponse {
     pub recurring_transfer: RecurringTransfer,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Party;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Parties {
     #[serde(rename = "PARTY")]

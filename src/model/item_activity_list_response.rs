@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Activity;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemActivityListResponse {
     pub activities: Vec<Activity>,

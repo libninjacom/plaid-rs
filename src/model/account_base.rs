@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{AccountBalance, AccountSubtype};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AccountBase {
     pub account_id: String,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Wallet;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WalletListResponse {
     pub next_cursor: Option<String>,

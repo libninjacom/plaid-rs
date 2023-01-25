@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{TransactionStreamAmount, PersonalFinanceCategory};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionStream {
     pub account_id: String,

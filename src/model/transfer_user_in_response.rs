@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferUserAddressInResponse;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferUserInResponse {
     pub address: Option<TransferUserAddressInResponse>,

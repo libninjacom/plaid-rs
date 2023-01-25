@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::ClientProvidedEnrichedTransaction;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsEnrichGetResponse {
     pub enriched_transactions: Vec<ClientProvidedEnrichedTransaction>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{SignalAddressData, SignalPersonName};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalUser {
     pub address: Option<SignalAddressData>,

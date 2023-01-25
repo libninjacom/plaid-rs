@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{AccountIdentityMatchScore, Item};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityMatchResponse {
     pub accounts: Vec<AccountIdentityMatchScore>,

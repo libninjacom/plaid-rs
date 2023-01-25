@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::LoanIdentifier;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LoanIdentifiers {
     #[serde(rename = "LOAN_IDENTIFIER")]

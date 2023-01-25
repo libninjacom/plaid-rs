@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferTestClock;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SandboxTransferTestClockGetResponse {
     pub request_id: String,

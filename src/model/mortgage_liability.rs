@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{MortgageInterestRate, MortgagePropertyAddress};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MortgageLiability {
     pub account_id: String,

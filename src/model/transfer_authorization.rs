@@ -1,6 +1,10 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    TransferAuthorizationGuaranteeDecision, TransferAuthorizationDecisionRationale,
+    TransferAuthorizationGuaranteeDecisionRationale,
+    TransferAuthorizationProposedTransfer,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorization {
     pub created: String,

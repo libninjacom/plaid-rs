@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{PartyIndividual, TaxpayerIdentifiers, Roles};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Party {
     #[serde(rename = "INDIVIDUAL")]

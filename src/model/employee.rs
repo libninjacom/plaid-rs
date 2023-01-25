@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{PaystubAddress, TaxpayerId};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Employee {
     pub address: PaystubAddress,

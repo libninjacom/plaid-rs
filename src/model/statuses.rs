@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Status;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Statuses {
     #[serde(rename = "STATUS")]

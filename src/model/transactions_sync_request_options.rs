@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsSyncRequestOptions {
     pub include_logo_and_counterparty_beta: Option<bool>,

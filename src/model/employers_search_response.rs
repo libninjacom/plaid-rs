@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Employer;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EmployersSearchResponse {
     pub employers: Vec<Employer>,

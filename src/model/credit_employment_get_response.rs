@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::CreditEmploymentItem;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditEmploymentGetResponse {
     pub items: Vec<CreditEmploymentItem>,

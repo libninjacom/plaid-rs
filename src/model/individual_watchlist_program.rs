@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::WatchlistScreeningAuditTrail;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IndividualWatchlistProgram {
     pub audit_trail: WatchlistScreeningAuditTrail,

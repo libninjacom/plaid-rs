@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::WalletTransactionCounterpartyNumbers;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransactionCounterparty {
     pub name: String,

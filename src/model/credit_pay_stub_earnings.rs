@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{PayStubEarningsBreakdown, PayStubEarningsTotal};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditPayStubEarnings {
     pub breakdown: Vec<PayStubEarningsBreakdown>,

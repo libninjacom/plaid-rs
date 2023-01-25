@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::SignalAddressData;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckUser {
     pub email_address: Option<String>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{PlaidError, Taxform, DocumentMetadata};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationTaxformsGetResponse {
     pub document_metadata: Vec<DocumentMetadata>,

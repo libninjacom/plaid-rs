@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::SimulatedTransferSweep;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SandboxTransferSweepSimulateResponse {
     pub request_id: String,

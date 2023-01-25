@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::IndividualWatchlistProgram;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningIndividualProgramListResponse {
     pub next_cursor: Option<String>,

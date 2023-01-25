@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AccountBase;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorBalanceGetResponse {
     pub account: AccountBase,

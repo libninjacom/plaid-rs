@@ -1,4 +1,4 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentAmountNullable;
 pub type PaymentAmountRefunded = PaymentAmountNullable;

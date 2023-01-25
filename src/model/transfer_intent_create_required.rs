@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferUserInRequest;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentCreateRequired {
     pub amount: String,

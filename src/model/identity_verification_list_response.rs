@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::IdentityVerification;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationListResponse {
     pub identity_verifications: Vec<IdentityVerification>,

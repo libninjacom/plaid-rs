@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferUserAddressInRequest;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferAuthorizationUserInRequest {
     pub address: Option<TransferUserAddressInRequest>,

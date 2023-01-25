@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{CreditSessionError, CreditSessionResults};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditSession {
     pub errors: Option<Vec<CreditSessionError>>,

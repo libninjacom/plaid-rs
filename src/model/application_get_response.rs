@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Application;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ApplicationGetResponse {
     pub application: Application,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::BankTransferUser;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorBankTransferCreateRequired {
     pub amount: String,

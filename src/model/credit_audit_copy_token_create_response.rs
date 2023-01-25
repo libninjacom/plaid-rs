@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditAuditCopyTokenCreateResponse {
     pub audit_copy_token: String,

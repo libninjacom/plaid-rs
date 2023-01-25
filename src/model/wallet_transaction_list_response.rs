@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::WalletTransaction;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WalletTransactionListResponse {
     pub next_cursor: Option<String>,

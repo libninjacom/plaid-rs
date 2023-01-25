@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::CreditFreddieVerificationOfEmploymentDealVoe25;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditFreddieVerificationOfEmploymentVoe25 {
     #[serde(rename = "DEAL")]

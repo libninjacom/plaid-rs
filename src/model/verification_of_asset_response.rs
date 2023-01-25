@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Assets;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerificationOfAssetResponse {
     #[serde(rename = "ASSETS")]

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::EntityWatchlistProgram;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningEntityProgramListResponse {
     pub entity_watchlist_programs: Vec<EntityWatchlistProgram>,

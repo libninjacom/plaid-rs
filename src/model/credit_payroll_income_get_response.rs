@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{PayrollItem, PlaidError};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeGetResponse {
     pub error: Option<PlaidError>,

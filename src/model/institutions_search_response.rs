@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Institution;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InstitutionsSearchResponse {
     pub institutions: Vec<Institution>,

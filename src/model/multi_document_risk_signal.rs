@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{RiskSignalDocumentReference, DocumentRiskSignal};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct MultiDocumentRiskSignal {
     pub document_references: Vec<RiskSignalDocumentReference>,

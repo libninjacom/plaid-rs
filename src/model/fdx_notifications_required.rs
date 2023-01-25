@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{FdxNotificationPayload, FdxParty};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FdxNotificationsRequired {
     pub category: String,

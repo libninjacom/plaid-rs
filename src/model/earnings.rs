@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{EarningsBreakdown, EarningsTotal};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Earnings {
     pub breakdown: Option<Vec<EarningsBreakdown>>,

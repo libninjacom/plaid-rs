@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::ConnectedApplication;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemApplicationListResponse {
     pub applications: Vec<ConnectedApplication>,

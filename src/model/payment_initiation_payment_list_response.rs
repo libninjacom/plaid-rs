@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentInitiationPayment;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentListResponse {
     pub next_cursor: Option<String>,

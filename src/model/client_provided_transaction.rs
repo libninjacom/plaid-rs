@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::ClientProvidedTransactionLocation;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ClientProvidedTransaction {
     pub amount: f64,

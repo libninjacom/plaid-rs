@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::IdentityVerificationRequestUser;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationCreateRequired {
     pub gave_consent: bool,

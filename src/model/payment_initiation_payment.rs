@@ -1,13 +1,16 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    ExternalPaymentScheduleBase, PaymentScheme, ExternalPaymentRefundDetails,
+    RecipientBacs, PaymentAmount, PaymentAmountRefunded,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationPayment {
     pub adjusted_reference: Option<String>,
     pub adjusted_scheme: Option<PaymentScheme>,
     pub amount: PaymentAmount,
     pub amount_refunded: Option<PaymentAmountRefunded>,
-    pub bacs: SenderBacsNullable,
+    pub bacs: Option<RecipientBacs>,
     pub consent_id: Option<String>,
     pub iban: Option<String>,
     pub last_status_update: String,
@@ -16,7 +19,7 @@ pub struct PaymentInitiationPayment {
     pub reference: String,
     pub refund_details: Option<ExternalPaymentRefundDetails>,
     pub refund_ids: Option<Vec<String>>,
-    pub schedule: ExternalPaymentScheduleGet,
+    pub schedule: Option<ExternalPaymentScheduleBase>,
     pub scheme: Option<PaymentScheme>,
     pub status: String,
     pub transaction_id: Option<String>,

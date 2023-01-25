@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{Total, DeductionsTotal, DeductionsBreakdown};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Deductions {
     pub breakdown: Vec<DeductionsBreakdown>,

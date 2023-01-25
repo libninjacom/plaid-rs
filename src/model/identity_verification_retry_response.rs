@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    KycCheckDetails, DocumentaryVerification, IdentityVerificationStepSummary,
+    IdentityVerificationTemplateReference, IdentityVerificationUserData,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationRetryResponse {
     pub client_user_id: String,

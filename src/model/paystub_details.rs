@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaystubPayFrequency;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaystubDetails {
     pub pay_date: Option<String>,

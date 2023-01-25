@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    CreditDocumentMetadata, W2StateAndLocalWages, W2Box12, CreditPayStubEmployee,
+    CreditPayStubEmployer,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditW2 {
     pub allocated_tips: Option<String>,

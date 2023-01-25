@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::DocumentRiskSignalInstitutionMetadata;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DocumentRiskSignal {
     pub actual_value: Option<String>,

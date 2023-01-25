@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferIntentGet;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentGetResponse {
     pub request_id: String,

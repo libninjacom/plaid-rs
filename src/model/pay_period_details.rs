@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::DistributionBreakdown;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayPeriodDetails {
     pub check_amount: Option<f64>,

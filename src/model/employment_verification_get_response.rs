@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::EmploymentVerification;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EmploymentVerificationGetResponse {
     pub employments: Vec<EmploymentVerification>,

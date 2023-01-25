@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AssetOwner;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetOwners {
     #[serde(rename = "ASSET_OWNER")]

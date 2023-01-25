@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferAuthorizationUserInRequest;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationCreateRequired {
     pub amount: String,

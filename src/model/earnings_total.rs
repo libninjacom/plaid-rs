@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Pay;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EarningsTotal {
     pub current_amount: Option<f64>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{Pay, TotalCanonicalDescription};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Total {
     pub canonical_description: Option<TotalCanonicalDescription>,

@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalEvaluateCoreAttributes {
     #[serde(rename = "address_change_count_28d")]

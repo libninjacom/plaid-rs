@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{BankTransferDirection, BankTransferFailure};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BankTransferEvent {
     pub account_id: String,

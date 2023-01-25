@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AccountIdentity;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorIdentityGetResponse {
     pub account: AccountIdentity,

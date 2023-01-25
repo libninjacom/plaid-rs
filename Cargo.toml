@@ -1,7 +1,7 @@
 [package]
 name = "plaid"
 edition = "2021"
-version = "5.0.0"
+version = "0.1.0"
 description = "Plaid client, generated from the OpenAPI spec."
 homepage = "https://github.com/libninjacom/plaid-rs"
 documentation = "https://docs.rs/plaid"
@@ -497,6 +497,12 @@ required-features = []
 [[example]]
 path = "examples/liabilities_get.rs"
 name = "liabilities_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/link.rs"
+name = "link"
 edition = "2021"
 required-features = []
 

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PartnerEndCustomerOAuthInstitutionEnvironments;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartnerEndCustomerOAuthInstitution {
     pub classic_disablement_date: Option<String>,

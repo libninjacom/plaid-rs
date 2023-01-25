@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::Enhancements;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ClientProvidedEnhancedTransaction {
     pub amount: f64,

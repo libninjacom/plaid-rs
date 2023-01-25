@@ -1,6 +1,10 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    TransferAuthorizationGuaranteeDecisionRationale, TransferIntentGetFailureReason,
+    TransferAuthorizationGuaranteeDecision, TransferMetadata, TransferUserInResponse,
+    TransferAuthorizationDecisionRationale,
+};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentGet {
     pub account_id: Option<String>,

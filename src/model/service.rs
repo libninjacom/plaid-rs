@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{VerificationOfAsset, Statuses};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Service {
     #[serde(rename = "STATUSES")]

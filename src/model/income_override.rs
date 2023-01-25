@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaystubOverride;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IncomeOverride {
     pub paystubs: Option<Vec<PaystubOverride>>,

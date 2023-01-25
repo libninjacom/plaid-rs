@@ -1,6 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{
+    ScreeningHitNamesItems, GenericScreeningHitLocationItems,
+    ScreeningHitDateOfBirthItem, ScreeningHitDocumentsItems,
+};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ScreeningHitData {
     pub dates_of_birth: Option<Vec<ScreeningHitDateOfBirthItem>>,

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransactionStream;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsRecurringGetResponse {
     pub inflow_streams: Vec<TransactionStream>,

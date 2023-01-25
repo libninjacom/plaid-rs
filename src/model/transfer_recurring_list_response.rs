@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::RecurringTransfer;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferRecurringListResponse {
     pub recurring_transfers: Vec<RecurringTransfer>,

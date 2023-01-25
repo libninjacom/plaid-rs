@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferCapabilitiesGetRtp;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InstitutionSupportedNetworks {
     pub rtp: TransferCapabilitiesGetRtp,

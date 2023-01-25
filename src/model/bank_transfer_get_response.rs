@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::BankTransfer;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankTransferGetResponse {
     pub bank_transfer: BankTransfer,

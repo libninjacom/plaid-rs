@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PhysicalDocumentExtractedDataAnalysis;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DocumentAnalysis {
     pub authenticity: String,

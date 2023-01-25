@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::TransferEvent;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferEventSyncResponse {
     pub request_id: String,

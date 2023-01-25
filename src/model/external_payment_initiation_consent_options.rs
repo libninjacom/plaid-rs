@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use super::RecipientBacs;
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentInitiationConsentOptions {
-    pub bacs: PaymentInitiationOptionalRestrictionBacs,
+    pub bacs: Option<RecipientBacs>,
     pub iban: Option<String>,
     pub request_refund_details: Option<bool>,
     pub wallet_id: Option<String>,

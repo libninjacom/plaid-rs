@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::CreditPayStubAddress;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Credit1099Payer {
     pub address: Option<CreditPayStubAddress>,

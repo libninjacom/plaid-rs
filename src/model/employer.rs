@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+use super::AddressData;
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Employer {
-    pub address: AddressDataNullable,
+    pub address: Option<AddressData>,
     pub confidence_score: f64,
     pub employer_id: String,
     pub name: String,

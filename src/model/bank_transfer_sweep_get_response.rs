@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::BankTransferSweep;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankTransferSweepGetResponse {
     pub request_id: String,

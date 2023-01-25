@@ -1,6 +1,5 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartnerEndCustomerCustomerSupportInfo {
     pub contact_url: Option<String>,

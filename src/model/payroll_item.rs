@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{PayrollIncomeObject, PayrollIncomeAccountData, PayrollItemStatus};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayrollItem {
     pub accounts: Vec<PayrollIncomeAccountData>,

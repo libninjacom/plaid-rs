@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::RoleDetail;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Role {
     #[serde(rename = "ROLE_DETAIL")]

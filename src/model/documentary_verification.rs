@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::DocumentaryVerificationDocument;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DocumentaryVerification {
     pub documents: Vec<DocumentaryVerificationDocument>,

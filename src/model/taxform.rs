@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::W2;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Taxform {
     pub doc_id: Option<String>,

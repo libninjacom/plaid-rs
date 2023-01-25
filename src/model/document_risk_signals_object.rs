@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::{SingleDocumentRiskSignal, MultiDocumentRiskSignal};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DocumentRiskSignalsObject {
     pub account_id: Option<String>,

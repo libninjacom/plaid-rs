@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::PaymentInitiationRecipient;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientListResponse {
     pub recipients: Vec<PaymentInitiationRecipient>,

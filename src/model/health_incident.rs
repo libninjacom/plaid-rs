@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::IncidentUpdate;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct HealthIncident {
     pub end_date: Option<String>,

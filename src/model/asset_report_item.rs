@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::AccountAssets;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetReportItem {
     pub accounts: Vec<AccountAssets>,

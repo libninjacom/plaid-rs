@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::*;
+use super::DetailedOriginator;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferOriginatorGetResponse {
     pub originator: DetailedOriginator,
