@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    ServiceProductFulfillment, VerificationOfAssetResponse, ReportingInformation,
+    ReportingInformation, ServiceProductFulfillment, VerificationOfAssetResponse,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerificationOfAsset {

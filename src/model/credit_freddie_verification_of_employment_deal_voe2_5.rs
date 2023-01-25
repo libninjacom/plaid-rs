@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    CreditFreddieMacLoansVoa24, CreditFreddieMacServicesVoe25,
-    CreditFreddieMacPartiesVoa24,
+    CreditFreddieMacLoansVoa24, CreditFreddieMacPartiesVoa24,
+    CreditFreddieMacServicesVoe25,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditFreddieVerificationOfEmploymentDealVoe25 {

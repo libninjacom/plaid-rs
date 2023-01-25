@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    CreditSessionDocumentIncomeResult, CreditSessionBankIncomeResult,
+    CreditSessionBankIncomeResult, CreditSessionDocumentIncomeResult,
     CreditSessionItemAddResult, CreditSessionPayrollIncomeResult,
 };
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]

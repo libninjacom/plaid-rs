@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    TransferMetadata, TransferAuthorizationGuaranteeDecisionRationale,
-    TransferUserInResponse, TransferAuthorizationGuaranteeDecision, TransferFailure,
-    TransferRefund, TransferSweepStatus,
+    TransferAuthorizationGuaranteeDecision,
+    TransferAuthorizationGuaranteeDecisionRationale, TransferFailure, TransferMetadata,
+    TransferRefund, TransferSweepStatus, TransferUserInResponse,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Transfer {

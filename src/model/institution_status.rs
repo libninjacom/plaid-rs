@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{ProductStatus, HealthIncident};
+use super::{HealthIncident, ProductStatus};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InstitutionStatus {
     pub auth: Option<ProductStatus>,

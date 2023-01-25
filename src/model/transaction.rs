@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    TransactionCounterparty, TransactionCode, PersonalFinanceCategory, TransactionBase,
+    PersonalFinanceCategory, TransactionBase, TransactionCode, TransactionCounterparty,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Transaction {

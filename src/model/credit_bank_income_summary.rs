@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{CreditBankIncomeHistoricalSummary, CreditAmountWithCurrency};
+use super::{CreditAmountWithCurrency, CreditBankIncomeHistoricalSummary};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeSummary {
     pub end_date: Option<String>,

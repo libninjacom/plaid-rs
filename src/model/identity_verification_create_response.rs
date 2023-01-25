@@ -1,9 +1,8 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    KycCheckDetails, IdentityVerificationStepSummary,
-    IdentityVerificationTemplateReference, DocumentaryVerification,
-    IdentityVerificationUserData,
+    DocumentaryVerification, IdentityVerificationStepSummary,
+    IdentityVerificationTemplateReference, IdentityVerificationUserData, KycCheckDetails,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationCreateResponse {

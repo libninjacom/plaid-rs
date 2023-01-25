@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{Counterparty, PersonalFinanceCategory, Location};
+use super::{Counterparty, Location, PersonalFinanceCategory};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Enrichments {
     pub check_number: Option<String>,

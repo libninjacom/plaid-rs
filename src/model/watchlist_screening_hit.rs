@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{ScreeningHitData, ScreeningHitAnalysis};
+use super::{ScreeningHitAnalysis, ScreeningHitData};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningHit {
     pub analysis: Option<ScreeningHitAnalysis>,

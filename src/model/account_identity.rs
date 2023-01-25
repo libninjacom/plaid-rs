@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{Owner, AccountBase};
+use super::{AccountBase, Owner};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AccountIdentity {
     #[serde(flatten)]

@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{Item, AccountIdentity};
+use super::{AccountIdentity, Item};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityGetResponse {
     pub accounts: Vec<AccountIdentity>,

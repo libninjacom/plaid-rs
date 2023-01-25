@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{WatchlistScreeningAuditTrail, EntityWatchlistScreeningSearchTerms};
+use super::{EntityWatchlistScreeningSearchTerms, WatchlistScreeningAuditTrail};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningEntityGetResponse {
     pub assignee: Option<String>,

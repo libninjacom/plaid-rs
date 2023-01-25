@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{RecipientBacs, PaymentScheme};
+use super::{PaymentScheme, RecipientBacs};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentOptions {
     pub bacs: Option<RecipientBacs>,

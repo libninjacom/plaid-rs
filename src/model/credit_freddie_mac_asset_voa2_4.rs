@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    CreditFreddieMacAssetTransactionsVoa24, AssetDetail, AssetOwners, AssetHolder,
+    AssetDetail, AssetHolder, AssetOwners, CreditFreddieMacAssetTransactionsVoa24,
     ValidationSources,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]

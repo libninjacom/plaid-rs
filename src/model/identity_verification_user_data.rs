@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{UserName, IdentityVerificationUserAddress, UserIdNumber};
+use super::{IdentityVerificationUserAddress, UserIdNumber, UserName};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IdentityVerificationUserData {
     pub address: Option<IdentityVerificationUserAddress>,

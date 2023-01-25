@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{W2Box12, W2StateAndLocalWages, Employee, PaystubEmployer};
+use super::{Employee, PaystubEmployer, W2Box12, W2StateAndLocalWages};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct W2 {
     pub allocated_tips: Option<String>,

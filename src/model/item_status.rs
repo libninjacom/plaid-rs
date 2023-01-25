@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{ItemStatusTransactions, ItemStatusLastWebhook, ItemStatusInvestments};
+use super::{ItemStatusInvestments, ItemStatusLastWebhook, ItemStatusTransactions};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemStatus {
     pub investments: Option<ItemStatusInvestments>,

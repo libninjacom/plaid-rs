@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{AuthMetadata, PaymentInitiationMetadata, InstitutionStatus};
+use super::{AuthMetadata, InstitutionStatus, PaymentInitiationMetadata};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Institution {
     pub auth_metadata: Option<AuthMetadata>,

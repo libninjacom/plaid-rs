@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    BankTransferDirection, BankTransferUser, BankTransferMetadata, BankTransferFailure,
+    BankTransferDirection, BankTransferFailure, BankTransferMetadata, BankTransferUser,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankTransfer {

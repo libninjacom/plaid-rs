@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{MatchSummary, EntityScreeningHitEmails};
+use super::{EntityScreeningHitEmails, MatchSummary};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitEmailsItems {
     pub analysis: Option<MatchSummary>,

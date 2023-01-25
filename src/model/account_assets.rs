@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    AssetReportTransaction, Owner, AccountBase, OwnershipType, HistoricalBalance,
+    AccountBase, AssetReportTransaction, HistoricalBalance, Owner, OwnershipType,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AccountAssets {

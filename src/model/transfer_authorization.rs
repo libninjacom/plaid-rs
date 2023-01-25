@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    TransferAuthorizationGuaranteeDecision, TransferAuthorizationDecisionRationale,
+    TransferAuthorizationDecisionRationale, TransferAuthorizationGuaranteeDecision,
     TransferAuthorizationGuaranteeDecisionRationale,
     TransferAuthorizationProposedTransfer,
 };

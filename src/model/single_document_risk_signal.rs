@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{DocumentRiskSignal, RiskSignalDocumentReference, DocumentRiskSummary};
+use super::{DocumentRiskSignal, DocumentRiskSummary, RiskSignalDocumentReference};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SingleDocumentRiskSignal {
     pub document_reference: RiskSignalDocumentReference,

@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    CreditDocumentMetadata, Credit1099Filer, Credit1099Recipient, Credit1099Payer,
+    Credit1099Filer, Credit1099Payer, Credit1099Recipient, CreditDocumentMetadata,
 };
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Credit1099 {

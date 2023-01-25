@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    CreditDocumentMetadata, W2StateAndLocalWages, W2Box12, CreditPayStubEmployee,
-    CreditPayStubEmployer,
+    CreditDocumentMetadata, CreditPayStubEmployee, CreditPayStubEmployer, W2Box12,
+    W2StateAndLocalWages,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditW2 {

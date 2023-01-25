@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{AssetHolder, AssetTransactions, AssetDetail, AssetOwners, ValidationSources};
+use super::{AssetDetail, AssetHolder, AssetOwners, AssetTransactions, ValidationSources};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Asset {
     #[serde(rename = "ASSET_DETAIL")]

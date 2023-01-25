@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    LinkTokenCreateRequestUserStatedIncomeSource,
     LinkTokenCreateRequestIncomeVerificationBankIncome,
     LinkTokenCreateRequestIncomeVerificationPayrollIncome,
+    LinkTokenCreateRequestUserStatedIncomeSource,
 };
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestIncomeVerification {

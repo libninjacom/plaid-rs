@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
+    TransferAuthorizationDecisionRationale, TransferAuthorizationGuaranteeDecision,
     TransferAuthorizationGuaranteeDecisionRationale, TransferIntentGetFailureReason,
-    TransferAuthorizationGuaranteeDecision, TransferMetadata, TransferUserInResponse,
-    TransferAuthorizationDecisionRationale,
+    TransferMetadata, TransferUserInResponse,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentGet {

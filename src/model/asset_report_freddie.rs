@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{Parties, Services, Loans};
+use super::{Loans, Parties, Services};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportFreddie {
     #[serde(rename = "LOANS")]

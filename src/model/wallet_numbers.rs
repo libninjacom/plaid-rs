@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{RecipientBacs, NumbersInternationalIban};
+use super::{NumbersInternationalIban, RecipientBacs};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WalletNumbers {
     pub bacs: Option<RecipientBacs>,

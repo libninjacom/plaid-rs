@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{MortgageLiability, CreditCardLiability, StudentLoan};
+use super::{CreditCardLiability, MortgageLiability, StudentLoan};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LiabilitiesObject {
     pub credit: Option<Vec<CreditCardLiability>>,

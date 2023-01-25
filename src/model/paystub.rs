@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    Earnings, PaystubEmployer, NetPay, PaystubDetails, PaystubYtdDetails,
-    EmploymentDetails, Deductions, Employee, IncomeBreakdown, PayPeriodDetails,
+    Deductions, Earnings, Employee, EmploymentDetails, IncomeBreakdown, NetPay,
+    PayPeriodDetails, PaystubDetails, PaystubEmployer, PaystubYtdDetails,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Paystub {

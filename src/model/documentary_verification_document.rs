@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{DocumentAnalysis, PhysicalDocumentImages, PhysicalDocumentExtractedData};
+use super::{DocumentAnalysis, PhysicalDocumentExtractedData, PhysicalDocumentImages};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DocumentaryVerificationDocument {
     pub analysis: DocumentAnalysis,

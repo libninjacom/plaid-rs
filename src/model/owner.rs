@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{Email, PhoneNumber, Address};
+use super::{Address, Email, PhoneNumber};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Owner {
     pub addresses: Vec<Address>,

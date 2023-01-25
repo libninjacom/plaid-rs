@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{WatchlistScreeningDocument, MatchSummary};
+use super::{MatchSummary, WatchlistScreeningDocument};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ScreeningHitDocumentsItems {
     pub analysis: Option<MatchSummary>,

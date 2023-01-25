@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{CreditPlatformIds, CreditEmployerVerification};
+use super::{CreditEmployerVerification, CreditPlatformIds};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditEmploymentVerification {
     pub account_id: Option<String>,

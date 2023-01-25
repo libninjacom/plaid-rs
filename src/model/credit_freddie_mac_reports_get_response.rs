@@ -1,7 +1,7 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    CreditFreddieVerificationOfEmploymentVoe25, CreditFreddieMacVerificationOfAssetsVoa24,
+    CreditFreddieMacVerificationOfAssetsVoa24, CreditFreddieVerificationOfEmploymentVoe25,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditFreddieMacReportsGetResponse {

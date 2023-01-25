@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{LinkTokenCreateInstitutionData, AccountFiltersResponse};
+use super::{AccountFiltersResponse, LinkTokenCreateInstitutionData};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenGetMetadataResponse {
     pub account_filters: Option<AccountFiltersResponse>,

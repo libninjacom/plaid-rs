@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    KycCheckPhoneSummary, KycCheckDateOfBirthSummary, KycCheckNameSummary,
-    KycCheckAddressSummary, KycCheckIdNumberSummary,
+    KycCheckAddressSummary, KycCheckDateOfBirthSummary, KycCheckIdNumberSummary,
+    KycCheckNameSummary, KycCheckPhoneSummary,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct KycCheckDetails {

@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    EntityScreeningHitEmailsItems, EntityScreeningHitNamesItems,
-    GenericScreeningHitLocationItems, EntityScreeningHitUrlsItems,
-    EntityScreeningHitDocumentsItems, EntityScreeningHitsPhoneNumberItems,
+    EntityScreeningHitDocumentsItems, EntityScreeningHitEmailsItems,
+    EntityScreeningHitNamesItems, EntityScreeningHitUrlsItems,
+    EntityScreeningHitsPhoneNumberItems, GenericScreeningHitLocationItems,
 };
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitData {

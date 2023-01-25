@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{StudentLoanStatus, PslfStatus, StudentRepaymentPlan, ServicerAddressData};
+use super::{PslfStatus, ServicerAddressData, StudentLoanStatus, StudentRepaymentPlan};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StudentLoan {
     pub account_id: Option<String>,

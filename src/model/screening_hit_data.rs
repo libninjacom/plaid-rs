@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
 use super::{
-    ScreeningHitNamesItems, GenericScreeningHitLocationItems,
-    ScreeningHitDateOfBirthItem, ScreeningHitDocumentsItems,
+    GenericScreeningHitLocationItems, ScreeningHitDateOfBirthItem,
+    ScreeningHitDocumentsItems, ScreeningHitNamesItems,
 };
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ScreeningHitData {
