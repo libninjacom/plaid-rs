@@ -25,6 +25,9 @@ async fn main() {
             tax_id: Some("your tax id".to_owned()),
             url: Some("your url".to_owned()),
         })
+        .payroll_institution(IncomeVerificationPrecheckPayrollInstitution {
+            name: Some("your name".to_owned()),
+        })
         .transactions_access_token("your transactions access token")
         .transactions_access_tokens(&["your transactions access tokens"])
         .us_military_info(IncomeVerificationPrecheckMilitaryInfo {

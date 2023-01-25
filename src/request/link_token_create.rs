@@ -30,6 +30,7 @@ pub struct LinkTokenCreateRequest<'a> {
     pub update: Option<LinkTokenCreateRequestUpdate>,
     pub identity_verification: Option<LinkTokenCreateRequestIdentityVerification>,
     pub user_token: Option<String>,
+    pub investments: Option<LinkTokenInvestments>,
 }
 impl<'a> LinkTokenCreateRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<LinkTokenCreateResponse> {
@@ -94,6 +95,9 @@ impl<'a> LinkTokenCreateRequest<'a> {
         }
         if let Some(ref unwrapped) = self.user_token {
             r = r.json(json!({ "user_token" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.investments {
+            r = r.json(json!({ "investments" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -203,6 +207,10 @@ impl<'a> LinkTokenCreateRequest<'a> {
     }
     pub fn user_token(mut self, user_token: &str) -> Self {
         self.user_token = Some(user_token.to_owned());
+        self
+    }
+    pub fn investments(mut self, investments: LinkTokenInvestments) -> Self {
+        self.investments = Some(investments);
         self
     }
 }

@@ -19,6 +19,9 @@ async fn main() {
             branch: Some("your branch".to_owned()),
             is_active_duty: Some(true),
         })
+        .payroll_institution(IncomeVerificationPrecheckPayrollInstitution {
+            name: Some("your name".to_owned()),
+        })
         .await
         .unwrap();
     println!("{:#?}", response);

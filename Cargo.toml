@@ -1,7 +1,7 @@
 [package]
 name = "plaid"
 edition = "2021"
-version = "5.0.0"
+version = "0.1.0"
 description = "Plaid client, generated from the OpenAPI spec."
 homepage = "https://github.com/libninjacom/plaid-rs"
 documentation = "https://docs.rs/plaid"
@@ -207,8 +207,20 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/credit_asset_report_freddie_mac_get.rs"
+name = "credit_asset_report_freddie_mac_get"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/credit_audit_copy_token_create.rs"
 name = "credit_audit_copy_token_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_audit_copy_token_update.rs"
+name = "credit_audit_copy_token_update"
 edition = "2021"
 required-features = []
 
@@ -233,6 +245,12 @@ required-features = []
 [[example]]
 path = "examples/credit_employment_get.rs"
 name = "credit_employment_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_freddie_mac_reports_get.rs"
+name = "credit_freddie_mac_reports_get"
 edition = "2021"
 required-features = []
 
@@ -285,6 +303,18 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/credit_sessions_get.rs"
+name = "credit_sessions_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/dashboard_user_get.rs"
+name = "dashboard_user_get"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/dashboard_user_list.rs"
 name = "dashboard_user_list"
 edition = "2021"
@@ -329,6 +359,12 @@ required-features = []
 [[example]]
 path = "examples/employment_verification_get.rs"
 name = "employment_verification_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/fdx_notifications.rs"
+name = "fdx_notifications"
 edition = "2021"
 required-features = []
 
@@ -441,6 +477,12 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/item_activity_list.rs"
+name = "item_activity_list"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/item_application_list.rs"
 name = "item_application_list"
 edition = "2021"
@@ -495,6 +537,24 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/link_delivery_create.rs"
+name = "link_delivery_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/link_delivery_get.rs"
+name = "link_delivery_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/link_oauth_correlation_id_exchange.rs"
+name = "link_oauth_correlation_id_exchange"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/link_token_create.rs"
 name = "link_token_create"
 edition = "2021"
@@ -503,6 +563,36 @@ required-features = []
 [[example]]
 path = "examples/link_token_get.rs"
 name = "link_token_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/partner_customer_create.rs"
+name = "partner_customer_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/partner_customer_enable.rs"
+name = "partner_customer_enable"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/partner_customer_get.rs"
+name = "partner_customer_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/partner_customer_oauth_institutions_get.rs"
+name = "partner_customer_oauth_institutions_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/partner_customer_remove.rs"
+name = "partner_customer_remove"
 edition = "2021"
 required-features = []
 
@@ -681,6 +771,12 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/sandbox_payment_profile_reset_login.rs"
+name = "sandbox_payment_profile_reset_login"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/sandbox_processor_token_create.rs"
 name = "sandbox_processor_token_create"
 edition = "2021"
@@ -717,6 +813,30 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/sandbox_transfer_test_clock_advance.rs"
+name = "sandbox_transfer_test_clock_advance"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_test_clock_create.rs"
+name = "sandbox_transfer_test_clock_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_test_clock_get.rs"
+name = "sandbox_transfer_test_clock_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/sandbox_transfer_test_clock_list.rs"
+name = "sandbox_transfer_test_clock_list"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/signal_decision_report.rs"
 name = "signal_decision_report"
 edition = "2021"
@@ -743,6 +863,12 @@ required-features = []
 [[example]]
 path = "examples/transactions_enhance.rs"
 name = "transactions_enhance"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transactions_enrich.rs"
+name = "transactions_enrich"
 edition = "2021"
 required-features = []
 
@@ -801,6 +927,12 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/transfer_capabilities_get.rs"
+name = "transfer_capabilities_get"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/transfer_create.rs"
 name = "transfer_create"
 edition = "2021"
@@ -845,6 +977,72 @@ required-features = []
 [[example]]
 path = "examples/transfer_migrate_account.rs"
 name = "transfer_migrate_account"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_originator_create.rs"
+name = "transfer_originator_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_originator_get.rs"
+name = "transfer_originator_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_originator_list.rs"
+name = "transfer_originator_list"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_questionnaire_create.rs"
+name = "transfer_questionnaire_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_recurring_cancel.rs"
+name = "transfer_recurring_cancel"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_recurring_create.rs"
+name = "transfer_recurring_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_recurring_get.rs"
+name = "transfer_recurring_get"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_recurring_list.rs"
+name = "transfer_recurring_list"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_refund_cancel.rs"
+name = "transfer_refund_cancel"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_refund_create.rs"
+name = "transfer_refund_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_refund_get.rs"
+name = "transfer_refund_get"
 edition = "2021"
 required-features = []
 
@@ -909,6 +1107,12 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/wallet_transaction_list.rs"
+name = "wallet_transaction_list"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/wallet_transactions_list.rs"
 name = "wallet_transactions_list"
 edition = "2021"
@@ -929,6 +1133,12 @@ required-features = []
 [[example]]
 path = "examples/watchlist_screening_entity_history_list.rs"
 name = "watchlist_screening_entity_history_list"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_entity_hit_list.rs"
+name = "watchlist_screening_entity_hit_list"
 edition = "2021"
 required-features = []
 
@@ -1019,6 +1229,12 @@ required-features = []
 [[example]]
 path = "examples/watchlist_screening_individual_review_create.rs"
 name = "watchlist_screening_individual_review_create"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/watchlist_screening_individual_review_list.rs"
+name = "watchlist_screening_individual_review_list"
 edition = "2021"
 required-features = []
 

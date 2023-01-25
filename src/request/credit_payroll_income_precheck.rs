@@ -11,6 +11,7 @@ pub struct CreditPayrollIncomePrecheckRequest<'a> {
     pub access_tokens: Option<Vec<String>>,
     pub employer: Option<IncomeVerificationPrecheckEmployer>,
     pub us_military_info: Option<IncomeVerificationPrecheckMilitaryInfo>,
+    pub payroll_institution: Option<IncomeVerificationPrecheckPayrollInstitution>,
 }
 impl<'a> CreditPayrollIncomePrecheckRequest<'a> {
     pub async fn send(
@@ -28,6 +29,9 @@ impl<'a> CreditPayrollIncomePrecheckRequest<'a> {
         }
         if let Some(ref unwrapped) = self.us_military_info {
             r = r.json(json!({ "us_military_info" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.payroll_institution {
+            r = r.json(json!({ "payroll_institution" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -56,6 +60,13 @@ impl<'a> CreditPayrollIncomePrecheckRequest<'a> {
         us_military_info: IncomeVerificationPrecheckMilitaryInfo,
     ) -> Self {
         self.us_military_info = Some(us_military_info);
+        self
+    }
+    pub fn payroll_institution(
+        mut self,
+        payroll_institution: IncomeVerificationPrecheckPayrollInstitution,
+    ) -> Self {
+        self.payroll_institution = Some(payroll_institution);
         self
     }
 }

@@ -10,6 +10,7 @@ pub struct AssetReportGetRequest<'a> {
     pub asset_report_token: String,
     pub include_insights: Option<bool>,
     pub fast_report: Option<bool>,
+    pub options: Option<AssetReportGetRequestOptions>,
 }
 impl<'a> AssetReportGetRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<AssetReportGetResponse> {
@@ -21,6 +22,9 @@ impl<'a> AssetReportGetRequest<'a> {
         if let Some(ref unwrapped) = self.fast_report {
             r = r.json(json!({ "fast_report" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.options {
+            r = r.json(json!({ "options" : unwrapped }));
+        }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
@@ -31,6 +35,10 @@ impl<'a> AssetReportGetRequest<'a> {
     }
     pub fn fast_report(mut self, fast_report: bool) -> Self {
         self.fast_report = Some(fast_report);
+        self
+    }
+    pub fn options(mut self, options: AssetReportGetRequestOptions) -> Self {
+        self.options = Some(options);
         self
     }
 }

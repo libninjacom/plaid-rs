@@ -10,11 +10,12 @@ pub struct WalletTransactionsListRequest<'a> {
     pub wallet_id: String,
     pub cursor: Option<String>,
     pub count: Option<i64>,
+    pub options: Option<WalletTransactionListRequestOptions>,
 }
 impl<'a> WalletTransactionsListRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<WalletTransactionsListResponse> {
+    ) -> ::httpclient::InMemoryResult<WalletTransactionListResponse> {
         let mut r = self.http_client.client.post("/wallet/transactions/list");
         r = r.json(json!({ "wallet_id" : self.wallet_id }));
         if let Some(ref unwrapped) = self.cursor {
@@ -22,6 +23,9 @@ impl<'a> WalletTransactionsListRequest<'a> {
         }
         if let Some(ref unwrapped) = self.count {
             r = r.json(json!({ "count" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.options {
+            r = r.json(json!({ "options" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -35,9 +39,13 @@ impl<'a> WalletTransactionsListRequest<'a> {
         self.count = Some(count);
         self
     }
+    pub fn options(mut self, options: WalletTransactionListRequestOptions) -> Self {
+        self.options = Some(options);
+        self
+    }
 }
 impl<'a> ::std::future::IntoFuture for WalletTransactionsListRequest<'a> {
-    type Output = httpclient::InMemoryResult<WalletTransactionsListResponse>;
+    type Output = httpclient::InMemoryResult<WalletTransactionListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

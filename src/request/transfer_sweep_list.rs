@@ -11,6 +11,7 @@ pub struct TransferSweepListRequest<'a> {
     pub end_date: Option<String>,
     pub count: Option<i64>,
     pub offset: Option<i64>,
+    pub originator_client_id: Option<String>,
 }
 impl<'a> TransferSweepListRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<TransferSweepListResponse> {
@@ -26,6 +27,9 @@ impl<'a> TransferSweepListRequest<'a> {
         }
         if let Some(ref unwrapped) = self.offset {
             r = r.json(json!({ "offset" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.originator_client_id {
+            r = r.json(json!({ "originator_client_id" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -45,6 +49,10 @@ impl<'a> TransferSweepListRequest<'a> {
     }
     pub fn offset(mut self, offset: i64) -> Self {
         self.offset = Some(offset);
+        self
+    }
+    pub fn originator_client_id(mut self, originator_client_id: &str) -> Self {
+        self.originator_client_id = Some(originator_client_id.to_owned());
         self
     }
 }

@@ -16,7 +16,7 @@ pub struct IdentityVerificationCreateRequest<'a> {
 impl<'a> IdentityVerificationCreateRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<IdentityVerificationResponse> {
+    ) -> ::httpclient::InMemoryResult<IdentityVerificationCreateResponse> {
         let mut r = self.http_client.client.post("/identity_verification/create");
         r = r.json(json!({ "is_shareable" : self.is_shareable }));
         r = r.json(json!({ "template_id" : self.template_id }));
@@ -42,7 +42,7 @@ pub struct IdentityVerificationCreateRequired<'a> {
 }
 impl<'a> IdentityVerificationCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for IdentityVerificationCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<IdentityVerificationResponse>;
+    type Output = httpclient::InMemoryResult<IdentityVerificationCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

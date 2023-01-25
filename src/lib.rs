@@ -6,7 +6,6 @@
 pub mod model;
 pub mod request;
 use crate::model::*;
-
 pub struct PlaidClient {
     pub client: httpclient::Client,
     authentication: PlaidAuthentication,
@@ -52,6 +51,197 @@ impl PlaidClient {
     ) -> Self {
         self.client = self.client.with_middleware(middleware);
         self
+    }
+    /**Create an Asset Report
+
+The `/asset_report/create` endpoint initiates the process of creating an Asset Report, which can then be retrieved by passing the `asset_report_token` return value to the `/asset_report/get` or `/asset_report/pdf/get` endpoints.
+
+The Asset Report takes some time to be created and is not available immediately after calling `/asset_report/create`. When the Asset Report is ready to be retrieved using `/asset_report/get` or `/asset_report/pdf/get`, Plaid will fire a `PRODUCT_READY` webhook. For full details of the webhook schema, see [Asset Report webhooks](https://plaid.com/docs/api/products/assets/#webhooks).
+
+The `/asset_report/create` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable. To get an updated Asset Report, use the `/asset_report/refresh` endpoint.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportcreate>.*/
+    pub fn asset_report_create(
+        &self,
+        access_tokens: &[&str],
+        days_requested: i64,
+    ) -> request::AssetReportCreateRequest {
+        request::AssetReportCreateRequest {
+            http_client: &self,
+            access_tokens: access_tokens.iter().map(|&x| x.to_owned()).collect(),
+            days_requested,
+            options: None,
+            report_type: None,
+        }
+    }
+    /**Retrieve an Asset Report
+
+The `/asset_report/get` endpoint retrieves the Asset Report in JSON format. Before calling `/asset_report/get`, you must first create the Asset Report using `/asset_report/create` (or filter an Asset Report using `/asset_report/filter`) and then wait for the [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook to fire, indicating that the Report is ready to be retrieved.
+
+By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with Insights provides transaction category, location, and merchant information in addition to the transaction strings provided in a standard Asset Report.
+
+To retrieve an Asset Report with Insights, call the `/asset_report/get` endpoint with `include_insights` set to `true`.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportget>.*/
+    pub fn asset_report_get(
+        &self,
+        asset_report_token: &str,
+    ) -> request::AssetReportGetRequest {
+        request::AssetReportGetRequest {
+            http_client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+            include_insights: None,
+            fast_report: None,
+            options: None,
+        }
+    }
+    /**Retrieve a PDF Asset Report
+
+The `/asset_report/pdf/get` endpoint retrieves the Asset Report in PDF format. Before calling `/asset_report/pdf/get`, you must first create the Asset Report using `/asset_report/create` (or filter an Asset Report using `/asset_report/filter`) and then wait for the [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook to fire, indicating that the Report is ready to be retrieved.
+
+The response to `/asset_report/pdf/get` is the PDF binary data. The `request_id`  is returned in the `Plaid-Request-ID` header.
+
+[View a sample PDF Asset Report](https://plaid.com/documents/sample-asset-report.pdf).
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportpdfget>.*/
+    pub fn asset_report_pdf_get(
+        &self,
+        asset_report_token: &str,
+    ) -> request::AssetReportPdfGetRequest {
+        request::AssetReportPdfGetRequest {
+            http_client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+            options: None,
+        }
+    }
+    /**Refresh an Asset Report
+
+An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you created previously, you can use the `/asset_report/refresh` endpoint to create a new Asset Report based on the old one, but with the most recent data available.
+
+The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by any call to `/asset_report/filter`. By default, the new Asset Report will also use the same parameters you submitted with your original `/asset_report/create` request, but the original `days_requested` value and the values of any parameters in the `options` object can be overridden with new values. To change these arguments, simply supply new values for them in your request to `/asset_report/refresh`. Submit an empty string ("") for any previously-populated fields you would like set as empty.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportrefresh>.*/
+    pub fn asset_report_refresh(
+        &self,
+        asset_report_token: &str,
+    ) -> request::AssetReportRefreshRequest {
+        request::AssetReportRefreshRequest {
+            http_client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+            days_requested: None,
+            options: None,
+        }
+    }
+    /**Filter Asset Report
+
+By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always exclude certain account types or subtypes, which you can identify by using the `/accounts/get` endpoint. To narrow an Asset Report to only a subset of accounts, use the `/asset_report/filter` endpoint.
+
+To exclude certain Accounts from an Asset Report, first use the `/asset_report/create` endpoint to create the report, then send the `asset_report_token` along with a list of `account_ids` to exclude to the `/asset_report/filter` endpoint, to create a new Asset Report which contains only a subset of the original Asset Report's data.
+
+Because Asset Reports are immutable, calling `/asset_report/filter` does not alter the original Asset Report in any way; rather, `/asset_report/filter` creates a new Asset Report with a new token and id. Asset Reports created via `/asset_report/filter` do not contain new Asset data, and are not billed.
+
+Plaid will fire a [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook once generation of the filtered Asset Report has completed.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportfilter>.*/
+    pub fn asset_report_filter(
+        &self,
+        asset_report_token: &str,
+        account_ids_to_exclude: &[&str],
+    ) -> request::AssetReportFilterRequest {
+        request::AssetReportFilterRequest {
+            http_client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+            account_ids_to_exclude: account_ids_to_exclude
+                .iter()
+                .map(|&x| x.to_owned())
+                .collect(),
+        }
+    }
+    /**Delete an Asset Report
+
+The `/item/remove` endpoint allows you to invalidate an `access_token`, meaning you will not be able to create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have already created, which will remain accessible until you remove them specifically.
+
+The `/asset_report/remove` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates its `asset_report_token`, meaning you will no longer be able to use it to access Report data or create new Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any `audit_copy_tokens` associated with the Asset Report.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportremove>.*/
+    pub fn asset_report_remove(
+        &self,
+        asset_report_token: &str,
+    ) -> request::AssetReportRemoveRequest {
+        request::AssetReportRemoveRequest {
+            http_client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+        }
+    }
+    /**Create Asset Report Audit Copy
+
+Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf. For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day 1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
+
+To grant access to an Audit Copy, use the `/asset_report/audit_copy/create` endpoint to create an `audit_copy_token` and then pass that token to the third party who needs access. Each third party has its own `auditor_id`, for example `fannie_mae`. You’ll need to create a separate Audit Copy for each third party to whom you want to grant access to the Report.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportaudit_copycreate>.*/
+    pub fn asset_report_audit_copy_create(
+        &self,
+        asset_report_token: &str,
+    ) -> request::AssetReportAuditCopyCreateRequest {
+        request::AssetReportAuditCopyCreateRequest {
+            http_client: &self,
+            asset_report_token: asset_report_token.to_owned(),
+            auditor_id: None,
+        }
+    }
+    /**Retrieve an Asset Report Audit Copy
+
+`/asset_report/audit_copy/get` allows auditors to get a copy of an Asset Report that was previously shared via the `/asset_report/audit_copy/create` endpoint.  The caller of `/asset_report/audit_copy/create` must provide the `audit_copy_token` to the auditor.  This token can then be used to call `/asset_report/audit_copy/create`.
+
+See endpoint docs at <https://plaid.com/docs/none/>.*/
+    pub fn asset_report_audit_copy_get(
+        &self,
+        audit_copy_token: &str,
+    ) -> request::AssetReportAuditCopyGetRequest {
+        request::AssetReportAuditCopyGetRequest {
+            http_client: &self,
+            audit_copy_token: audit_copy_token.to_owned(),
+        }
+    }
+    /**Remove Asset Report Audit Copy
+
+The `/asset_report/audit_copy/remove` endpoint allows you to remove an Audit Copy. Removing an Audit Copy invalidates the `audit_copy_token` associated with it, meaning both you and any third parties holding the token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given Audit Copy.
+
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportaudit_copyremove>.*/
+    pub fn asset_report_audit_copy_remove(
+        &self,
+        audit_copy_token: &str,
+    ) -> request::AssetReportAuditCopyRemoveRequest {
+        request::AssetReportAuditCopyRemoveRequest {
+            http_client: &self,
+            audit_copy_token: audit_copy_token.to_owned(),
+        }
+    }
+    /**Update an Audit Copy Token
+
+The `/credit/audit_copy_token/update` endpoint updates the Audit Copy Token by adding the report tokens in the `report_tokens` field to the `audit_copy_token`. If the Audit Copy Token already contains a report of a certain type, it will be replaced with the token provided in the `report_tokens` field.
+
+See endpoint docs at <https://plaid.com/docs/none/>.*/
+    pub fn credit_audit_copy_token_update(
+        &self,
+        audit_copy_token: &str,
+        report_tokens: &[&str],
+    ) -> request::CreditAuditCopyTokenUpdateRequest {
+        request::CreditAuditCopyTokenUpdateRequest {
+            http_client: &self,
+            audit_copy_token: audit_copy_token.to_owned(),
+            report_tokens: report_tokens.iter().map(|&x| x.to_owned()).collect(),
+        }
+    }
+    ///List a historical log of user consent events
+    pub fn item_activity_list(&self) -> request::ItemActivityListRequest {
+        request::ItemActivityListRequest {
+            http_client: &self,
+            access_token: None,
+            cursor: None,
+            count: None,
+        }
     }
     ///List a user’s connected applications
     pub fn item_application_list(&self) -> request::ItemApplicationListRequest {
@@ -146,7 +336,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
     }
     /**Refresh transaction data
 
-`/transactions/refresh` is an optional endpoint for users of the Transactions product. It initiates an on-demand extraction to fetch the newest transactions for an Item. This on-demand extraction takes place in addition to the periodic extractions that automatically occur multiple times a day for any Transactions-enabled Item. If changes to transactions are discovered after calling `/transactions/refresh`, Plaid will fire a webhook: [`TRANSACTIONS_REMOVED`](https://plaid.com/docs/api/products/transactions/#transactions_removed) will be fired if any removed transactions are detected, and [`DEFAULT_UPDATE`](https://plaid.com/docs/api/products/transactions/#default_update) will be fired if any new transactions are detected. New transactions can be fetched by calling `/transactions/get`.
+`/transactions/refresh` is an optional endpoint for users of the Transactions product. It initiates an on-demand extraction to fetch the newest transactions for an Item. This on-demand extraction takes place in addition to the periodic extractions that automatically occur multiple times a day for any Transactions-enabled Item. If changes to transactions are discovered after calling `/transactions/refresh`, Plaid will fire a webhook: for `/transactions/sync` users, [`SYNC_UDPATES_AVAILABLE`](https://plaid.com/docs/api/products/transactions/#sync_updates_available) will be fired if there are any transactions updated, added, or removed. For users of both `/transactions/sync` and `/transactions/get`, [`TRANSACTIONS_REMOVED`](https://plaid.com/docs/api/products/transactions/#transactions_removed) will be fired if any removed transactions are detected, and [`DEFAULT_UPDATE`](https://plaid.com/docs/api/products/transactions/#default_update) will be fired if any new transactions are detected. New transactions can be fetched by calling `/transactions/get` or `/transactions/sync`.
 
 Access to `/transactions/refresh` in Production is specific to certain pricing plans. If you cannot access `/transactions/refresh` in Production, [contact Sales](https://www.plaid.com/contact) for assistance.
 
@@ -164,11 +354,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
 
 The `/transactions/recurring/get` endpoint allows developers to receive a summary of the recurring outflow and inflow streams (expenses and deposits) from a user’s checking, savings or credit card accounts. Additionally, Plaid provides key insights about each recurring stream including the category, merchant, last amount, and more. Developers can use these insights to build tools and experiences that help their users better manage cash flow, monitor subscriptions, reduce spend, and stay on track with bill payments.
 
-This endpoint is not included by default as part of Transactions. To request access to this endpoint and learn more about pricing, contact your Plaid account manager.
+This endpoint is not included by default as part of Transactions. To request access to this endpoint, submit a [product access request](https://dashboard.plaid.com/team/products) or contact your Plaid account manager.
 
-Note that unlike `/transactions/get`, `/transactions/recurring/get` will not initialize an Item with Transactions. The Item must already have been initialized with Transactions (either during Link, by specifying it in `/link/token/create`, or after Link, by calling `/transactions/get`) before calling this endpoint. Data is available to `/transactions/recurring/get` approximately 5 seconds after the [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/products/transactions/#historical_update) webhook has fired (about 1-2 minutes after initialization).
+This endpoint can only be called on an Item that has already been initialized with Transactions (either during Link, by specifying it in `/link/token/create`; or after Link, by calling `/transactions/get`). After the [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/products/transactions/#historical_update) webhook has fired, call `/transactions/recurring/get` to receive the Recurring Transactions streams and subscribe to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook.
 
-After the initial call, you can call `/transactions/recurring/get` endpoint at any point in the future to retrieve the latest summary of recurring streams. Since recurring streams do not change often, it will typically not be necessary to call this endpoint more than once per day.
+After the initial call, you can call `/transactions/recurring/get` endpoint at any point in the future to retrieve the latest summary of recurring streams. Listen to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook to be notified when new updates are available.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transactionsrecurringget>.*/
     pub fn transactions_recurring_get(
@@ -195,7 +385,9 @@ Returned transactions data is grouped into three types of update, indicating whe
 
 In the first call to `/transactions/sync` for an Item, the endpoint will return all historical transactions data associated with that Item up until the time of the API call (as "adds"), which then generates a `next_cursor` for that Item. In subsequent calls, send the `next_cursor` to receive only the changes that have occurred since the previous call.
 
-Due to the potentially large number of transactions associated with an Item, results are paginated. The `has_more` field specifies if additional calls are necessary to fetch all available transaction updates.
+Due to the potentially large number of transactions associated with an Item, results are paginated. The `has_more` field specifies if additional calls are necessary to fetch all available transaction updates. Call `/transactions/sync` with the new cursor, pulling all updates, until `has_more` is `false`.
+
+When retrieving paginated updates, track both the `next_cursor` from the latest response and the original cursor from the first call in which `has_more` was `true`; if a call to `/transactions/sync` fails when retrieving a paginated update, the entire pagination request loop must be restarted beginning with the cursor for the first page of the update, rather than retrying only the single request that failed.
 
 Whenever new or updated transaction data becomes available, `/transactions/sync` will provide these updates. Plaid typically checks for new data multiple times a day, but these checks may occur less frequently, such as once a day, depending on the institution. An Item's `status.transactions.last_successful_update` field will show the timestamp of the most recent successful update. To force Plaid to check for new transactions, use the `/transactions/refresh` endpoint.
 
@@ -213,6 +405,25 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
             access_token: access_token.to_owned(),
             cursor: None,
             count: None,
+            options: None,
+        }
+    }
+    /**Enrich locally-held transaction data
+
+The `/transactions/enrich` endpoint enriches raw transaction data generated by your own banking products or retrieved from other non-Plaid sources.
+
+The product is currently in beta. To request access, contact enrich-feedback@plaid.com
+
+See endpoint docs at <https://plaid.com/docs/api/products/enrich/#transactionsenrich>.*/
+    pub fn transactions_enrich(
+        &self,
+        account_type: &str,
+        transactions: Vec<ClientProvidedTransaction>,
+    ) -> request::TransactionsEnrichRequest {
+        request::TransactionsEnrichRequest {
+            http_client: &self,
+            account_type: account_type.to_owned(),
+            transactions,
             options: None,
         }
     }
@@ -365,6 +576,8 @@ The `/sandbox/item/fire_webhook` endpoint is used to test that code correctly ha
 
 `RECURRING_TRANSACTIONS_UPDATE`: Recurring Transactions webhook to be fired for a given Sandbox Item. If the Item does not support Recurring Transactions, a `SANDBOX_PRODUCT_NOT_ENABLED` error will result.
 
+`SYNC_UPDATES_AVAILABLE`: Transactions webhook to be fired for a given Sandbox Item.  If the Item does not support Transactions, a `SANDBOX_PRODUCT_NOT_ENABLED` error will result.
+
 Note that this endpoint is provided for developer ease-of-use and is not required for testing webhooks; webhooks will also fire in Sandbox under the same conditions that they would in Production or Development.
 
 See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemfire_webhook>.*/
@@ -382,7 +595,7 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemfire_webhoo
     }
     /**Retrieve real-time balance data
 
-The `/accounts/balance/get` endpoint returns the real-time balance for each of an Item's accounts. While other endpoints may return a balance object, only `/accounts/balance/get` forces the available and current balance fields to be refreshed rather than cached. This endpoint can be used for existing Items that were added via any of Plaid’s other products. This endpoint can be used as long as Link has been initialized with any other product, `balance` itself is not a product that can be used to initialize Link.
+The `/accounts/balance/get` endpoint returns the real-time balance for each of an Item's accounts. While other endpoints may return a balance object, only `/accounts/balance/get` forces the available and current balance fields to be refreshed rather than cached. This endpoint can be used for existing Items that were added via any of Plaid’s other products. This endpoint can be used as long as Link has been initialized with any other product, `balance` itself is not a product that can be used to initialize Link. As this endpoint triggers a synchronous request for fresh data, latency may be higher than for other Plaid endpoints; if you encounter errors, you may find it necessary to adjust your timeout period when making requests.
 
 See endpoint docs at <https://plaid.com/docs/api/products/balance/#accountsbalanceget>.*/
     pub fn accounts_balance_get(
@@ -431,11 +644,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity/#identitymatc
 Retrieve information about a dashboard user.
 
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#dashboard_userget>.*/
-    pub fn dashobard_user_get(
+    pub fn dashboard_user_get(
         &self,
         dashboard_user_id: &str,
-    ) -> request::DashobardUserGetRequest {
-        request::DashobardUserGetRequest {
+    ) -> request::DashboardUserGetRequest {
+        request::DashboardUserGetRequest {
             http_client: &self,
             dashboard_user_id: dashboard_user_id.to_owned(),
         }
@@ -473,7 +686,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
     }
     /**Retrieve Identity Verification
 
-Retrieve a previously created identity verification
+Retrieve a previously created identity verification.
 
 See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/#identity_verificationget>.*/
     pub fn identity_verification_get(
@@ -570,11 +783,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
 List all hits for the entity watchlist screening.
 
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningentityhitlist>.*/
-    pub fn watchlist_screening_entity_hits_list(
+    pub fn watchlist_screening_entity_hit_list(
         &self,
         entity_watchlist_screening_id: &str,
-    ) -> request::WatchlistScreeningEntityHitsListRequest {
-        request::WatchlistScreeningEntityHitsListRequest {
+    ) -> request::WatchlistScreeningEntityHitListRequest {
+        request::WatchlistScreeningEntityHitListRequest {
             http_client: &self,
             entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
             cursor: None,
@@ -806,11 +1019,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
 List all reviews for the individual watchlist screening.
 
 See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningindividualreviewlist>.*/
-    pub fn watchlist_screening_individual_reviews_list(
+    pub fn watchlist_screening_individual_review_list(
         &self,
         watchlist_screening_id: &str,
-    ) -> request::WatchlistScreeningIndividualReviewsListRequest {
-        request::WatchlistScreeningIndividualReviewsListRequest {
+    ) -> request::WatchlistScreeningIndividualReviewListRequest {
+        request::WatchlistScreeningIndividualReviewListRequest {
             http_client: &self,
             watchlist_screening_id: watchlist_screening_id.to_owned(),
             cursor: None,
@@ -972,7 +1185,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/liabilities/#liabiliti
     }
     /**Create payment recipient
 
-Create a payment recipient for payment initiation.  The recipient must be in Europe, within a country that is a member of the Single Euro Payment Area (SEPA).  For a standing order (recurring) payment, the recipient must be in the UK.
+Create a payment recipient for payment initiation.  The recipient must be in Europe, within a country that is a member of the Single Euro Payment Area (SEPA) or a non-Eurozone country [supported](https://plaid.com/global) by Plaid. For a standing order (recurring) payment, the recipient must be in the UK.
+
+It is recommended to use `bacs` in the UK and `iban` in EU.
 
 The endpoint is idempotent: if a developer has already made a request with the same payment details, Plaid will return the same `recipient_id`.
 
@@ -992,9 +1207,18 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     }
     /**Reverse an existing payment
 
-Reverse a previously initiated payment.
+Reverse a settled payment from a Plaid virtual account.
 
-A payment can only be reversed once and will be refunded to the original sender's account.
+The original payment must be in a settled state to be refunded.
+To refund partially, specify the amount as part of the request.
+If the amount is not specified, the refund amount will be equal to all
+of the remaining payment amount that has not been refunded yet.
+If the remaining amount is less than one unit of currency
+(e.g. 1 GBP or 1 EUR), the refund will fail.
+
+The refund will go back to the source account that initiated the payment.
+The original payment must have been initiated to a Plaid virtual account
+so that this account can be used to initiate the refund.
 
 
 See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#payment_initiationpaymentreverse>.*/
@@ -1009,6 +1233,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
             payment_id: payment_id.to_owned(),
             idempotency_key: idempotency_key.to_owned(),
             reference: reference.to_owned(),
+            amount: None,
         }
     }
     /**Get payment recipient
@@ -1039,11 +1264,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     }
     /**Create a payment
 
-After creating a payment recipient, you can use the `/payment_initiation/payment/create` endpoint to create a payment to that recipient.  Payments can be one-time or standing order (recurring) and can be denominated in either EUR or GBP.  If making domestic GBP-denominated payments, your recipient must have been created with BACS numbers. In general, EUR-denominated payments will be sent via SEPA Credit Transfer and GBP-denominated payments will be sent via the Faster Payments network, but the payment network used will be determined by the institution. Payments sent via Faster Payments will typically arrive immediately, while payments sent via SEPA Credit Transfer will typically arrive in one business day.
+After creating a payment recipient, you can use the `/payment_initiation/payment/create` endpoint to create a payment to that recipient.  Payments can be one-time or standing order (recurring) and can be denominated in either EUR, GBP or other chosen [currency](https://plaid.com/docs/api/products/payment-initiation/#payment_initiation-payment-create-request-amount-currency).  If making domestic GBP-denominated payments, your recipient must have been created with BACS numbers. In general, EUR-denominated payments will be sent via SEPA Credit Transfer, GBP-denominated payments will be sent via the Faster Payments network and for non-Eurozone markets typically via the local payment scheme, but the payment network used will be determined by the institution. Payments sent via Faster Payments will typically arrive immediately, while payments sent via SEPA Credit Transfer or other local payment schemes will typically arrive in one business day.
 
 Standing orders (recurring payments) must be denominated in GBP and can only be sent to recipients in the UK. Once created, standing order payments cannot be modified or canceled via the API. An end user can cancel or modify a standing order directly on their banking application or website, or by contacting the bank. Standing orders will follow the payment rules of the underlying rails (Faster Payments in UK). Payments can be sent Monday to Friday, excluding bank holidays. If the pre-arranged date falls on a weekend or bank holiday, the payment is made on the next working day. It is not possible to guarantee the exact time the payment will reach the recipient’s account, although at least 90% of standing order payments are sent by 6am.
 
-In the Development environment, payments must be below 5 GBP / EUR. For details on any payment limits in Production, contact your Plaid Account Manager.
+In the Development environment, payments must be below 5 GBP or other chosen [currency](https://plaid.com/docs/api/products/payment-initiation/#payment_initiation-payment-create-request-amount-currency). For details on any payment limits in Production, contact your Plaid Account Manager.
 
 See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#payment_initiationpaymentcreate>.*/
     pub fn payment_initiation_payment_create(
@@ -1224,11 +1449,29 @@ This endpoint should be called for each of your end users before they begin a Pl
 
 If you call the endpoint multiple times with the same `client_user_id`, the first creation call will succeed and the rest will fail with an error message indicating that the user has been created for the given `client_user_id`.
 
+Ensure that you store the `user_token` along with your user's identifier in your database, as it is not possible to retrieve a previously created `user_token`.
+
 See endpoint docs at <https://plaid.com/docs/api/products/income/#usercreate>.*/
     pub fn user_create(&self, client_user_id: &str) -> request::UserCreateRequest {
         request::UserCreateRequest {
             http_client: &self,
             client_user_id: client_user_id.to_owned(),
+        }
+    }
+    /**Retrieve Link sessions for your user
+
+This endpoint can be used for your end users after they complete the Link flow. This endpoint returns a list of Link sessions that your user completed, where each session includes the results from the Link flow.
+
+These results include details about the Item that was created and some product related metadata (showing, for example, whether the user finished the bank income verification step).
+
+See endpoint docs at <https://plaid.com/docs/api/products/income/#creditsessionsget>.*/
+    pub fn credit_sessions_get(
+        &self,
+        user_token: &str,
+    ) -> request::CreditSessionsGetRequest {
+        request::CreditSessionsGetRequest {
+            http_client: &self,
+            user_token: user_token.to_owned(),
         }
     }
     /**Get payment details
@@ -1260,218 +1503,6 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
             consent_id: None,
         }
     }
-    /**Create an Asset Report
-
-The `/asset_report/create` endpoint initiates the process of creating an Asset Report, which can then be retrieved by passing the `asset_report_token` return value to the `/asset_report/get` or `/asset_report/pdf/get` endpoints.
-
-The Asset Report takes some time to be created and is not available immediately after calling `/asset_report/create`. When the Asset Report is ready to be retrieved using `/asset_report/get` or `/asset_report/pdf/get`, Plaid will fire a `PRODUCT_READY` webhook. For full details of the webhook schema, see [Asset Report webhooks](https://plaid.com/docs/api/products/assets/#webhooks).
-
-The `/asset_report/create` endpoint creates an Asset Report at a moment in time. Asset Reports are immutable. To get an updated Asset Report, use the `/asset_report/refresh` endpoint.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportcreate>.*/
-    pub fn asset_report_create(
-        &self,
-        access_tokens: &[&str],
-        days_requested: i64,
-    ) -> request::AssetReportCreateRequest {
-        request::AssetReportCreateRequest {
-            http_client: &self,
-            access_tokens: access_tokens.iter().map(|&x| x.to_owned()).collect(),
-            days_requested,
-            options: None,
-        }
-    }
-    /**Refresh an Asset Report
-
-An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you created previously, you can use the `/asset_report/refresh` endpoint to create a new Asset Report based on the old one, but with the most recent data available.
-
-The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by any call to `/asset_report/filter`. By default, the new Asset Report will also use the same parameters you submitted with your original `/asset_report/create` request, but the original `days_requested` value and the values of any parameters in the `options` object can be overridden with new values. To change these arguments, simply supply new values for them in your request to `/asset_report/refresh`. Submit an empty string ("") for any previously-populated fields you would like set as empty.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportrefresh>.*/
-    pub fn asset_report_refresh(
-        &self,
-        asset_report_token: &str,
-    ) -> request::AssetReportRefreshRequest {
-        request::AssetReportRefreshRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-            days_requested: None,
-            options: None,
-        }
-    }
-    /**Refresh a Relay Token's Asset Report
-
-The `/asset_report/relay/refresh` endpoint allows third parties to refresh an Asset Report that was relayed to them, using an `asset_relay_token` that was created by the report owner. A new Asset Report will be created based on the old one, but with the most recent data available.
-
-See endpoint docs at <https://plaid.com/docs/api/products/#asset_reportrelayrefresh>.*/
-    pub fn asset_report_relay_refresh(
-        &self,
-        asset_relay_token: &str,
-    ) -> request::AssetReportRelayRefreshRequest {
-        request::AssetReportRelayRefreshRequest {
-            http_client: &self,
-            asset_relay_token: asset_relay_token.to_owned(),
-            webhook: None,
-        }
-    }
-    /**Delete an Asset Report
-
-The `/item/remove` endpoint allows you to invalidate an `access_token`, meaning you will not be able to create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have already created, which will remain accessible until you remove them specifically.
-
-The `/asset_report/remove` endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates its `asset_report_token`, meaning you will no longer be able to use it to access Report data or create new Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any `audit_copy_tokens` associated with the Asset Report.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportremove>.*/
-    pub fn asset_report_remove(
-        &self,
-        asset_report_token: &str,
-    ) -> request::AssetReportRemoveRequest {
-        request::AssetReportRemoveRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-        }
-    }
-    /**Filter Asset Report
-
-By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always exclude certain account types or subtypes, which you can identify by using the `/accounts/get` endpoint. To narrow an Asset Report to only a subset of accounts, use the `/asset_report/filter` endpoint.
-
-To exclude certain Accounts from an Asset Report, first use the `/asset_report/create` endpoint to create the report, then send the `asset_report_token` along with a list of `account_ids` to exclude to the `/asset_report/filter` endpoint, to create a new Asset Report which contains only a subset of the original Asset Report's data.
-
-Because Asset Reports are immutable, calling `/asset_report/filter` does not alter the original Asset Report in any way; rather, `/asset_report/filter` creates a new Asset Report with a new token and id. Asset Reports created via `/asset_report/filter` do not contain new Asset data, and are not billed.
-
-Plaid will fire a [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook once generation of the filtered Asset Report has completed.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportfilter>.*/
-    pub fn asset_report_filter(
-        &self,
-        asset_report_token: &str,
-        account_ids_to_exclude: &[&str],
-    ) -> request::AssetReportFilterRequest {
-        request::AssetReportFilterRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-            account_ids_to_exclude: account_ids_to_exclude
-                .iter()
-                .map(|&x| x.to_owned())
-                .collect(),
-        }
-    }
-    /**Retrieve an Asset Report
-
-The `/asset_report/get` endpoint retrieves the Asset Report in JSON format. Before calling `/asset_report/get`, you must first create the Asset Report using `/asset_report/create` (or filter an Asset Report using `/asset_report/filter`) and then wait for the [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook to fire, indicating that the Report is ready to be retrieved.
-
-By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with Insights provides transaction category, location, and merchant information in addition to the transaction strings provided in a standard Asset Report.
-
-To retrieve an Asset Report with Insights, call the `/asset_report/get` endpoint with `include_insights` set to `true`.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportget>.*/
-    pub fn asset_report_get(
-        &self,
-        asset_report_token: &str,
-    ) -> request::AssetReportGetRequest {
-        request::AssetReportGetRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-            include_insights: None,
-            fast_report: None,
-        }
-    }
-    /**Retrieve a PDF Asset Report
-
-The `/asset_report/pdf/get` endpoint retrieves the Asset Report in PDF format. Before calling `/asset_report/pdf/get`, you must first create the Asset Report using `/asset_report/create` (or filter an Asset Report using `/asset_report/filter`) and then wait for the [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#product_ready) webhook to fire, indicating that the Report is ready to be retrieved.
-
-The response to `/asset_report/pdf/get` is the PDF binary data. The `request_id`  is returned in the `Plaid-Request-ID` header.
-
-[View a sample PDF Asset Report](https://plaid.com/documents/sample-asset-report.pdf).
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportpdfget>.*/
-    pub fn asset_report_pdf_get(
-        &self,
-        asset_report_token: &str,
-    ) -> request::AssetReportPdfGetRequest {
-        request::AssetReportPdfGetRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-        }
-    }
-    /**Create Asset Report Audit Copy
-
-Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf. For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day 1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.
-
-To grant access to an Audit Copy, use the `/asset_report/audit_copy/create` endpoint to create an `audit_copy_token` and then pass that token to the third party who needs access. Each third party has its own `auditor_id`, for example `fannie_mae`. You’ll need to create a separate Audit Copy for each third party to whom you want to grant access to the Report.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportaudit_copycreate>.*/
-    pub fn asset_report_audit_copy_create(
-        &self,
-        asset_report_token: &str,
-        auditor_id: &str,
-    ) -> request::AssetReportAuditCopyCreateRequest {
-        request::AssetReportAuditCopyCreateRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-            auditor_id: auditor_id.to_owned(),
-        }
-    }
-    /**Remove Asset Report Audit Copy
-
-The `/asset_report/audit_copy/remove` endpoint allows you to remove an Audit Copy. Removing an Audit Copy invalidates the `audit_copy_token` associated with it, meaning both you and any third parties holding the token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given Audit Copy.
-
-See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportaudit_copyremove>.*/
-    pub fn asset_report_audit_copy_remove(
-        &self,
-        audit_copy_token: &str,
-    ) -> request::AssetReportAuditCopyRemoveRequest {
-        request::AssetReportAuditCopyRemoveRequest {
-            http_client: &self,
-            audit_copy_token: audit_copy_token.to_owned(),
-        }
-    }
-    /**Create an `asset_relay_token` to share an Asset Report with a partner client
-
-Plaid can share an Asset Report directly with a participating third party on your behalf. The shared Asset Report is the exact same Asset Report originally created in `/asset_report/create`.
-
-To grant access to an Asset Report to a third party, use the `/asset_report/relay/create` endpoint to create an `asset_relay_token` and then pass that token to the third party who needs access. Each third party has its own `secondary_client_id`, for example `ce5bd328dcd34123456`. You'll need to create a separate `asset_relay_token` for each third party to whom you want to grant access to the Report.
-
-See endpoint docs at <https://plaid.com/docs/none/>.*/
-    pub fn asset_report_relay_create(
-        &self,
-        asset_report_token: &str,
-        secondary_client_id: &str,
-    ) -> request::AssetReportRelayCreateRequest {
-        request::AssetReportRelayCreateRequest {
-            http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
-            secondary_client_id: secondary_client_id.to_owned(),
-            webhook: None,
-        }
-    }
-    /**Retrieve an Asset Report that was shared with you
-
-`/asset_report/relay/get` allows third parties to get an Asset Report that was shared with them, using an `asset_relay_token` that was created by the report owner.
-
-See endpoint docs at <https://plaid.com/docs/none/>.*/
-    pub fn asset_report_relay_get(
-        &self,
-        asset_relay_token: &str,
-    ) -> request::AssetReportRelayGetRequest {
-        request::AssetReportRelayGetRequest {
-            http_client: &self,
-            asset_relay_token: asset_relay_token.to_owned(),
-        }
-    }
-    /**Remove Asset Report Relay Token
-
-The `/asset_report/relay/remove` endpoint allows you to invalidate an `asset_relay_token`, meaning the third party holding the token will no longer be able to use it to access the Asset Report to which the `asset_relay_token` gives access to. The Asset Report, Items associated with it, and other Asset Relay Tokens that provide access to the same Asset Report are not affected and will remain accessible after removing the given `asset_relay_token.
-
-See endpoint docs at <https://plaid.com/docs/none/>.*/
-    pub fn asset_report_relay_remove(
-        &self,
-        asset_relay_token: &str,
-    ) -> request::AssetReportRelayRemoveRequest {
-        request::AssetReportRelayRemoveRequest {
-            http_client: &self,
-            asset_relay_token: asset_relay_token.to_owned(),
-        }
-    }
     /**Get Investment holdings
 
 The `/investments/holdings/get` endpoint allows developers to receive user-authorized stock position data for `investment`-type accounts.
@@ -1495,6 +1526,8 @@ Transactions are returned in reverse-chronological order, and the sequence of tr
 
 Due to the potentially large number of investment transactions associated with an Item, results are paginated. Manipulate the count and offset parameters in conjunction with the `total_investment_transactions` response body field to fetch all available investment transactions.
 
+Note that Investments does not have a webhook to indicate when initial transaction data has loaded. Instead, if transactions data is not ready when `/investments/transactions/get` is first called, Plaid will wait for the data. For this reason, calling `/investments/transactions/get` immediately after Link may take up to one to two minutes to return.
+
 See endpoint docs at <https://plaid.com/docs/api/products/investments/#investmentstransactionsget>.*/
     pub fn investments_transactions_get(
         &self,
@@ -1512,7 +1545,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/investments/#investmen
     }
     /**Create processor token
 
-Used to create a token suitable for sending to one of Plaid's partners to enable integrations. Note that Stripe partnerships use bank account tokens instead; see `/processor/stripe/bank_account_token/create` for creating tokens for use with Stripe integrations. Processor tokens can also be revoked, using `/item/remove`.
+Used to create a token suitable for sending to one of Plaid's partners to enable integrations. Note that Stripe partnerships use bank account tokens instead; see `/processor/stripe/bank_account_token/create` for creating tokens for use with Stripe integrations. Once created, a processor token for a given Item cannot be modified or updated. If the account must be linked to a new or different partner resource, create a new Item by having the user go through the Link flow again; a new processor token can then be created from the new `access_token`. Processor tokens can also be revoked, using `/item/remove`.
 
 See endpoint docs at <https://plaid.com/docs/api/processors/#processortokencreate>.*/
     pub fn processor_token_create(
@@ -1530,7 +1563,12 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#processortokencreat
     }
     /**Create Stripe bank account token
 
-Used to create a token suitable for sending to Stripe to enable Plaid-Stripe integrations. For a detailed guide on integrating Stripe, see [Add Stripe to your app](https://plaid.com/docs/auth/partnerships/stripe/). Bank account tokens can also be revoked, using `/item/remove`.
+
+Used to create a token suitable for sending to Stripe to enable Plaid-Stripe integrations. For a detailed guide on integrating Stripe, see [Add Stripe to your app](https://plaid.com/docs/auth/partnerships/stripe/).
+
+Note that the Stripe bank account token is a one-time use token. To store bank account information for later use, you can use a Stripe customer object and create an associated bank account from the token, or you can use a Stripe Custom account and create an associated external bank account from the token. This bank account information should work indefinitely, unless the user's bank account information changes or they revoke Plaid's permissions to access their account. Stripe bank account information cannot be modified once the bank account token has been created. If you ever need to change the bank account details used by Stripe for a specific customer, have the user go through Link again and create a new bank account token from the new `access_token`.
+
+Bank account tokens can also be revoked, using `/item/remove`.'
 
 See endpoint docs at <https://plaid.com/docs/api/processors/#processorstripebank_account_tokencreate>.*/
     pub fn processor_stripe_bank_account_token_create(
@@ -1646,6 +1684,7 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
             update: None,
             identity_verification: None,
             user_token: None,
+            investments: None,
         }
     }
     /**Get Link Token
@@ -1660,18 +1699,19 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokenget>.*/
             link_token: link_token.to_owned(),
         }
     }
-    /**Retrieve an Asset Report Audit Copy
+    /**Exchange the Link Correlation Id for a Link Token
 
-`/asset_report/audit_copy/get` allows auditors to get a copy of an Asset Report that was previously shared via the `/asset_report/audit_copy/create` endpoint.  The caller of `/asset_report/audit_copy/create` must provide the `audit_copy_token` to the auditor.  This token can then be used to call `/asset_report/audit_copy/create`.
+Exchange an OAuth `link_correlation_id` for the corresponding `link_token`. The `link_correlation_id` is only available for 'payment_initiation' products and is provided to the client via the OAuth `redirect_uri` as a query parameter.
+The `link_correlation_id` is ephemeral and expires in a brief period, after which it can no longer be exchanged for the 'link_token'.
 
-See endpoint docs at <https://plaid.com/docs/none/>.*/
-    pub fn asset_report_audit_copy_get(
+See endpoint docs at <https://plaid.com/docs/api/oauth/#linkcorrelationid>.*/
+    pub fn link_oauth_correlation_id_exchange(
         &self,
-        audit_copy_token: &str,
-    ) -> request::AssetReportAuditCopyGetRequest {
-        request::AssetReportAuditCopyGetRequest {
+        link_correlation_id: &str,
+    ) -> request::LinkOauthCorrelationIdExchangeRequest {
+        request::LinkOauthCorrelationIdExchangeRequest {
             http_client: &self,
-            audit_copy_token: audit_copy_token.to_owned(),
+            link_correlation_id: link_correlation_id.to_owned(),
         }
     }
     /**Retrieve a deposit switch
@@ -1690,13 +1730,27 @@ See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_sw
     }
     /**Retrieve a transfer
 
-The `/transfer/get` fetches information about the transfer corresponding to the given `transfer_id`.
+The `/transfer/get` endpoint fetches information about the transfer corresponding to the given `transfer_id`.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferget>.*/
     pub fn transfer_get(&self, transfer_id: &str) -> request::TransferGetRequest {
         request::TransferGetRequest {
             http_client: &self,
             transfer_id: transfer_id.to_owned(),
+        }
+    }
+    /**Retrieve a recurring transfer
+
+The `/transfer/recurring/get` fetches information about the recurring transfer corresponding to the given `recurring_transfer_id`.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrecurringget>.*/
+    pub fn transfer_recurring_get(
+        &self,
+        recurring_transfer_id: &str,
+    ) -> request::TransferRecurringGetRequest {
+        request::TransferRecurringGetRequest {
+            http_client: &self,
+            recurring_transfer_id: recurring_transfer_id.to_owned(),
         }
     }
     /**Retrieve a bank transfer
@@ -1717,19 +1771,21 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
 
 Use the `/transfer/authorization/create` endpoint to determine transfer failure risk.
 
-In Plaid's sandbox environment the decisions will be returned as follows:
+In Plaid's Sandbox environment the decisions will be returned as follows:
 
   - To approve a transfer with null rationale code, make an authorization request with an `amount` less than the available balance in the account.
 
   - To approve a transfer with the rationale code `MANUALLY_VERIFIED_ITEM`, create an Item in Link through the [Same Day Micro-deposits flow](https://plaid.com/docs/auth/coverage/testing/#testing-same-day-micro-deposits).
 
-  - To approve a transfer with the rationale code `LOGIN_REQUIRED`, [reset the login for an Item](https://plaid.com/docs/sandbox/#item_login_required).
+  - To approve a transfer with the rationale code `ITEM_LOGIN_REQUIRED`, [reset the login for an Item](https://plaid.com/docs/sandbox/#item_login_required).
 
   - To decline a transfer with the rationale code `NSF`, the available balance on the account must be less than the authorization `amount`. See [Create Sandbox test data](https://plaid.com/docs/sandbox/user-custom/) for details on how to customize data in Sandbox.
 
   - To decline a transfer with the rationale code `RISK`, the available balance on the account must be exactly $0. See [Create Sandbox test data](https://plaid.com/docs/sandbox/user-custom/) for details on how to customize data in Sandbox.
 
-For guaranteed ACH customers, the following fields are required : `user.phone_number` (optional if `email_address` provided), `user.email_address` (optional if `phone_number` provided), `device.ip_address`, `device.user_agent`, and `user_present`.
+`device.ip_address`, `device.user_agent` are required fields.
+
+For [Guarantee](https://www.plaid.com/docs//transfer/guarantee/), the following fields are required : `idempotency_key`, `user.phone_number` (optional if `email_address` provided), `user.email_address` (optional if `phone_number` provided), `device.ip_address`, `device.user_agent`, and `user_present`.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferauthorizationcreate>.*/
     pub fn transfer_authorization_create(
@@ -1740,16 +1796,33 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferauth
             http_client: &self,
             access_token: None,
             account_id: None,
+            payment_profile_token: None,
             type_: args.type_.to_owned(),
             network: args.network.to_owned(),
             amount: args.amount.to_owned(),
-            ach_class: args.ach_class.to_owned(),
+            ach_class: None,
             user: args.user,
             device: None,
             origination_account_id: None,
             iso_currency_code: None,
+            idempotency_key: None,
             user_present: None,
-            payment_profile_id: None,
+            with_guarantee: None,
+            beacon_session_id: None,
+            originator_client_id: None,
+        }
+    }
+    /**Get RTP eligibility information of a transfer
+
+Use the `/transfer/capabilities/get` endpoint to determine the RTP eligibility information of a transfer.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercapabilitiesget>.*/
+    pub fn transfer_capabilities_get(&self) -> request::TransferCapabilitiesGetRequest {
+        request::TransferCapabilitiesGetRequest {
+            http_client: &self,
+            access_token: None,
+            account_id: None,
+            payment_profile_token: None,
         }
     }
     /**Create a transfer
@@ -1759,24 +1832,52 @@ Use the `/transfer/create` endpoint to initiate a new transfer.
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercreate>.*/
     pub fn transfer_create(
         &self,
-        args: request::TransferCreateRequired,
+        authorization_id: &str,
+        description: &str,
     ) -> request::TransferCreateRequest {
         request::TransferCreateRequest {
             http_client: &self,
             idempotency_key: None,
             access_token: None,
             account_id: None,
-            authorization_id: args.authorization_id.to_owned(),
-            type_: args.type_.to_owned(),
-            network: args.network.to_owned(),
-            amount: args.amount.to_owned(),
-            description: args.description.to_owned(),
-            ach_class: args.ach_class.to_owned(),
-            user: args.user,
+            payment_profile_token: None,
+            authorization_id: authorization_id.to_owned(),
+            type_: None,
+            network: None,
+            amount: None,
+            description: description.to_owned(),
+            ach_class: None,
+            user: None,
             metadata: None,
             origination_account_id: None,
             iso_currency_code: None,
-            payment_profile_id: None,
+        }
+    }
+    /**Create a recurring transfer
+
+Use the `/transfer/recurring/create` endpoint to initiate a new recurring transfer.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrecurringcreate>.*/
+    pub fn transfer_recurring_create(
+        &self,
+        args: request::TransferRecurringCreateRequired,
+    ) -> request::TransferRecurringCreateRequest {
+        request::TransferRecurringCreateRequest {
+            http_client: &self,
+            access_token: args.access_token.to_owned(),
+            idempotency_key: args.idempotency_key.to_owned(),
+            account_id: args.account_id.to_owned(),
+            type_: args.type_.to_owned(),
+            network: args.network.to_owned(),
+            ach_class: None,
+            amount: args.amount.to_owned(),
+            user_present: None,
+            iso_currency_code: None,
+            description: args.description.to_owned(),
+            test_clock_id: None,
+            schedule: args.schedule,
+            user: args.user,
+            device: args.device,
         }
     }
     /**Create a bank transfer
@@ -1819,6 +1920,22 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferlist
             count: None,
             offset: None,
             origination_account_id: None,
+            originator_client_id: None,
+        }
+    }
+    /**List recurring transfers
+
+Use the `/transfer/recurring/list` endpoint to see a list of all your recurring transfers and their statuses. Results are paginated; use the `count` and `offset` query parameters to retrieve the desired recurring transfers.
+
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrecurringlist>.*/
+    pub fn transfer_recurring_list(&self) -> request::TransferRecurringListRequest {
+        request::TransferRecurringListRequest {
+            http_client: &self,
+            start_time: None,
+            end_time: None,
+            count: None,
+            offset: None,
         }
     }
     /**List bank transfers
@@ -1840,13 +1957,27 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
     }
     /**Cancel a transfer
 
-Use the `/transfer/cancel` endpoint to cancel a transfer.  A transfer is eligible for cancelation if the `cancellable` property returned by `/transfer/get` is `true`.
+Use the `/transfer/cancel` endpoint to cancel a transfer.  A transfer is eligible for cancellation if the `cancellable` property returned by `/transfer/get` is `true`.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercancel>.*/
     pub fn transfer_cancel(&self, transfer_id: &str) -> request::TransferCancelRequest {
         request::TransferCancelRequest {
             http_client: &self,
             transfer_id: transfer_id.to_owned(),
+        }
+    }
+    /**Cancel a recurring transfer.
+
+Use the `/transfer/recurring/cancel` endpoint to cancel a recurring transfer.  Scheduled transfer that hasn't been submitted to bank will be cancelled.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrecurringcancel>.*/
+    pub fn transfer_recurring_cancel(
+        &self,
+        recurring_transfer_id: &str,
+    ) -> request::TransferRecurringCancelRequest {
+        request::TransferRecurringCancelRequest {
+            http_client: &self,
+            recurring_transfer_id: recurring_transfer_id.to_owned(),
         }
     }
     /**Cancel a bank transfer
@@ -1881,13 +2012,14 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereven
             count: None,
             offset: None,
             origination_account_id: None,
+            originator_client_id: None,
         }
     }
     /**List bank transfer events
 
-Use the `/bank_transfer/event/list` endpoint to get a list of bank transfer events based on specified filter criteria.
+Use the `/bank_transfer/event/list` endpoint to get a list of ACH or bank transfer events based on specified filter criteria.
 
-See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventlist>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/auth#bank_transfereventlist>.*/
     pub fn bank_transfer_event_list(&self) -> request::BankTransferEventListRequest {
         request::BankTransferEventListRequest {
             http_client: &self,
@@ -1905,7 +2037,7 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
     }
     /**Sync transfer events
 
-`/transfer/event/sync` allows you to request up to the next 25 transfer events that happened after a specific `event_id`. Use the `/transfer/event/sync` endpoint to guarantee you have seen all transfer events.
+`/transfer/event/sync` allows you to request up to the next 25 transfer events that happened after a specific `event_id`. Use the `/transfer/event/sync` endpoint to guarantee you have seen all transfer events. When using Auth with micro-deposit verification enabled, this endpoint can be used to fetch status updates on ACH micro-deposits. For more details, see [micro-deposit events](https://www.plaid.com/docs/auth/coverage/microdeposit-events/).
 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereventsync>.*/
     pub fn transfer_event_sync(
@@ -1920,9 +2052,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereven
     }
     /**Sync bank transfer events
 
-`/bank_transfer/event/sync` allows you to request up to the next 25 bank transfer events that happened after a specific `event_id`. Use the `/bank_transfer/event/sync` endpoint to guarantee you have seen all bank transfer events.
+`/bank_transfer/event/sync` allows you to request up to the next 25 bank transfer events that happened after a specific `event_id`. When using Auth with micro-deposit verification enabled, this endpoint can be used to fetch status updates on ACH micro-deposits. For more details, see [micro-deposit events](https://www.plaid.com/docs/auth/coverage/microdeposit-events/).
 
-See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_transfereventsync>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/auth/#bank_transfereventsync>.*/
     pub fn bank_transfer_event_sync(
         &self,
         after_id: i64,
@@ -1973,6 +2105,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferswee
             end_date: None,
             count: None,
             offset: None,
+            originator_client_id: None,
         }
     }
     /**List sweeps
@@ -2057,7 +2190,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferinte
             mode: args.mode.to_owned(),
             amount: args.amount.to_owned(),
             description: args.description.to_owned(),
-            ach_class: args.ach_class.to_owned(),
+            ach_class: None,
             origination_account_id: None,
             user: args.user,
             metadata: None,
@@ -2107,6 +2240,110 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrepa
             repayment_id: repayment_id.to_owned(),
             count: None,
             offset: None,
+        }
+    }
+    /**Create a new originator
+
+Use the `/transfer/originator/create` endpoint to create a new originator and return an `originator_client_id`.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferoriginatorcreate>.*/
+    pub fn transfer_originator_create(
+        &self,
+        company_name: &str,
+    ) -> request::TransferOriginatorCreateRequest {
+        request::TransferOriginatorCreateRequest {
+            http_client: &self,
+            company_name: company_name.to_owned(),
+        }
+    }
+    /**Generate a Plaid-hosted onboarding UI URL.
+
+The `/transfer/questionnaire/create` endpoint generates a Plaid-hosted onboarding UI URL. Redirect the originator to this URL to provide their due diligence information and agree to Plaid’s terms for ACH money movement.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferquestionnairecreate>.*/
+    pub fn transfer_questionnaire_create(
+        &self,
+        originator_client_id: &str,
+        redirect_uri: &str,
+    ) -> request::TransferQuestionnaireCreateRequest {
+        request::TransferQuestionnaireCreateRequest {
+            http_client: &self,
+            originator_client_id: originator_client_id.to_owned(),
+            redirect_uri: redirect_uri.to_owned(),
+        }
+    }
+    /**Get status of an originator's onboarding
+
+The `/transfer/originator/get` endpoint gets status updates for an originator's onboarding process. This information is also available via the Transfer page on the Plaid dashboard.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferoriginatorget>.*/
+    pub fn transfer_originator_get(
+        &self,
+        originator_client_id: &str,
+    ) -> request::TransferOriginatorGetRequest {
+        request::TransferOriginatorGetRequest {
+            http_client: &self,
+            originator_client_id: originator_client_id.to_owned(),
+        }
+    }
+    /**Get status of all originators' onboarding
+
+The `/transfer/originator/list` endpoint gets status updates for all of your originators' onboarding. This information is also available via the Plaid dashboard.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferoriginatorlist>.*/
+    pub fn transfer_originator_list(&self) -> request::TransferOriginatorListRequest {
+        request::TransferOriginatorListRequest {
+            http_client: &self,
+            count: None,
+            offset: None,
+        }
+    }
+    /**Create a refund
+
+Use the `/transfer/refund/create` endpoint to create a refund for a transfer. A transfer can be refunded if the transfer was initiated in the past 180 days.
+
+Processing of the refund will not occur until at least 3 business days following the transfer's settlement date, plus any hold/settlement delays. This 3-day window helps better protect your business from regular ACH returns. Consumer initiated returns (unauthorized returns) could still happen for about 60 days from the settlement date. If the original transfer is canceled, returned or failed, all pending refunds will automatically be canceled. Processed refunds cannot be revoked.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrefundcreate>.*/
+    pub fn transfer_refund_create(
+        &self,
+        transfer_id: &str,
+        amount: &str,
+        idempotency_key: &str,
+    ) -> request::TransferRefundCreateRequest {
+        request::TransferRefundCreateRequest {
+            http_client: &self,
+            transfer_id: transfer_id.to_owned(),
+            amount: amount.to_owned(),
+            idempotency_key: idempotency_key.to_owned(),
+        }
+    }
+    /**Retrieve a refund
+
+The `/transfer/refund/get` endpoint fetches information about the refund corresponding to the given `refund_id`.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrefundget>.*/
+    pub fn transfer_refund_get(
+        &self,
+        refund_id: &str,
+    ) -> request::TransferRefundGetRequest {
+        request::TransferRefundGetRequest {
+            http_client: &self,
+            refund_id: refund_id.to_owned(),
+        }
+    }
+    /**Cancel a refund
+
+Use the `/transfer/refund/cancel` endpoint to cancel a refund.  A refund is eligible for cancellation if it has not yet been submitted to the payment network.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrefundcancel>.*/
+    pub fn transfer_refund_cancel(
+        &self,
+        refund_id: &str,
+    ) -> request::TransferRefundCancelRequest {
+        request::TransferRefundCancelRequest {
+            http_client: &self,
+            refund_id: refund_id.to_owned(),
         }
     }
     /**Simulate a bank transfer event in Sandbox
@@ -2179,6 +2416,96 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransferfire_we
         request::SandboxTransferFireWebhookRequest {
             http_client: &self,
             webhook: webhook.to_owned(),
+        }
+    }
+    /**Create a test clock
+
+Use the `/sandbox/transfer/test_clock/create` endpoint to create a `test_clock` in the Sandbox environment.
+
+A test clock object represents an independent timeline and has a `virtual_time` field indicating the current timestamp of the timeline. Test clocks are used for testing recurring transfers in Sandbox.
+
+A test clock can be associated with up to 5 recurring transfers.
+
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclockcreate>.*/
+    pub fn sandbox_transfer_test_clock_create(
+        &self,
+        virtual_time: &str,
+    ) -> request::SandboxTransferTestClockCreateRequest {
+        request::SandboxTransferTestClockCreateRequest {
+            http_client: &self,
+            virtual_time: virtual_time.to_owned(),
+        }
+    }
+    /**Advance a test clock
+
+Use the `/sandbox/transfer/test_clock/advance` endpoint to advance a `test_clock` in the Sandbox environment.
+
+A test clock object represents an independent timeline and has a `virtual_time` field indicating the current timestamp of the timeline. A test clock can be advanced by incrementing `virtual_time`, but may never go back to a lower `virtual_time`.
+
+If a test clock is advanced, we will simulate the changes that ought to occur during the time that elapsed.
+For instance, a client creates a weekly recurring transfer with a test clock set at t. When the client advances the test clock by setting `virtual_time` = t + 15 days, 2 new originations should be created, along with the webhook events.
+
+The advancement of the test clock from its current `virtual_time` should be limited such that there are no more than 20 originations resulting from the advance operation on each `recurring_transfer` associated with the `test_clock`.
+For instance, if the recurring transfer associated with this test clock originates once every 4 weeks, you can advance the `virtual_time` up to 80 weeks on each API call.
+
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclockadvance>.*/
+    pub fn sandbox_transfer_test_clock_advance(
+        &self,
+        test_clock_id: &str,
+        new_virtual_time: &str,
+    ) -> request::SandboxTransferTestClockAdvanceRequest {
+        request::SandboxTransferTestClockAdvanceRequest {
+            http_client: &self,
+            test_clock_id: test_clock_id.to_owned(),
+            new_virtual_time: new_virtual_time.to_owned(),
+        }
+    }
+    /**Get a test clock
+
+Use the `/sandbox/transfer/test_clock/get` endpoint to get a `test_clock` in the Sandbox environment.
+
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclockget>.*/
+    pub fn sandbox_transfer_test_clock_get(
+        &self,
+        test_clock_id: &str,
+    ) -> request::SandboxTransferTestClockGetRequest {
+        request::SandboxTransferTestClockGetRequest {
+            http_client: &self,
+            test_clock_id: test_clock_id.to_owned(),
+        }
+    }
+    /**List test clocks
+
+Use the `/sandbox/transfer/test_clock/list` endpoint to see a list of all your test clocks in the Sandbox environment, by ascending `virtual_time`. Results are paginated; use the `count` and `offset` query parameters to retrieve the desired test clocks.
+
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclocklist>.*/
+    pub fn sandbox_transfer_test_clock_list(
+        &self,
+    ) -> request::SandboxTransferTestClockListRequest {
+        request::SandboxTransferTestClockListRequest {
+            http_client: &self,
+            start_virtual_time: None,
+            end_virtual_time: None,
+            count: None,
+            offset: None,
+        }
+    }
+    /**Reset the login of a Payment Profile
+
+`/sandbox/payment_profile/reset_login/` forces a Payment Profile into a state where the login is no longer valid. This makes it easy to test update mode for Payment Profile in the Sandbox environment.
+
+ After calling `/sandbox/payment_profile/reset_login`, calls to the `/transfer/authorization/create` with the Payment Profile will result in a `decision_rationale` `PAYMENT_PROFILE_LOGIN_REQUIRED`. You can then use update mode for Payment Profile to restore it into a good state.
+
+ In order to invoke this endpoint, you must first [create a Payment Profile](https://plaid.com/docs/transfer/add-to-app/#create-a-payment-profile-optional) and [go through the Link flow](https://plaid.com/docs/transfer/add-to-app/#create-a-link-token).
+
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxpaymentprofilereset_login>.*/
+    pub fn sandbox_payment_profile_reset_login(
+        &self,
+        payment_profile_token: &str,
+    ) -> request::SandboxPaymentProfileResetLoginRequest {
+        request::SandboxPaymentProfileResetLoginRequest {
+            http_client: &self,
+            payment_profile_token: payment_profile_token.to_owned(),
         }
     }
     /**Search employer database
@@ -2254,20 +2581,6 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
             document_id: None,
         }
     }
-    /**(Deprecated) Refresh an income verification
-
-`/income/verification/refresh` refreshes a given income verification.
-
-See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverificationrefresh>.*/
-    pub fn income_verification_refresh(
-        &self,
-    ) -> request::IncomeVerificationRefreshRequest {
-        request::IncomeVerificationRefreshRequest {
-            http_client: &self,
-            income_verification_id: None,
-            access_token: None,
-        }
-    }
     /**(Deprecated) Retrieve information from the tax documents used for income verification
 
 `/income/verification/taxforms/get` returns the information collected from forms that were used to verify an end user''s income. It can be called once the status of the verification has been set to `VERIFICATION_STATUS_PROCESSING_COMPLETE`, as reported by the `INCOME: verification_status` webhook. Attempting to call the endpoint before verification has been completed will result in an error.
@@ -2300,6 +2613,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
             http_client: &self,
             user: None,
             employer: None,
+            payroll_institution: None,
             transactions_access_token: None,
             transactions_access_tokens: None,
             us_military_info: None,
@@ -2341,20 +2655,18 @@ See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_sw
     }
     /**Create Asset or Income Report Audit Copy Token
 
-Plaid can provide an Audit Copy token of an Asset Report and/or Income Report directly to a participating third party on your behalf. For example, Plaid can supply an Audit Copy token directly to Fannie Mae on your behalf if you participate in the Day 1 Certainty™ program. An Audit Copy token contains the same underlying data as the Asset Report and/or Income Report (result of /credit/payroll_income/get).
+Plaid can create an Audit Copy token of an Asset Report and/or Income Report to share with participating Government Sponsored Entity (GSE). If you participate in the Day 1 Certainty™ program, Plaid can supply an Audit Copy token directly to Fannie Mae on your behalf. An Audit Copy token contains the same underlying data as the Asset Report and/or Income Report (result of /credit/payroll_income/get).
 
-To grant access to an Audit Copy token, use the `/credit/audit_copy_token/create` endpoint to create an `audit_copy_token` and then pass that token to the third party who needs access. Each third party has its own `auditor_id`, for example `fannie_mae`. You’ll need to create a separate Audit Copy for each third party to whom you want to grant access to the Report.
+Use the `/credit/audit_copy_token/create` endpoint to create an `audit_copy_token` and then pass that token to the GSE who needs access.
 
 See endpoint docs at <https://plaid.com/docs/api/products/income/#creditaudit_copy_tokencreate>.*/
     pub fn credit_audit_copy_token_create(
         &self,
-        report_tokens: Vec<ReportToken>,
-        auditor_id: &str,
+        report_tokens: &[&str],
     ) -> request::CreditAuditCopyTokenCreateRequest {
         request::CreditAuditCopyTokenCreateRequest {
             http_client: &self,
-            report_tokens,
-            auditor_id: auditor_id.to_owned(),
+            report_tokens: report_tokens.iter().map(|&x| x.to_owned()).collect(),
         }
     }
     /**Remove an Audit Copy token
@@ -2367,6 +2679,34 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditaudit_co
         audit_copy_token: &str,
     ) -> request::CreditReportAuditCopyRemoveRequest {
         request::CreditReportAuditCopyRemoveRequest {
+            http_client: &self,
+            audit_copy_token: audit_copy_token.to_owned(),
+        }
+    }
+    /**Retrieve an Asset Report with Freddie Mac format. Only Freddie Mac can use this endpoint.
+
+The `credit/asset_report/freddie_mac/get` endpoint retrieves the Asset Report in Freddie Mac's JSON format.
+
+See endpoint docs at <https://plaid.com/docs/none/>.*/
+    pub fn credit_asset_report_freddie_mac_get(
+        &self,
+        audit_copy_token: &str,
+    ) -> request::CreditAssetReportFreddieMacGetRequest {
+        request::CreditAssetReportFreddieMacGetRequest {
+            http_client: &self,
+            audit_copy_token: audit_copy_token.to_owned(),
+        }
+    }
+    /**Retrieve an Asset Report with Freddie Mac format (aka VOA - Verification Of Assets), and a Verification Of Employment (VOE) report if this one is available. Only Freddie Mac can use this endpoint.
+
+The `credit/asset_report/freddie_mac/get` endpoint retrieves the Verification of Assets and Verification of Employment reports.
+
+See endpoint docs at <https://plaid.com/docs/none/>.*/
+    pub fn credit_freddie_mac_reports_get(
+        &self,
+        audit_copy_token: &str,
+    ) -> request::CreditFreddieMacReportsGetRequest {
+        request::CreditFreddieMacReportsGetRequest {
             http_client: &self,
             audit_copy_token: audit_copy_token.to_owned(),
         }
@@ -2429,6 +2769,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_
 
 While all request fields are optional, providing `employer` data will increase the chance of receiving a useful result.
 
+When testing in Sandbox, you can control the results by providing special test values in the `employer` and `access_tokens` fields. `employer_good` and `employer_bad` will result in `HIGH` and `LOW` confidence values, respectively. `employer_multi` will result in a `HIGH` confidence with multiple payroll options. Likewise, `access_good` and `access_bad` will result in `HIGH` and `LOW` confidence values, respectively. Any other value for `employer` and `access_tokens` in Sandbox will result in `UNKNOWN` confidence.
+
 See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_incomeprecheck>.*/
     pub fn credit_payroll_income_precheck(
         &self,
@@ -2439,6 +2781,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_
             access_tokens: None,
             employer: None,
             us_military_info: None,
+            payroll_institution: None,
         }
     }
     /**Retrieve a summary of an individual's employment information
@@ -2468,30 +2811,30 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_
             user_token: None,
         }
     }
-    /**Create a `relay_token` to share an Asset Report with a partner client
+    /**Create a relay token to share an Asset Report with a partner client (beta)
 
 Plaid can share an Asset Report directly with a participating third party on your behalf. The shared Asset Report is the exact same Asset Report originally created in `/asset_report/create`.
 
-To grant access to an Asset Report to a third party, use the `/credit/relay/create` endpoint to create a `relay_token` and then pass that token to the third party who needs access. Each third party has its own `secondary_client_id`, for example `ce5bd328dcd34123456`. You'll need to create a separate `relay_token` for each third party to whom you want to grant access to the Report.
+To grant a third party access to an Asset Report, use the `/credit/relay/create` endpoint to create a `relay_token` and then pass that token to your third party. Each third party has its own `secondary_client_id`; for example, `ce5bd328dcd34123456`. You'll need to create a separate `relay_token` for each third party that needs access to the report on your behalf.
 
-See endpoint docs at <https://plaid.com/docs/none/>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#creditrelaycreate>.*/
     pub fn credit_relay_create(
         &self,
-        report_tokens: Vec<ReportToken>,
+        report_tokens: &[&str],
         secondary_client_id: &str,
     ) -> request::CreditRelayCreateRequest {
         request::CreditRelayCreateRequest {
             http_client: &self,
-            report_tokens,
+            report_tokens: report_tokens.iter().map(|&x| x.to_owned()).collect(),
             secondary_client_id: secondary_client_id.to_owned(),
             webhook: None,
         }
     }
-    /**Retrieve the reports associated with a Relay token that was shared with you
+    /**Retrieve the reports associated with a relay token that was shared with you (beta)
 
-`/credit/relay/get` allows third parties to get a report that was shared with them, using an `relay_token` that was created by the report owner.
+`/credit/relay/get` allows third parties to receive a report that was shared with them, using a `relay_token` that was created by the report owner.
 
-See endpoint docs at <https://plaid.com/docs/none/>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#creditrelayget>.*/
     pub fn credit_relay_get(
         &self,
         relay_token: &str,
@@ -2503,11 +2846,11 @@ See endpoint docs at <https://plaid.com/docs/none/>.*/
             report_type: report_type.to_owned(),
         }
     }
-    /**Refresh a report of a Relay Token
+    /**Refresh a report of a relay token (beta)
 
-The `/credit/relay/refresh` endpoint allows third parties to refresh an report that was relayed to them, using a `relay_token` that was created by the report owner. A new report will be created based on the old one, but with the most recent data available.
+The `/credit/relay/refresh` endpoint allows third parties to refresh a report that was relayed to them, using a `relay_token` that was created by the report owner. A new report will be created with the original report parameters, but with the most recent data available based on the `days_requested` value of the original report.
 
-See endpoint docs at <https://plaid.com/docs/api/products/#creditrelayrefresh>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#creditrelayrefresh>.*/
     pub fn credit_relay_refresh(
         &self,
         relay_token: &str,
@@ -2520,11 +2863,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/#creditrelayrefresh>.*
             webhook: None,
         }
     }
-    /**Remove Credit Relay Token
+    /**Remove relay token (beta)
 
-The `/credit/relay/remove` endpoint allows you to invalidate a `relay_token`, meaning the third party holding the token will no longer be able to use it to access the reports to which the `relay_token` gives access to. The report, items associated with it, and other Relay tokens that provide access to the same report are not affected and will remain accessible after removing the given `relay_token.
+The `/credit/relay/remove` endpoint allows you to invalidate a `relay_token`. The third party holding the token will no longer be able to access or refresh the reports which the `relay_token` gives access to. The original report, associated Items, and other relay tokens that provide access to the same report are not affected and will remain accessible after removing the given `relay_token`.
 
-See endpoint docs at <https://plaid.com/docs/none/>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/assets/#creditrelayremove>.*/
     pub fn credit_relay_remove(
         &self,
         relay_token: &str,
@@ -2583,9 +2926,11 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxincomefire_webh
 
 Use `/signal/evaluate` to evaluate a planned ACH transaction to get a return risk assessment (such as a risk score and risk tier) and additional risk signals.
 
-In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause. If `/signal/evaluate` is called on the same transaction multiple times within a 24-hour period, cached results may be returned.
+In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause. If `/signal/evaluate` is called on the same transaction multiple times within a 24-hour period, cached results may be returned. For more information please refer to our error documentation on [item errors](/docs/errors/item/) and [Link in Update Mode](/docs/link/update-mode/).
 
-See endpoint docs at <https://plaid.com/docs/signal/reference#signalevaluate>.*/
+Note: This request may take some time to complete if Signal is being added to an existing Item. This is because Plaid must communicate directly with the institution when retrieving the data for the first time.
+
+See endpoint docs at <https://plaid.com/docs/api/products/signal#signalevaluate>.*/
     pub fn signal_evaluate(
         &self,
         args: request::SignalEvaluateRequired,
@@ -2598,15 +2943,17 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signalevaluate>.*/
             amount: args.amount,
             user_present: None,
             client_user_id: None,
+            is_recurring: None,
+            default_payment_method: None,
             user: None,
             device: None,
         }
     }
     /**Report whether you initiated an ACH transaction
 
-After calling `/signal/evaluate`, call `/signal/decision/report` to report whether the transaction was initiated. This endpoint will return an `INVALID_REQUEST` error if called a second time with a different value for `initiated`.
+After calling `/signal/evaluate`, call `/signal/decision/report` to report whether the transaction was initiated. This endpoint will return an [`INVALID_FIELD`](/docs/errors/invalid-request/#invalid_field) error if called a second time with a different value for `initiated`.
 
-See endpoint docs at <https://plaid.com/docs/signal/reference#signaldecisionreport>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/signal#signaldecisionreport>.*/
     pub fn signal_decision_report(
         &self,
         client_transaction_id: &str,
@@ -2617,13 +2964,16 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signaldecisionrepo
             client_transaction_id: client_transaction_id.to_owned(),
             initiated,
             days_funds_on_hold: None,
+            decision_outcome: None,
+            payment_method: None,
+            amount_instantly_available: None,
         }
     }
     /**Report a return for an ACH transaction
 
 Call the `/signal/return/report` endpoint to report a returned transaction that was previously sent to the `/signal/evaluate` endpoint. Your feedback will be used by the model to incorporate the latest risk trend in your portfolio.
 
-See endpoint docs at <https://plaid.com/docs/signal/reference#signalreturnreport>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/signal#signalreturnreport>.*/
     pub fn signal_return_report(
         &self,
         client_transaction_id: &str,
@@ -2633,13 +2983,18 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signalreturnreport
             http_client: &self,
             client_transaction_id: client_transaction_id.to_owned(),
             return_code: return_code.to_owned(),
+            returned_at: None,
         }
     }
-    /**Prepare the Signal product before calling `/signal/evaluate`
+    /**Opt-in an Item to Signal
 
-Call `/signal/prepare` with Plaid-linked bank account information at least 10 seconds before calling `/signal/evaluate` or as soon as an end-user enters the ACH deposit flow in your application.
+When Link is not initialized with Signal, call `/signal/prepare` to opt-in that Item to the Signal data collection process, developing a Signal score.
 
-See endpoint docs at <https://plaid.com/docs/signal/reference#signalprepare>.*/
+If you are using other Plaid products after Link, e.g. Identity or Assets, call `/signal/prepare` after those product calls are complete.
+
+Example flow: Link is initialized with Auth, call `/auth/get` for the account & routing number, call `/identity/get` to retrieve bank ownership details, call `/signal/prepare` to begin Signal data collection, then call `/signal/evaluate` for a Signal score. For more information please see [Recommendations for initializing Link with specific product combinations](/docs/link/best-practices/#recommendations-for-initializing-link-with-specific-product-combinations).
+
+See endpoint docs at <https://plaid.com/docs/api/products/signal#signalprepare>.*/
     pub fn signal_prepare(&self, access_token: &str) -> request::SignalPrepareRequest {
         request::SignalPrepareRequest {
             http_client: &self,
@@ -2650,7 +3005,7 @@ See endpoint docs at <https://plaid.com/docs/signal/reference#signalprepare>.*/
 
 Create an e-wallet. The response is the newly created e-wallet object.
 
-See endpoint docs at <https://plaid.com/docs/api/products/#walletcreate>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#walletcreate>.*/
     pub fn wallet_create(
         &self,
         iso_currency_code: &str,
@@ -2664,7 +3019,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/#walletcreate>.*/
 
 Fetch an e-wallet. The response includes the current balance.
 
-See endpoint docs at <https://plaid.com/docs/api/products/#walletget>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#walletget>.*/
     pub fn wallet_get(&self, wallet_id: &str) -> request::WalletGetRequest {
         request::WalletGetRequest {
             http_client: &self,
@@ -2675,7 +3030,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/#walletget>.*/
 
 This endpoint lists all e-wallets in descending order of creation.
 
-See endpoint docs at <https://plaid.com/docs/api/products/#walletlist>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#walletlist>.*/
     pub fn wallet_list(&self) -> request::WalletListRequest {
         request::WalletListRequest {
             http_client: &self,
@@ -2687,10 +3042,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/#walletlist>.*/
     /**Execute a transaction using an e-wallet
 
 Execute a transaction using the specified e-wallet.
-Specify the e-wallet to debit from, the counterparty to credit to, the idempotency key to prevent duplicate payouts, the amount and reference for the payout.
-The payouts are executed over the Faster Payment rails, where settlement usually only takes a few seconds.
+Specify the e-wallet to debit from, the counterparty to credit to, the idempotency key to prevent duplicate transactions, the amount and reference for the transaction.
+Transactions will settle in seconds to several days, depending on the underlying payment rail.
 
-See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionexecute>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wallettransactionexecute>.*/
     pub fn wallet_transaction_execute(
         &self,
         args: request::WalletTransactionExecuteRequired,
@@ -2704,9 +3059,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionexec
             reference: args.reference.to_owned(),
         }
     }
-    /**Fetch a specific e-wallet transaction
+    /**Fetch an e-wallet transaction
 
-See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionget>.*/
+Fetch a specific e-wallet transaction
+
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wallettransactionget>.*/
     pub fn wallet_transaction_get(
         &self,
         transaction_id: &str,
@@ -2720,7 +3077,24 @@ See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionget>
 
 This endpoint lists the latest transactions of the specified e-wallet. Transactions are returned in descending order by the `created_at` time.
 
-See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionslist>.*/
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wallettransactionlist>.*/
+    pub fn wallet_transaction_list(
+        &self,
+        wallet_id: &str,
+    ) -> request::WalletTransactionListRequest {
+        request::WalletTransactionListRequest {
+            http_client: &self,
+            wallet_id: wallet_id.to_owned(),
+            cursor: None,
+            count: None,
+            options: None,
+        }
+    }
+    /**List e-wallet transactions
+
+This endpoint lists the latest transactions of the specified e-wallet. Transactions are returned in descending order by the `created_at` time.
+
+See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wallettransactionlist>.*/
     pub fn wallet_transactions_list(
         &self,
         wallet_id: &str,
@@ -2730,11 +3104,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/#wallettransactionslis
             wallet_id: wallet_id.to_owned(),
             cursor: None,
             count: None,
+            options: None,
         }
     }
     /**enhance locally-held transaction data
 
-The '/beta/transactions/v1/enhance' endpoint enriches raw transaction data provided directly by clients.
+The `/beta/transactions/v1/enhance` endpoint enriches raw transaction data provided directly by clients.
 
 The product is currently in beta.*/
     pub fn transactions_enhance(
@@ -2796,7 +3171,9 @@ The `/transactions/rules/v1/remove` endpoint is used to remove a transaction rul
     }
     /**Create payment profile
 
-Use `/payment_profile/create` endpoint to create a new payment profile, the return value is a Payment Profile ID. Attach it to the link token create request and the link workflow will then "activate" this Payment Profile if the linkage is successful. It can then be used to create Transfers using `/transfer/authorization/create` and /transfer/create`.
+Use `/payment_profile/create` endpoint to create a new payment profile.
+To initiate the account linking experience, call `/link/token/create` and provide the `payment_profile_token` in the `transfer.payment_profile_token` field.
+You can then use the `payment_profile_token` when creating transfers using `/transfer/authorization/create` and `/transfer/create`.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#payment_profilecreate>.*/
     pub fn payment_profile_create(&self) -> request::PaymentProfileCreateRequest {
@@ -2806,16 +3183,16 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#payment_prof
     }
     /**Get payment profile
 
-Use the `/payment_profile/get` endpoint to get the status of a given Payment Profile.
+Use `/payment_profile/get` endpoint to get the status of a given Payment Profile.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#payment_profileget>.*/
     pub fn payment_profile_get(
         &self,
-        payment_profile_id: &str,
+        payment_profile_token: &str,
     ) -> request::PaymentProfileGetRequest {
         request::PaymentProfileGetRequest {
             http_client: &self,
-            payment_profile_id: payment_profile_id.to_owned(),
+            payment_profile_token: payment_profile_token.to_owned(),
         }
     }
     /**Remove payment profile
@@ -2825,28 +3202,159 @@ Use the `/payment_profile/remove` endpoint to remove a given Payment Profile. On
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#payment_profileremove>.*/
     pub fn payment_profile_remove(
         &self,
-        payment_profile_id: &str,
+        payment_profile_token: &str,
     ) -> request::PaymentProfileRemoveRequest {
         request::PaymentProfileRemoveRequest {
             http_client: &self,
-            payment_profile_id: payment_profile_id.to_owned(),
+            payment_profile_token: payment_profile_token.to_owned(),
         }
     }
-    /**Creates a new client for a reseller partner end customer.
+    /**Creates a new end customer for a Plaid reseller.
 
-The `/partner/v1/customers/create` endpoint is used by reseller partners to create an end customer client.*/
-    pub fn partner_customers_create(
+The `/partner/customer/create` endpoint is used by reseller partners to create end customers.
+
+See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomercreate>.*/
+    pub fn partner_customer_create(
         &self,
-        company_name: &str,
-        is_diligence_attested: bool,
-        products: &[&str],
-    ) -> request::PartnerCustomersCreateRequest {
-        request::PartnerCustomersCreateRequest {
+        args: request::PartnerCustomerCreateRequired,
+    ) -> request::PartnerCustomerCreateRequest {
+        request::PartnerCustomerCreateRequest {
             http_client: &self,
-            company_name: company_name.to_owned(),
-            is_diligence_attested,
-            products: products.iter().map(|&x| x.to_owned()).collect(),
+            client_id: None,
+            secret: None,
+            company_name: args.company_name.to_owned(),
+            is_diligence_attested: args.is_diligence_attested,
+            products: args.products.iter().map(|&x| x.to_owned()).collect(),
             create_link_customization: None,
+            logo: None,
+            legal_entity_name: args.legal_entity_name.to_owned(),
+            website: args.website.to_owned(),
+            application_name: args.application_name.to_owned(),
+            technical_contact: None,
+            billing_contact: None,
+            customer_support_info: None,
+            address: args.address,
+            is_bank_addendum_completed: args.is_bank_addendum_completed,
+            assets_under_management: None,
+        }
+    }
+    /**Returns a Plaid reseller's end customer.
+
+The `/partner/customer/get` endpoint is used by reseller partners to retrieve data about a single end customer.
+
+See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomerget>.*/
+    pub fn partner_customer_get(
+        &self,
+        end_customer_client_id: &str,
+    ) -> request::PartnerCustomerGetRequest {
+        request::PartnerCustomerGetRequest {
+            http_client: &self,
+            client_id: None,
+            secret: None,
+            end_customer_client_id: end_customer_client_id.to_owned(),
+        }
+    }
+    /**Enables a Plaid reseller's end customer in the Production environment.
+
+The `/partner/customer/enable` endpoint is used by reseller partners to enable an end customer in the Production environment.
+
+See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomerenable>.*/
+    pub fn partner_customer_enable(
+        &self,
+        end_customer_client_id: &str,
+    ) -> request::PartnerCustomerEnableRequest {
+        request::PartnerCustomerEnableRequest {
+            http_client: &self,
+            client_id: None,
+            secret: None,
+            end_customer_client_id: end_customer_client_id.to_owned(),
+        }
+    }
+    /**Removes a Plaid reseller's end customer.
+
+The `/partner/customer/remove` endpoint is used by reseller partners to remove an end customer. Removing an end customer will remove it from view in the Plaid Dashboard and deactivate its API keys. This endpoint can only be used to remove an end customer that has not yet been enabled in Production.
+
+See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomerremove>.*/
+    pub fn partner_customer_remove(
+        &self,
+        end_customer_client_id: &str,
+    ) -> request::PartnerCustomerRemoveRequest {
+        request::PartnerCustomerRemoveRequest {
+            http_client: &self,
+            client_id: None,
+            secret: None,
+            end_customer_client_id: end_customer_client_id.to_owned(),
+        }
+    }
+    /**Returns OAuth-institution registration information for a given end customer.
+
+The `/partner/customer/oauth_institutions/get` endpoint is used by reseller partners to retrieve OAuth-institution registration information about a single end customer.
+
+See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomeroauth_institutionsget>.*/
+    pub fn partner_customer_oauth_institutions_get(
+        &self,
+        end_customer_client_id: &str,
+    ) -> request::PartnerCustomerOauthInstitutionsGetRequest {
+        request::PartnerCustomerOauthInstitutionsGetRequest {
+            http_client: &self,
+            client_id: None,
+            secret: None,
+            end_customer_client_id: end_customer_client_id.to_owned(),
+        }
+    }
+    /**Create link delivery session
+
+Use the `/link_delivery/create` endpoint to create a Link Delivery session.
+
+See endpoint docs at <https://plaid.com/docs/api/link_delivery/#create>.*/
+    pub fn link_delivery_create(
+        &self,
+        link_token: &str,
+        delivery_method: &str,
+        delivery_destination: &str,
+    ) -> request::LinkDeliveryCreateRequest {
+        request::LinkDeliveryCreateRequest {
+            http_client: &self,
+            link_token: link_token.to_owned(),
+            delivery_method: delivery_method.to_owned(),
+            delivery_destination: delivery_destination.to_owned(),
+        }
+    }
+    /**Get link delivery session
+
+Use the `/link_delivery/get` endpoint to get the status of a Link Delivery session.
+
+See endpoint docs at <https://plaid.com/docs/api/link_delivery/#get>.*/
+    pub fn link_delivery_get(
+        &self,
+        link_delivery_session_id: &str,
+    ) -> request::LinkDeliveryGetRequest {
+        request::LinkDeliveryGetRequest {
+            http_client: &self,
+            link_delivery_session_id: link_delivery_session_id.to_owned(),
+        }
+    }
+    /**Webhook receiver for fdx notifications
+
+A generic webhook receiver endpoint for FDX Event Notifications
+
+See endpoint docs at <https://plaid.com/docs/api/fdx/notifications/#post>.*/
+    pub fn fdx_notifications(
+        &self,
+        args: request::FdxNotificationsRequired,
+    ) -> request::FdxNotificationsRequest {
+        request::FdxNotificationsRequest {
+            http_client: &self,
+            notification_id: args.notification_id.to_owned(),
+            type_: args.type_.to_owned(),
+            sent_on: args.sent_on.to_owned(),
+            category: args.category.to_owned(),
+            severity: None,
+            priority: None,
+            publisher: args.publisher,
+            subscriber: None,
+            notification_payload: args.notification_payload,
+            url: None,
         }
     }
 }

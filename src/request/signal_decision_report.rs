@@ -10,6 +10,9 @@ pub struct SignalDecisionReportRequest<'a> {
     pub client_transaction_id: String,
     pub initiated: bool,
     pub days_funds_on_hold: Option<i64>,
+    pub decision_outcome: Option<String>,
+    pub payment_method: Option<String>,
+    pub amount_instantly_available: Option<f64>,
 }
 impl<'a> SignalDecisionReportRequest<'a> {
     pub async fn send(
@@ -21,12 +24,36 @@ impl<'a> SignalDecisionReportRequest<'a> {
         if let Some(ref unwrapped) = self.days_funds_on_hold {
             r = r.json(json!({ "days_funds_on_hold" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.decision_outcome {
+            r = r.json(json!({ "decision_outcome" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.payment_method {
+            r = r.json(json!({ "payment_method" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.amount_instantly_available {
+            r = r.json(json!({ "amount_instantly_available" : unwrapped }));
+        }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
     }
     pub fn days_funds_on_hold(mut self, days_funds_on_hold: i64) -> Self {
         self.days_funds_on_hold = Some(days_funds_on_hold);
+        self
+    }
+    pub fn decision_outcome(mut self, decision_outcome: &str) -> Self {
+        self.decision_outcome = Some(decision_outcome.to_owned());
+        self
+    }
+    pub fn payment_method(mut self, payment_method: &str) -> Self {
+        self.payment_method = Some(payment_method.to_owned());
+        self
+    }
+    pub fn amount_instantly_available(
+        mut self,
+        amount_instantly_available: f64,
+    ) -> Self {
+        self.amount_instantly_available = Some(amount_instantly_available);
         self
     }
 }

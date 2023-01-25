@@ -9,6 +9,10 @@ async fn main() {
         .wallet_transactions_list(wallet_id)
         .cursor("your cursor")
         .count(1)
+        .options(WalletTransactionListRequestOptions {
+            end_time: Some("your end time".to_owned()),
+            start_time: Some("your start time".to_owned()),
+        })
         .await
         .unwrap();
     println!("{:#?}", response);

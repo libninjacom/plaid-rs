@@ -12,7 +12,7 @@ pub struct WatchlistScreeningIndividualGetRequest<'a> {
 impl<'a> WatchlistScreeningIndividualGetRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualResponse> {
+    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualGetResponse> {
         let mut r = self.http_client.client.post("/watchlist_screening/individual/get");
         r = r.json(json!({ "watchlist_screening_id" : self.watchlist_screening_id }));
         r = self.http_client.authenticate(r);
@@ -21,7 +21,7 @@ impl<'a> WatchlistScreeningIndividualGetRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningIndividualGetRequest<'a> {
-    type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualResponse>;
+    type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

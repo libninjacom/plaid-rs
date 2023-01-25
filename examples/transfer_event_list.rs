@@ -16,6 +16,7 @@ async fn main() {
         .count(1)
         .offset(1)
         .origination_account_id("your origination account id")
+        .originator_client_id("your originator client id")
         .await
         .unwrap();
     println!("{:#?}", response);

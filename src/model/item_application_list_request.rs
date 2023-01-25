@@ -1,0 +1,12 @@
+
+use serde::{Serialize, Deserialize};
+use super::*;
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct ItemApplicationListRequest {
+    pub access_token: Option<String>,
+}
+impl std::fmt::Display for ItemApplicationListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
+    }
+}

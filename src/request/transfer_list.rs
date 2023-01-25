@@ -12,6 +12,7 @@ pub struct TransferListRequest<'a> {
     pub count: Option<i64>,
     pub offset: Option<i64>,
     pub origination_account_id: Option<String>,
+    pub originator_client_id: Option<String>,
 }
 impl<'a> TransferListRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<TransferListResponse> {
@@ -30,6 +31,9 @@ impl<'a> TransferListRequest<'a> {
         }
         if let Some(ref unwrapped) = self.origination_account_id {
             r = r.json(json!({ "origination_account_id" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.originator_client_id {
+            r = r.json(json!({ "originator_client_id" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -53,6 +57,10 @@ impl<'a> TransferListRequest<'a> {
     }
     pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
         self.origination_account_id = Some(origination_account_id.to_owned());
+        self
+    }
+    pub fn originator_client_id(mut self, originator_client_id: &str) -> Self {
+        self.originator_client_id = Some(originator_client_id.to_owned());
         self
     }
 }

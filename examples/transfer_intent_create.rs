@@ -6,7 +6,6 @@ use plaid::request::TransferIntentCreateRequired;
 async fn main() {
     let client = PlaidClient::from_env();
     let args = TransferIntentCreateRequired {
-        ach_class: "your ach class",
         amount: "your amount",
         description: "your description",
         mode: "your mode",
@@ -26,6 +25,7 @@ async fn main() {
     let response = client
         .transfer_intent_create(args)
         .account_id("your account id")
+        .ach_class("your ach class")
         .origination_account_id("your origination account id")
         .metadata(TransferMetadata {})
         .iso_currency_code("your iso currency code")

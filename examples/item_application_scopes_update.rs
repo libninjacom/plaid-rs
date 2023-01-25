@@ -12,11 +12,10 @@ async fn main() {
         scopes: Scopes {
             accounts: Some(
                 vec![
-                    AccountAccess { account_product_access :
-                    Some(AccountProductAccessNullable { account_product_access :
-                    AccountProductAccess { account_data : Some(true), statements :
-                    Some(true), tax_documents : Some(true) } }), authorized : Some(true),
-                    unique_id : "your unique id".to_owned() }
+                    AccountAccess { account_product_access : Some(AccountProductAccess {
+                    account_data : Some(true), statements : Some(true), tax_documents :
+                    Some(true) }), authorized : Some(true), unique_id : "your unique id"
+                    .to_owned() }
                 ],
             ),
             new_accounts: Some(true),

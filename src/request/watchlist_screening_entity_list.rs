@@ -16,7 +16,7 @@ pub struct WatchlistScreeningEntityListRequest<'a> {
 impl<'a> WatchlistScreeningEntityListRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<PaginatedEntityWatchlistScreeningListResponse> {
+    ) -> ::httpclient::InMemoryResult<WatchlistScreeningEntityListResponse> {
         let mut r = self.http_client.client.post("/watchlist_screening/entity/list");
         r = r
             .json(
@@ -58,9 +58,7 @@ impl<'a> WatchlistScreeningEntityListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningEntityListRequest<'a> {
-    type Output = httpclient::InMemoryResult<
-        PaginatedEntityWatchlistScreeningListResponse,
-    >;
+    type Output = httpclient::InMemoryResult<WatchlistScreeningEntityListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

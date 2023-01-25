@@ -13,11 +13,9 @@ async fn main() {
         counterparty: WalletTransactionCounterparty {
             name: "your name".to_owned(),
             numbers: WalletTransactionCounterpartyNumbers {
-                bacs: Some(WalletTransactionCounterpartyBacs {
-                    recipient_bacs: Some(RecipientBacs {
-                        account: Some("your account".to_owned()),
-                        sort_code: Some("your sort code".to_owned()),
-                    }),
+                bacs: Some(RecipientBacs {
+                    account: Some("your account".to_owned()),
+                    sort_code: Some("your sort code".to_owned()),
                 }),
                 international: Some(WalletTransactionCounterpartyInternational {
                     iban: Some("your iban".to_owned()),

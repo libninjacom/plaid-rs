@@ -15,6 +15,8 @@ async fn main() {
         .signal_evaluate(args)
         .user_present(true)
         .client_user_id("your client user id")
+        .is_recurring(true)
+        .default_payment_method("your default payment method")
         .user(SignalUser {
             address: Some(SignalAddressData {
                 city: Some("your city".to_owned()),

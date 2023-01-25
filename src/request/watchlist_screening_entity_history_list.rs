@@ -13,7 +13,7 @@ pub struct WatchlistScreeningEntityHistoryListRequest<'a> {
 impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<PaginatedEntityWatchlistScreeningListResponse> {
+    ) -> ::httpclient::InMemoryResult<WatchlistScreeningEntityHistoryListResponse> {
         let mut r = self
             .http_client
             .client
@@ -39,7 +39,7 @@ impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningEntityHistoryListRequest<'a> {
     type Output = httpclient::InMemoryResult<
-        PaginatedEntityWatchlistScreeningListResponse,
+        WatchlistScreeningEntityHistoryListResponse,
     >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {

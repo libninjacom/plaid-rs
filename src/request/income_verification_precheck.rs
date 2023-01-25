@@ -9,6 +9,7 @@ pub struct IncomeVerificationPrecheckRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub user: Option<IncomeVerificationPrecheckUser>,
     pub employer: Option<IncomeVerificationPrecheckEmployer>,
+    pub payroll_institution: Option<IncomeVerificationPrecheckPayrollInstitution>,
     pub transactions_access_token: Option<String>,
     pub transactions_access_tokens: Option<Vec<String>>,
     pub us_military_info: Option<IncomeVerificationPrecheckMilitaryInfo>,
@@ -23,6 +24,9 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         }
         if let Some(ref unwrapped) = self.employer {
             r = r.json(json!({ "employer" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.payroll_institution {
+            r = r.json(json!({ "payroll_institution" : unwrapped }));
         }
         if let Some(ref unwrapped) = self.transactions_access_token {
             r = r.json(json!({ "transactions_access_token" : unwrapped }));
@@ -43,6 +47,13 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
     }
     pub fn employer(mut self, employer: IncomeVerificationPrecheckEmployer) -> Self {
         self.employer = Some(employer);
+        self
+    }
+    pub fn payroll_institution(
+        mut self,
+        payroll_institution: IncomeVerificationPrecheckPayrollInstitution,
+    ) -> Self {
+        self.payroll_institution = Some(payroll_institution);
         self
     }
     pub fn transactions_access_token(mut self, transactions_access_token: &str) -> Self {

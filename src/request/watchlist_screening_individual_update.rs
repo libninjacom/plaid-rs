@@ -17,7 +17,7 @@ pub struct WatchlistScreeningIndividualUpdateRequest<'a> {
 impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualResponse> {
+    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualUpdateResponse> {
         let mut r = self
             .http_client
             .client
@@ -73,7 +73,7 @@ impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningIndividualUpdateRequest<'a> {
-    type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualResponse>;
+    type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

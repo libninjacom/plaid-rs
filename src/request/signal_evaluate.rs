@@ -13,6 +13,8 @@ pub struct SignalEvaluateRequest<'a> {
     pub amount: f64,
     pub user_present: Option<bool>,
     pub client_user_id: Option<String>,
+    pub is_recurring: Option<bool>,
+    pub default_payment_method: Option<String>,
     pub user: Option<SignalUser>,
     pub device: Option<SignalDevice>,
 }
@@ -28,6 +30,12 @@ impl<'a> SignalEvaluateRequest<'a> {
         }
         if let Some(ref unwrapped) = self.client_user_id {
             r = r.json(json!({ "client_user_id" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.is_recurring {
+            r = r.json(json!({ "is_recurring" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.default_payment_method {
+            r = r.json(json!({ "default_payment_method" : unwrapped }));
         }
         if let Some(ref unwrapped) = self.user {
             r = r.json(json!({ "user" : unwrapped }));
@@ -45,6 +53,14 @@ impl<'a> SignalEvaluateRequest<'a> {
     }
     pub fn client_user_id(mut self, client_user_id: &str) -> Self {
         self.client_user_id = Some(client_user_id.to_owned());
+        self
+    }
+    pub fn is_recurring(mut self, is_recurring: bool) -> Self {
+        self.is_recurring = Some(is_recurring);
+        self
+    }
+    pub fn default_payment_method(mut self, default_payment_method: &str) -> Self {
+        self.default_payment_method = Some(default_payment_method.to_owned());
         self
     }
     pub fn user(mut self, user: SignalUser) -> Self {

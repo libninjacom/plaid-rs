@@ -9,6 +9,9 @@ async fn main() {
         .asset_report_get(asset_report_token)
         .include_insights(true)
         .fast_report(true)
+        .options(AssetReportGetRequestOptions {
+            days_to_include: Some(1),
+        })
         .await
         .unwrap();
     println!("{:#?}", response);

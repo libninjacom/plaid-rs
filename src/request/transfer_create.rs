@@ -10,17 +10,17 @@ pub struct TransferCreateRequest<'a> {
     pub idempotency_key: Option<String>,
     pub access_token: Option<String>,
     pub account_id: Option<String>,
+    pub payment_profile_token: Option<String>,
     pub authorization_id: String,
-    pub type_: String,
-    pub network: String,
-    pub amount: String,
+    pub type_: Option<String>,
+    pub network: Option<String>,
+    pub amount: Option<String>,
     pub description: String,
-    pub ach_class: String,
-    pub user: TransferUserInRequest,
+    pub ach_class: Option<String>,
+    pub user: Option<TransferUserInRequestDeprecated>,
     pub metadata: Option<TransferMetadata>,
     pub origination_account_id: Option<String>,
     pub iso_currency_code: Option<String>,
-    pub payment_profile_id: Option<String>,
 }
 impl<'a> TransferCreateRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<TransferCreateResponse> {
@@ -34,13 +34,26 @@ impl<'a> TransferCreateRequest<'a> {
         if let Some(ref unwrapped) = self.account_id {
             r = r.json(json!({ "account_id" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.payment_profile_token {
+            r = r.json(json!({ "payment_profile_token" : unwrapped }));
+        }
         r = r.json(json!({ "authorization_id" : self.authorization_id }));
-        r = r.json(json!({ "type" : self.type_ }));
-        r = r.json(json!({ "network" : self.network }));
-        r = r.json(json!({ "amount" : self.amount }));
+        if let Some(ref unwrapped) = self.type_ {
+            r = r.json(json!({ "type" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.network {
+            r = r.json(json!({ "network" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.amount {
+            r = r.json(json!({ "amount" : unwrapped }));
+        }
         r = r.json(json!({ "description" : self.description }));
-        r = r.json(json!({ "ach_class" : self.ach_class }));
-        r = r.json(json!({ "user" : self.user }));
+        if let Some(ref unwrapped) = self.ach_class {
+            r = r.json(json!({ "ach_class" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.user {
+            r = r.json(json!({ "user" : unwrapped }));
+        }
         if let Some(ref unwrapped) = self.metadata {
             r = r.json(json!({ "metadata" : unwrapped }));
         }
@@ -49,9 +62,6 @@ impl<'a> TransferCreateRequest<'a> {
         }
         if let Some(ref unwrapped) = self.iso_currency_code {
             r = r.json(json!({ "iso_currency_code" : unwrapped }));
-        }
-        if let Some(ref unwrapped) = self.payment_profile_id {
-            r = r.json(json!({ "payment_profile_id" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -69,6 +79,30 @@ impl<'a> TransferCreateRequest<'a> {
         self.account_id = Some(account_id.to_owned());
         self
     }
+    pub fn payment_profile_token(mut self, payment_profile_token: &str) -> Self {
+        self.payment_profile_token = Some(payment_profile_token.to_owned());
+        self
+    }
+    pub fn type_(mut self, type_: &str) -> Self {
+        self.type_ = Some(type_.to_owned());
+        self
+    }
+    pub fn network(mut self, network: &str) -> Self {
+        self.network = Some(network.to_owned());
+        self
+    }
+    pub fn amount(mut self, amount: &str) -> Self {
+        self.amount = Some(amount.to_owned());
+        self
+    }
+    pub fn ach_class(mut self, ach_class: &str) -> Self {
+        self.ach_class = Some(ach_class.to_owned());
+        self
+    }
+    pub fn user(mut self, user: TransferUserInRequestDeprecated) -> Self {
+        self.user = Some(user);
+        self
+    }
     pub fn metadata(mut self, metadata: TransferMetadata) -> Self {
         self.metadata = Some(metadata);
         self
@@ -81,21 +115,7 @@ impl<'a> TransferCreateRequest<'a> {
         self.iso_currency_code = Some(iso_currency_code.to_owned());
         self
     }
-    pub fn payment_profile_id(mut self, payment_profile_id: &str) -> Self {
-        self.payment_profile_id = Some(payment_profile_id.to_owned());
-        self
-    }
 }
-pub struct TransferCreateRequired<'a> {
-    pub authorization_id: &'a str,
-    pub type_: &'a str,
-    pub network: &'a str,
-    pub amount: &'a str,
-    pub description: &'a str,
-    pub ach_class: &'a str,
-    pub user: TransferUserInRequest,
-}
-impl<'a> TransferCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for TransferCreateRequest<'a> {
     type Output = httpclient::InMemoryResult<TransferCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;

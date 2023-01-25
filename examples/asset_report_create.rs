@@ -23,6 +23,7 @@ async fn main() {
             }),
             webhook: Some("your webhook".to_owned()),
         })
+        .report_type("your report type")
         .await
         .unwrap();
     println!("{:#?}", response);

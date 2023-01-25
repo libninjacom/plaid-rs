@@ -8,14 +8,12 @@ async fn main() {
     let response = client
         .identity_match(access_token)
         .user(IdentityMatchUser {
-            address: Some(AddressDataNullable {
-                address_data: AddressData {
-                    city: "your city".to_owned(),
-                    country: Some("your country".to_owned()),
-                    postal_code: Some("your postal code".to_owned()),
-                    region: Some("your region".to_owned()),
-                    street: "your street".to_owned(),
-                },
+            address: Some(AddressData {
+                city: "your city".to_owned(),
+                country: Some("your country".to_owned()),
+                postal_code: Some("your postal code".to_owned()),
+                region: Some("your region".to_owned()),
+                street: "your street".to_owned(),
             }),
             email_address: Some("your email address".to_owned()),
             legal_name: Some("your legal name".to_owned()),

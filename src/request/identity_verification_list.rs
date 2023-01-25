@@ -14,7 +14,7 @@ pub struct IdentityVerificationListRequest<'a> {
 impl<'a> IdentityVerificationListRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<PaginatedIdentityVerificationListResponse> {
+    ) -> ::httpclient::InMemoryResult<IdentityVerificationListResponse> {
         let mut r = self.http_client.client.post("/identity_verification/list");
         r = r.json(json!({ "template_id" : self.template_id }));
         r = r.json(json!({ "client_user_id" : self.client_user_id }));
@@ -31,7 +31,7 @@ impl<'a> IdentityVerificationListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for IdentityVerificationListRequest<'a> {
-    type Output = httpclient::InMemoryResult<PaginatedIdentityVerificationListResponse>;
+    type Output = httpclient::InMemoryResult<IdentityVerificationListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

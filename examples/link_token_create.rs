@@ -29,10 +29,7 @@ async fn main() {
                 value: "your value".to_owned(),
             }),
             legal_name: Some("your legal name".to_owned()),
-            name: Some(UserName {
-                family_name: "your family name".to_owned(),
-                given_name: "your given name".to_owned(),
-            }),
+            name: Some(::serde_json::json!({})),
             phone_number: Some("your phone number".to_owned()),
             phone_number_verified_time: Some(
                 "your phone number verified time".to_owned(),
@@ -72,7 +69,7 @@ async fn main() {
         .institution_id("your institution id")
         .payment_initiation(LinkTokenCreateRequestPaymentInitiation {
             consent_id: Some("your consent id".to_owned()),
-            payment_id: "your payment id".to_owned(),
+            payment_id: Some("your payment id".to_owned()),
         })
         .deposit_switch(LinkTokenCreateRequestDepositSwitch {
             deposit_switch_id: "your deposit switch id".to_owned(),
@@ -81,7 +78,7 @@ async fn main() {
             access_tokens: Some(vec!["your access tokens".to_owned()]),
             asset_report_id: Some("your asset report id".to_owned()),
             bank_income: Some(LinkTokenCreateRequestIncomeVerificationBankIncome {
-                days_requested: Some(1),
+                days_requested: 1,
                 enable_multiple_items: Some(true),
             }),
             income_source_types: Some(vec!["your income source types".to_owned()]),
@@ -110,7 +107,7 @@ async fn main() {
         })
         .transfer(LinkTokenCreateRequestTransfer {
             intent_id: Some("your intent id".to_owned()),
-            payment_profile_id: Some("your payment profile id".to_owned()),
+            payment_profile_token: Some("your payment profile token".to_owned()),
         })
         .update(LinkTokenCreateRequestUpdate {
             account_selection_enabled: Some(true),
@@ -121,6 +118,9 @@ async fn main() {
             template_id: "your template id".to_owned(),
         })
         .user_token("your user token")
+        .investments(LinkTokenInvestments {
+            allow_unverified_crypto_wallets: Some(true),
+        })
         .await
         .unwrap();
     println!("{:#?}", response);

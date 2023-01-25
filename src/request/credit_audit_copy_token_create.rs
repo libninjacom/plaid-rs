@@ -7,8 +7,7 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct CreditAuditCopyTokenCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub report_tokens: Vec<ReportToken>,
-    pub auditor_id: String,
+    pub report_tokens: Vec<String>,
 }
 impl<'a> CreditAuditCopyTokenCreateRequest<'a> {
     pub async fn send(
@@ -16,7 +15,6 @@ impl<'a> CreditAuditCopyTokenCreateRequest<'a> {
     ) -> ::httpclient::InMemoryResult<CreditAuditCopyTokenCreateResponse> {
         let mut r = self.http_client.client.post("/credit/audit_copy_token/create");
         r = r.json(json!({ "report_tokens" : self.report_tokens }));
-        r = r.json(json!({ "auditor_id" : self.auditor_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

@@ -11,7 +11,7 @@ pub struct TransferIntentCreateRequest<'a> {
     pub mode: String,
     pub amount: String,
     pub description: String,
-    pub ach_class: String,
+    pub ach_class: Option<String>,
     pub origination_account_id: Option<String>,
     pub user: TransferUserInRequest,
     pub metadata: Option<TransferMetadata>,
@@ -29,7 +29,9 @@ impl<'a> TransferIntentCreateRequest<'a> {
         r = r.json(json!({ "mode" : self.mode }));
         r = r.json(json!({ "amount" : self.amount }));
         r = r.json(json!({ "description" : self.description }));
-        r = r.json(json!({ "ach_class" : self.ach_class }));
+        if let Some(ref unwrapped) = self.ach_class {
+            r = r.json(json!({ "ach_class" : unwrapped }));
+        }
         if let Some(ref unwrapped) = self.origination_account_id {
             r = r.json(json!({ "origination_account_id" : unwrapped }));
         }
@@ -49,6 +51,10 @@ impl<'a> TransferIntentCreateRequest<'a> {
     }
     pub fn account_id(mut self, account_id: &str) -> Self {
         self.account_id = Some(account_id.to_owned());
+        self
+    }
+    pub fn ach_class(mut self, ach_class: &str) -> Self {
+        self.ach_class = Some(ach_class.to_owned());
         self
     }
     pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
@@ -72,7 +78,6 @@ pub struct TransferIntentCreateRequired<'a> {
     pub mode: &'a str,
     pub amount: &'a str,
     pub description: &'a str,
-    pub ach_class: &'a str,
     pub user: TransferUserInRequest,
 }
 impl<'a> TransferIntentCreateRequired<'a> {}

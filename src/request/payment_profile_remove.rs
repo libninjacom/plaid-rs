@@ -7,14 +7,14 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct PaymentProfileRemoveRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub payment_profile_id: String,
+    pub payment_profile_token: String,
 }
 impl<'a> PaymentProfileRemoveRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<PaymentProfileRemoveResponse> {
         let mut r = self.http_client.client.post("/payment_profile/remove");
-        r = r.json(json!({ "payment_profile_id" : self.payment_profile_id }));
+        r = r.json(json!({ "payment_profile_token" : self.payment_profile_token }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

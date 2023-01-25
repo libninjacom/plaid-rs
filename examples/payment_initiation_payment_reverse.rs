@@ -9,6 +9,10 @@ async fn main() {
     let reference = "your reference";
     let response = client
         .payment_initiation_payment_reverse(payment_id, idempotency_key, reference)
+        .amount(PaymentAmountNullable {
+            currency: "your currency".to_owned(),
+            value: 1.0,
+        })
         .await
         .unwrap();
     println!("{:#?}", response);

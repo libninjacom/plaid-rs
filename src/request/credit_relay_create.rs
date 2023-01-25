@@ -7,7 +7,7 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct CreditRelayCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub report_tokens: Vec<ReportToken>,
+    pub report_tokens: Vec<String>,
     pub secondary_client_id: String,
     pub webhook: Option<String>,
 }

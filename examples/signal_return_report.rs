@@ -8,6 +8,7 @@ async fn main() {
     let return_code = "your return code";
     let response = client
         .signal_return_report(client_transaction_id, return_code)
+        .returned_at("your returned at")
         .await
         .unwrap();
     println!("{:#?}", response);

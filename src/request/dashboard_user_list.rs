@@ -10,9 +10,7 @@ pub struct DashboardUserListRequest<'a> {
     pub cursor: Option<String>,
 }
 impl<'a> DashboardUserListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<PaginatedDashboardUserListResponse> {
+    pub async fn send(self) -> ::httpclient::InMemoryResult<DashboardUserListResponse> {
         let mut r = self.http_client.client.post("/dashboard_user/list");
         if let Some(ref unwrapped) = self.cursor {
             r = r.json(json!({ "cursor" : unwrapped }));
@@ -27,7 +25,7 @@ impl<'a> DashboardUserListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for DashboardUserListRequest<'a> {
-    type Output = httpclient::InMemoryResult<PaginatedDashboardUserListResponse>;
+    type Output = httpclient::InMemoryResult<DashboardUserListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

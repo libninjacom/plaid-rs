@@ -15,7 +15,7 @@ pub struct IdentityVerificationRetryRequest<'a> {
 impl<'a> IdentityVerificationRetryRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<IdentityVerificationResponse> {
+    ) -> ::httpclient::InMemoryResult<IdentityVerificationRetryResponse> {
         let mut r = self.http_client.client.post("/identity_verification/retry");
         r = r.json(json!({ "client_user_id" : self.client_user_id }));
         r = r.json(json!({ "template_id" : self.template_id }));
@@ -33,7 +33,7 @@ impl<'a> IdentityVerificationRetryRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for IdentityVerificationRetryRequest<'a> {
-    type Output = httpclient::InMemoryResult<IdentityVerificationResponse>;
+    type Output = httpclient::InMemoryResult<IdentityVerificationRetryResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

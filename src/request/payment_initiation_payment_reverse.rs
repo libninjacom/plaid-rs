@@ -10,6 +10,7 @@ pub struct PaymentInitiationPaymentReverseRequest<'a> {
     pub payment_id: String,
     pub idempotency_key: String,
     pub reference: String,
+    pub amount: Option<PaymentAmountToRefund>,
 }
 impl<'a> PaymentInitiationPaymentReverseRequest<'a> {
     pub async fn send(
@@ -19,9 +20,16 @@ impl<'a> PaymentInitiationPaymentReverseRequest<'a> {
         r = r.json(json!({ "payment_id" : self.payment_id }));
         r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
         r = r.json(json!({ "reference" : self.reference }));
+        if let Some(ref unwrapped) = self.amount {
+            r = r.json(json!({ "amount" : unwrapped }));
+        }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
+    }
+    pub fn amount(mut self, amount: PaymentAmountToRefund) -> Self {
+        self.amount = Some(amount);
+        self
     }
 }
 impl<'a> ::std::future::IntoFuture for PaymentInitiationPaymentReverseRequest<'a> {

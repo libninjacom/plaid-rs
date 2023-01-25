@@ -12,21 +12,17 @@ async fn main() {
     };
     let response = client
         .payment_initiation_payment_create(recipient_id, reference, amount)
-        .schedule(ExternalPaymentScheduleRequest {
-            external_payment_schedule_base: Some(ExternalPaymentScheduleBase {
-                adjusted_start_date: Some("your adjusted start date".to_owned()),
-                end_date: Some("your end date".to_owned()),
-                interval: Some("your interval".to_owned()),
-                interval_execution_day: Some(1),
-                start_date: Some("your start date".to_owned()),
-            }),
+        .schedule(ExternalPaymentScheduleBase {
+            adjusted_start_date: Some("your adjusted start date".to_owned()),
+            end_date: Some("your end date".to_owned()),
+            interval: Some("your interval".to_owned()),
+            interval_execution_day: Some(1),
+            start_date: Some("your start date".to_owned()),
         })
         .options(ExternalPaymentOptions {
-            bacs: Some(PaymentInitiationOptionalRestrictionBacs {
-                recipient_bacs: Some(RecipientBacs {
-                    account: Some("your account".to_owned()),
-                    sort_code: Some("your sort code".to_owned()),
-                }),
+            bacs: Some(RecipientBacs {
+                account: Some("your account".to_owned()),
+                sort_code: Some("your sort code".to_owned()),
             }),
             iban: Some("your iban".to_owned()),
             request_refund_details: Some(true),

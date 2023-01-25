@@ -10,6 +10,7 @@ async fn main() {
         .cursor("your cursor")
         .count(1)
         .options(TransactionsSyncRequestOptions {
+            include_logo_and_counterparty_beta: Some(true),
             include_original_description: Some(true),
             include_personal_finance_category: Some(true),
         })

@@ -8,12 +8,12 @@ async fn main() {
     let response = client
         .payment_initiation_recipient_create(name)
         .iban("your iban")
-        .bacs(RecipientBacsNullable {
-            recipient_bacs: Some(RecipientBacs {
+        .bacs(
+            Some(RecipientBacs {
                 account: Some("your account".to_owned()),
                 sort_code: Some("your sort code".to_owned()),
             }),
-        })
+        )
         .address(PaymentInitiationAddress {
             city: "your city".to_owned(),
             country: "your country".to_owned(),

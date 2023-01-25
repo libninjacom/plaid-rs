@@ -13,7 +13,7 @@ pub struct WatchlistScreeningEntityCreateRequest<'a> {
 impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
     pub async fn send(
         self,
-    ) -> ::httpclient::InMemoryResult<EntityWatchlistScreeningResponse> {
+    ) -> ::httpclient::InMemoryResult<WatchlistScreeningEntityCreateResponse> {
         let mut r = self.http_client.client.post("/watchlist_screening/entity/create");
         r = r.json(json!({ "search_terms" : self.search_terms }));
         if let Some(ref unwrapped) = self.client_user_id {
@@ -29,7 +29,7 @@ impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningEntityCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<EntityWatchlistScreeningResponse>;
+    type Output = httpclient::InMemoryResult<WatchlistScreeningEntityCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

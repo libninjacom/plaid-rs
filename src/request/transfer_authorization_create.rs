@@ -9,16 +9,20 @@ pub struct TransferAuthorizationCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: Option<String>,
     pub account_id: Option<String>,
+    pub payment_profile_token: Option<String>,
     pub type_: String,
     pub network: String,
     pub amount: String,
-    pub ach_class: String,
+    pub ach_class: Option<String>,
     pub user: TransferAuthorizationUserInRequest,
     pub device: Option<TransferAuthorizationDevice>,
     pub origination_account_id: Option<String>,
     pub iso_currency_code: Option<String>,
+    pub idempotency_key: Option<String>,
     pub user_present: Option<bool>,
-    pub payment_profile_id: Option<String>,
+    pub with_guarantee: Option<bool>,
+    pub beacon_session_id: Option<String>,
+    pub originator_client_id: Option<String>,
 }
 impl<'a> TransferAuthorizationCreateRequest<'a> {
     pub async fn send(
@@ -31,10 +35,15 @@ impl<'a> TransferAuthorizationCreateRequest<'a> {
         if let Some(ref unwrapped) = self.account_id {
             r = r.json(json!({ "account_id" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.payment_profile_token {
+            r = r.json(json!({ "payment_profile_token" : unwrapped }));
+        }
         r = r.json(json!({ "type" : self.type_ }));
         r = r.json(json!({ "network" : self.network }));
         r = r.json(json!({ "amount" : self.amount }));
-        r = r.json(json!({ "ach_class" : self.ach_class }));
+        if let Some(ref unwrapped) = self.ach_class {
+            r = r.json(json!({ "ach_class" : unwrapped }));
+        }
         r = r.json(json!({ "user" : self.user }));
         if let Some(ref unwrapped) = self.device {
             r = r.json(json!({ "device" : unwrapped }));
@@ -45,11 +54,20 @@ impl<'a> TransferAuthorizationCreateRequest<'a> {
         if let Some(ref unwrapped) = self.iso_currency_code {
             r = r.json(json!({ "iso_currency_code" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.idempotency_key {
+            r = r.json(json!({ "idempotency_key" : unwrapped }));
+        }
         if let Some(ref unwrapped) = self.user_present {
             r = r.json(json!({ "user_present" : unwrapped }));
         }
-        if let Some(ref unwrapped) = self.payment_profile_id {
-            r = r.json(json!({ "payment_profile_id" : unwrapped }));
+        if let Some(ref unwrapped) = self.with_guarantee {
+            r = r.json(json!({ "with_guarantee" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.beacon_session_id {
+            r = r.json(json!({ "beacon_session_id" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.originator_client_id {
+            r = r.json(json!({ "originator_client_id" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -61,6 +79,14 @@ impl<'a> TransferAuthorizationCreateRequest<'a> {
     }
     pub fn account_id(mut self, account_id: &str) -> Self {
         self.account_id = Some(account_id.to_owned());
+        self
+    }
+    pub fn payment_profile_token(mut self, payment_profile_token: &str) -> Self {
+        self.payment_profile_token = Some(payment_profile_token.to_owned());
+        self
+    }
+    pub fn ach_class(mut self, ach_class: &str) -> Self {
+        self.ach_class = Some(ach_class.to_owned());
         self
     }
     pub fn device(mut self, device: TransferAuthorizationDevice) -> Self {
@@ -75,12 +101,24 @@ impl<'a> TransferAuthorizationCreateRequest<'a> {
         self.iso_currency_code = Some(iso_currency_code.to_owned());
         self
     }
+    pub fn idempotency_key(mut self, idempotency_key: &str) -> Self {
+        self.idempotency_key = Some(idempotency_key.to_owned());
+        self
+    }
     pub fn user_present(mut self, user_present: bool) -> Self {
         self.user_present = Some(user_present);
         self
     }
-    pub fn payment_profile_id(mut self, payment_profile_id: &str) -> Self {
-        self.payment_profile_id = Some(payment_profile_id.to_owned());
+    pub fn with_guarantee(mut self, with_guarantee: bool) -> Self {
+        self.with_guarantee = Some(with_guarantee);
+        self
+    }
+    pub fn beacon_session_id(mut self, beacon_session_id: &str) -> Self {
+        self.beacon_session_id = Some(beacon_session_id.to_owned());
+        self
+    }
+    pub fn originator_client_id(mut self, originator_client_id: &str) -> Self {
+        self.originator_client_id = Some(originator_client_id.to_owned());
         self
     }
 }
@@ -88,7 +126,6 @@ pub struct TransferAuthorizationCreateRequired<'a> {
     pub type_: &'a str,
     pub network: &'a str,
     pub amount: &'a str,
-    pub ach_class: &'a str,
     pub user: TransferAuthorizationUserInRequest,
 }
 impl<'a> TransferAuthorizationCreateRequired<'a> {}

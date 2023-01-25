@@ -10,6 +10,7 @@ pub struct AssetReportCreateRequest<'a> {
     pub access_tokens: Vec<String>,
     pub days_requested: i64,
     pub options: Option<AssetReportCreateRequestOptions>,
+    pub report_type: Option<String>,
 }
 impl<'a> AssetReportCreateRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<AssetReportCreateResponse> {
@@ -19,12 +20,19 @@ impl<'a> AssetReportCreateRequest<'a> {
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.report_type {
+            r = r.json(json!({ "report_type" : unwrapped }));
+        }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
     }
     pub fn options(mut self, options: AssetReportCreateRequestOptions) -> Self {
         self.options = Some(options);
+        self
+    }
+    pub fn report_type(mut self, report_type: &str) -> Self {
+        self.report_type = Some(report_type.to_owned());
         self
     }
 }
