@@ -501,12 +501,6 @@ edition = "2021"
 required-features = []
 
 [[example]]
-path = "examples/link.rs"
-name = "link"
-edition = "2021"
-required-features = []
-
-[[example]]
 path = "examples/link_delivery_create.rs"
 name = "link_delivery_create"
 edition = "2021"
