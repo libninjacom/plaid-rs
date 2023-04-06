@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRepayment {
     pub amount: String,
-    pub created: String,
+    pub created: chrono::DateTime<chrono::Utc>,
     pub iso_currency_code: String,
     pub repayment_id: String,
 }

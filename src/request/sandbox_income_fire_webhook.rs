@@ -9,8 +9,8 @@ pub struct SandboxIncomeFireWebhookRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub item_id: String,
     pub user_id: Option<String>,
-    pub webhook: String,
     pub verification_status: String,
+    pub webhook: String,
 }
 impl<'a> SandboxIncomeFireWebhookRequest<'a> {
     pub async fn send(
@@ -21,8 +21,8 @@ impl<'a> SandboxIncomeFireWebhookRequest<'a> {
         if let Some(ref unwrapped) = self.user_id {
             r = r.json(json!({ "user_id" : unwrapped }));
         }
-        r = r.json(json!({ "webhook" : self.webhook }));
         r = r.json(json!({ "verification_status" : self.verification_status }));
+        r = r.json(json!({ "webhook" : self.webhook }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

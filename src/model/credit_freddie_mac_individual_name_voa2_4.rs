@@ -7,7 +7,7 @@ pub struct CreditFreddieMacIndividualNameVoa24 {
     #[serde(rename = "LastName")]
     pub last_name: String,
     #[serde(rename = "MiddleName")]
-    pub middle_name: Option<String>,
+    pub middle_name: String,
 }
 impl std::fmt::Display for CreditFreddieMacIndividualNameVoa24 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

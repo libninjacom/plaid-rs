@@ -7,18 +7,18 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct TransferRefundCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub transfer_id: String,
     pub amount: String,
     pub idempotency_key: String,
+    pub transfer_id: String,
 }
 impl<'a> TransferRefundCreateRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<TransferRefundCreateResponse> {
         let mut r = self.http_client.client.post("/transfer/refund/create");
-        r = r.json(json!({ "transfer_id" : self.transfer_id }));
         r = r.json(json!({ "amount" : self.amount }));
         r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
+        r = r.json(json!({ "transfer_id" : self.transfer_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

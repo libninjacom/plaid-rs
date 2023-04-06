@@ -6,6 +6,7 @@
 pub mod model;
 pub mod request;
 use crate::model::*;
+mod serde;
 pub struct PlaidClient {
     pub client: httpclient::Client,
     authentication: PlaidAuthentication,
@@ -63,15 +64,15 @@ The `/asset_report/create` endpoint creates an Asset Report at a moment in time.
 See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportcreate>.*/
     pub fn asset_report_create(
         &self,
-        access_tokens: &[&str],
         days_requested: i64,
     ) -> request::AssetReportCreateRequest {
         request::AssetReportCreateRequest {
             http_client: &self,
-            access_tokens: access_tokens.iter().map(|&x| x.to_owned()).collect(),
+            access_tokens: None,
             days_requested,
             options: None,
             report_type: None,
+            user_token: None,
         }
     }
     /**Retrieve an Asset Report
@@ -90,8 +91,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportge
         request::AssetReportGetRequest {
             http_client: &self,
             asset_report_token: asset_report_token.to_owned(),
-            include_insights: None,
             fast_report: None,
+            include_insights: None,
             options: None,
         }
     }
@@ -145,16 +146,16 @@ Plaid will fire a [`PRODUCT_READY`](https://plaid.com/docs/api/products/assets/#
 See endpoint docs at <https://plaid.com/docs/api/products/assets/#asset_reportfilter>.*/
     pub fn asset_report_filter(
         &self,
-        asset_report_token: &str,
         account_ids_to_exclude: &[&str],
+        asset_report_token: &str,
     ) -> request::AssetReportFilterRequest {
         request::AssetReportFilterRequest {
             http_client: &self,
-            asset_report_token: asset_report_token.to_owned(),
             account_ids_to_exclude: account_ids_to_exclude
                 .iter()
                 .map(|&x| x.to_owned())
                 .collect(),
+            asset_report_token: asset_report_token.to_owned(),
         }
     }
     /**Delete an Asset Report
@@ -239,8 +240,8 @@ See endpoint docs at <https://plaid.com/docs/none/>.*/
         request::ItemActivityListRequest {
             http_client: &self,
             access_token: None,
-            cursor: None,
             count: None,
+            cursor: None,
         }
     }
     ///List a user’s connected applications
@@ -261,9 +262,9 @@ Enable consumers to update product access on selected accounts for an applicatio
             http_client: &self,
             access_token: args.access_token.to_owned(),
             application_id: args.application_id.to_owned(),
+            context: args.context.to_owned(),
             scopes: args.scopes,
             state: None,
-            context: args.context.to_owned(),
         }
     }
     /**Retrieve information about a Plaid application
@@ -295,8 +296,6 @@ The `/auth/get` endpoint returns the bank account and bank identification number
 
 Note: This request may take some time to complete if `auth` was not specified as an initial product when creating the Item. This is because Plaid must communicate directly with the institution to retrieve the data.
 
-Also note that `/auth/get` will not return data for any new accounts opened after the Item was created. To obtain data for new accounts, create a new Item.
-
 Versioning note: In API version 2017-03-08, the schema of the `numbers` object returned by this endpoint is substantially different. For details, see [Plaid API versioning](https://plaid.com/docs/api/versioning/#version-2018-05-22).
 
 See endpoint docs at <https://plaid.com/docs/api/products/auth/#authget>.*/
@@ -323,22 +322,22 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
     pub fn transactions_get(
         &self,
         access_token: &str,
-        start_date: &str,
-        end_date: &str,
+        end_date: chrono::NaiveDate,
+        start_date: chrono::NaiveDate,
     ) -> request::TransactionsGetRequest {
         request::TransactionsGetRequest {
             http_client: &self,
-            options: None,
             access_token: access_token.to_owned(),
-            start_date: start_date.to_owned(),
-            end_date: end_date.to_owned(),
+            end_date,
+            options: None,
+            start_date,
         }
     }
     /**Refresh transaction data
 
-`/transactions/refresh` is an optional endpoint for users of the Transactions product. It initiates an on-demand extraction to fetch the newest transactions for an Item. This on-demand extraction takes place in addition to the periodic extractions that automatically occur multiple times a day for any Transactions-enabled Item. If changes to transactions are discovered after calling `/transactions/refresh`, Plaid will fire a webhook: for `/transactions/sync` users, [`SYNC_UDPATES_AVAILABLE`](https://plaid.com/docs/api/products/transactions/#sync_updates_available) will be fired if there are any transactions updated, added, or removed. For users of both `/transactions/sync` and `/transactions/get`, [`TRANSACTIONS_REMOVED`](https://plaid.com/docs/api/products/transactions/#transactions_removed) will be fired if any removed transactions are detected, and [`DEFAULT_UPDATE`](https://plaid.com/docs/api/products/transactions/#default_update) will be fired if any new transactions are detected. New transactions can be fetched by calling `/transactions/get` or `/transactions/sync`.
+`/transactions/refresh` is an optional endpoint for users of the Transactions product. It initiates an on-demand extraction to fetch the newest transactions for an Item. This on-demand extraction takes place in addition to the periodic extractions that automatically occur multiple times a day for any Transactions-enabled Item. If changes to transactions are discovered after calling `/transactions/refresh`, Plaid will fire a webhook: for `/transactions/sync` users, [`SYNC_UPDATES_AVAILABLE`](https://plaid.com/docs/api/products/transactions/#sync_updates_available) will be fired if there are any transactions updated, added, or removed. For users of both `/transactions/sync` and `/transactions/get`, [`TRANSACTIONS_REMOVED`](https://plaid.com/docs/api/products/transactions/#transactions_removed) will be fired if any removed transactions are detected, and [`DEFAULT_UPDATE`](https://plaid.com/docs/api/products/transactions/#default_update) will be fired if any new transactions are detected. New transactions can be fetched by calling `/transactions/get` or `/transactions/sync`. Note that the `/transactions/refresh` endpoint is not supported for Capital One (`ins_128026`) and will result in a `PRODUCT_NOT_SUPPORTED` error if called on an Item from that institution.
 
-Access to `/transactions/refresh` in Production is specific to certain pricing plans. If you cannot access `/transactions/refresh` in Production, [contact Sales](https://www.plaid.com/contact) for assistance.
+`/transactions/refresh` is offered as an add-on to Transactions and has a separate [fee model](/docs/account/billing/#per-request-flat-fee). To request access to this endpoint, submit a [product access request](https://dashboard.plaid.com/team/products) or contact your Plaid account manager.
 
 See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transactionsrefresh>.*/
     pub fn transactions_refresh(
@@ -354,9 +353,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
 
 The `/transactions/recurring/get` endpoint allows developers to receive a summary of the recurring outflow and inflow streams (expenses and deposits) from a user’s checking, savings or credit card accounts. Additionally, Plaid provides key insights about each recurring stream including the category, merchant, last amount, and more. Developers can use these insights to build tools and experiences that help their users better manage cash flow, monitor subscriptions, reduce spend, and stay on track with bill payments.
 
-This endpoint is not included by default as part of Transactions. To request access to this endpoint, submit a [product access request](https://dashboard.plaid.com/team/products) or contact your Plaid account manager.
+This endpoint is offered as an add-on to Transactions. To request access to this endpoint, submit a [product access request](https://dashboard.plaid.com/team/products) or contact your Plaid account manager.
 
-This endpoint can only be called on an Item that has already been initialized with Transactions (either during Link, by specifying it in `/link/token/create`; or after Link, by calling `/transactions/get`). After the [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/products/transactions/#historical_update) webhook has fired, call `/transactions/recurring/get` to receive the Recurring Transactions streams and subscribe to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook.
+This endpoint can only be called on an Item that has already been initialized with Transactions (either during Link, by specifying it in `/link/token/create`; or after Link, by calling `/transactions/get` or `/transactions/sync`). Once all historical transactions have been fetched, call `/transactions/recurring/get` to receive the Recurring Transactions streams and subscribe to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook. To know when historical transactions have been fetched, if you are using `/transactions/sync` listen for the [`SYNC_UPDATES_AVAILABLE`](https://plaid.com/docs/api/products/transactions/#SyncUpdatesAvailableWebhook-historical-update-complete) webhook and check that the `historical_update_complete` field in the payload is `true`. If using `/transactions/get`, listen for the [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/products/transactions/#historical_update) webhook.
 
 After the initial call, you can call `/transactions/recurring/get` endpoint at any point in the future to retrieve the latest summary of recurring streams. Listen to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook to be notified when new updates are available.
 
@@ -369,8 +368,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
         request::TransactionsRecurringGetRequest {
             http_client: &self,
             access_token: access_token.to_owned(),
-            options: None,
             account_ids: account_ids.iter().map(|&x| x.to_owned()).collect(),
+            options: None,
         }
     }
     /**Get incremental transaction updates on an Item
@@ -387,7 +386,7 @@ In the first call to `/transactions/sync` for an Item, the endpoint will return 
 
 Due to the potentially large number of transactions associated with an Item, results are paginated. The `has_more` field specifies if additional calls are necessary to fetch all available transaction updates. Call `/transactions/sync` with the new cursor, pulling all updates, until `has_more` is `false`.
 
-When retrieving paginated updates, track both the `next_cursor` from the latest response and the original cursor from the first call in which `has_more` was `true`; if a call to `/transactions/sync` fails when retrieving a paginated update, the entire pagination request loop must be restarted beginning with the cursor for the first page of the update, rather than retrying only the single request that failed.
+When retrieving paginated updates, track both the `next_cursor` from the latest response and the original cursor from the first call in which `has_more` was `true`; if a call to `/transactions/sync` fails when retrieving a paginated update, which can occur as a result of the [`TRANSACTIONS_SYNC_MUTATION_DURING_PAGINATION`](https://plaid.com/docs/errors/transactions/#transactions_sync_mutation_during_pagination) error, the entire pagination request loop must be restarted beginning with the cursor for the first page of the update, rather than retrying only the single request that failed.
 
 Whenever new or updated transaction data becomes available, `/transactions/sync` will provide these updates. Plaid typically checks for new data multiple times a day, but these checks may occur less frequently, such as once a day, depending on the institution. An Item's `status.transactions.last_successful_update` field will show the timestamp of the most recent successful update. To force Plaid to check for new transactions, use the `/transactions/refresh` endpoint.
 
@@ -403,8 +402,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
         request::TransactionsSyncRequest {
             http_client: &self,
             access_token: access_token.to_owned(),
-            cursor: None,
             count: None,
+            cursor: None,
             options: None,
         }
     }
@@ -412,7 +411,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transactions/#transact
 
 The `/transactions/enrich` endpoint enriches raw transaction data generated by your own banking products or retrieved from other non-Plaid sources.
 
-The product is currently in beta. To request access, contact enrich-feedback@plaid.com
+To request access to Enrich, reach out to your Plaid point of contact or send a note to enrich-feedback@plaid.com
 
 See endpoint docs at <https://plaid.com/docs/api/products/enrich/#transactionsenrich>.*/
     pub fn transactions_enrich(
@@ -423,8 +422,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/enrich/#transactionsen
         request::TransactionsEnrichRequest {
             http_client: &self,
             account_type: account_type.to_owned(),
-            transactions,
             options: None,
+            transactions,
         }
     }
     /**Get details of all supported institutions
@@ -437,14 +436,14 @@ See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionsget>.
     pub fn institutions_get(
         &self,
         count: i64,
-        offset: i64,
         country_codes: &[&str],
+        offset: i64,
     ) -> request::InstitutionsGetRequest {
         request::InstitutionsGetRequest {
             http_client: &self,
             count,
-            offset,
             country_codes: country_codes.iter().map(|&x| x.to_owned()).collect(),
+            offset,
             options: None,
         }
     }
@@ -458,15 +457,15 @@ Versioning note: API versions 2019-05-29 and earlier allow use of the `public_ke
 See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionssearch>.*/
     pub fn institutions_search(
         &self,
-        query: &str,
         country_codes: &[&str],
+        query: &str,
     ) -> request::InstitutionsSearchRequest {
         request::InstitutionsSearchRequest {
             http_client: &self,
-            query: query.to_owned(),
-            products: None,
             country_codes: country_codes.iter().map(|&x| x.to_owned()).collect(),
             options: None,
+            products: None,
+            query: query.to_owned(),
         }
     }
     /**Get details of an institution
@@ -479,13 +478,13 @@ Versioning note: API versions 2019-05-29 and earlier allow use of the `public_ke
 See endpoint docs at <https://plaid.com/docs/api/institutions/#institutionsget_by_id>.*/
     pub fn institutions_get_by_id(
         &self,
-        institution_id: &str,
         country_codes: &[&str],
+        institution_id: &str,
     ) -> request::InstitutionsGetByIdRequest {
         request::InstitutionsGetByIdRequest {
             http_client: &self,
-            institution_id: institution_id.to_owned(),
             country_codes: country_codes.iter().map(|&x| x.to_owned()).collect(),
+            institution_id: institution_id.to_owned(),
             options: None,
         }
     }
@@ -553,13 +552,13 @@ Use the `/sandbox/public_token/create` endpoint to create a valid `public_token`
 See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxpublic_tokencreate>.*/
     pub fn sandbox_public_token_create(
         &self,
-        institution_id: &str,
         initial_products: &[&str],
+        institution_id: &str,
     ) -> request::SandboxPublicTokenCreateRequest {
         request::SandboxPublicTokenCreateRequest {
             http_client: &self,
-            institution_id: institution_id.to_owned(),
             initial_products: initial_products.iter().map(|&x| x.to_owned()).collect(),
+            institution_id: institution_id.to_owned(),
             options: None,
             user_token: None,
         }
@@ -589,8 +588,8 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemfire_webhoo
         request::SandboxItemFireWebhookRequest {
             http_client: &self,
             access_token: access_token.to_owned(),
-            webhook_type: None,
             webhook_code: webhook_code.to_owned(),
+            webhook_type: None,
         }
     }
     /**Retrieve real-time balance data
@@ -635,8 +634,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity/#identitymatc
         request::IdentityMatchRequest {
             http_client: &self,
             access_token: access_token.to_owned(),
-            user: None,
             options: None,
+            user: None,
         }
     }
     /**Retrieve a dashboard user
@@ -677,11 +676,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
     ) -> request::IdentityVerificationCreateRequest {
         request::IdentityVerificationCreateRequest {
             http_client: &self,
+            gave_consent: args.gave_consent,
+            is_idempotent: None,
             is_shareable: args.is_shareable,
             template_id: args.template_id.to_owned(),
-            gave_consent: args.gave_consent,
             user: args.user,
-            is_idempotent: None,
         }
     }
     /**Retrieve Identity Verification
@@ -705,14 +704,14 @@ Filter and list Identity Verifications created by your account
 See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/#identity_verificationlist>.*/
     pub fn identity_verification_list(
         &self,
-        template_id: &str,
         client_user_id: &str,
+        template_id: &str,
     ) -> request::IdentityVerificationListRequest {
         request::IdentityVerificationListRequest {
             http_client: &self,
-            template_id: template_id.to_owned(),
             client_user_id: client_user_id.to_owned(),
             cursor: None,
+            template_id: template_id.to_owned(),
         }
     }
     /**Retry an Identity Verification
@@ -723,15 +722,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
     pub fn identity_verification_retry(
         &self,
         client_user_id: &str,
-        template_id: &str,
         strategy: &str,
+        template_id: &str,
     ) -> request::IdentityVerificationRetryRequest {
         request::IdentityVerificationRetryRequest {
             http_client: &self,
             client_user_id: client_user_id.to_owned(),
-            template_id: template_id.to_owned(),
-            strategy: strategy.to_owned(),
             steps: None,
+            strategy: strategy.to_owned(),
+            template_id: template_id.to_owned(),
         }
     }
     /**Create a watchlist screening for an entity
@@ -745,8 +744,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityCreateRequest {
         request::WatchlistScreeningEntityCreateRequest {
             http_client: &self,
-            search_terms,
             client_user_id: None,
+            search_terms,
         }
     }
     /**Get an entity screening
@@ -774,8 +773,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityHistoryListRequest {
         request::WatchlistScreeningEntityHistoryListRequest {
             http_client: &self,
-            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
             cursor: None,
+            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
         }
     }
     /**List hits for entity watchlist screenings
@@ -789,8 +788,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityHitListRequest {
         request::WatchlistScreeningEntityHitListRequest {
             http_client: &self,
-            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
             cursor: None,
+            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
         }
     }
     /**List entity watchlist screenings
@@ -804,11 +803,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityListRequest {
         request::WatchlistScreeningEntityListRequest {
             http_client: &self,
-            entity_watchlist_program_id: entity_watchlist_program_id.to_owned(),
-            client_user_id: None,
-            status: None,
             assignee: None,
+            client_user_id: None,
             cursor: None,
+            entity_watchlist_program_id: entity_watchlist_program_id.to_owned(),
+            status: None,
         }
     }
     /**Get entity watchlist screening program
@@ -851,9 +850,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityReviewCreateRequest {
         request::WatchlistScreeningEntityReviewCreateRequest {
             http_client: &self,
+            comment: None,
             confirmed_hits: confirmed_hits.iter().map(|&x| x.to_owned()).collect(),
             dismissed_hits: dismissed_hits.iter().map(|&x| x.to_owned()).collect(),
-            comment: None,
             entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
         }
     }
@@ -868,8 +867,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityReviewListRequest {
         request::WatchlistScreeningEntityReviewListRequest {
             http_client: &self,
-            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
             cursor: None,
+            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
         }
     }
     /**Update an entity screening
@@ -883,12 +882,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningEntityUpdateRequest {
         request::WatchlistScreeningEntityUpdateRequest {
             http_client: &self,
-            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
-            search_terms: None,
             assignee: None,
-            status: None,
             client_user_id: None,
+            entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
             reset_fields: None,
+            search_terms: None,
+            status: None,
         }
     }
     /**Create a watchlist screening for a person
@@ -902,8 +901,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualCreateRequest {
         request::WatchlistScreeningIndividualCreateRequest {
             http_client: &self,
-            search_terms,
             client_user_id: None,
+            search_terms,
         }
     }
     /**Retrieve an individual watchlist screening
@@ -931,8 +930,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualHistoryListRequest {
         request::WatchlistScreeningIndividualHistoryListRequest {
             http_client: &self,
-            watchlist_screening_id: watchlist_screening_id.to_owned(),
             cursor: None,
+            watchlist_screening_id: watchlist_screening_id.to_owned(),
         }
     }
     /**List hits for individual watchlist screening
@@ -946,8 +945,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualHitListRequest {
         request::WatchlistScreeningIndividualHitListRequest {
             http_client: &self,
-            watchlist_screening_id: watchlist_screening_id.to_owned(),
             cursor: None,
+            watchlist_screening_id: watchlist_screening_id.to_owned(),
         }
     }
     /**List Individual Watchlist Screenings
@@ -961,11 +960,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualListRequest {
         request::WatchlistScreeningIndividualListRequest {
             http_client: &self,
-            watchlist_program_id: watchlist_program_id.to_owned(),
-            client_user_id: None,
-            status: None,
             assignee: None,
+            client_user_id: None,
             cursor: None,
+            status: None,
+            watchlist_program_id: watchlist_program_id.to_owned(),
         }
     }
     /**Get individual watchlist screening program
@@ -1008,9 +1007,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualReviewCreateRequest {
         request::WatchlistScreeningIndividualReviewCreateRequest {
             http_client: &self,
+            comment: None,
             confirmed_hits: confirmed_hits.iter().map(|&x| x.to_owned()).collect(),
             dismissed_hits: dismissed_hits.iter().map(|&x| x.to_owned()).collect(),
-            comment: None,
             watchlist_screening_id: watchlist_screening_id.to_owned(),
         }
     }
@@ -1025,8 +1024,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualReviewListRequest {
         request::WatchlistScreeningIndividualReviewListRequest {
             http_client: &self,
-            watchlist_screening_id: watchlist_screening_id.to_owned(),
             cursor: None,
+            watchlist_screening_id: watchlist_screening_id.to_owned(),
         }
     }
     /**Update individual watchlist screening
@@ -1040,12 +1039,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_scr
     ) -> request::WatchlistScreeningIndividualUpdateRequest {
         request::WatchlistScreeningIndividualUpdateRequest {
             http_client: &self,
-            watchlist_screening_id: watchlist_screening_id.to_owned(),
-            search_terms: None,
             assignee: None,
-            status: None,
             client_user_id: None,
             reset_fields: None,
+            search_terms: None,
+            status: None,
+            watchlist_screening_id: watchlist_screening_id.to_owned(),
         }
     }
     /**Retrieve Auth data
@@ -1065,6 +1064,75 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#processorauthget>.*
             processor_token: processor_token.to_owned(),
         }
     }
+    /**Evaluate a planned ACH transaction
+
+Use `/processor/signal/evaluate` to evaluate a planned ACH transaction as a processor to get a return risk assessment (such as a risk score and risk tier) and additional risk signals.
+
+In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause. If `/processor/signal/evaluate` is called on the same transaction multiple times within a 24-hour period, cached results may be returned. For more information please refer to our error documentation on [item errors](/docs/errors/item/) and [Link in Update Mode](/docs/link/update-mode/).
+
+Note: This request may take some time to complete if Signal is being added to an existing Item. This is because Plaid must communicate directly with the institution when retrieving the data for the first time.
+
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorsignalevaluate>.*/
+    pub fn processor_signal_evaluate(
+        &self,
+        amount: f64,
+        client_transaction_id: &str,
+        processor_token: &str,
+    ) -> request::ProcessorSignalEvaluateRequest {
+        request::ProcessorSignalEvaluateRequest {
+            http_client: &self,
+            amount,
+            client_transaction_id: client_transaction_id.to_owned(),
+            client_user_id: None,
+            default_payment_method: None,
+            device: None,
+            is_recurring: None,
+            processor_token: processor_token.to_owned(),
+            user: None,
+            user_present: None,
+        }
+    }
+    /**Report whether you initiated an ACH transaction
+
+After calling `/processor/signal/evaluate`, call `/processor/signal/decision/report` to report whether the transaction was initiated. This endpoint will return an [`INVALID_FIELD`](/docs/errors/invalid-request/#invalid_field) error if called a second time with a different value for `initiated`.
+
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorsignaldecisionreport>.*/
+    pub fn processor_signal_decision_report(
+        &self,
+        client_transaction_id: &str,
+        initiated: bool,
+        processor_token: &str,
+    ) -> request::ProcessorSignalDecisionReportRequest {
+        request::ProcessorSignalDecisionReportRequest {
+            http_client: &self,
+            amount_instantly_available: None,
+            client_transaction_id: client_transaction_id.to_owned(),
+            days_funds_on_hold: None,
+            decision_outcome: None,
+            initiated,
+            payment_method: None,
+            processor_token: processor_token.to_owned(),
+        }
+    }
+    /**Report a return for an ACH transaction
+
+Call the `/processor/signal/return/report` endpoint to report a returned transaction that was previously sent to the `/processor/signal/evaluate` endpoint. Your feedback will be used by the model to incorporate the latest risk trend in your portfolio.
+
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorsignalreturnreport>.*/
+    pub fn processor_signal_return_report(
+        &self,
+        client_transaction_id: &str,
+        processor_token: &str,
+        return_code: &str,
+    ) -> request::ProcessorSignalReturnReportRequest {
+        request::ProcessorSignalReturnReportRequest {
+            http_client: &self,
+            client_transaction_id: client_transaction_id.to_owned(),
+            processor_token: processor_token.to_owned(),
+            return_code: return_code.to_owned(),
+            returned_at: None,
+        }
+    }
     /**Create a bank transfer as a processor
 
 Use the `/processor/bank_transfer/create` endpoint to initiate a new bank transfer as a processor
@@ -1076,18 +1144,18 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#bank_transfercreate
     ) -> request::ProcessorBankTransferCreateRequest {
         request::ProcessorBankTransferCreateRequest {
             http_client: &self,
+            ach_class: None,
+            amount: args.amount.to_owned(),
+            custom_tag: None,
+            description: args.description.to_owned(),
             idempotency_key: args.idempotency_key.to_owned(),
+            iso_currency_code: args.iso_currency_code.to_owned(),
+            metadata: None,
+            network: args.network.to_owned(),
+            origination_account_id: None,
             processor_token: args.processor_token.to_owned(),
             type_: args.type_.to_owned(),
-            network: args.network.to_owned(),
-            amount: args.amount.to_owned(),
-            iso_currency_code: args.iso_currency_code.to_owned(),
-            description: args.description.to_owned(),
-            ach_class: None,
             user: args.user,
-            custom_tag: None,
-            metadata: None,
-            origination_account_id: None,
         }
     }
     /**Retrieve Identity data
@@ -1115,8 +1183,8 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#processorbalanceget
     ) -> request::ProcessorBalanceGetRequest {
         request::ProcessorBalanceGetRequest {
             http_client: &self,
-            processor_token: processor_token.to_owned(),
             options: None,
+            processor_token: processor_token.to_owned(),
         }
     }
     /**Update Webhook URL
@@ -1157,7 +1225,7 @@ Plaid signs all outgoing webhooks and provides JSON Web Tokens (JWTs) so that yo
 
 The `/webhook_verification_key/get` endpoint provides a JSON Web Key (JWK) that can be used to verify a JWT.
 
-See endpoint docs at <https://plaid.com/docs/api/webhooks/webhook-verification/#webhook_verification_keyget>.*/
+See endpoint docs at <https://plaid.com/docs/api/webhooks/webhook-verification/#get-webhook-verification-key>.*/
     pub fn webhook_verification_key_get(
         &self,
         key_id: &str,
@@ -1199,10 +1267,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     ) -> request::PaymentInitiationRecipientCreateRequest {
         request::PaymentInitiationRecipientCreateRequest {
             http_client: &self,
-            name: name.to_owned(),
-            iban: None,
-            bacs: None,
             address: None,
+            bacs: None,
+            iban: None,
+            name: name.to_owned(),
         }
     }
     /**Reverse an existing payment
@@ -1213,8 +1281,6 @@ The original payment must be in a settled state to be refunded.
 To refund partially, specify the amount as part of the request.
 If the amount is not specified, the refund amount will be equal to all
 of the remaining payment amount that has not been refunded yet.
-If the remaining amount is less than one unit of currency
-(e.g. 1 GBP or 1 EUR), the refund will fail.
 
 The refund will go back to the source account that initiated the payment.
 The original payment must have been initiated to a Plaid virtual account
@@ -1224,16 +1290,16 @@ so that this account can be used to initiate the refund.
 See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#payment_initiationpaymentreverse>.*/
     pub fn payment_initiation_payment_reverse(
         &self,
-        payment_id: &str,
         idempotency_key: &str,
+        payment_id: &str,
         reference: &str,
     ) -> request::PaymentInitiationPaymentReverseRequest {
         request::PaymentInitiationPaymentReverseRequest {
             http_client: &self,
-            payment_id: payment_id.to_owned(),
-            idempotency_key: idempotency_key.to_owned(),
-            reference: reference.to_owned(),
             amount: None,
+            idempotency_key: idempotency_key.to_owned(),
+            payment_id: payment_id.to_owned(),
+            reference: reference.to_owned(),
         }
     }
     /**Get payment recipient
@@ -1273,17 +1339,17 @@ In the Development environment, payments must be below 5 GBP or other chosen [cu
 See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#payment_initiationpaymentcreate>.*/
     pub fn payment_initiation_payment_create(
         &self,
+        amount: PaymentAmount,
         recipient_id: &str,
         reference: &str,
-        amount: PaymentAmount,
     ) -> request::PaymentInitiationPaymentCreateRequest {
         request::PaymentInitiationPaymentCreateRequest {
             http_client: &self,
+            amount,
+            options: None,
             recipient_id: recipient_id.to_owned(),
             reference: reference.to_owned(),
-            amount,
             schedule: None,
-            options: None,
         }
     }
     /**Create payment token
@@ -1315,11 +1381,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     ) -> request::PaymentInitiationConsentCreateRequest {
         request::PaymentInitiationConsentCreateRequest {
             http_client: &self,
+            constraints: args.constraints,
+            options: None,
             recipient_id: args.recipient_id.to_owned(),
             reference: args.reference.to_owned(),
             scopes: args.scopes.iter().map(|&x| x.to_owned()).collect(),
-            constraints: args.constraints,
-            options: None,
         }
     }
     /**Get payment consent
@@ -1357,14 +1423,14 @@ The `/payment_initiation/consent/payment/execute` endpoint can be used to execut
 See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#payment_initiationconsentpaymentexecute>.*/
     pub fn payment_initiation_consent_payment_execute(
         &self,
-        consent_id: &str,
         amount: PaymentAmount,
+        consent_id: &str,
         idempotency_key: &str,
     ) -> request::PaymentInitiationConsentPaymentExecuteRequest {
         request::PaymentInitiationConsentPaymentExecuteRequest {
             http_client: &self,
-            consent_id: consent_id.to_owned(),
             amount,
+            consent_id: consent_id.to_owned(),
             idempotency_key: idempotency_key.to_owned(),
         }
     }
@@ -1498,9 +1564,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/payment-initiation/#pa
     ) -> request::PaymentInitiationPaymentListRequest {
         request::PaymentInitiationPaymentListRequest {
             http_client: &self,
+            consent_id: None,
             count: None,
             cursor: None,
-            consent_id: None,
         }
     }
     /**Get Investment holdings
@@ -1532,15 +1598,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/investments/#investmen
     pub fn investments_transactions_get(
         &self,
         access_token: &str,
-        start_date: &str,
-        end_date: &str,
+        end_date: chrono::NaiveDate,
+        start_date: chrono::NaiveDate,
     ) -> request::InvestmentsTransactionsGetRequest {
         request::InvestmentsTransactionsGetRequest {
             http_client: &self,
             access_token: access_token.to_owned(),
-            start_date: start_date.to_owned(),
-            end_date: end_date.to_owned(),
+            end_date,
             options: None,
+            start_date,
         }
     }
     /**Create processor token
@@ -1610,10 +1676,10 @@ See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_sw
     ) -> request::DepositSwitchCreateRequest {
         request::DepositSwitchCreateRequest {
             http_client: &self,
-            target_access_token: target_access_token.to_owned(),
-            target_account_id: target_account_id.to_owned(),
             country_code: None,
             options: None,
+            target_access_token: target_access_token.to_owned(),
+            target_account_id: target_account_id.to_owned(),
         }
     }
     /**Import Item
@@ -1628,9 +1694,9 @@ Upon creating an Item via `/item/import`, Plaid will automatically begin an extr
     ) -> request::ItemImportRequest {
         request::ItemImportRequest {
             http_client: &self,
+            options: None,
             products: products.iter().map(|&x| x.to_owned()).collect(),
             user_auth,
-            options: None,
         }
     }
     /**Create a deposit switch token
@@ -1661,30 +1727,31 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
     ) -> request::LinkTokenCreateRequest {
         request::LinkTokenCreateRequest {
             http_client: &self,
-            client_name: args.client_name.to_owned(),
-            language: args.language.to_owned(),
-            country_codes: args.country_codes.iter().map(|&x| x.to_owned()).collect(),
-            user: args.user,
-            products: None,
-            additional_consented_products: None,
-            webhook: None,
             access_token: None,
-            link_customization_name: None,
-            redirect_uri: None,
-            android_package_name: None,
-            institution_data: None,
             account_filters: None,
-            eu_config: None,
-            institution_id: None,
-            payment_initiation: None,
-            deposit_switch: None,
-            income_verification: None,
+            additional_consented_products: None,
+            android_package_name: None,
             auth: None,
+            client_name: args.client_name.to_owned(),
+            country_codes: args.country_codes.iter().map(|&x| x.to_owned()).collect(),
+            deposit_switch: None,
+            employment: None,
+            eu_config: None,
+            identity_verification: None,
+            income_verification: None,
+            institution_data: None,
+            institution_id: None,
+            investments: None,
+            language: args.language.to_owned(),
+            link_customization_name: None,
+            payment_initiation: None,
+            products: None,
+            redirect_uri: None,
             transfer: None,
             update: None,
-            identity_verification: None,
+            user: args.user,
             user_token: None,
-            investments: None,
+            webhook: None,
         }
     }
     /**Get Link Token
@@ -1736,6 +1803,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferget>
     pub fn transfer_get(&self, transfer_id: &str) -> request::TransferGetRequest {
         request::TransferGetRequest {
             http_client: &self,
+            originator_client_id: None,
             transfer_id: transfer_id.to_owned(),
         }
     }
@@ -1796,20 +1864,21 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferauth
             http_client: &self,
             access_token: None,
             account_id: None,
+            ach_class: None,
+            amount: args.amount.to_owned(),
+            beacon_session_id: None,
+            device: None,
+            funding_account_id: None,
+            idempotency_key: None,
+            iso_currency_code: None,
+            network: args.network.to_owned(),
+            origination_account_id: None,
+            originator_client_id: None,
             payment_profile_token: None,
             type_: args.type_.to_owned(),
-            network: args.network.to_owned(),
-            amount: args.amount.to_owned(),
-            ach_class: None,
             user: args.user,
-            device: None,
-            origination_account_id: None,
-            iso_currency_code: None,
-            idempotency_key: None,
             user_present: None,
             with_guarantee: None,
-            beacon_session_id: None,
-            originator_client_id: None,
         }
     }
     /**Get RTP eligibility information of a transfer
@@ -1825,6 +1894,30 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercapa
             payment_profile_token: None,
         }
     }
+    /**Get transfer product configuration
+
+Use the `/transfer/configuration/get` endpoint to view your transfer product configurations.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferconfigurationget>.*/
+    pub fn transfer_configuration_get(
+        &self,
+    ) -> request::TransferConfigurationGetRequest {
+        request::TransferConfigurationGetRequest {
+            http_client: &self,
+            originator_client_id: None,
+        }
+    }
+    /**Get transfer product usage metrics
+
+Use the `/transfer/metrics/get` endpoint to view your transfer product usage metrics.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfermetricsget>.*/
+    pub fn transfer_metrics_get(&self) -> request::TransferMetricsGetRequest {
+        request::TransferMetricsGetRequest {
+            http_client: &self,
+            originator_client_id: None,
+        }
+    }
     /**Create a transfer
 
 Use the `/transfer/create` endpoint to initiate a new transfer.
@@ -1837,20 +1930,20 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercrea
     ) -> request::TransferCreateRequest {
         request::TransferCreateRequest {
             http_client: &self,
-            idempotency_key: None,
             access_token: None,
             account_id: None,
-            payment_profile_token: None,
-            authorization_id: authorization_id.to_owned(),
-            type_: None,
-            network: None,
-            amount: None,
-            description: description.to_owned(),
             ach_class: None,
-            user: None,
-            metadata: None,
-            origination_account_id: None,
+            amount: None,
+            authorization_id: authorization_id.to_owned(),
+            description: description.to_owned(),
+            idempotency_key: None,
             iso_currency_code: None,
+            metadata: None,
+            network: None,
+            origination_account_id: None,
+            payment_profile_token: None,
+            type_: None,
+            user: None,
         }
     }
     /**Create a recurring transfer
@@ -1865,19 +1958,20 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrecu
         request::TransferRecurringCreateRequest {
             http_client: &self,
             access_token: args.access_token.to_owned(),
-            idempotency_key: args.idempotency_key.to_owned(),
             account_id: args.account_id.to_owned(),
-            type_: args.type_.to_owned(),
-            network: args.network.to_owned(),
             ach_class: None,
             amount: args.amount.to_owned(),
-            user_present: None,
-            iso_currency_code: None,
             description: args.description.to_owned(),
-            test_clock_id: None,
-            schedule: args.schedule,
-            user: args.user,
             device: args.device,
+            funding_account_id: None,
+            idempotency_key: args.idempotency_key.to_owned(),
+            iso_currency_code: None,
+            network: args.network.to_owned(),
+            schedule: args.schedule,
+            test_clock_id: None,
+            type_: args.type_.to_owned(),
+            user: args.user,
+            user_present: None,
         }
     }
     /**Create a bank transfer
@@ -1891,19 +1985,19 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
     ) -> request::BankTransferCreateRequest {
         request::BankTransferCreateRequest {
             http_client: &self,
-            idempotency_key: args.idempotency_key.to_owned(),
             access_token: args.access_token.to_owned(),
             account_id: args.account_id.to_owned(),
-            type_: args.type_.to_owned(),
-            network: args.network.to_owned(),
-            amount: args.amount.to_owned(),
-            iso_currency_code: args.iso_currency_code.to_owned(),
-            description: args.description.to_owned(),
             ach_class: None,
-            user: args.user,
+            amount: args.amount.to_owned(),
             custom_tag: None,
+            description: args.description.to_owned(),
+            idempotency_key: args.idempotency_key.to_owned(),
+            iso_currency_code: args.iso_currency_code.to_owned(),
             metadata: None,
+            network: args.network.to_owned(),
             origination_account_id: None,
+            type_: args.type_.to_owned(),
+            user: args.user,
         }
     }
     /**List transfers
@@ -1915,12 +2009,13 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferlist
     pub fn transfer_list(&self) -> request::TransferListRequest {
         request::TransferListRequest {
             http_client: &self,
-            start_date: None,
-            end_date: None,
             count: None,
+            end_date: None,
+            funding_account_id: None,
             offset: None,
             origination_account_id: None,
             originator_client_id: None,
+            start_date: None,
         }
     }
     /**List recurring transfers
@@ -1932,10 +2027,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrecu
     pub fn transfer_recurring_list(&self) -> request::TransferRecurringListRequest {
         request::TransferRecurringListRequest {
             http_client: &self,
-            start_time: None,
-            end_time: None,
             count: None,
+            end_time: None,
+            funding_account_id: None,
             offset: None,
+            start_time: None,
         }
     }
     /**List bank transfers
@@ -1947,12 +2043,12 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
     pub fn bank_transfer_list(&self) -> request::BankTransferListRequest {
         request::BankTransferListRequest {
             http_client: &self,
-            start_date: None,
-            end_date: None,
             count: None,
+            direction: None,
+            end_date: None,
             offset: None,
             origination_account_id: None,
-            direction: None,
+            start_date: None,
         }
     }
     /**Cancel a transfer
@@ -1963,6 +2059,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfercanc
     pub fn transfer_cancel(&self, transfer_id: &str) -> request::TransferCancelRequest {
         request::TransferCancelRequest {
             http_client: &self,
+            originator_client_id: None,
             transfer_id: transfer_id.to_owned(),
         }
     }
@@ -2002,37 +2099,38 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereven
     pub fn transfer_event_list(&self) -> request::TransferEventListRequest {
         request::TransferEventListRequest {
             http_client: &self,
-            start_date: None,
-            end_date: None,
-            transfer_id: None,
             account_id: None,
-            transfer_type: None,
-            event_types: None,
-            sweep_id: None,
             count: None,
+            end_date: None,
+            event_types: None,
+            funding_account_id: None,
             offset: None,
             origination_account_id: None,
             originator_client_id: None,
+            start_date: None,
+            sweep_id: None,
+            transfer_id: None,
+            transfer_type: None,
         }
     }
     /**List bank transfer events
 
-Use the `/bank_transfer/event/list` endpoint to get a list of ACH or bank transfer events based on specified filter criteria.
+Use the `/bank_transfer/event/list` endpoint to get a list of Plaid-initiated ACH or bank transfer events based on specified filter criteria. When using Auth with micro-deposit verification enabled, this endpoint can be used to fetch status updates on ACH micro-deposits. For more details, see [micro-deposit events](https://plaid.com/docs/auth/coverage/microdeposit-events/).
 
 See endpoint docs at <https://plaid.com/docs/api/products/auth#bank_transfereventlist>.*/
     pub fn bank_transfer_event_list(&self) -> request::BankTransferEventListRequest {
         request::BankTransferEventListRequest {
             http_client: &self,
-            start_date: None,
-            end_date: None,
-            bank_transfer_id: None,
             account_id: None,
+            bank_transfer_id: None,
             bank_transfer_type: None,
-            event_types: None,
             count: None,
+            direction: None,
+            end_date: None,
+            event_types: None,
             offset: None,
             origination_account_id: None,
-            direction: None,
+            start_date: None,
         }
     }
     /**Sync transfer events
@@ -2052,7 +2150,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfereven
     }
     /**Sync bank transfer events
 
-`/bank_transfer/event/sync` allows you to request up to the next 25 bank transfer events that happened after a specific `event_id`. When using Auth with micro-deposit verification enabled, this endpoint can be used to fetch status updates on ACH micro-deposits. For more details, see [micro-deposit events](https://www.plaid.com/docs/auth/coverage/microdeposit-events/).
+`/bank_transfer/event/sync` allows you to request up to the next 25 Plaid-initiated bank transfer events that happened after a specific `event_id`. When using Auth with micro-deposit verification enabled, this endpoint can be used to fetch status updates on ACH micro-deposits. For more details, see [micro-deposit events](https://www.plaid.com/docs/auth/coverage/microdeposit-events/).
 
 See endpoint docs at <https://plaid.com/docs/api/products/auth/#bank_transfereventsync>.*/
     pub fn bank_transfer_event_sync(
@@ -2101,11 +2199,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferswee
     pub fn transfer_sweep_list(&self) -> request::TransferSweepListRequest {
         request::TransferSweepListRequest {
             http_client: &self,
-            start_date: None,
-            end_date: None,
             count: None,
+            end_date: None,
+            funding_account_id: None,
             offset: None,
             originator_client_id: None,
+            start_date: None,
         }
     }
     /**List sweeps
@@ -2116,10 +2215,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#bank_transfe
     pub fn bank_transfer_sweep_list(&self) -> request::BankTransferSweepListRequest {
         request::BankTransferSweepListRequest {
             http_client: &self,
+            count: None,
+            end_time: None,
             origination_account_id: None,
             start_time: None,
-            end_time: None,
-            count: None,
         }
     }
     /**Get balance of your Bank Transfer account
@@ -2145,15 +2244,15 @@ See endpoint docs at <https://plaid.com/docs/bank-transfers/reference#bank_trans
     pub fn bank_transfer_migrate_account(
         &self,
         account_number: &str,
-        routing_number: &str,
         account_type: &str,
+        routing_number: &str,
     ) -> request::BankTransferMigrateAccountRequest {
         request::BankTransferMigrateAccountRequest {
             http_client: &self,
             account_number: account_number.to_owned(),
+            account_type: account_type.to_owned(),
             routing_number: routing_number.to_owned(),
             wire_routing_number: None,
-            account_type: account_type.to_owned(),
         }
     }
     /**Migrate account into Transfers
@@ -2164,15 +2263,15 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transfermigr
     pub fn transfer_migrate_account(
         &self,
         account_number: &str,
-        routing_number: &str,
         account_type: &str,
+        routing_number: &str,
     ) -> request::TransferMigrateAccountRequest {
         request::TransferMigrateAccountRequest {
             http_client: &self,
             account_number: account_number.to_owned(),
+            account_type: account_type.to_owned(),
             routing_number: routing_number.to_owned(),
             wire_routing_number: None,
-            account_type: account_type.to_owned(),
         }
     }
     /**Create a transfer intent object to invoke the Transfer UI
@@ -2187,15 +2286,17 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferinte
         request::TransferIntentCreateRequest {
             http_client: &self,
             account_id: None,
-            mode: args.mode.to_owned(),
+            ach_class: None,
             amount: args.amount.to_owned(),
             description: args.description.to_owned(),
-            ach_class: None,
-            origination_account_id: None,
-            user: args.user,
-            metadata: None,
+            funding_account_id: None,
             iso_currency_code: None,
+            metadata: None,
+            mode: args.mode.to_owned(),
+            network: None,
+            origination_account_id: None,
             require_guarantee: None,
+            user: args.user,
         }
     }
     /**Retrieve more information about a transfer intent
@@ -2220,10 +2321,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrepa
     pub fn transfer_repayment_list(&self) -> request::TransferRepaymentListRequest {
         request::TransferRepaymentListRequest {
             http_client: &self,
-            start_date: None,
-            end_date: None,
             count: None,
+            end_date: None,
             offset: None,
+            start_date: None,
         }
     }
     /**List the returns included in a repayment
@@ -2237,9 +2338,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrepa
     ) -> request::TransferRepaymentReturnListRequest {
         request::TransferRepaymentReturnListRequest {
             http_client: &self,
-            repayment_id: repayment_id.to_owned(),
             count: None,
             offset: None,
+            repayment_id: repayment_id.to_owned(),
         }
     }
     /**Create a new originator
@@ -2307,15 +2408,15 @@ Processing of the refund will not occur until at least 3 business days following
 See endpoint docs at <https://plaid.com/docs/api/products/transfer/#transferrefundcreate>.*/
     pub fn transfer_refund_create(
         &self,
-        transfer_id: &str,
         amount: &str,
         idempotency_key: &str,
+        transfer_id: &str,
     ) -> request::TransferRefundCreateRequest {
         request::TransferRefundCreateRequest {
             http_client: &self,
-            transfer_id: transfer_id.to_owned(),
             amount: amount.to_owned(),
             idempotency_key: idempotency_key.to_owned(),
+            transfer_id: transfer_id.to_owned(),
         }
     }
     /**Retrieve a refund
@@ -2382,14 +2483,14 @@ Use the `/sandbox/transfer/simulate` endpoint to simulate a transfer event in th
 See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfersimulate>.*/
     pub fn sandbox_transfer_simulate(
         &self,
-        transfer_id: &str,
         event_type: &str,
+        transfer_id: &str,
     ) -> request::SandboxTransferSimulateRequest {
         request::SandboxTransferSimulateRequest {
             http_client: &self,
-            transfer_id: transfer_id.to_owned(),
             event_type: event_type.to_owned(),
             failure_reason: None,
+            transfer_id: transfer_id.to_owned(),
         }
     }
     /**Trigger the creation of a repayment
@@ -2426,14 +2527,14 @@ A test clock object represents an independent timeline and has a `virtual_time` 
 
 A test clock can be associated with up to 5 recurring transfers.
 
-See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclockcreate>.*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertest_clockcreate>.*/
     pub fn sandbox_transfer_test_clock_create(
         &self,
-        virtual_time: &str,
+        virtual_time: chrono::DateTime<chrono::Utc>,
     ) -> request::SandboxTransferTestClockCreateRequest {
         request::SandboxTransferTestClockCreateRequest {
             http_client: &self,
-            virtual_time: virtual_time.to_owned(),
+            virtual_time,
         }
     }
     /**Advance a test clock
@@ -2448,23 +2549,23 @@ For instance, a client creates a weekly recurring transfer with a test clock set
 The advancement of the test clock from its current `virtual_time` should be limited such that there are no more than 20 originations resulting from the advance operation on each `recurring_transfer` associated with the `test_clock`.
 For instance, if the recurring transfer associated with this test clock originates once every 4 weeks, you can advance the `virtual_time` up to 80 weeks on each API call.
 
-See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclockadvance>.*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertest_clockadvance>.*/
     pub fn sandbox_transfer_test_clock_advance(
         &self,
+        new_virtual_time: chrono::DateTime<chrono::Utc>,
         test_clock_id: &str,
-        new_virtual_time: &str,
     ) -> request::SandboxTransferTestClockAdvanceRequest {
         request::SandboxTransferTestClockAdvanceRequest {
             http_client: &self,
+            new_virtual_time,
             test_clock_id: test_clock_id.to_owned(),
-            new_virtual_time: new_virtual_time.to_owned(),
         }
     }
     /**Get a test clock
 
 Use the `/sandbox/transfer/test_clock/get` endpoint to get a `test_clock` in the Sandbox environment.
 
-See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclockget>.*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertest_clockget>.*/
     pub fn sandbox_transfer_test_clock_get(
         &self,
         test_clock_id: &str,
@@ -2478,16 +2579,16 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclo
 
 Use the `/sandbox/transfer/test_clock/list` endpoint to see a list of all your test clocks in the Sandbox environment, by ascending `virtual_time`. Results are paginated; use the `count` and `offset` query parameters to retrieve the desired test clocks.
 
-See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclocklist>.*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertest_clocklist>.*/
     pub fn sandbox_transfer_test_clock_list(
         &self,
     ) -> request::SandboxTransferTestClockListRequest {
         request::SandboxTransferTestClockListRequest {
             http_client: &self,
-            start_virtual_time: None,
-            end_virtual_time: None,
             count: None,
+            end_virtual_time: None,
             offset: None,
+            start_virtual_time: None,
         }
     }
     /**Reset the login of a Payment Profile
@@ -2498,7 +2599,7 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxtransfertestclo
 
  In order to invoke this endpoint, you must first [create a Payment Profile](https://plaid.com/docs/transfer/add-to-app/#create-a-payment-profile-optional) and [go through the Link flow](https://plaid.com/docs/transfer/add-to-app/#create-a-link-token).
 
-See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxpaymentprofilereset_login>.*/
+See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxpayment_profilereset_login>.*/
     pub fn sandbox_payment_profile_reset_login(
         &self,
         payment_profile_token: &str,
@@ -2517,13 +2618,13 @@ The data in the employer database is currently limited. As the Deposit Switch an
 See endpoint docs at <https://plaid.com/docs/api/employers/#employerssearch>.*/
     pub fn employers_search(
         &self,
-        query: &str,
         products: &[&str],
+        query: &str,
     ) -> request::EmployersSearchRequest {
         request::EmployersSearchRequest {
             http_client: &self,
-            query: query.to_owned(),
             products: products.iter().map(|&x| x.to_owned()).collect(),
+            query: query.to_owned(),
         }
     }
     /**(Deprecated) Create an income verification instance
@@ -2537,9 +2638,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
     ) -> request::IncomeVerificationCreateRequest {
         request::IncomeVerificationCreateRequest {
             http_client: &self,
-            webhook: webhook.to_owned(),
-            precheck_id: None,
             options: None,
+            precheck_id: None,
+            webhook: webhook.to_owned(),
         }
     }
     /**(Deprecated) Retrieve information from the paystubs used for income verification
@@ -2554,8 +2655,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
     ) -> request::IncomeVerificationPaystubsGetRequest {
         request::IncomeVerificationPaystubsGetRequest {
             http_client: &self,
-            income_verification_id: None,
             access_token: None,
+            income_verification_id: None,
         }
     }
     /**(Deprecated) Download the original documents used for income verification
@@ -2576,9 +2677,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
     ) -> request::IncomeVerificationDocumentsDownloadRequest {
         request::IncomeVerificationDocumentsDownloadRequest {
             http_client: &self,
-            income_verification_id: None,
             access_token: None,
             document_id: None,
+            income_verification_id: None,
         }
     }
     /**(Deprecated) Retrieve information from the tax documents used for income verification
@@ -2593,8 +2694,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
     ) -> request::IncomeVerificationTaxformsGetRequest {
         request::IncomeVerificationTaxformsGetRequest {
             http_client: &self,
-            income_verification_id: None,
             access_token: None,
+            income_verification_id: None,
         }
     }
     /**(Deprecated) Check digital income verification eligibility and optimize conversion
@@ -2611,12 +2712,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#incomeverifica
     ) -> request::IncomeVerificationPrecheckRequest {
         request::IncomeVerificationPrecheckRequest {
             http_client: &self,
-            user: None,
             employer: None,
             payroll_institution: None,
             transactions_access_token: None,
             transactions_access_tokens: None,
             us_military_info: None,
+            user: None,
         }
     }
     /**(Deprecated) Retrieve a summary of an individual's employment information
@@ -2647,10 +2748,10 @@ See endpoint docs at <https://plaid.com/docs/deposit-switch/reference#deposit_sw
     ) -> request::DepositSwitchAltCreateRequest {
         request::DepositSwitchAltCreateRequest {
             http_client: &self,
+            country_code: None,
+            options: None,
             target_account,
             target_user,
-            options: None,
-            country_code: None,
         }
     }
     /**Create Asset or Income Report Audit Copy Token
@@ -2711,6 +2812,20 @@ See endpoint docs at <https://plaid.com/docs/none/>.*/
             audit_copy_token: audit_copy_token.to_owned(),
         }
     }
+    /**Retrieve information from the bank accounts used for employment verification
+
+`/credit/bank_employment/get` returns the employment report(s) derived from bank transaction data for a specified user.
+
+See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_employmentget>.*/
+    pub fn credit_bank_employment_get(
+        &self,
+        user_token: &str,
+    ) -> request::CreditBankEmploymentGetRequest {
+        request::CreditBankEmploymentGetRequest {
+            http_client: &self,
+            user_token: user_token.to_owned(),
+        }
+    }
     /**Retrieve information from the bank accounts used for income verification
 
 `/credit/bank_income/get` returns the bank income report(s) for a specified user.
@@ -2719,8 +2834,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_inc
     pub fn credit_bank_income_get(&self) -> request::CreditBankIncomeGetRequest {
         request::CreditBankIncomeGetRequest {
             http_client: &self,
-            user_token: None,
             options: None,
+            user_token: None,
         }
     }
     /**Retrieve information from the bank accounts used for income verification in PDF format
@@ -2748,8 +2863,8 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditbank_inc
     ) -> request::CreditBankIncomeRefreshRequest {
         request::CreditBankIncomeRefreshRequest {
             http_client: &self,
-            user_token: user_token.to_owned(),
             options: None,
+            user_token: user_token.to_owned(),
         }
     }
     /**Retrieve a user's payroll information
@@ -2777,11 +2892,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_
     ) -> request::CreditPayrollIncomePrecheckRequest {
         request::CreditPayrollIncomePrecheckRequest {
             http_client: &self,
-            user_token: None,
             access_tokens: None,
             employer: None,
-            us_military_info: None,
             payroll_institution: None,
+            us_military_info: None,
+            user_token: None,
         }
     }
     /**Retrieve a summary of an individual's employment information
@@ -2805,10 +2920,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/income/#creditemployme
 See endpoint docs at <https://plaid.com/docs/api/products/income/#creditpayroll_incomerefresh>.*/
     pub fn credit_payroll_income_refresh(
         &self,
+        user_token: &str,
     ) -> request::CreditPayrollIncomeRefreshRequest {
         request::CreditPayrollIncomeRefreshRequest {
             http_client: &self,
-            user_token: None,
+            options: None,
+            user_token: user_token.to_owned(),
         }
     }
     /**Create a relay token to share an Asset Report with a partner client (beta)
@@ -2899,34 +3016,34 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxincomefire_webh
     pub fn sandbox_income_fire_webhook(
         &self,
         item_id: &str,
-        webhook: &str,
         verification_status: &str,
+        webhook: &str,
     ) -> request::SandboxIncomeFireWebhookRequest {
         request::SandboxIncomeFireWebhookRequest {
             http_client: &self,
             item_id: item_id.to_owned(),
             user_id: None,
-            webhook: webhook.to_owned(),
             verification_status: verification_status.to_owned(),
+            webhook: webhook.to_owned(),
         }
     }
     ///Save the selected accounts when connecting to the Platypus Oauth institution
     pub fn sandbox_oauth_select_accounts(
         &self,
-        oauth_state_id: &str,
         accounts: &[&str],
+        oauth_state_id: &str,
     ) -> request::SandboxOauthSelectAccountsRequest {
         request::SandboxOauthSelectAccountsRequest {
             http_client: &self,
-            oauth_state_id: oauth_state_id.to_owned(),
             accounts: accounts.iter().map(|&x| x.to_owned()).collect(),
+            oauth_state_id: oauth_state_id.to_owned(),
         }
     }
     /**Evaluate a planned ACH transaction
 
 Use `/signal/evaluate` to evaluate a planned ACH transaction to get a return risk assessment (such as a risk score and risk tier) and additional risk signals.
 
-In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause. If `/signal/evaluate` is called on the same transaction multiple times within a 24-hour period, cached results may be returned. For more information please refer to our error documentation on [item errors](/docs/errors/item/) and [Link in Update Mode](/docs/link/update-mode/).
+In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause. If `/signal/evaluate` is called on the same transaction multiple times within a 24-hour period, cached results may be returned. For more information please refer to the error documentation on [Item errors](/docs/errors/item/) and [Link in Update Mode](/docs/link/update-mode/).
 
 Note: This request may take some time to complete if Signal is being added to an existing Item. This is because Plaid must communicate directly with the institution when retrieving the data for the first time.
 
@@ -2939,14 +3056,14 @@ See endpoint docs at <https://plaid.com/docs/api/products/signal#signalevaluate>
             http_client: &self,
             access_token: args.access_token.to_owned(),
             account_id: args.account_id.to_owned(),
-            client_transaction_id: args.client_transaction_id.to_owned(),
             amount: args.amount,
-            user_present: None,
+            client_transaction_id: args.client_transaction_id.to_owned(),
             client_user_id: None,
-            is_recurring: None,
             default_payment_method: None,
-            user: None,
             device: None,
+            is_recurring: None,
+            user: None,
+            user_present: None,
         }
     }
     /**Report whether you initiated an ACH transaction
@@ -2961,12 +3078,12 @@ See endpoint docs at <https://plaid.com/docs/api/products/signal#signaldecisionr
     ) -> request::SignalDecisionReportRequest {
         request::SignalDecisionReportRequest {
             http_client: &self,
+            amount_instantly_available: None,
             client_transaction_id: client_transaction_id.to_owned(),
-            initiated,
             days_funds_on_hold: None,
             decision_outcome: None,
+            initiated,
             payment_method: None,
-            amount_instantly_available: None,
         }
     }
     /**Report a return for an ACH transaction
@@ -2992,7 +3109,7 @@ When Link is not initialized with Signal, call `/signal/prepare` to opt-in that 
 
 If you are using other Plaid products after Link, e.g. Identity or Assets, call `/signal/prepare` after those product calls are complete.
 
-Example flow: Link is initialized with Auth, call `/auth/get` for the account & routing number, call `/identity/get` to retrieve bank ownership details, call `/signal/prepare` to begin Signal data collection, then call `/signal/evaluate` for a Signal score. For more information please see [Recommendations for initializing Link with specific product combinations](/docs/link/best-practices/#recommendations-for-initializing-link-with-specific-product-combinations).
+Example flow: Link is initialized with Auth, call `/auth/get` for the account and routing number, call `/identity/get` to retrieve bank ownership details, then call `/signal/prepare` to begin Signal data collection. Later, once you have obtained details about the proposed transaction from the user, call `/signal/evaluate` for a Signal score. For more information please see [Recommendations for initializing Link with specific product combinations](https://www.plaid.com/docs/link/initializing-products/#recommendations-for-initializing-link-with-specific-product-combinations).
 
 See endpoint docs at <https://plaid.com/docs/api/products/signal#signalprepare>.*/
     pub fn signal_prepare(&self, access_token: &str) -> request::SignalPrepareRequest {
@@ -3034,9 +3151,9 @@ See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wall
     pub fn wallet_list(&self) -> request::WalletListRequest {
         request::WalletListRequest {
             http_client: &self,
-            iso_currency_code: None,
-            cursor: None,
             count: None,
+            cursor: None,
+            iso_currency_code: None,
         }
     }
     /**Execute a transaction using an e-wallet
@@ -3052,11 +3169,11 @@ See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wall
     ) -> request::WalletTransactionExecuteRequest {
         request::WalletTransactionExecuteRequest {
             http_client: &self,
-            idempotency_key: args.idempotency_key.to_owned(),
-            wallet_id: args.wallet_id.to_owned(),
-            counterparty: args.counterparty,
             amount: args.amount,
+            counterparty: args.counterparty,
+            idempotency_key: args.idempotency_key.to_owned(),
             reference: args.reference.to_owned(),
+            wallet_id: args.wallet_id.to_owned(),
         }
     }
     /**Fetch an e-wallet transaction
@@ -3084,27 +3201,10 @@ See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wall
     ) -> request::WalletTransactionListRequest {
         request::WalletTransactionListRequest {
             http_client: &self,
-            wallet_id: wallet_id.to_owned(),
-            cursor: None,
             count: None,
-            options: None,
-        }
-    }
-    /**List e-wallet transactions
-
-This endpoint lists the latest transactions of the specified e-wallet. Transactions are returned in descending order by the `created_at` time.
-
-See endpoint docs at <https://plaid.com/docs/api/products/virtual-accounts/#wallettransactionlist>.*/
-    pub fn wallet_transactions_list(
-        &self,
-        wallet_id: &str,
-    ) -> request::WalletTransactionsListRequest {
-        request::WalletTransactionsListRequest {
-            http_client: &self,
-            wallet_id: wallet_id.to_owned(),
             cursor: None,
-            count: None,
             options: None,
+            wallet_id: wallet_id.to_owned(),
         }
     }
     /**enhance locally-held transaction data
@@ -3220,22 +3320,23 @@ See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomercreate>
     ) -> request::PartnerCustomerCreateRequest {
         request::PartnerCustomerCreateRequest {
             http_client: &self,
-            client_id: None,
-            secret: None,
-            company_name: args.company_name.to_owned(),
-            is_diligence_attested: args.is_diligence_attested,
-            products: args.products.iter().map(|&x| x.to_owned()).collect(),
-            create_link_customization: None,
-            logo: None,
-            legal_entity_name: args.legal_entity_name.to_owned(),
-            website: args.website.to_owned(),
-            application_name: args.application_name.to_owned(),
-            technical_contact: None,
-            billing_contact: None,
-            customer_support_info: None,
             address: args.address,
-            is_bank_addendum_completed: args.is_bank_addendum_completed,
+            application_name: args.application_name.to_owned(),
             assets_under_management: None,
+            billing_contact: None,
+            client_id: None,
+            company_name: args.company_name.to_owned(),
+            create_link_customization: None,
+            customer_support_info: None,
+            is_bank_addendum_completed: args.is_bank_addendum_completed,
+            is_diligence_attested: args.is_diligence_attested,
+            legal_entity_name: args.legal_entity_name.to_owned(),
+            logo: None,
+            products: args.products.iter().map(|&x| x.to_owned()).collect(),
+            redirect_uris: None,
+            secret: None,
+            technical_contact: None,
+            website: args.website.to_owned(),
         }
     }
     /**Returns a Plaid reseller's end customer.
@@ -3250,8 +3351,8 @@ See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomerget>.*/
         request::PartnerCustomerGetRequest {
             http_client: &self,
             client_id: None,
-            secret: None,
             end_customer_client_id: end_customer_client_id.to_owned(),
+            secret: None,
         }
     }
     /**Enables a Plaid reseller's end customer in the Production environment.
@@ -3266,8 +3367,8 @@ See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomerenable>
         request::PartnerCustomerEnableRequest {
             http_client: &self,
             client_id: None,
-            secret: None,
             end_customer_client_id: end_customer_client_id.to_owned(),
+            secret: None,
         }
     }
     /**Removes a Plaid reseller's end customer.
@@ -3282,13 +3383,13 @@ See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomerremove>
         request::PartnerCustomerRemoveRequest {
             http_client: &self,
             client_id: None,
-            secret: None,
             end_customer_client_id: end_customer_client_id.to_owned(),
+            secret: None,
         }
     }
     /**Returns OAuth-institution registration information for a given end customer.
 
-The `/partner/customer/oauth_institutions/get` endpoint is used by reseller partners to retrieve OAuth-institution registration information about a single end customer.
+The `/partner/customer/oauth_institutions/get` endpoint is used by reseller partners to retrieve OAuth-institution registration information about a single end customer. To learn how to set up a webhook to listen to status update events, visit the [reseller documentation](https://plaid.com/docs/account/resellers/#enabling-end-customers).
 
 See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomeroauth_institutionsget>.*/
     pub fn partner_customer_oauth_institutions_get(
@@ -3298,33 +3399,30 @@ See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomeroauth_i
         request::PartnerCustomerOauthInstitutionsGetRequest {
             http_client: &self,
             client_id: None,
-            secret: None,
             end_customer_client_id: end_customer_client_id.to_owned(),
+            secret: None,
         }
     }
-    /**Create link delivery session
+    /**Create Link Delivery session
 
 Use the `/link_delivery/create` endpoint to create a Link Delivery session.
 
-See endpoint docs at <https://plaid.com/docs/api/link_delivery/#create>.*/
+See endpoint docs at <https://plaid.com/docs/docs/assets/waitlist/link-delivery/>.*/
     pub fn link_delivery_create(
         &self,
         link_token: &str,
-        delivery_method: &str,
-        delivery_destination: &str,
     ) -> request::LinkDeliveryCreateRequest {
         request::LinkDeliveryCreateRequest {
             http_client: &self,
             link_token: link_token.to_owned(),
-            delivery_method: delivery_method.to_owned(),
-            delivery_destination: delivery_destination.to_owned(),
+            options: None,
         }
     }
-    /**Get link delivery session
+    /**Get Link Delivery session
 
 Use the `/link_delivery/get` endpoint to get the status of a Link Delivery session.
 
-See endpoint docs at <https://plaid.com/docs/api/link_delivery/#get>.*/
+See endpoint docs at <https://plaid.com/docs/docs/assets/waitlist/link-delivery/>.*/
     pub fn link_delivery_get(
         &self,
         link_delivery_session_id: &str,
@@ -3345,15 +3443,15 @@ See endpoint docs at <https://plaid.com/docs/api/fdx/notifications/#post>.*/
     ) -> request::FdxNotificationsRequest {
         request::FdxNotificationsRequest {
             http_client: &self,
-            notification_id: args.notification_id.to_owned(),
-            type_: args.type_.to_owned(),
-            sent_on: args.sent_on.to_owned(),
             category: args.category.to_owned(),
-            severity: None,
+            notification_id: args.notification_id.to_owned(),
+            notification_payload: args.notification_payload,
             priority: None,
             publisher: args.publisher,
+            sent_on: args.sent_on,
+            severity: None,
             subscriber: None,
-            notification_payload: args.notification_payload,
+            type_: args.type_.to_owned(),
             url: None,
         }
     }

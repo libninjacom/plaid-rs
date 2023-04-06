@@ -7,8 +7,10 @@ pub struct Activity {
     pub id: String,
     pub initiated_date: String,
     pub initiator: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Scopes>,
     pub state: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub target_application_id: Option<String>,
 }
 impl std::fmt::Display for Activity {

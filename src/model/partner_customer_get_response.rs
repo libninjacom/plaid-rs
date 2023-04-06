@@ -3,7 +3,9 @@ use serde::{Serialize, Deserialize};
 use super::PartnerEndCustomer;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartnerCustomerGetResponse {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub end_customer: Option<PartnerEndCustomer>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_id: Option<String>,
 }
 impl std::fmt::Display for PartnerCustomerGetResponse {

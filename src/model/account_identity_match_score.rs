@@ -8,9 +8,13 @@ use super::{
 pub struct AccountIdentityMatchScore {
     #[serde(flatten)]
     pub account_base: AccountBase,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<AddressMatchScore>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub email_address: Option<EmailAddressMatchScore>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub legal_name: Option<NameMatchScore>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<PhoneNumberMatchScore>,
 }
 impl std::fmt::Display for AccountIdentityMatchScore {

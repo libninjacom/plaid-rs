@@ -7,18 +7,18 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct ProcessorBalanceGetRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub processor_token: String,
     pub options: Option<ProcessorBalanceGetRequestOptions>,
+    pub processor_token: String,
 }
 impl<'a> ProcessorBalanceGetRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<ProcessorBalanceGetResponse> {
         let mut r = self.http_client.client.post("/processor/balance/get");
-        r = r.json(json!({ "processor_token" : self.processor_token }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
+        r = r.json(json!({ "processor_token" : self.processor_token }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

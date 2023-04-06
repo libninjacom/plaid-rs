@@ -7,44 +7,44 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct ProcessorBankTransferCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
+    pub ach_class: Option<String>,
+    pub amount: String,
+    pub custom_tag: Option<String>,
+    pub description: String,
     pub idempotency_key: String,
+    pub iso_currency_code: String,
+    pub metadata: Option<BankTransferMetadata>,
+    pub network: String,
+    pub origination_account_id: Option<String>,
     pub processor_token: String,
     pub type_: String,
-    pub network: String,
-    pub amount: String,
-    pub iso_currency_code: String,
-    pub description: String,
-    pub ach_class: Option<String>,
     pub user: BankTransferUser,
-    pub custom_tag: Option<String>,
-    pub metadata: Option<BankTransferMetadata>,
-    pub origination_account_id: Option<String>,
 }
 impl<'a> ProcessorBankTransferCreateRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<ProcessorBankTransferCreateResponse> {
         let mut r = self.http_client.client.post("/processor/bank_transfer/create");
-        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
-        r = r.json(json!({ "processor_token" : self.processor_token }));
-        r = r.json(json!({ "type" : self.type_ }));
-        r = r.json(json!({ "network" : self.network }));
-        r = r.json(json!({ "amount" : self.amount }));
-        r = r.json(json!({ "iso_currency_code" : self.iso_currency_code }));
-        r = r.json(json!({ "description" : self.description }));
         if let Some(ref unwrapped) = self.ach_class {
             r = r.json(json!({ "ach_class" : unwrapped }));
         }
-        r = r.json(json!({ "user" : self.user }));
+        r = r.json(json!({ "amount" : self.amount }));
         if let Some(ref unwrapped) = self.custom_tag {
             r = r.json(json!({ "custom_tag" : unwrapped }));
         }
+        r = r.json(json!({ "description" : self.description }));
+        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
+        r = r.json(json!({ "iso_currency_code" : self.iso_currency_code }));
         if let Some(ref unwrapped) = self.metadata {
             r = r.json(json!({ "metadata" : unwrapped }));
         }
+        r = r.json(json!({ "network" : self.network }));
         if let Some(ref unwrapped) = self.origination_account_id {
             r = r.json(json!({ "origination_account_id" : unwrapped }));
         }
+        r = r.json(json!({ "processor_token" : self.processor_token }));
+        r = r.json(json!({ "type" : self.type_ }));
+        r = r.json(json!({ "user" : self.user }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
@@ -67,13 +67,13 @@ impl<'a> ProcessorBankTransferCreateRequest<'a> {
     }
 }
 pub struct ProcessorBankTransferCreateRequired<'a> {
+    pub amount: &'a str,
+    pub description: &'a str,
     pub idempotency_key: &'a str,
+    pub iso_currency_code: &'a str,
+    pub network: &'a str,
     pub processor_token: &'a str,
     pub type_: &'a str,
-    pub network: &'a str,
-    pub amount: &'a str,
-    pub iso_currency_code: &'a str,
-    pub description: &'a str,
     pub user: BankTransferUser,
 }
 impl<'a> ProcessorBankTransferCreateRequired<'a> {}

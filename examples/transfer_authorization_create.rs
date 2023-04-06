@@ -26,19 +26,20 @@ async fn main() {
         .transfer_authorization_create(args)
         .access_token("your access token")
         .account_id("your account id")
-        .payment_profile_token("your payment profile token")
         .ach_class("your ach class")
+        .beacon_session_id("your beacon session id")
         .device(TransferAuthorizationDevice {
             ip_address: Some("your ip address".to_owned()),
             user_agent: Some("your user agent".to_owned()),
         })
-        .origination_account_id("your origination account id")
-        .iso_currency_code("your iso currency code")
+        .funding_account_id("your funding account id")
         .idempotency_key("your idempotency key")
+        .iso_currency_code("your iso currency code")
+        .origination_account_id("your origination account id")
+        .originator_client_id("your originator client id")
+        .payment_profile_token("your payment profile token")
         .user_present(true)
         .with_guarantee(true)
-        .beacon_session_id("your beacon session id")
-        .originator_client_id("your originator client id")
         .await
         .unwrap();
     println!("{:#?}", response);

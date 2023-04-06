@@ -4,11 +4,10 @@ use plaid::model::*;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let query = "your query";
     let country_codes = &["your country codes"];
+    let query = "your query";
     let response = client
-        .institutions_search(query, country_codes)
-        .products(&["your products"])
+        .institutions_search(country_codes, query)
         .options(InstitutionsSearchRequestOptions {
             include_auth_metadata: Some(true),
             include_optional_metadata: Some(true),
@@ -19,6 +18,7 @@ async fn main() {
                 payment_id: Some("your payment id".to_owned()),
             }),
         })
+        .products(&["your products"])
         .await
         .unwrap();
     println!("{:#?}", response);

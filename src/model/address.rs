@@ -4,6 +4,7 @@ use super::AddressData;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Address {
     pub data: AddressData,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub primary: Option<bool>,
 }
 impl std::fmt::Display for Address {

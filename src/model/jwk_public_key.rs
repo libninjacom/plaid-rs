@@ -5,6 +5,7 @@ pub struct JwkPublicKey {
     pub alg: String,
     pub created_at: i64,
     pub crv: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub expired_at: Option<i64>,
     pub kid: String,
     pub kty: String,

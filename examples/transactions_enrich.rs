@@ -6,8 +6,8 @@ async fn main() {
     let client = PlaidClient::from_env();
     let account_type = "your account type";
     let transactions = vec![
-        ClientProvidedTransaction { amount : 1.0, date_posted : Some("your date posted"
-        .to_owned()), description : "your description".to_owned(), direction :
+        ClientProvidedTransaction { amount : 1.0, date_posted : Some(chrono::Utc::now()
+        .date()), description : "your description".to_owned(), direction :
         "your direction".to_owned(), id : "your id".to_owned(), iso_currency_code :
         "your iso currency code".to_owned(), location :
         Some(ClientProvidedTransactionLocation { address : Some("your address"

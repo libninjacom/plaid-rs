@@ -7,22 +7,22 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct TransferRepaymentReturnListRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub repayment_id: String,
     pub count: Option<i64>,
     pub offset: Option<i64>,
+    pub repayment_id: String,
 }
 impl<'a> TransferRepaymentReturnListRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<TransferRepaymentReturnListResponse> {
         let mut r = self.http_client.client.post("/transfer/repayment/return/list");
-        r = r.json(json!({ "repayment_id" : self.repayment_id }));
         if let Some(ref unwrapped) = self.count {
             r = r.json(json!({ "count" : unwrapped }));
         }
         if let Some(ref unwrapped) = self.offset {
             r = r.json(json!({ "offset" : unwrapped }));
         }
+        r = r.json(json!({ "repayment_id" : self.repayment_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

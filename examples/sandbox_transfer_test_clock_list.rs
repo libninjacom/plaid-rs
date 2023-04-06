@@ -6,10 +6,10 @@ async fn main() {
     let client = PlaidClient::from_env();
     let response = client
         .sandbox_transfer_test_clock_list()
-        .start_virtual_time("your start virtual time")
-        .end_virtual_time("your end virtual time")
         .count(1)
+        .end_virtual_time(chrono::Utc::now())
         .offset(1)
+        .start_virtual_time(chrono::Utc::now())
         .await
         .unwrap();
     println!("{:#?}", response);

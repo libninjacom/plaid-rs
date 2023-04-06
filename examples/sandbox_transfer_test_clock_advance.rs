@@ -4,10 +4,10 @@ use plaid::model::*;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
+    let new_virtual_time = chrono::Utc::now();
     let test_clock_id = "your test clock id";
-    let new_virtual_time = "your new virtual time";
     let response = client
-        .sandbox_transfer_test_clock_advance(test_clock_id, new_virtual_time)
+        .sandbox_transfer_test_clock_advance(new_virtual_time, test_clock_id)
         .await
         .unwrap();
     println!("{:#?}", response);

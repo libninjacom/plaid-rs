@@ -5,6 +5,7 @@ use super::{Item, ItemStatus};
 pub struct ItemGetResponse {
     pub item: Item,
     pub request_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<ItemStatus>,
 }
 impl std::fmt::Display for ItemGetResponse {

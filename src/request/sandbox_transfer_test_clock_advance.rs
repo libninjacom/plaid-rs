@@ -7,16 +7,16 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct SandboxTransferTestClockAdvanceRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
+    pub new_virtual_time: chrono::DateTime<chrono::Utc>,
     pub test_clock_id: String,
-    pub new_virtual_time: String,
 }
 impl<'a> SandboxTransferTestClockAdvanceRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<SandboxTransferTestClockAdvanceResponse> {
         let mut r = self.http_client.client.post("/sandbox/transfer/test_clock/advance");
-        r = r.json(json!({ "test_clock_id" : self.test_clock_id }));
         r = r.json(json!({ "new_virtual_time" : self.new_virtual_time }));
+        r = r.json(json!({ "test_clock_id" : self.test_clock_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

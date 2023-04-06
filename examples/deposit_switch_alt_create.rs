@@ -26,13 +26,13 @@ async fn main() {
     };
     let response = client
         .deposit_switch_alt_create(target_account, target_user)
+        .country_code("your country code")
         .options(DepositSwitchCreateRequestOptions {
             transaction_item_access_tokens: Some(
                 vec!["your transaction item access tokens".to_owned()],
             ),
             webhook: Some("your webhook".to_owned()),
         })
-        .country_code("your country code")
         .await
         .unwrap();
     println!("{:#?}", response);

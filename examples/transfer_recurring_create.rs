@@ -17,11 +17,11 @@ async fn main() {
         idempotency_key: "your idempotency key",
         network: "your network",
         schedule: TransferRecurringSchedule {
-            end_date: Some("your end date".to_owned()),
+            end_date: Some(chrono::Utc::now().date()),
             interval_count: 1,
             interval_execution_day: 1,
             interval_unit: "your interval unit".to_owned(),
-            start_date: "your start date".to_owned(),
+            start_date: chrono::Utc::now().date(),
         },
         type_: "your type",
         user: TransferUserInRequest {
@@ -40,9 +40,10 @@ async fn main() {
     let response = client
         .transfer_recurring_create(args)
         .ach_class("your ach class")
-        .user_present(true)
+        .funding_account_id("your funding account id")
         .iso_currency_code("your iso currency code")
         .test_clock_id("your test clock id")
+        .user_present(true)
         .await
         .unwrap();
     println!("{:#?}", response);

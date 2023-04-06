@@ -4,8 +4,9 @@ use super::{AssetReportItem, AssetReportUser};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReport {
     pub asset_report_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub client_report_id: Option<String>,
-    pub date_generated: String,
+    pub date_generated: chrono::DateTime<chrono::Utc>,
     pub days_requested: f64,
     pub items: Vec<AssetReportItem>,
     pub user: AssetReportUser,

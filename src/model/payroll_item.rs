@@ -8,8 +8,10 @@ pub struct PayrollItem {
     pub institution_name: String,
     pub item_id: String,
     pub payroll_income: Vec<PayrollIncomeObject>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<PayrollItemStatus>,
-    pub updated_at: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 impl std::fmt::Display for PayrollItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

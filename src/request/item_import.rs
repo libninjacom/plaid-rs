@@ -7,18 +7,18 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct ItemImportRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
+    pub options: Option<ItemImportRequestOptions>,
     pub products: Vec<String>,
     pub user_auth: ItemImportRequestUserAuth,
-    pub options: Option<ItemImportRequestOptions>,
 }
 impl<'a> ItemImportRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<ItemImportResponse> {
         let mut r = self.http_client.client.post("/item/import");
-        r = r.json(json!({ "products" : self.products }));
-        r = r.json(json!({ "user_auth" : self.user_auth }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
+        r = r.json(json!({ "products" : self.products }));
+        r = r.json(json!({ "user_auth" : self.user_auth }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

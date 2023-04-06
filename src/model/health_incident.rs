@@ -1,11 +1,12 @@
 
 use serde::{Serialize, Deserialize};
 use super::IncidentUpdate;
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HealthIncident {
-    pub end_date: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end_date: Option<chrono::DateTime<chrono::Utc>>,
     pub incident_updates: Vec<IncidentUpdate>,
-    pub start_date: String,
+    pub start_date: chrono::DateTime<chrono::Utc>,
     pub title: String,
 }
 impl std::fmt::Display for HealthIncident {

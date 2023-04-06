@@ -6,6 +6,7 @@ use super::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationMetadata {
     pub maximum_payment_amount: PaymentInitiationMaximumPaymentAmount,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub standing_order_metadata: Option<PaymentInitiationStandingOrderMetadata>,
     pub supports_international_payments: bool,
     pub supports_refund_details: bool,

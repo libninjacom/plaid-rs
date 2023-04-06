@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestUpdate {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub account_selection_enabled: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestUpdate {

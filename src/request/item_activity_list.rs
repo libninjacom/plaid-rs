@@ -8,8 +8,8 @@ That method takes required values as arguments. Set optional values using builde
 pub struct ItemActivityListRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: Option<String>,
-    pub cursor: Option<String>,
     pub count: Option<i64>,
+    pub cursor: Option<String>,
 }
 impl<'a> ItemActivityListRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<ItemActivityListResponse> {
@@ -17,11 +17,11 @@ impl<'a> ItemActivityListRequest<'a> {
         if let Some(ref unwrapped) = self.access_token {
             r = r.json(json!({ "access_token" : unwrapped }));
         }
-        if let Some(ref unwrapped) = self.cursor {
-            r = r.json(json!({ "cursor" : unwrapped }));
-        }
         if let Some(ref unwrapped) = self.count {
             r = r.json(json!({ "count" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.cursor {
+            r = r.json(json!({ "cursor" : unwrapped }));
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
@@ -31,12 +31,12 @@ impl<'a> ItemActivityListRequest<'a> {
         self.access_token = Some(access_token.to_owned());
         self
     }
-    pub fn cursor(mut self, cursor: &str) -> Self {
-        self.cursor = Some(cursor.to_owned());
-        self
-    }
     pub fn count(mut self, count: i64) -> Self {
         self.count = Some(count);
+        self
+    }
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
 }

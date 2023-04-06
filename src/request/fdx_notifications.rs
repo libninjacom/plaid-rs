@@ -7,35 +7,35 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct FdxNotificationsRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub notification_id: String,
-    pub type_: String,
-    pub sent_on: String,
     pub category: String,
-    pub severity: Option<String>,
+    pub notification_id: String,
+    pub notification_payload: FdxNotificationPayload,
     pub priority: Option<String>,
     pub publisher: FdxParty,
+    pub sent_on: chrono::DateTime<chrono::Utc>,
+    pub severity: Option<String>,
     pub subscriber: Option<FdxParty>,
-    pub notification_payload: FdxNotificationPayload,
+    pub type_: String,
     pub url: Option<FdxHateoasLink>,
 }
 impl<'a> FdxNotificationsRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<()> {
         let mut r = self.http_client.client.post("/fdx/notifications");
-        r = r.json(json!({ "notificationId" : self.notification_id }));
-        r = r.json(json!({ "type" : self.type_ }));
-        r = r.json(json!({ "sentOn" : self.sent_on }));
         r = r.json(json!({ "category" : self.category }));
-        if let Some(ref unwrapped) = self.severity {
-            r = r.json(json!({ "severity" : unwrapped }));
-        }
+        r = r.json(json!({ "notificationId" : self.notification_id }));
+        r = r.json(json!({ "notificationPayload" : self.notification_payload }));
         if let Some(ref unwrapped) = self.priority {
             r = r.json(json!({ "priority" : unwrapped }));
         }
         r = r.json(json!({ "publisher" : self.publisher }));
+        r = r.json(json!({ "sentOn" : self.sent_on }));
+        if let Some(ref unwrapped) = self.severity {
+            r = r.json(json!({ "severity" : unwrapped }));
+        }
         if let Some(ref unwrapped) = self.subscriber {
             r = r.json(json!({ "subscriber" : unwrapped }));
         }
-        r = r.json(json!({ "notificationPayload" : self.notification_payload }));
+        r = r.json(json!({ "type" : self.type_ }));
         if let Some(ref unwrapped) = self.url {
             r = r.json(json!({ "url" : unwrapped }));
         }
@@ -43,12 +43,12 @@ impl<'a> FdxNotificationsRequest<'a> {
         let res = r.send_awaiting_body().await?;
         res.json()
     }
-    pub fn severity(mut self, severity: &str) -> Self {
-        self.severity = Some(severity.to_owned());
-        self
-    }
     pub fn priority(mut self, priority: &str) -> Self {
         self.priority = Some(priority.to_owned());
+        self
+    }
+    pub fn severity(mut self, severity: &str) -> Self {
+        self.severity = Some(severity.to_owned());
         self
     }
     pub fn subscriber(mut self, subscriber: FdxParty) -> Self {
@@ -61,12 +61,12 @@ impl<'a> FdxNotificationsRequest<'a> {
     }
 }
 pub struct FdxNotificationsRequired<'a> {
-    pub notification_id: &'a str,
-    pub type_: &'a str,
-    pub sent_on: &'a str,
     pub category: &'a str,
-    pub publisher: FdxParty,
+    pub notification_id: &'a str,
     pub notification_payload: FdxNotificationPayload,
+    pub publisher: FdxParty,
+    pub sent_on: chrono::DateTime<chrono::Utc>,
+    pub type_: &'a str,
 }
 impl<'a> FdxNotificationsRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for FdxNotificationsRequest<'a> {

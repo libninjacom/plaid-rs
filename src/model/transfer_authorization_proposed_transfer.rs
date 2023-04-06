@@ -3,12 +3,16 @@ use serde::{Serialize, Deserialize};
 use super::TransferUserInResponse;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationProposedTransfer {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ach_class: Option<String>,
     pub amount: String,
+    pub funding_account_id: String,
     pub iso_currency_code: String,
     pub network: String,
     pub origination_account_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub originator_client_id: Option<String>,
     #[serde(rename = "type")]
     pub type_: String,

@@ -8,8 +8,8 @@ That method takes required values as arguments. Set optional values using builde
 pub struct SandboxItemFireWebhookRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: String,
-    pub webhook_type: Option<String>,
     pub webhook_code: String,
+    pub webhook_type: Option<String>,
 }
 impl<'a> SandboxItemFireWebhookRequest<'a> {
     pub async fn send(
@@ -17,10 +17,10 @@ impl<'a> SandboxItemFireWebhookRequest<'a> {
     ) -> ::httpclient::InMemoryResult<SandboxItemFireWebhookResponse> {
         let mut r = self.http_client.client.post("/sandbox/item/fire_webhook");
         r = r.json(json!({ "access_token" : self.access_token }));
+        r = r.json(json!({ "webhook_code" : self.webhook_code }));
         if let Some(ref unwrapped) = self.webhook_type {
             r = r.json(json!({ "webhook_type" : unwrapped }));
         }
-        r = r.json(json!({ "webhook_code" : self.webhook_code }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

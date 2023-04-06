@@ -10,6 +10,7 @@ pub struct AccountAssets {
     pub days_available: f64,
     pub historical_balances: Vec<HistoricalBalance>,
     pub owners: Vec<Owner>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ownership_type: Option<OwnershipType>,
     pub transactions: Vec<AssetReportTransaction>,
 }

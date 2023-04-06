@@ -7,21 +7,18 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct IncomeVerificationPrecheckRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub user: Option<IncomeVerificationPrecheckUser>,
     pub employer: Option<IncomeVerificationPrecheckEmployer>,
     pub payroll_institution: Option<IncomeVerificationPrecheckPayrollInstitution>,
     pub transactions_access_token: Option<String>,
     pub transactions_access_tokens: Option<Vec<String>>,
     pub us_military_info: Option<IncomeVerificationPrecheckMilitaryInfo>,
+    pub user: Option<IncomeVerificationPrecheckUser>,
 }
 impl<'a> IncomeVerificationPrecheckRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<IncomeVerificationPrecheckResponse> {
         let mut r = self.http_client.client.post("/income/verification/precheck");
-        if let Some(ref unwrapped) = self.user {
-            r = r.json(json!({ "user" : unwrapped }));
-        }
         if let Some(ref unwrapped) = self.employer {
             r = r.json(json!({ "employer" : unwrapped }));
         }
@@ -37,13 +34,12 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         if let Some(ref unwrapped) = self.us_military_info {
             r = r.json(json!({ "us_military_info" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.user {
+            r = r.json(json!({ "user" : unwrapped }));
+        }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
-    }
-    pub fn user(mut self, user: IncomeVerificationPrecheckUser) -> Self {
-        self.user = Some(user);
-        self
     }
     pub fn employer(mut self, employer: IncomeVerificationPrecheckEmployer) -> Self {
         self.employer = Some(employer);
@@ -78,6 +74,10 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         us_military_info: IncomeVerificationPrecheckMilitaryInfo,
     ) -> Self {
         self.us_military_info = Some(us_military_info);
+        self
+    }
+    pub fn user(mut self, user: IncomeVerificationPrecheckUser) -> Self {
+        self.user = Some(user);
         self
     }
 }

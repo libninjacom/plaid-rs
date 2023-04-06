@@ -5,10 +5,10 @@ use plaid::model::*;
 async fn main() {
     let client = PlaidClient::from_env();
     let account_number = "your account number";
-    let routing_number = "your routing number";
     let account_type = "your account type";
+    let routing_number = "your routing number";
     let response = client
-        .bank_transfer_migrate_account(account_number, routing_number, account_type)
+        .bank_transfer_migrate_account(account_number, account_type, routing_number)
         .wire_routing_number("your wire routing number")
         .await
         .unwrap();

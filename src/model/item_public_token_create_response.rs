@@ -2,7 +2,8 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemPublicTokenCreateResponse {
-    pub expiration: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiration: Option<chrono::DateTime<chrono::Utc>>,
     pub public_token: String,
     pub request_id: String,
 }

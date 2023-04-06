@@ -13,10 +13,13 @@ async fn main() {
     };
     let response = client
         .signal_evaluate(args)
-        .user_present(true)
         .client_user_id("your client user id")
-        .is_recurring(true)
         .default_payment_method("your default payment method")
+        .device(SignalDevice {
+            ip_address: Some("your ip address".to_owned()),
+            user_agent: Some("your user agent".to_owned()),
+        })
+        .is_recurring(true)
         .user(SignalUser {
             address: Some(SignalAddressData {
                 city: Some("your city".to_owned()),
@@ -35,10 +38,7 @@ async fn main() {
             }),
             phone_number: Some("your phone number".to_owned()),
         })
-        .device(SignalDevice {
-            ip_address: Some("your ip address".to_owned()),
-            user_agent: Some("your user agent".to_owned()),
-        })
+        .user_present(true)
         .await
         .unwrap();
     println!("{:#?}", response);

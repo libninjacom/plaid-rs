@@ -7,6 +7,7 @@ pub struct UserAddress {
     pub postal_code: String,
     pub region: String,
     pub street: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub street2: Option<String>,
 }
 impl std::fmt::Display for UserAddress {

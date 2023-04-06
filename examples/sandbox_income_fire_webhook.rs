@@ -5,10 +5,10 @@ use plaid::model::*;
 async fn main() {
     let client = PlaidClient::from_env();
     let item_id = "your item id";
-    let webhook = "your webhook";
     let verification_status = "your verification status";
+    let webhook = "your webhook";
     let response = client
-        .sandbox_income_fire_webhook(item_id, webhook, verification_status)
+        .sandbox_income_fire_webhook(item_id, verification_status, webhook)
         .user_id("your user id")
         .await
         .unwrap();

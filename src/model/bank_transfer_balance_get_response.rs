@@ -4,6 +4,7 @@ use super::BankTransferBalance;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankTransferBalanceGetResponse {
     pub balance: BankTransferBalance,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub origination_account_id: Option<String>,
     pub request_id: String,
 }

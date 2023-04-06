@@ -10,7 +10,7 @@ pub struct FdxNotificationsRequired {
     pub notification_payload: FdxNotificationPayload,
     pub publisher: FdxParty,
     #[serde(rename = "sentOn")]
-    pub sent_on: String,
+    pub sent_on: chrono::DateTime<chrono::Utc>,
     #[serde(rename = "type")]
     pub type_: String,
 }

@@ -56,3 +56,7 @@ test-full:
     for file in $(ls examples); do
         cargo run --example "$(basename "$file" .rs)"
     done
+
+generate:
+    req https://raw.githubusercontent.com/plaid/plaid-openapi/master/2020-09-14.yml > openapi.yaml
+    libninja gen -lrust --repo libninjacom/plaid-rs -o . Plaid openapi.yaml

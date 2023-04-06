@@ -4,7 +4,7 @@ use super::WatchlistScreeningAuditTrail;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IndividualWatchlistProgram {
     pub audit_trail: WatchlistScreeningAuditTrail,
-    pub created_at: String,
+    pub created_at: chrono::DateTime<chrono::Utc>,
     pub id: String,
     pub is_archived: bool,
     pub is_rescanning_enabled: bool,

@@ -7,7 +7,7 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct SandboxTransferTestClockCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub virtual_time: String,
+    pub virtual_time: chrono::DateTime<chrono::Utc>,
 }
 impl<'a> SandboxTransferTestClockCreateRequest<'a> {
     pub async fn send(

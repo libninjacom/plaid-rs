@@ -4,6 +4,7 @@ use super::PhysicalDocumentExtractedDataAnalysis;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DocumentAnalysis {
     pub authenticity: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub extracted_data: Option<PhysicalDocumentExtractedDataAnalysis>,
     pub image_quality: String,
 }

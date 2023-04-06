@@ -4,6 +4,7 @@ use super::CreditPayStubAddress;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditPayStubEmployer {
     pub address: CreditPayStubAddress,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 impl std::fmt::Display for CreditPayStubEmployer {

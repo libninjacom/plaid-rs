@@ -19,36 +19,23 @@ async fn main() {
                 street2: Some("your street 2".to_owned()),
             }),
             client_user_id: "your client user id".to_owned(),
-            date_of_birth: Some("your date of birth".to_owned()),
+            date_of_birth: Some(chrono::Utc::now().date()),
             email_address: Some("your email address".to_owned()),
-            email_address_verified_time: Some(
-                "your email address verified time".to_owned(),
-            ),
+            email_address_verified_time: Some(chrono::Utc::now()),
             id_number: Some(UserIdNumber {
                 type_: "your type".to_owned(),
                 value: "your value".to_owned(),
             }),
             legal_name: Some("your legal name".to_owned()),
-            name: Some(::serde_json::json!({})),
+            name: Some(serde_json::json!({})),
             phone_number: Some("your phone number".to_owned()),
-            phone_number_verified_time: Some(
-                "your phone number verified time".to_owned(),
-            ),
+            phone_number_verified_time: Some(chrono::Utc::now()),
             ssn: Some("your ssn".to_owned()),
         },
     };
     let response = client
         .link_token_create(args)
-        .products(&["your products"])
-        .additional_consented_products(&["your additional consented products"])
-        .webhook("your webhook")
         .access_token("your access token")
-        .link_customization_name("your link customization name")
-        .redirect_uri("your redirect uri")
-        .android_package_name("your android package name")
-        .institution_data(LinkTokenCreateInstitutionData {
-            routing_number: Some("your routing number".to_owned()),
-        })
         .account_filters(LinkTokenAccountFilters {
             credit: Some(CreditFilter {
                 account_subtypes: vec!["your account subtypes".to_owned()],
@@ -63,16 +50,33 @@ async fn main() {
                 account_subtypes: vec!["your account subtypes".to_owned()],
             }),
         })
-        .eu_config(LinkTokenEuConfig {
-            headless: Some(true),
-        })
-        .institution_id("your institution id")
-        .payment_initiation(LinkTokenCreateRequestPaymentInitiation {
-            consent_id: Some("your consent id".to_owned()),
-            payment_id: Some("your payment id".to_owned()),
+        .additional_consented_products(&["your additional consented products"])
+        .android_package_name("your android package name")
+        .auth(LinkTokenCreateRequestAuth {
+            auth_type_select_enabled: Some(true),
+            automated_microdeposits_enabled: Some(true),
+            flow_type: Some("your flow type".to_owned()),
+            instant_match_enabled: Some(true),
+            same_day_microdeposits_enabled: Some(true),
         })
         .deposit_switch(LinkTokenCreateRequestDepositSwitch {
             deposit_switch_id: "your deposit switch id".to_owned(),
+        })
+        .employment(LinkTokenCreateRequestEmployment {
+            bank_employment: Some(LinkTokenCreateRequestEmploymentBankIncome {
+                days_requested: 1,
+            }),
+            employment_source_types: Some(
+                vec!["your employment source types".to_owned()],
+            ),
+        })
+        .eu_config(LinkTokenEuConfig {
+            headless: Some(true),
+        })
+        .identity_verification(LinkTokenCreateRequestIdentityVerification {
+            consent: Some(true),
+            gave_consent: Some(true),
+            template_id: "your template id".to_owned(),
         })
         .income_verification(LinkTokenCreateRequestIncomeVerification {
             access_tokens: Some(vec!["your access tokens".to_owned()]),
@@ -86,6 +90,7 @@ async fn main() {
             payroll_income: Some(LinkTokenCreateRequestIncomeVerificationPayrollIncome {
                 flow_types: Some(vec!["your flow types".to_owned()]),
                 is_update_mode: Some(true),
+                item_id_to_update: Some("your item id to update".to_owned()),
             }),
             precheck_id: Some("your precheck id".to_owned()),
             stated_income_sources: Some(
@@ -98,13 +103,20 @@ async fn main() {
                 ],
             ),
         })
-        .auth(LinkTokenCreateRequestAuth {
-            auth_type_select_enabled: Some(true),
-            automated_microdeposits_enabled: Some(true),
-            flow_type: Some("your flow type".to_owned()),
-            instant_match_enabled: Some(true),
-            same_day_microdeposits_enabled: Some(true),
+        .institution_data(LinkTokenCreateInstitutionData {
+            routing_number: Some("your routing number".to_owned()),
         })
+        .institution_id("your institution id")
+        .investments(LinkTokenInvestments {
+            allow_unverified_crypto_wallets: Some(true),
+        })
+        .link_customization_name("your link customization name")
+        .payment_initiation(LinkTokenCreateRequestPaymentInitiation {
+            consent_id: Some("your consent id".to_owned()),
+            payment_id: Some("your payment id".to_owned()),
+        })
+        .products(&["your products"])
+        .redirect_uri("your redirect uri")
         .transfer(LinkTokenCreateRequestTransfer {
             intent_id: Some("your intent id".to_owned()),
             payment_profile_token: Some("your payment profile token".to_owned()),
@@ -112,15 +124,8 @@ async fn main() {
         .update(LinkTokenCreateRequestUpdate {
             account_selection_enabled: Some(true),
         })
-        .identity_verification(LinkTokenCreateRequestIdentityVerification {
-            consent: Some(true),
-            gave_consent: Some(true),
-            template_id: "your template id".to_owned(),
-        })
         .user_token("your user token")
-        .investments(LinkTokenInvestments {
-            allow_unverified_crypto_wallets: Some(true),
-        })
+        .webhook("your webhook")
         .await
         .unwrap();
     println!("{:#?}", response);

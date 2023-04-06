@@ -8,9 +8,9 @@ That method takes required values as arguments. Set optional values using builde
 pub struct TransferMigrateAccountRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub account_number: String,
+    pub account_type: String,
     pub routing_number: String,
     pub wire_routing_number: Option<String>,
-    pub account_type: String,
 }
 impl<'a> TransferMigrateAccountRequest<'a> {
     pub async fn send(
@@ -18,11 +18,11 @@ impl<'a> TransferMigrateAccountRequest<'a> {
     ) -> ::httpclient::InMemoryResult<TransferMigrateAccountResponse> {
         let mut r = self.http_client.client.post("/transfer/migrate_account");
         r = r.json(json!({ "account_number" : self.account_number }));
+        r = r.json(json!({ "account_type" : self.account_type }));
         r = r.json(json!({ "routing_number" : self.routing_number }));
         if let Some(ref unwrapped) = self.wire_routing_number {
             r = r.json(json!({ "wire_routing_number" : unwrapped }));
         }
-        r = r.json(json!({ "account_type" : self.account_type }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

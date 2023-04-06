@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DashboardUserGetResponse {
-    pub created_at: String,
+    pub created_at: chrono::DateTime<chrono::Utc>,
     pub email_address: String,
     pub id: String,
     pub request_id: String,

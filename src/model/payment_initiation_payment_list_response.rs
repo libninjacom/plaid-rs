@@ -3,7 +3,8 @@ use serde::{Serialize, Deserialize};
 use super::PaymentInitiationPayment;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationPaymentListResponse {
-    pub next_cursor: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_cursor: Option<chrono::DateTime<chrono::Utc>>,
     pub payments: Vec<PaymentInitiationPayment>,
     pub request_id: String,
 }

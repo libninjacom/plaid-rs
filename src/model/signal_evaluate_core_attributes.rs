@@ -3,127 +3,192 @@ use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalEvaluateCoreAttributes {
     #[serde(rename = "address_change_count_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub address_change_count28_d: Option<i64>,
     #[serde(rename = "address_change_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub address_change_count90_d: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub available_balance: Option<f64>,
-    pub balance_last_updated: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub balance_last_updated: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(rename = "credit_transactions_count_10d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub credit_transactions_count10_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub credit_transactions_count30_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub credit_transactions_count60_d: Option<i64>,
     #[serde(rename = "credit_transactions_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub credit_transactions_count90_d: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub current_balance: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub days_since_first_plaid_connection: Option<i64>,
     #[serde(rename = "days_with_negative_balance_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub days_with_negative_balance_count90_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_10d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub debit_transactions_count10_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub debit_transactions_count30_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub debit_transactions_count60_d: Option<i64>,
     #[serde(rename = "debit_transactions_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub debit_transactions_count90_d: Option<i64>,
     #[serde(rename = "email_change_count_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub email_change_count28_d: Option<i64>,
     #[serde(rename = "email_change_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub email_change_count90_d: Option<i64>,
     #[serde(rename = "failed_plaid_non_oauth_authentication_attempts_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failed_plaid_non_oauth_authentication_attempts_count30_d: Option<i64>,
     #[serde(rename = "failed_plaid_non_oauth_authentication_attempts_count_3d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failed_plaid_non_oauth_authentication_attempts_count3_d: Option<i64>,
     #[serde(rename = "failed_plaid_non_oauth_authentication_attempts_count_7d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub failed_plaid_non_oauth_authentication_attempts_count7_d: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub is_savings_or_money_market_account: Option<bool>,
     #[serde(rename = "nsf_overdraft_transactions_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nsf_overdraft_transactions_count30_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nsf_overdraft_transactions_count60_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_7d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nsf_overdraft_transactions_count7_d: Option<i64>,
     #[serde(rename = "nsf_overdraft_transactions_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub nsf_overdraft_transactions_count90_d: Option<i64>,
     #[serde(rename = "p10_eod_balance_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p10_eod_balance30_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_31d_to_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p10_eod_balance31_d_to60_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p10_eod_balance60_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_61d_to_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p10_eod_balance61_d_to90_d: Option<f64>,
     #[serde(rename = "p10_eod_balance_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p10_eod_balance90_d: Option<f64>,
     #[serde(rename = "p50_credit_transactions_amount_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_credit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "p50_debit_transactions_amount_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_debit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_eod_balance30_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_31d_to_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_eod_balance31_d_to60_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_eod_balance60_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_61d_to_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_eod_balance61_d_to90_d: Option<f64>,
     #[serde(rename = "p50_eod_balance_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p50_eod_balance90_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p90_eod_balance30_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_31d_to_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p90_eod_balance31_d_to60_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p90_eod_balance60_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_61d_to_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p90_eod_balance61_d_to90_d: Option<f64>,
     #[serde(rename = "p90_eod_balance_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p90_eod_balance90_d: Option<f64>,
     #[serde(rename = "p95_credit_transactions_amount_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p95_credit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "p95_debit_transactions_amount_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub p95_debit_transactions_amount28_d: Option<f64>,
     #[serde(rename = "phone_change_count_28d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub phone_change_count28_d: Option<i64>,
     #[serde(rename = "phone_change_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub phone_change_count90_d: Option<i64>,
     #[serde(rename = "plaid_connections_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub plaid_connections_count30_d: Option<i64>,
     #[serde(rename = "plaid_connections_count_7d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub plaid_connections_count7_d: Option<i64>,
     #[serde(rename = "plaid_non_oauth_authentication_attempts_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub plaid_non_oauth_authentication_attempts_count30_d: Option<i64>,
     #[serde(rename = "plaid_non_oauth_authentication_attempts_count_3d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub plaid_non_oauth_authentication_attempts_count3_d: Option<i64>,
     #[serde(rename = "plaid_non_oauth_authentication_attempts_count_7d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub plaid_non_oauth_authentication_attempts_count7_d: Option<i64>,
     #[serde(rename = "total_credit_transactions_amount_10d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_credit_transactions_amount10_d: Option<f64>,
     #[serde(rename = "total_credit_transactions_amount_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_credit_transactions_amount30_d: Option<f64>,
     #[serde(rename = "total_credit_transactions_amount_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_credit_transactions_amount60_d: Option<f64>,
     #[serde(rename = "total_credit_transactions_amount_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_credit_transactions_amount90_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_10d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_debit_transactions_amount10_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_debit_transactions_amount30_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_debit_transactions_amount60_d: Option<f64>,
     #[serde(rename = "total_debit_transactions_amount_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_debit_transactions_amount90_d: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_plaid_connections_count: Option<i64>,
-    pub transactions_last_updated: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub transactions_last_updated: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(rename = "unauthorized_transactions_count_30d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub unauthorized_transactions_count30_d: Option<i64>,
     #[serde(rename = "unauthorized_transactions_count_60d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub unauthorized_transactions_count60_d: Option<i64>,
     #[serde(rename = "unauthorized_transactions_count_7d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub unauthorized_transactions_count7_d: Option<i64>,
     #[serde(rename = "unauthorized_transactions_count_90d")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub unauthorized_transactions_count90_d: Option<i64>,
 }
 impl std::fmt::Display for SignalEvaluateCoreAttributes {

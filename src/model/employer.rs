@@ -3,6 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::AddressData;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Employer {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<AddressData>,
     pub confidence_score: f64,
     pub employer_id: String,

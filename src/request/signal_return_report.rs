@@ -9,7 +9,7 @@ pub struct SignalReturnReportRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub client_transaction_id: String,
     pub return_code: String,
-    pub returned_at: Option<String>,
+    pub returned_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 impl<'a> SignalReturnReportRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<SignalReturnReportResponse> {
@@ -23,8 +23,8 @@ impl<'a> SignalReturnReportRequest<'a> {
         let res = r.send_awaiting_body().await?;
         res.json()
     }
-    pub fn returned_at(mut self, returned_at: &str) -> Self {
-        self.returned_at = Some(returned_at.to_owned());
+    pub fn returned_at(mut self, returned_at: chrono::DateTime<chrono::Utc>) -> Self {
+        self.returned_at = Some(returned_at);
         self
     }
 }

@@ -4,6 +4,7 @@ use serde::{Serialize, Deserialize};
 pub struct ProductStatusBreakdown {
     pub error_institution: f64,
     pub error_plaid: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub refresh_interval: Option<String>,
     pub success: f64,
 }

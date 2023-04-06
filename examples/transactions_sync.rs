@@ -7,8 +7,8 @@ async fn main() {
     let access_token = "your access token";
     let response = client
         .transactions_sync(access_token)
-        .cursor("your cursor")
         .count(1)
+        .cursor("your cursor")
         .options(TransactionsSyncRequestOptions {
             include_logo_and_counterparty_beta: Some(true),
             include_original_description: Some(true),

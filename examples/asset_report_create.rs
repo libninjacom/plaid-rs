@@ -4,11 +4,12 @@ use plaid::model::*;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let access_tokens = &["your access tokens"];
     let days_requested = 1;
     let response = client
-        .asset_report_create(access_tokens, days_requested)
+        .asset_report_create(days_requested)
+        .access_tokens(&["your access tokens"])
         .options(AssetReportCreateRequestOptions {
+            add_ons: Some(vec!["your add ons".to_owned()]),
             client_report_id: Some("your client report id".to_owned()),
             include_fast_report: Some(true),
             products: Some(vec!["your products".to_owned()]),
@@ -24,6 +25,7 @@ async fn main() {
             webhook: Some("your webhook".to_owned()),
         })
         .report_type("your report type")
+        .user_token("your user token")
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -17,8 +17,8 @@ async fn main() {
                 1.0 }, interval : "your interval".to_owned() }
             ],
             valid_date_time: Some(PaymentConsentValidDateTime {
-                from: Some("your from".to_owned()),
-                to: Some("your to".to_owned()),
+                from: Some(chrono::Utc::now()),
+                to: Some(chrono::Utc::now()),
             }),
         },
         recipient_id: "your recipient id",
@@ -34,7 +34,6 @@ async fn main() {
             }),
             iban: Some("your iban".to_owned()),
             request_refund_details: Some(true),
-            wallet_id: Some("your wallet id".to_owned()),
         })
         .await
         .unwrap();

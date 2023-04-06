@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsEnrichRequestOptions {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub include_legacy_category: Option<bool>,
 }
 impl std::fmt::Display for TransactionsEnrichRequestOptions {

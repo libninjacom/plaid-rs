@@ -3,6 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::{Credit1099, CreditPayStub, CreditW2};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayrollIncomeObject {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[serde(rename = "form1099s")]
     pub form1099_s: Vec<Credit1099>,

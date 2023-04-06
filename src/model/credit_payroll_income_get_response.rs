@@ -3,6 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::{PayrollItem, PlaidError};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditPayrollIncomeGetResponse {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<PlaidError>,
     pub items: Vec<PayrollItem>,
     pub request_id: String,

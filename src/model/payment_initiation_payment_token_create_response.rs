@@ -1,9 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentTokenCreateResponse {
     pub payment_token: String,
-    pub payment_token_expiration_time: String,
+    pub payment_token_expiration_time: chrono::DateTime<chrono::Utc>,
     pub request_id: String,
 }
 impl std::fmt::Display for PaymentInitiationPaymentTokenCreateResponse {

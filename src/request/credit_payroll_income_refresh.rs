@@ -7,22 +7,24 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct CreditPayrollIncomeRefreshRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub user_token: Option<String>,
+    pub options: Option<CreditPayrollIncomeRefreshRequestOptions>,
+    pub user_token: String,
 }
 impl<'a> CreditPayrollIncomeRefreshRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<CreditPayrollIncomeRefreshResponse> {
         let mut r = self.http_client.client.post("/credit/payroll_income/refresh");
-        if let Some(ref unwrapped) = self.user_token {
-            r = r.json(json!({ "user_token" : unwrapped }));
+        if let Some(ref unwrapped) = self.options {
+            r = r.json(json!({ "options" : unwrapped }));
         }
+        r = r.json(json!({ "user_token" : self.user_token }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
     }
-    pub fn user_token(mut self, user_token: &str) -> Self {
-        self.user_token = Some(user_token.to_owned());
+    pub fn options(mut self, options: CreditPayrollIncomeRefreshRequestOptions) -> Self {
+        self.options = Some(options);
         self
     }
 }

@@ -7,10 +7,10 @@ async fn main() {
     let webhook = "your webhook";
     let response = client
         .income_verification_create(webhook)
-        .precheck_id("your precheck id")
         .options(IncomeVerificationCreateRequestOptions {
             access_tokens: Some(vec!["your access tokens".to_owned()]),
         })
+        .precheck_id("your precheck id")
         .await
         .unwrap();
     println!("{:#?}", response);

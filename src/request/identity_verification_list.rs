@@ -7,20 +7,20 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct IdentityVerificationListRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub template_id: String,
     pub client_user_id: String,
     pub cursor: Option<String>,
+    pub template_id: String,
 }
 impl<'a> IdentityVerificationListRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<IdentityVerificationListResponse> {
         let mut r = self.http_client.client.post("/identity_verification/list");
-        r = r.json(json!({ "template_id" : self.template_id }));
         r = r.json(json!({ "client_user_id" : self.client_user_id }));
         if let Some(ref unwrapped) = self.cursor {
             r = r.json(json!({ "cursor" : unwrapped }));
         }
+        r = r.json(json!({ "template_id" : self.template_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

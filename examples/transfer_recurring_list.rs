@@ -6,10 +6,11 @@ async fn main() {
     let client = PlaidClient::from_env();
     let response = client
         .transfer_recurring_list()
-        .start_time("your start time")
-        .end_time("your end time")
         .count(1)
+        .end_time(chrono::Utc::now())
+        .funding_account_id("your funding account id")
         .offset(1)
+        .start_time(chrono::Utc::now())
         .await
         .unwrap();
     println!("{:#?}", response);

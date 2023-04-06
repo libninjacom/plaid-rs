@@ -8,7 +8,7 @@ async fn main() {
     let response = client
         .processor_balance_get(processor_token)
         .options(ProcessorBalanceGetRequestOptions {
-            min_last_updated_datetime: Some("your min last updated datetime".to_owned()),
+            min_last_updated_datetime: Some(chrono::Utc::now()),
         })
         .await
         .unwrap();

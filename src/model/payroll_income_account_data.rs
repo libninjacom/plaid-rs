@@ -3,7 +3,9 @@ use serde::{Serialize, Deserialize};
 use super::PayrollIncomeRateOfPay;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PayrollIncomeAccountData {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub pay_frequency: Option<String>,
     pub rate_of_pay: PayrollIncomeRateOfPay,
 }

@@ -7,8 +7,8 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct WatchlistScreeningEntityHistoryListRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub entity_watchlist_screening_id: String,
     pub cursor: Option<String>,
+    pub entity_watchlist_screening_id: String,
 }
 impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
     pub async fn send(
@@ -18,6 +18,9 @@ impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
             .http_client
             .client
             .post("/watchlist_screening/entity/history/list");
+        if let Some(ref unwrapped) = self.cursor {
+            r = r.json(json!({ "cursor" : unwrapped }));
+        }
         r = r
             .json(
                 json!(
@@ -25,9 +28,6 @@ impl<'a> WatchlistScreeningEntityHistoryListRequest<'a> {
                     .entity_watchlist_screening_id }
                 ),
             );
-        if let Some(ref unwrapped) = self.cursor {
-            r = r.json(json!({ "cursor" : unwrapped }));
-        }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

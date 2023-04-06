@@ -8,9 +8,9 @@ That method takes required values as arguments. Set optional values using builde
 pub struct InvestmentsTransactionsGetRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: String,
-    pub start_date: String,
-    pub end_date: String,
+    pub end_date: chrono::NaiveDate,
     pub options: Option<InvestmentsTransactionsGetRequestOptions>,
+    pub start_date: chrono::NaiveDate,
 }
 impl<'a> InvestmentsTransactionsGetRequest<'a> {
     pub async fn send(
@@ -18,11 +18,11 @@ impl<'a> InvestmentsTransactionsGetRequest<'a> {
     ) -> ::httpclient::InMemoryResult<InvestmentsTransactionsGetResponse> {
         let mut r = self.http_client.client.post("/investments/transactions/get");
         r = r.json(json!({ "access_token" : self.access_token }));
-        r = r.json(json!({ "start_date" : self.start_date }));
         r = r.json(json!({ "end_date" : self.end_date }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
+        r = r.json(json!({ "start_date" : self.start_date }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

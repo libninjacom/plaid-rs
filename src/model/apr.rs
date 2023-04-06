@@ -4,7 +4,9 @@ use serde::{Serialize, Deserialize};
 pub struct Apr {
     pub apr_percentage: f64,
     pub apr_type: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub balance_subject_to_apr: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub interest_charge_amount: Option<f64>,
 }
 impl std::fmt::Display for Apr {

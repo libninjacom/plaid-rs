@@ -8,16 +8,16 @@ That method takes required values as arguments. Set optional values using builde
 pub struct InstitutionsGetRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub count: i64,
-    pub offset: i64,
     pub country_codes: Vec<String>,
+    pub offset: i64,
     pub options: Option<InstitutionsGetRequestOptions>,
 }
 impl<'a> InstitutionsGetRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<InstitutionsGetResponse> {
         let mut r = self.http_client.client.post("/institutions/get");
         r = r.json(json!({ "count" : self.count }));
-        r = r.json(json!({ "offset" : self.offset }));
         r = r.json(json!({ "country_codes" : self.country_codes }));
+        r = r.json(json!({ "offset" : self.offset }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }

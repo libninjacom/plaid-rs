@@ -7,33 +7,33 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct WalletTransactionExecuteRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub idempotency_key: String,
-    pub wallet_id: String,
-    pub counterparty: WalletTransactionCounterparty,
     pub amount: WalletTransactionAmount,
+    pub counterparty: WalletTransactionCounterparty,
+    pub idempotency_key: String,
     pub reference: String,
+    pub wallet_id: String,
 }
 impl<'a> WalletTransactionExecuteRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<WalletTransactionExecuteResponse> {
         let mut r = self.http_client.client.post("/wallet/transaction/execute");
-        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
-        r = r.json(json!({ "wallet_id" : self.wallet_id }));
-        r = r.json(json!({ "counterparty" : self.counterparty }));
         r = r.json(json!({ "amount" : self.amount }));
+        r = r.json(json!({ "counterparty" : self.counterparty }));
+        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
         r = r.json(json!({ "reference" : self.reference }));
+        r = r.json(json!({ "wallet_id" : self.wallet_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
     }
 }
 pub struct WalletTransactionExecuteRequired<'a> {
-    pub idempotency_key: &'a str,
-    pub wallet_id: &'a str,
-    pub counterparty: WalletTransactionCounterparty,
     pub amount: WalletTransactionAmount,
+    pub counterparty: WalletTransactionCounterparty,
+    pub idempotency_key: &'a str,
     pub reference: &'a str,
+    pub wallet_id: &'a str,
 }
 impl<'a> WalletTransactionExecuteRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for WalletTransactionExecuteRequest<'a> {

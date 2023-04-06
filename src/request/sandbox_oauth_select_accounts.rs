@@ -7,16 +7,16 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct SandboxOauthSelectAccountsRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub oauth_state_id: String,
     pub accounts: Vec<String>,
+    pub oauth_state_id: String,
 }
 impl<'a> SandboxOauthSelectAccountsRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<SandboxOauthSelectAccountsResponse> {
         let mut r = self.http_client.client.post("/sandbox/oauth/select_accounts");
-        r = r.json(json!({ "oauth_state_id" : self.oauth_state_id }));
         r = r.json(json!({ "accounts" : self.accounts }));
+        r = r.json(json!({ "oauth_state_id" : self.oauth_state_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

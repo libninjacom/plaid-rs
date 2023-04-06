@@ -2,8 +2,11 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WatchlistScreeningSearchTerms {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
-    pub date_of_birth: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub date_of_birth: Option<chrono::NaiveDate>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub document_number: Option<String>,
     pub legal_name: String,
     pub version: f64,

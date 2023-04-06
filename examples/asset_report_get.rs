@@ -7,8 +7,8 @@ async fn main() {
     let asset_report_token = "your asset report token";
     let response = client
         .asset_report_get(asset_report_token)
-        .include_insights(true)
         .fast_report(true)
+        .include_insights(true)
         .options(AssetReportGetRequestOptions {
             days_to_include: Some(1),
         })

@@ -8,9 +8,9 @@ That method takes required values as arguments. Set optional values using builde
 pub struct IdentityVerificationRetryRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub client_user_id: String,
-    pub template_id: String,
-    pub strategy: String,
     pub steps: Option<IdentityVerificationRetryRequestStepsObject>,
+    pub strategy: String,
+    pub template_id: String,
 }
 impl<'a> IdentityVerificationRetryRequest<'a> {
     pub async fn send(
@@ -18,11 +18,11 @@ impl<'a> IdentityVerificationRetryRequest<'a> {
     ) -> ::httpclient::InMemoryResult<IdentityVerificationRetryResponse> {
         let mut r = self.http_client.client.post("/identity_verification/retry");
         r = r.json(json!({ "client_user_id" : self.client_user_id }));
-        r = r.json(json!({ "template_id" : self.template_id }));
-        r = r.json(json!({ "strategy" : self.strategy }));
         if let Some(ref unwrapped) = self.steps {
             r = r.json(json!({ "steps" : unwrapped }));
         }
+        r = r.json(json!({ "strategy" : self.strategy }));
+        r = r.json(json!({ "template_id" : self.template_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

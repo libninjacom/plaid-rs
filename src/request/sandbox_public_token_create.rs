@@ -7,8 +7,8 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct SandboxPublicTokenCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub institution_id: String,
     pub initial_products: Vec<String>,
+    pub institution_id: String,
     pub options: Option<SandboxPublicTokenCreateRequestOptions>,
     pub user_token: Option<String>,
 }
@@ -17,8 +17,8 @@ impl<'a> SandboxPublicTokenCreateRequest<'a> {
         self,
     ) -> ::httpclient::InMemoryResult<SandboxPublicTokenCreateResponse> {
         let mut r = self.http_client.client.post("/sandbox/public_token/create");
-        r = r.json(json!({ "institution_id" : self.institution_id }));
         r = r.json(json!({ "initial_products" : self.initial_products }));
+        r = r.json(json!({ "institution_id" : self.institution_id }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }

@@ -58,6 +58,9 @@ pub mod watchlist_screening_individual_review_create;
 pub mod watchlist_screening_individual_review_list;
 pub mod watchlist_screening_individual_update;
 pub mod processor_auth_get;
+pub mod processor_signal_evaluate;
+pub mod processor_signal_decision_report;
+pub mod processor_signal_return_report;
 pub mod processor_bank_transfer_create;
 pub mod processor_identity_get;
 pub mod processor_balance_get;
@@ -100,6 +103,8 @@ pub mod transfer_recurring_get;
 pub mod bank_transfer_get;
 pub mod transfer_authorization_create;
 pub mod transfer_capabilities_get;
+pub mod transfer_configuration_get;
+pub mod transfer_metrics_get;
 pub mod transfer_create;
 pub mod transfer_recurring_create;
 pub mod bank_transfer_create;
@@ -153,6 +158,7 @@ pub mod credit_audit_copy_token_create;
 pub mod credit_report_audit_copy_remove;
 pub mod credit_asset_report_freddie_mac_get;
 pub mod credit_freddie_mac_reports_get;
+pub mod credit_bank_employment_get;
 pub mod credit_bank_income_get;
 pub mod credit_bank_income_pdf_get;
 pub mod credit_bank_income_refresh;
@@ -177,7 +183,6 @@ pub mod wallet_list;
 pub mod wallet_transaction_execute;
 pub mod wallet_transaction_get;
 pub mod wallet_transaction_list;
-pub mod wallet_transactions_list;
 pub mod transactions_enhance;
 pub mod transactions_rules_create;
 pub mod transactions_rules_list;
@@ -257,6 +262,9 @@ pub use watchlist_screening_individual_review_create::WatchlistScreeningIndividu
 pub use watchlist_screening_individual_review_list::WatchlistScreeningIndividualReviewListRequest;
 pub use watchlist_screening_individual_update::WatchlistScreeningIndividualUpdateRequest;
 pub use processor_auth_get::ProcessorAuthGetRequest;
+pub use processor_signal_evaluate::ProcessorSignalEvaluateRequest;
+pub use processor_signal_decision_report::ProcessorSignalDecisionReportRequest;
+pub use processor_signal_return_report::ProcessorSignalReturnReportRequest;
 pub use processor_bank_transfer_create::{
     ProcessorBankTransferCreateRequest, ProcessorBankTransferCreateRequired,
 };
@@ -305,6 +313,8 @@ pub use transfer_authorization_create::{
     TransferAuthorizationCreateRequest, TransferAuthorizationCreateRequired,
 };
 pub use transfer_capabilities_get::TransferCapabilitiesGetRequest;
+pub use transfer_configuration_get::TransferConfigurationGetRequest;
+pub use transfer_metrics_get::TransferMetricsGetRequest;
 pub use transfer_create::TransferCreateRequest;
 pub use transfer_recurring_create::{
     TransferRecurringCreateRequest, TransferRecurringCreateRequired,
@@ -362,6 +372,7 @@ pub use credit_audit_copy_token_create::CreditAuditCopyTokenCreateRequest;
 pub use credit_report_audit_copy_remove::CreditReportAuditCopyRemoveRequest;
 pub use credit_asset_report_freddie_mac_get::CreditAssetReportFreddieMacGetRequest;
 pub use credit_freddie_mac_reports_get::CreditFreddieMacReportsGetRequest;
+pub use credit_bank_employment_get::CreditBankEmploymentGetRequest;
 pub use credit_bank_income_get::CreditBankIncomeGetRequest;
 pub use credit_bank_income_pdf_get::CreditBankIncomePdfGetRequest;
 pub use credit_bank_income_refresh::CreditBankIncomeRefreshRequest;
@@ -388,7 +399,6 @@ pub use wallet_transaction_execute::{
 };
 pub use wallet_transaction_get::WalletTransactionGetRequest;
 pub use wallet_transaction_list::WalletTransactionListRequest;
-pub use wallet_transactions_list::WalletTransactionsListRequest;
 pub use transactions_enhance::TransactionsEnhanceRequest;
 pub use transactions_rules_create::TransactionsRulesCreateRequest;
 pub use transactions_rules_list::TransactionsRulesListRequest;

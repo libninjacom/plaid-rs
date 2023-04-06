@@ -8,6 +8,7 @@ use super::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditPayStub {
     pub deductions: CreditPayStubDeductions,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub document_id: Option<String>,
     pub document_metadata: CreditDocumentMetadata,
     pub earnings: CreditPayStubEarnings,

@@ -6,18 +6,6 @@ async fn main() {
     let client = PlaidClient::from_env();
     let response = client
         .income_verification_precheck()
-        .user(IncomeVerificationPrecheckUser {
-            email_address: Some("your email address".to_owned()),
-            first_name: Some("your first name".to_owned()),
-            home_address: Some(SignalAddressData {
-                city: Some("your city".to_owned()),
-                country: Some("your country".to_owned()),
-                postal_code: Some("your postal code".to_owned()),
-                region: Some("your region".to_owned()),
-                street: Some("your street".to_owned()),
-            }),
-            last_name: Some("your last name".to_owned()),
-        })
         .employer(IncomeVerificationPrecheckEmployer {
             address: Some(IncomeVerificationPrecheckEmployerAddress {
             }),
@@ -33,6 +21,18 @@ async fn main() {
         .us_military_info(IncomeVerificationPrecheckMilitaryInfo {
             branch: Some("your branch".to_owned()),
             is_active_duty: Some(true),
+        })
+        .user(IncomeVerificationPrecheckUser {
+            email_address: Some("your email address".to_owned()),
+            first_name: Some("your first name".to_owned()),
+            home_address: Some(SignalAddressData {
+                city: Some("your city".to_owned()),
+                country: Some("your country".to_owned()),
+                postal_code: Some("your postal code".to_owned()),
+                region: Some("your region".to_owned()),
+                street: Some("your street".to_owned()),
+            }),
+            last_name: Some("your last name".to_owned()),
         })
         .await
         .unwrap();

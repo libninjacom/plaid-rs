@@ -8,8 +8,8 @@ That method takes required values as arguments. Set optional values using builde
 pub struct PartnerCustomerEnableRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub client_id: Option<String>,
-    pub secret: Option<String>,
     pub end_customer_client_id: String,
+    pub secret: Option<String>,
 }
 impl<'a> PartnerCustomerEnableRequest<'a> {
     pub async fn send(
@@ -19,10 +19,10 @@ impl<'a> PartnerCustomerEnableRequest<'a> {
         if let Some(ref unwrapped) = self.client_id {
             r = r.json(json!({ "client_id" : unwrapped }));
         }
+        r = r.json(json!({ "end_customer_client_id" : self.end_customer_client_id }));
         if let Some(ref unwrapped) = self.secret {
             r = r.json(json!({ "secret" : unwrapped }));
         }
-        r = r.json(json!({ "end_customer_client_id" : self.end_customer_client_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

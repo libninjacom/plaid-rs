@@ -8,7 +8,8 @@ pub struct CreditFreddieMacReportsGetResponse {
     #[serde(rename = "VOA")]
     pub voa: CreditFreddieMacVerificationOfAssetsVoa24,
     #[serde(rename = "VOE")]
-    pub voe: CreditFreddieVerificationOfEmploymentVoe25,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub voe: Option<CreditFreddieVerificationOfEmploymentVoe25>,
     pub request_id: String,
 }
 impl std::fmt::Display for CreditFreddieMacReportsGetResponse {

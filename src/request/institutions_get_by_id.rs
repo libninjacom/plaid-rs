@@ -7,8 +7,8 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct InstitutionsGetByIdRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub institution_id: String,
     pub country_codes: Vec<String>,
+    pub institution_id: String,
     pub options: Option<InstitutionsGetByIdRequestOptions>,
 }
 impl<'a> InstitutionsGetByIdRequest<'a> {
@@ -16,8 +16,8 @@ impl<'a> InstitutionsGetByIdRequest<'a> {
         self,
     ) -> ::httpclient::InMemoryResult<InstitutionsGetByIdResponse> {
         let mut r = self.http_client.client.post("/institutions/get_by_id");
-        r = r.json(json!({ "institution_id" : self.institution_id }));
         r = r.json(json!({ "country_codes" : self.country_codes }));
+        r = r.json(json!({ "institution_id" : self.institution_id }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }

@@ -8,10 +8,10 @@ async fn main() {
     let initiated = true;
     let response = client
         .signal_decision_report(client_transaction_id, initiated)
+        .amount_instantly_available(1.0)
         .days_funds_on_hold(1)
         .decision_outcome("your decision outcome")
         .payment_method("your payment method")
-        .amount_instantly_available(1.0)
         .await
         .unwrap();
     println!("{:#?}", response);

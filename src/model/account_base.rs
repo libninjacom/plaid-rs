@@ -5,12 +5,18 @@ use super::{AccountBalance, AccountSubtype};
 pub struct AccountBase {
     pub account_id: String,
     pub balances: AccountBalance,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub mask: Option<String>,
     pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub official_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persistent_account_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub subtype: Option<AccountSubtype>,
     #[serde(rename = "type")]
     pub type_: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub verification_status: Option<String>,
 }
 impl std::fmt::Display for AccountBase {

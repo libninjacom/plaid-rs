@@ -7,11 +7,11 @@ async fn main() {
     let wallet_id = "your wallet id";
     let response = client
         .wallet_transaction_list(wallet_id)
-        .cursor("your cursor")
         .count(1)
+        .cursor("your cursor")
         .options(WalletTransactionListRequestOptions {
-            end_time: Some("your end time".to_owned()),
-            start_time: Some("your start time".to_owned()),
+            end_time: Some(chrono::Utc::now()),
+            start_time: Some(chrono::Utc::now()),
         })
         .await
         .unwrap();

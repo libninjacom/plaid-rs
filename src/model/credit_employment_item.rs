@@ -3,6 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::CreditEmploymentVerification;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditEmploymentItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub employment_report_token: Option<String>,
     pub employments: Vec<CreditEmploymentVerification>,
     pub item_id: String,

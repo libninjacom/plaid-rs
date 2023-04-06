@@ -1,8 +1,8 @@
 
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkTokenCreateResponse {
-    pub expiration: String,
+    pub expiration: chrono::DateTime<chrono::Utc>,
     pub link_token: String,
     pub request_id: String,
 }

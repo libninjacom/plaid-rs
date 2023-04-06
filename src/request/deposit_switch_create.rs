@@ -7,24 +7,24 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct DepositSwitchCreateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub target_access_token: String,
-    pub target_account_id: String,
     pub country_code: Option<String>,
     pub options: Option<DepositSwitchCreateRequestOptions>,
+    pub target_access_token: String,
+    pub target_account_id: String,
 }
 impl<'a> DepositSwitchCreateRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<DepositSwitchCreateResponse> {
         let mut r = self.http_client.client.post("/deposit_switch/create");
-        r = r.json(json!({ "target_access_token" : self.target_access_token }));
-        r = r.json(json!({ "target_account_id" : self.target_account_id }));
         if let Some(ref unwrapped) = self.country_code {
             r = r.json(json!({ "country_code" : unwrapped }));
         }
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
+        r = r.json(json!({ "target_access_token" : self.target_access_token }));
+        r = r.json(json!({ "target_account_id" : self.target_account_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

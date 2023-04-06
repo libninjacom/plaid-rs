@@ -4,6 +4,7 @@ use super::CreditSession;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditSessionsGetResponse {
     pub request_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sessions: Option<Vec<CreditSession>>,
 }
 impl std::fmt::Display for CreditSessionsGetResponse {

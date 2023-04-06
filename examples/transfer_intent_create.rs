@@ -26,9 +26,11 @@ async fn main() {
         .transfer_intent_create(args)
         .account_id("your account id")
         .ach_class("your ach class")
-        .origination_account_id("your origination account id")
-        .metadata(TransferMetadata {})
+        .funding_account_id("your funding account id")
         .iso_currency_code("your iso currency code")
+        .metadata(TransferMetadata {})
+        .network("your network")
+        .origination_account_id("your origination account id")
         .require_guarantee(true)
         .await
         .unwrap();

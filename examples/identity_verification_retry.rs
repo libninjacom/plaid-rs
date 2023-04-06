@@ -5,10 +5,10 @@ use plaid::model::*;
 async fn main() {
     let client = PlaidClient::from_env();
     let client_user_id = "your client user id";
-    let template_id = "your template id";
     let strategy = "your strategy";
+    let template_id = "your template id";
     let response = client
-        .identity_verification_retry(client_user_id, template_id, strategy)
+        .identity_verification_retry(client_user_id, strategy, template_id)
         .steps(IdentityVerificationRetryRequestStepsObject {
             documentary_verification: true,
             kyc_check: true,

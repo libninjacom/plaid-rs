@@ -3,3 +3,4 @@ Cargo.lock
 
 .env*
 !.env.example
+openapi.yaml

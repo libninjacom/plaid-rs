@@ -6,9 +6,9 @@ async fn main() {
     let client = PlaidClient::from_env();
     let response = client
         .payment_initiation_payment_list()
-        .count(1)
-        .cursor("your cursor")
         .consent_id("your consent id")
+        .count(1)
+        .cursor(chrono::Utc::now())
         .await
         .unwrap();
     println!("{:#?}", response);

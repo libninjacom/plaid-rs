@@ -1,7 +1,7 @@
 [package]
 name = "plaid"
 edition = "2021"
-version = "5.0.0"
+version = "0.1.0"
 description = "Plaid client, generated from the OpenAPI spec."
 homepage = "https://github.com/libninjacom/plaid-rs"
 documentation = "https://docs.rs/plaid"
@@ -14,12 +14,21 @@ members = []
 
 [dependencies]
 futures = "0.3.25"
-httpclient = "0.13.0"
 serde_json = "1.0.81"
+
+[dependencies.chrono]
+version = "0.4.23"
+features = ["serde"]
+
+[dependencies.httpclient]
+version = "0.15.0"
+features = []
+default-features = false
 
 [dependencies.serde]
 version = "1.0.137"
 features = ["derive"]
+
 [dev-dependencies.tokio]
 version = "1.18.2"
 features = ["full"]
@@ -197,6 +206,12 @@ required-features = []
 [[example]]
 path = "examples/credit_audit_copy_token_update.rs"
 name = "credit_audit_copy_token_update"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/credit_bank_employment_get.rs"
+name = "credit_bank_employment_get"
 edition = "2021"
 required-features = []
 
@@ -675,6 +690,24 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/processor_signal_decision_report.rs"
+name = "processor_signal_decision_report"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_signal_evaluate.rs"
+name = "processor_signal_evaluate"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/processor_signal_return_report.rs"
+name = "processor_signal_return_report"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/processor_stripe_bank_account_token_create.rs"
 name = "processor_stripe_bank_account_token_create"
 edition = "2021"
@@ -891,6 +924,12 @@ edition = "2021"
 required-features = []
 
 [[example]]
+path = "examples/transfer_configuration_get.rs"
+name = "transfer_configuration_get"
+edition = "2021"
+required-features = []
+
+[[example]]
 path = "examples/transfer_create.rs"
 name = "transfer_create"
 edition = "2021"
@@ -929,6 +968,12 @@ required-features = []
 [[example]]
 path = "examples/transfer_list.rs"
 name = "transfer_list"
+edition = "2021"
+required-features = []
+
+[[example]]
+path = "examples/transfer_metrics_get.rs"
+name = "transfer_metrics_get"
 edition = "2021"
 required-features = []
 

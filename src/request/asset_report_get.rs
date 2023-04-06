@@ -8,19 +8,19 @@ That method takes required values as arguments. Set optional values using builde
 pub struct AssetReportGetRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub asset_report_token: String,
-    pub include_insights: Option<bool>,
     pub fast_report: Option<bool>,
+    pub include_insights: Option<bool>,
     pub options: Option<AssetReportGetRequestOptions>,
 }
 impl<'a> AssetReportGetRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<AssetReportGetResponse> {
         let mut r = self.http_client.client.post("/asset_report/get");
         r = r.json(json!({ "asset_report_token" : self.asset_report_token }));
-        if let Some(ref unwrapped) = self.include_insights {
-            r = r.json(json!({ "include_insights" : unwrapped }));
-        }
         if let Some(ref unwrapped) = self.fast_report {
             r = r.json(json!({ "fast_report" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.include_insights {
+            r = r.json(json!({ "include_insights" : unwrapped }));
         }
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
@@ -29,12 +29,12 @@ impl<'a> AssetReportGetRequest<'a> {
         let res = r.send_awaiting_body().await?;
         res.json()
     }
-    pub fn include_insights(mut self, include_insights: bool) -> Self {
-        self.include_insights = Some(include_insights);
-        self
-    }
     pub fn fast_report(mut self, fast_report: bool) -> Self {
         self.fast_report = Some(fast_report);
+        self
+    }
+    pub fn include_insights(mut self, include_insights: bool) -> Self {
+        self.include_insights = Some(include_insights);
         self
     }
     pub fn options(mut self, options: AssetReportGetRequestOptions) -> Self {

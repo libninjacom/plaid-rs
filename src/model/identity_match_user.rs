@@ -3,9 +3,13 @@ use serde::{Serialize, Deserialize};
 use super::AddressData;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IdentityMatchUser {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<AddressData>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub email_address: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub legal_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
 }
 impl std::fmt::Display for IdentityMatchUser {

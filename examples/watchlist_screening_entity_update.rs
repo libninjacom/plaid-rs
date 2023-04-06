@@ -7,6 +7,9 @@ async fn main() {
     let entity_watchlist_screening_id = "your entity watchlist screening id";
     let response = client
         .watchlist_screening_entity_update(entity_watchlist_screening_id)
+        .assignee("your assignee")
+        .client_user_id("your client user id")
+        .reset_fields(&["your reset fields"])
         .search_terms(UpdateEntityScreeningRequestSearchTerms {
             country: Some("your country".to_owned()),
             document_number: Some("your document number".to_owned()),
@@ -16,10 +19,7 @@ async fn main() {
             phone_number: Some("your phone number".to_owned()),
             url: Some("your url".to_owned()),
         })
-        .assignee("your assignee")
         .status("your status")
-        .client_user_id("your client user id")
-        .reset_fields(&["your reset fields"])
         .await
         .unwrap();
     println!("{:#?}", response);

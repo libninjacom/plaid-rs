@@ -9,7 +9,7 @@ async fn main() {
         .accounts_balance_get(access_token)
         .options(AccountsBalanceGetRequestOptions {
             account_ids: Some(vec!["your account ids".to_owned()]),
-            min_last_updated_datetime: Some("your min last updated datetime".to_owned()),
+            min_last_updated_datetime: Some(chrono::Utc::now()),
         })
         .await
         .unwrap();

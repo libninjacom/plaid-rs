@@ -5,7 +5,7 @@ use super::{Address, PslfStatus, StudentLoanRepaymentModel, StudentLoanStatus};
 pub struct LiabilityOverride {
     pub balance_transfer_apr: f64,
     pub cash_apr: f64,
-    pub expected_payoff_date: String,
+    pub expected_payoff_date: chrono::NaiveDate,
     pub guarantor: String,
     pub interest_capitalization_grace_period_months: f64,
     pub is_federal: bool,
@@ -15,7 +15,7 @@ pub struct LiabilityOverride {
     pub loan_status: StudentLoanStatus,
     pub minimum_payment_amount: f64,
     pub nominal_apr: f64,
-    pub origination_date: String,
+    pub origination_date: chrono::NaiveDate,
     pub payment_reference_number: String,
     pub principal: f64,
     pub pslf_status: PslfStatus,

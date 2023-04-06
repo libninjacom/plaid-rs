@@ -5,7 +5,9 @@ use super::{
 };
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct WalletTransactionCounterpartyNumbers {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub bacs: Option<WalletTransactionCounterpartyBacs>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub international: Option<WalletTransactionCounterpartyInternational>,
 }
 impl std::fmt::Display for WalletTransactionCounterpartyNumbers {

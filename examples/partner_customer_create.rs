@@ -23,29 +23,30 @@ async fn main() {
     };
     let response = client
         .partner_customer_create(args)
-        .client_id("your client id")
-        .secret("your secret")
-        .create_link_customization(true)
-        .logo("your logo")
-        .technical_contact(PartnerEndCustomerTechnicalContact {
-            email: Some("your email".to_owned()),
-            family_name: Some("your family name".to_owned()),
-            given_name: Some("your given name".to_owned()),
+        .assets_under_management(PartnerEndCustomerAssetsUnderManagement {
+            amount: 1.0,
+            iso_currency_code: "your iso currency code".to_owned(),
         })
         .billing_contact(PartnerEndCustomerBillingContact {
             email: Some("your email".to_owned()),
             family_name: Some("your family name".to_owned()),
             given_name: Some("your given name".to_owned()),
         })
+        .client_id("your client id")
+        .create_link_customization(true)
         .customer_support_info(PartnerEndCustomerCustomerSupportInfo {
             contact_url: Some("your contact url".to_owned()),
             email: Some("your email".to_owned()),
             link_update_url: Some("your link update url".to_owned()),
             phone_number: Some("your phone number".to_owned()),
         })
-        .assets_under_management(PartnerEndCustomerAssetsUnderManagement {
-            amount: 1.0,
-            iso_currency_code: "your iso currency code".to_owned(),
+        .logo("your logo")
+        .redirect_uris(&["your redirect uris"])
+        .secret("your secret")
+        .technical_contact(PartnerEndCustomerTechnicalContact {
+            email: Some("your email".to_owned()),
+            family_name: Some("your family name".to_owned()),
+            given_name: Some("your given name".to_owned()),
         })
         .await
         .unwrap();

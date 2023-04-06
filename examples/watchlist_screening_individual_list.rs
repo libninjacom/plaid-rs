@@ -7,10 +7,10 @@ async fn main() {
     let watchlist_program_id = "your watchlist program id";
     let response = client
         .watchlist_screening_individual_list(watchlist_program_id)
-        .client_user_id("your client user id")
-        .status("your status")
         .assignee("your assignee")
+        .client_user_id("your client user id")
         .cursor("your cursor")
+        .status("your status")
         .await
         .unwrap();
     println!("{:#?}", response);

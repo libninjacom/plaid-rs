@@ -8,8 +8,8 @@ That method takes required values as arguments. Set optional values using builde
 pub struct TransactionsRecurringGetRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: String,
-    pub options: Option<TransactionsRecurringGetRequestOptions>,
     pub account_ids: Vec<String>,
+    pub options: Option<TransactionsRecurringGetRequestOptions>,
 }
 impl<'a> TransactionsRecurringGetRequest<'a> {
     pub async fn send(
@@ -17,10 +17,10 @@ impl<'a> TransactionsRecurringGetRequest<'a> {
     ) -> ::httpclient::InMemoryResult<TransactionsRecurringGetResponse> {
         let mut r = self.http_client.client.post("/transactions/recurring/get");
         r = r.json(json!({ "access_token" : self.access_token }));
+        r = r.json(json!({ "account_ids" : self.account_ids }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
-        r = r.json(json!({ "account_ids" : self.account_ids }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

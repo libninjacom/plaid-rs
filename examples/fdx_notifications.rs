@@ -25,13 +25,13 @@ async fn main() {
             registry: Some("your registry".to_owned()),
             type_: "your type".to_owned(),
         },
-        sent_on: "your sent on",
+        sent_on: chrono::Utc::now(),
         type_: "your type",
     };
     let response = client
         .fdx_notifications(args)
-        .severity("your severity")
         .priority("your priority")
+        .severity("your severity")
         .subscriber(FdxParty {
             home_uri: Some("your home uri".to_owned()),
             logo_uri: Some("your logo uri".to_owned()),

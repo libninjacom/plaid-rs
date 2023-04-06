@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct RemovedTransaction {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub transaction_id: Option<String>,
 }
 impl std::fmt::Display for RemovedTransaction {

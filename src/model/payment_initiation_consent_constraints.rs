@@ -8,6 +8,7 @@ use super::{
 pub struct PaymentInitiationConsentConstraints {
     pub max_payment_amount: PaymentConsentMaxPaymentAmount,
     pub periodic_amounts: Vec<PaymentConsentPeriodicAmount>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub valid_date_time: Option<PaymentConsentValidDateTime>,
 }
 impl std::fmt::Display for PaymentInitiationConsentConstraints {

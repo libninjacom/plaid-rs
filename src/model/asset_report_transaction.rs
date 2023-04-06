@@ -5,7 +5,9 @@ use super::{CreditCategory, TransactionBase};
 pub struct AssetReportTransaction {
     #[serde(flatten)]
     pub transaction_base: TransactionBase,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub credit_category: Option<CreditCategory>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub date_transacted: Option<String>,
 }
 impl std::fmt::Display for AssetReportTransaction {

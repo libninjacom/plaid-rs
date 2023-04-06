@@ -19,13 +19,13 @@ async fn main() {
                 street2: Some("your street 2".to_owned()),
             }),
             client_user_id: "your client user id".to_owned(),
-            date_of_birth: Some("your date of birth".to_owned()),
+            date_of_birth: Some(chrono::Utc::now().date()),
             email_address: Some("your email address".to_owned()),
             id_number: Some(UserIdNumber {
                 type_: "your type".to_owned(),
                 value: "your value".to_owned(),
             }),
-            name: Some(UserName {
+            name: Some(IdentityVerificationRequestUserName {
                 family_name: "your family name".to_owned(),
                 given_name: "your given name".to_owned(),
             }),

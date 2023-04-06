@@ -4,8 +4,10 @@ use super::{DeductionsBreakdown, DeductionsTotal, Total};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Deductions {
     pub breakdown: Vec<DeductionsBreakdown>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub subtotals: Option<Vec<Total>>,
     pub total: DeductionsTotal,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub totals: Option<Vec<Total>>,
 }
 impl std::fmt::Display for Deductions {

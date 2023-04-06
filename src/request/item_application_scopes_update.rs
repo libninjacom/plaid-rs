@@ -9,9 +9,9 @@ pub struct ItemApplicationScopesUpdateRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: String,
     pub application_id: String,
+    pub context: String,
     pub scopes: Scopes,
     pub state: Option<String>,
-    pub context: String,
 }
 impl<'a> ItemApplicationScopesUpdateRequest<'a> {
     pub async fn send(
@@ -20,11 +20,11 @@ impl<'a> ItemApplicationScopesUpdateRequest<'a> {
         let mut r = self.http_client.client.post("/item/application/scopes/update");
         r = r.json(json!({ "access_token" : self.access_token }));
         r = r.json(json!({ "application_id" : self.application_id }));
+        r = r.json(json!({ "context" : self.context }));
         r = r.json(json!({ "scopes" : self.scopes }));
         if let Some(ref unwrapped) = self.state {
             r = r.json(json!({ "state" : unwrapped }));
         }
-        r = r.json(json!({ "context" : self.context }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
@@ -37,8 +37,8 @@ impl<'a> ItemApplicationScopesUpdateRequest<'a> {
 pub struct ItemApplicationScopesUpdateRequired<'a> {
     pub access_token: &'a str,
     pub application_id: &'a str,
-    pub scopes: Scopes,
     pub context: &'a str,
+    pub scopes: Scopes,
 }
 impl<'a> ItemApplicationScopesUpdateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for ItemApplicationScopesUpdateRequest<'a> {

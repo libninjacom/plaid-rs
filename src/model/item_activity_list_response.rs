@@ -1,10 +1,13 @@
 
 use serde::{Serialize, Deserialize};
-use super::Activity;
+use super::{Activity, LastDataAccessTimes};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemActivityListResponse {
     pub activities: Vec<Activity>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub cursor: Option<String>,
+    pub last_data_access_times: Vec<LastDataAccessTimes>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_id: Option<String>,
 }
 impl std::fmt::Display for ItemActivityListResponse {

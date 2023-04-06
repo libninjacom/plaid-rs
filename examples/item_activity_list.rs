@@ -7,8 +7,8 @@ async fn main() {
     let response = client
         .item_activity_list()
         .access_token("your access token")
-        .cursor("your cursor")
         .count(1)
+        .cursor("your cursor")
         .await
         .unwrap();
     println!("{:#?}", response);

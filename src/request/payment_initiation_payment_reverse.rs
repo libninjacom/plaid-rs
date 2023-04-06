@@ -7,22 +7,22 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct PaymentInitiationPaymentReverseRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub payment_id: String,
-    pub idempotency_key: String,
-    pub reference: String,
     pub amount: Option<PaymentAmountToRefund>,
+    pub idempotency_key: String,
+    pub payment_id: String,
+    pub reference: String,
 }
 impl<'a> PaymentInitiationPaymentReverseRequest<'a> {
     pub async fn send(
         self,
     ) -> ::httpclient::InMemoryResult<PaymentInitiationPaymentReverseResponse> {
         let mut r = self.http_client.client.post("/payment_initiation/payment/reverse");
-        r = r.json(json!({ "payment_id" : self.payment_id }));
-        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
-        r = r.json(json!({ "reference" : self.reference }));
         if let Some(ref unwrapped) = self.amount {
             r = r.json(json!({ "amount" : unwrapped }));
         }
+        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
+        r = r.json(json!({ "payment_id" : self.payment_id }));
+        r = r.json(json!({ "reference" : self.reference }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()

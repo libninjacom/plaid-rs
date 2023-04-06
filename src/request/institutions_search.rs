@@ -7,25 +7,29 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct InstitutionsSearchRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub query: String,
-    pub products: Option<Vec<String>>,
     pub country_codes: Vec<String>,
     pub options: Option<InstitutionsSearchRequestOptions>,
+    pub products: Option<Vec<String>>,
+    pub query: String,
 }
 impl<'a> InstitutionsSearchRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<InstitutionsSearchResponse> {
         let mut r = self.http_client.client.post("/institutions/search");
-        r = r.json(json!({ "query" : self.query }));
-        if let Some(ref unwrapped) = self.products {
-            r = r.json(json!({ "products" : unwrapped }));
-        }
         r = r.json(json!({ "country_codes" : self.country_codes }));
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
         }
+        if let Some(ref unwrapped) = self.products {
+            r = r.json(json!({ "products" : unwrapped }));
+        }
+        r = r.json(json!({ "query" : self.query }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
         res.json()
+    }
+    pub fn options(mut self, options: InstitutionsSearchRequestOptions) -> Self {
+        self.options = Some(options);
+        self
     }
     pub fn products(
         mut self,
@@ -35,10 +39,6 @@ impl<'a> InstitutionsSearchRequest<'a> {
             .products = Some(
             products.into_iter().map(|s| s.as_ref().to_owned()).collect(),
         );
-        self
-    }
-    pub fn options(mut self, options: InstitutionsSearchRequestOptions) -> Self {
-        self.options = Some(options);
         self
     }
 }

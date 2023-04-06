@@ -7,8 +7,8 @@ That method takes required values as arguments. Set optional values using builde
 #[derive(Clone)]
 pub struct PaymentInitiationConsentPaymentExecuteRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
-    pub consent_id: String,
     pub amount: PaymentAmount,
+    pub consent_id: String,
     pub idempotency_key: String,
 }
 impl<'a> PaymentInitiationConsentPaymentExecuteRequest<'a> {
@@ -19,8 +19,8 @@ impl<'a> PaymentInitiationConsentPaymentExecuteRequest<'a> {
             .http_client
             .client
             .post("/payment_initiation/consent/payment/execute");
-        r = r.json(json!({ "consent_id" : self.consent_id }));
         r = r.json(json!({ "amount" : self.amount }));
+        r = r.json(json!({ "consent_id" : self.consent_id }));
         r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;

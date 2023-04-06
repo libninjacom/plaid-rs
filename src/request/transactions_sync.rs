@@ -8,19 +8,19 @@ That method takes required values as arguments. Set optional values using builde
 pub struct TransactionsSyncRequest<'a> {
     pub(crate) http_client: &'a PlaidClient,
     pub access_token: String,
-    pub cursor: Option<String>,
     pub count: Option<i64>,
+    pub cursor: Option<String>,
     pub options: Option<TransactionsSyncRequestOptions>,
 }
 impl<'a> TransactionsSyncRequest<'a> {
     pub async fn send(self) -> ::httpclient::InMemoryResult<TransactionsSyncResponse> {
         let mut r = self.http_client.client.post("/transactions/sync");
         r = r.json(json!({ "access_token" : self.access_token }));
-        if let Some(ref unwrapped) = self.cursor {
-            r = r.json(json!({ "cursor" : unwrapped }));
-        }
         if let Some(ref unwrapped) = self.count {
             r = r.json(json!({ "count" : unwrapped }));
+        }
+        if let Some(ref unwrapped) = self.cursor {
+            r = r.json(json!({ "cursor" : unwrapped }));
         }
         if let Some(ref unwrapped) = self.options {
             r = r.json(json!({ "options" : unwrapped }));
@@ -29,12 +29,12 @@ impl<'a> TransactionsSyncRequest<'a> {
         let res = r.send_awaiting_body().await?;
         res.json()
     }
-    pub fn cursor(mut self, cursor: &str) -> Self {
-        self.cursor = Some(cursor.to_owned());
-        self
-    }
     pub fn count(mut self, count: i64) -> Self {
         self.count = Some(count);
+        self
+    }
+    pub fn cursor(mut self, cursor: &str) -> Self {
+        self.cursor = Some(cursor.to_owned());
         self
     }
     pub fn options(mut self, options: TransactionsSyncRequestOptions) -> Self {

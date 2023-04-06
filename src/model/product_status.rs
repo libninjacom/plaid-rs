@@ -4,7 +4,7 @@ use super::ProductStatusBreakdown;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProductStatus {
     pub breakdown: ProductStatusBreakdown,
-    pub last_status_change: String,
+    pub last_status_change: chrono::DateTime<chrono::Utc>,
     pub status: String,
 }
 impl std::fmt::Display for ProductStatus {
