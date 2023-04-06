@@ -18,8 +18,8 @@ async fn main() {
             override_password: Some("your override password".to_owned()),
             override_username: Some("your override username".to_owned()),
             transactions: Some(SandboxPublicTokenCreateRequestOptionsTransactions {
-                end_date: Some(chrono::Utc::now().date()),
-                start_date: Some(chrono::Utc::now().date()),
+                end_date: Some(chrono::Utc::now().date_naive()),
+                start_date: Some(chrono::Utc::now().date_naive()),
             }),
             webhook: Some("your webhook".to_owned()),
         })

@@ -22,11 +22,11 @@ async fn main() {
             scheme: Some(PaymentScheme(serde_json::json!({}))),
         })
         .schedule(ExternalPaymentScheduleBase {
-            adjusted_start_date: Some(chrono::Utc::now().date()),
-            end_date: Some(chrono::Utc::now().date()),
+            adjusted_start_date: Some(chrono::Utc::now().date_naive()),
+            end_date: Some(chrono::Utc::now().date_naive()),
             interval: Some("your interval".to_owned()),
             interval_execution_day: Some(1),
-            start_date: Some(chrono::Utc::now().date()),
+            start_date: Some(chrono::Utc::now().date_naive()),
         })
         .await
         .unwrap();

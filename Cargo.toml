@@ -1116,12 +1116,6 @@ edition = "2021"
 required-features = []
 
 [[example]]
-path = "examples/wallet_transactions_list.rs"
-name = "wallet_transactions_list"
-edition = "2021"
-required-features = []
-
-[[example]]
 path = "examples/watchlist_screening_entity_create.rs"
 name = "watchlist_screening_entity_create"
 edition = "2021"

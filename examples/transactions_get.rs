@@ -5,8 +5,8 @@ use plaid::model::*;
 async fn main() {
     let client = PlaidClient::from_env();
     let access_token = "your access token";
-    let end_date = chrono::Utc::now().date();
-    let start_date = chrono::Utc::now().date();
+    let end_date = chrono::Utc::now().date_naive();
+    let start_date = chrono::Utc::now().date_naive();
     let response = client
         .transactions_get(access_token, end_date, start_date)
         .options(TransactionsGetRequestOptions {

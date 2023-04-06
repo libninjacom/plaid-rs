@@ -19,7 +19,7 @@ async fn main() {
                 street2: Some("your street 2".to_owned()),
             }),
             client_user_id: "your client user id".to_owned(),
-            date_of_birth: Some(chrono::Utc::now().date()),
+            date_of_birth: Some(chrono::Utc::now().date_naive()),
             email_address: Some("your email address".to_owned()),
             id_number: Some(UserIdNumber {
                 type_: "your type".to_owned(),

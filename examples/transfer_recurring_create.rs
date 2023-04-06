@@ -17,11 +17,11 @@ async fn main() {
         idempotency_key: "your idempotency key",
         network: "your network",
         schedule: TransferRecurringSchedule {
-            end_date: Some(chrono::Utc::now().date()),
+            end_date: Some(chrono::Utc::now().date_naive()),
             interval_count: 1,
             interval_execution_day: 1,
             interval_unit: "your interval unit".to_owned(),
-            start_date: chrono::Utc::now().date(),
+            start_date: chrono::Utc::now().date_naive(),
         },
         type_: "your type",
         user: TransferUserInRequest {
