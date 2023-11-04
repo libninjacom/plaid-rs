@@ -9,6 +9,7 @@ async fn main() {
         client_name: "your client name",
         country_codes: &["your country codes"],
         language: "your language",
+        products: &["auth"],
         user: LinkTokenCreateRequestUser {
             address: Some(UserAddress {
                 city: "your city".to_owned(),
