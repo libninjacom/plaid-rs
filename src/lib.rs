@@ -1745,7 +1745,7 @@ See endpoint docs at <https://plaid.com/docs/api/tokens/#linktokencreate>.*/
             language: args.language.to_owned(),
             link_customization_name: None,
             payment_initiation: None,
-            products: args.products.iter().map(|&x| x.to_owned()).collect(),
+            products: None,
             redirect_uri: None,
             transfer: None,
             update: None,

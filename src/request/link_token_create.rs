@@ -25,7 +25,7 @@ pub struct LinkTokenCreateRequest<'a> {
     pub language: String,
     pub link_customization_name: Option<String>,
     pub payment_initiation: Option<LinkTokenCreateRequestPaymentInitiation>,
-    pub products: Vec<String>,
+    pub products: Option<Vec<String>>,
     pub redirect_uri: Option<String>,
     pub transfer: Option<LinkTokenCreateRequestTransfer>,
     pub update: Option<LinkTokenCreateRequestUpdate>,
@@ -84,8 +84,9 @@ impl<'a> LinkTokenCreateRequest<'a> {
         if let Some(ref unwrapped) = self.payment_initiation {
             r = r.json(json!({ "payment_initiation" : unwrapped }));
         }
-        
-        r = r.json(json!({ "products" : self.products }));
+        if let Some(ref unwrapped) = self.products {
+            r = r.json(json!({ "products" : unwrapped }));
+        }
         if let Some(ref unwrapped) = self.redirect_uri {
             r = r.json(json!({ "redirect_uri" : unwrapped }));
         }
@@ -195,8 +196,9 @@ impl<'a> LinkTokenCreateRequest<'a> {
         products: impl IntoIterator<Item = impl AsRef<str>>,
     ) -> Self {
         self
-            .products =
-            products.into_iter().map(|s| s.as_ref().to_owned()).collect();
+            .products = Some(
+            products.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+        );
         self
     }
     pub fn redirect_uri(mut self, redirect_uri: &str) -> Self {
@@ -225,7 +227,6 @@ pub struct LinkTokenCreateRequired<'a> {
     pub country_codes: &'a [&'a str],
     pub language: &'a str,
     pub user: LinkTokenCreateRequestUser,
-    pub products: &'a [&'a str]
 }
 impl<'a> LinkTokenCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for LinkTokenCreateRequest<'a> {
