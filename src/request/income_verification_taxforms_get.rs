@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -11,10 +11,11 @@ pub struct IncomeVerificationTaxformsGetRequest<'a> {
     pub income_verification_id: Option<String>,
 }
 impl<'a> IncomeVerificationTaxformsGetRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<IncomeVerificationTaxformsGetResponse> {
-        let mut r = self.http_client.client.post("/income/verification/taxforms/get");
+    pub async fn send(self) -> crate::Result<IncomeVerificationTaxformsGetResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/income/verification/taxforms/get");
         if let Some(ref unwrapped) = self.access_token {
             r = r.json(json!({ "access_token" : unwrapped }));
         }
@@ -23,7 +24,7 @@ impl<'a> IncomeVerificationTaxformsGetRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn access_token(mut self, access_token: &str) -> Self {
         self.access_token = Some(access_token.to_owned());
@@ -35,7 +36,7 @@ impl<'a> IncomeVerificationTaxformsGetRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for IncomeVerificationTaxformsGetRequest<'a> {
-    type Output = httpclient::InMemoryResult<IncomeVerificationTaxformsGetResponse>;
+    type Output = crate::Result<IncomeVerificationTaxformsGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

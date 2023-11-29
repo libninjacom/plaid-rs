@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -14,10 +14,11 @@ pub struct IdentityVerificationCreateRequest<'a> {
     pub user: IdentityVerificationRequestUser,
 }
 impl<'a> IdentityVerificationCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<IdentityVerificationCreateResponse> {
-        let mut r = self.http_client.client.post("/identity_verification/create");
+    pub async fn send(self) -> crate::Result<IdentityVerificationCreateResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/identity_verification/create");
         r = r.json(json!({ "gave_consent" : self.gave_consent }));
         if let Some(ref unwrapped) = self.is_idempotent {
             r = r.json(json!({ "is_idempotent" : unwrapped }));
@@ -27,7 +28,7 @@ impl<'a> IdentityVerificationCreateRequest<'a> {
         r = r.json(json!({ "user" : self.user }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn is_idempotent(mut self, is_idempotent: bool) -> Self {
         self.is_idempotent = Some(is_idempotent);
@@ -42,7 +43,7 @@ pub struct IdentityVerificationCreateRequired<'a> {
 }
 impl<'a> IdentityVerificationCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for IdentityVerificationCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<IdentityVerificationCreateResponse>;
+    type Output = crate::Result<IdentityVerificationCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

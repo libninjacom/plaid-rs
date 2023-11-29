@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -12,7 +12,7 @@ pub struct CreditRelayRefreshRequest<'a> {
     pub webhook: Option<String>,
 }
 impl<'a> CreditRelayRefreshRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<CreditRelayRefreshResponse> {
+    pub async fn send(self) -> crate::Result<CreditRelayRefreshResponse> {
         let mut r = self.http_client.client.post("/credit/relay/refresh");
         r = r.json(json!({ "relay_token" : self.relay_token }));
         r = r.json(json!({ "report_type" : self.report_type }));
@@ -21,7 +21,7 @@ impl<'a> CreditRelayRefreshRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn webhook(mut self, webhook: &str) -> Self {
         self.webhook = Some(webhook.to_owned());
@@ -29,7 +29,7 @@ impl<'a> CreditRelayRefreshRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for CreditRelayRefreshRequest<'a> {
-    type Output = httpclient::InMemoryResult<CreditRelayRefreshResponse>;
+    type Output = crate::Result<CreditRelayRefreshResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

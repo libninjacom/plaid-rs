@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -13,7 +13,7 @@ pub struct InstitutionsSearchRequest<'a> {
     pub query: String,
 }
 impl<'a> InstitutionsSearchRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<InstitutionsSearchResponse> {
+    pub async fn send(self) -> crate::Result<InstitutionsSearchResponse> {
         let mut r = self.http_client.client.post("/institutions/search");
         r = r.json(json!({ "country_codes" : self.country_codes }));
         if let Some(ref unwrapped) = self.options {
@@ -25,25 +25,24 @@ impl<'a> InstitutionsSearchRequest<'a> {
         r = r.json(json!({ "query" : self.query }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn options(mut self, options: InstitutionsSearchRequestOptions) -> Self {
         self.options = Some(options);
         self
     }
-    pub fn products(
-        mut self,
-        products: impl IntoIterator<Item = impl AsRef<str>>,
-    ) -> Self {
-        self
-            .products = Some(
-            products.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+    pub fn products(mut self, products: impl IntoIterator<Item = impl AsRef<str>>) -> Self {
+        self.products = Some(
+            products
+                .into_iter()
+                .map(|s| s.as_ref().to_owned())
+                .collect(),
         );
         self
     }
 }
 impl<'a> ::std::future::IntoFuture for InstitutionsSearchRequest<'a> {
-    type Output = httpclient::InMemoryResult<InstitutionsSearchResponse>;
+    type Output = crate::Result<InstitutionsSearchResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

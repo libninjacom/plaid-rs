@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -12,10 +12,11 @@ pub struct PaymentInitiationPaymentListRequest<'a> {
     pub cursor: Option<chrono::DateTime<chrono::Utc>>,
 }
 impl<'a> PaymentInitiationPaymentListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<PaymentInitiationPaymentListResponse> {
-        let mut r = self.http_client.client.post("/payment_initiation/payment/list");
+    pub async fn send(self) -> crate::Result<PaymentInitiationPaymentListResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/payment_initiation/payment/list");
         if let Some(ref unwrapped) = self.consent_id {
             r = r.json(json!({ "consent_id" : unwrapped }));
         }
@@ -27,7 +28,7 @@ impl<'a> PaymentInitiationPaymentListRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn consent_id(mut self, consent_id: &str) -> Self {
         self.consent_id = Some(consent_id.to_owned());
@@ -43,7 +44,7 @@ impl<'a> PaymentInitiationPaymentListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for PaymentInitiationPaymentListRequest<'a> {
-    type Output = httpclient::InMemoryResult<PaymentInitiationPaymentListResponse>;
+    type Output = crate::Result<PaymentInitiationPaymentListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

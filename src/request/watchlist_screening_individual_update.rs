@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -15,9 +15,7 @@ pub struct WatchlistScreeningIndividualUpdateRequest<'a> {
     pub watchlist_screening_id: String,
 }
 impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualUpdateResponse> {
+    pub async fn send(self) -> crate::Result<WatchlistScreeningIndividualUpdateResponse> {
         let mut r = self
             .http_client
             .client
@@ -40,7 +38,7 @@ impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
         r = r.json(json!({ "watchlist_screening_id" : self.watchlist_screening_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn assignee(mut self, assignee: &str) -> Self {
         self.assignee = Some(assignee.to_owned());
@@ -50,13 +48,12 @@ impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
         self.client_user_id = Some(client_user_id.to_owned());
         self
     }
-    pub fn reset_fields(
-        mut self,
-        reset_fields: impl IntoIterator<Item = impl AsRef<str>>,
-    ) -> Self {
-        self
-            .reset_fields = Some(
-            reset_fields.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+    pub fn reset_fields(mut self, reset_fields: impl IntoIterator<Item = impl AsRef<str>>) -> Self {
+        self.reset_fields = Some(
+            reset_fields
+                .into_iter()
+                .map(|s| s.as_ref().to_owned())
+                .collect(),
         );
         self
     }
@@ -73,7 +70,7 @@ impl<'a> WatchlistScreeningIndividualUpdateRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningIndividualUpdateRequest<'a> {
-    type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualUpdateResponse>;
+    type Output = crate::Result<WatchlistScreeningIndividualUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

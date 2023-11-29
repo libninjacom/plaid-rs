@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -11,7 +11,7 @@ pub struct ItemWebhookUpdateRequest<'a> {
     pub webhook: Option<String>,
 }
 impl<'a> ItemWebhookUpdateRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<ItemWebhookUpdateResponse> {
+    pub async fn send(self) -> crate::Result<ItemWebhookUpdateResponse> {
         let mut r = self.http_client.client.post("/item/webhook/update");
         r = r.json(json!({ "access_token" : self.access_token }));
         if let Some(ref unwrapped) = self.webhook {
@@ -19,7 +19,7 @@ impl<'a> ItemWebhookUpdateRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn webhook(mut self, webhook: &str) -> Self {
         self.webhook = Some(webhook.to_owned());
@@ -27,7 +27,7 @@ impl<'a> ItemWebhookUpdateRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for ItemWebhookUpdateRequest<'a> {
-    type Output = httpclient::InMemoryResult<ItemWebhookUpdateResponse>;
+    type Output = crate::Result<ItemWebhookUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -12,10 +12,11 @@ pub struct TransferRepaymentReturnListRequest<'a> {
     pub repayment_id: String,
 }
 impl<'a> TransferRepaymentReturnListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<TransferRepaymentReturnListResponse> {
-        let mut r = self.http_client.client.post("/transfer/repayment/return/list");
+    pub async fn send(self) -> crate::Result<TransferRepaymentReturnListResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/transfer/repayment/return/list");
         if let Some(ref unwrapped) = self.count {
             r = r.json(json!({ "count" : unwrapped }));
         }
@@ -25,7 +26,7 @@ impl<'a> TransferRepaymentReturnListRequest<'a> {
         r = r.json(json!({ "repayment_id" : self.repayment_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn count(mut self, count: i64) -> Self {
         self.count = Some(count);
@@ -37,7 +38,7 @@ impl<'a> TransferRepaymentReturnListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for TransferRepaymentReturnListRequest<'a> {
-    type Output = httpclient::InMemoryResult<TransferRepaymentReturnListResponse>;
+    type Output = crate::Result<TransferRepaymentReturnListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

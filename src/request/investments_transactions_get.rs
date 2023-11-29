@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -13,10 +13,11 @@ pub struct InvestmentsTransactionsGetRequest<'a> {
     pub start_date: chrono::NaiveDate,
 }
 impl<'a> InvestmentsTransactionsGetRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<InvestmentsTransactionsGetResponse> {
-        let mut r = self.http_client.client.post("/investments/transactions/get");
+    pub async fn send(self) -> crate::Result<InvestmentsTransactionsGetResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/investments/transactions/get");
         r = r.json(json!({ "access_token" : self.access_token }));
         r = r.json(json!({ "end_date" : self.end_date }));
         if let Some(ref unwrapped) = self.options {
@@ -25,7 +26,7 @@ impl<'a> InvestmentsTransactionsGetRequest<'a> {
         r = r.json(json!({ "start_date" : self.start_date }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn options(mut self, options: InvestmentsTransactionsGetRequestOptions) -> Self {
         self.options = Some(options);
@@ -33,7 +34,7 @@ impl<'a> InvestmentsTransactionsGetRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for InvestmentsTransactionsGetRequest<'a> {
-    type Output = httpclient::InMemoryResult<InvestmentsTransactionsGetResponse>;
+    type Output = crate::Result<InvestmentsTransactionsGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

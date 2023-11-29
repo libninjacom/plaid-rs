@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -14,10 +14,11 @@ pub struct ItemApplicationScopesUpdateRequest<'a> {
     pub state: Option<String>,
 }
 impl<'a> ItemApplicationScopesUpdateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<ItemApplicationScopesUpdateResponse> {
-        let mut r = self.http_client.client.post("/item/application/scopes/update");
+    pub async fn send(self) -> crate::Result<ItemApplicationScopesUpdateResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/item/application/scopes/update");
         r = r.json(json!({ "access_token" : self.access_token }));
         r = r.json(json!({ "application_id" : self.application_id }));
         r = r.json(json!({ "context" : self.context }));
@@ -27,7 +28,7 @@ impl<'a> ItemApplicationScopesUpdateRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn state(mut self, state: &str) -> Self {
         self.state = Some(state.to_owned());
@@ -42,7 +43,7 @@ pub struct ItemApplicationScopesUpdateRequired<'a> {
 }
 impl<'a> ItemApplicationScopesUpdateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for ItemApplicationScopesUpdateRequest<'a> {
-    type Output = httpclient::InMemoryResult<ItemApplicationScopesUpdateResponse>;
+    type Output = crate::Result<ItemApplicationScopesUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

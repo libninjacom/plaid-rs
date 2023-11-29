@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -15,9 +15,7 @@ pub struct SignalDecisionReportRequest<'a> {
     pub payment_method: Option<String>,
 }
 impl<'a> SignalDecisionReportRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<SignalDecisionReportResponse> {
+    pub async fn send(self) -> crate::Result<SignalDecisionReportResponse> {
         let mut r = self.http_client.client.post("/signal/decision/report");
         if let Some(ref unwrapped) = self.amount_instantly_available {
             r = r.json(json!({ "amount_instantly_available" : unwrapped }));
@@ -35,12 +33,9 @@ impl<'a> SignalDecisionReportRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
-    pub fn amount_instantly_available(
-        mut self,
-        amount_instantly_available: f64,
-    ) -> Self {
+    pub fn amount_instantly_available(mut self, amount_instantly_available: f64) -> Self {
         self.amount_instantly_available = Some(amount_instantly_available);
         self
     }
@@ -58,7 +53,7 @@ impl<'a> SignalDecisionReportRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for SignalDecisionReportRequest<'a> {
-    type Output = httpclient::InMemoryResult<SignalDecisionReportResponse>;
+    type Output = crate::Result<SignalDecisionReportResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

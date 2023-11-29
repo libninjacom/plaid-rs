@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -34,7 +34,7 @@ pub struct LinkTokenCreateRequest<'a> {
     pub webhook: Option<String>,
 }
 impl<'a> LinkTokenCreateRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<LinkTokenCreateResponse> {
+    pub async fn send(self) -> crate::Result<LinkTokenCreateResponse> {
         let mut r = self.http_client.client.post("/link/token/create");
         if let Some(ref unwrapped) = self.access_token {
             r = r.json(json!({ "access_token" : unwrapped }));
@@ -105,7 +105,7 @@ impl<'a> LinkTokenCreateRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn access_token(mut self, access_token: &str) -> Self {
         self.access_token = Some(access_token.to_owned());
@@ -119,8 +119,7 @@ impl<'a> LinkTokenCreateRequest<'a> {
         mut self,
         additional_consented_products: impl IntoIterator<Item = impl AsRef<str>>,
     ) -> Self {
-        self
-            .additional_consented_products = Some(
+        self.additional_consented_products = Some(
             additional_consented_products
                 .into_iter()
                 .map(|s| s.as_ref().to_owned())
@@ -136,10 +135,7 @@ impl<'a> LinkTokenCreateRequest<'a> {
         self.auth = Some(auth);
         self
     }
-    pub fn deposit_switch(
-        mut self,
-        deposit_switch: LinkTokenCreateRequestDepositSwitch,
-    ) -> Self {
+    pub fn deposit_switch(mut self, deposit_switch: LinkTokenCreateRequestDepositSwitch) -> Self {
         self.deposit_switch = Some(deposit_switch);
         self
     }
@@ -165,10 +161,7 @@ impl<'a> LinkTokenCreateRequest<'a> {
         self.income_verification = Some(income_verification);
         self
     }
-    pub fn institution_data(
-        mut self,
-        institution_data: LinkTokenCreateInstitutionData,
-    ) -> Self {
+    pub fn institution_data(mut self, institution_data: LinkTokenCreateInstitutionData) -> Self {
         self.institution_data = Some(institution_data);
         self
     }
@@ -191,13 +184,12 @@ impl<'a> LinkTokenCreateRequest<'a> {
         self.payment_initiation = Some(payment_initiation);
         self
     }
-    pub fn products(
-        mut self,
-        products: impl IntoIterator<Item = impl AsRef<str>>,
-    ) -> Self {
-        self
-            .products = Some(
-            products.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+    pub fn products(mut self, products: impl IntoIterator<Item = impl AsRef<str>>) -> Self {
+        self.products = Some(
+            products
+                .into_iter()
+                .map(|s| s.as_ref().to_owned())
+                .collect(),
         );
         self
     }
@@ -230,7 +222,7 @@ pub struct LinkTokenCreateRequired<'a> {
 }
 impl<'a> LinkTokenCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for LinkTokenCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<LinkTokenCreateResponse>;
+    type Output = crate::Result<LinkTokenCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

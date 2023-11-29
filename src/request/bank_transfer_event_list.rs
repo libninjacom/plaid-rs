@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -19,9 +19,7 @@ pub struct BankTransferEventListRequest<'a> {
     pub start_date: Option<chrono::DateTime<chrono::Utc>>,
 }
 impl<'a> BankTransferEventListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<BankTransferEventListResponse> {
+    pub async fn send(self) -> crate::Result<BankTransferEventListResponse> {
         let mut r = self.http_client.client.post("/bank_transfer/event/list");
         if let Some(ref unwrapped) = self.account_id {
             r = r.json(json!({ "account_id" : unwrapped }));
@@ -55,7 +53,7 @@ impl<'a> BankTransferEventListRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn account_id(mut self, account_id: &str) -> Self {
         self.account_id = Some(account_id.to_owned());
@@ -84,13 +82,12 @@ impl<'a> BankTransferEventListRequest<'a> {
         self.end_date = Some(end_date);
         self
     }
-    pub fn event_types(
-        mut self,
-        event_types: impl IntoIterator<Item = impl AsRef<str>>,
-    ) -> Self {
-        self
-            .event_types = Some(
-            event_types.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+    pub fn event_types(mut self, event_types: impl IntoIterator<Item = impl AsRef<str>>) -> Self {
+        self.event_types = Some(
+            event_types
+                .into_iter()
+                .map(|s| s.as_ref().to_owned())
+                .collect(),
         );
         self
     }
@@ -108,7 +105,7 @@ impl<'a> BankTransferEventListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for BankTransferEventListRequest<'a> {
-    type Output = httpclient::InMemoryResult<BankTransferEventListResponse>;
+    type Output = crate::Result<BankTransferEventListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

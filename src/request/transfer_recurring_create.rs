@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -24,9 +24,7 @@ pub struct TransferRecurringCreateRequest<'a> {
     pub user_present: Option<bool>,
 }
 impl<'a> TransferRecurringCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<TransferRecurringCreateResponse> {
+    pub async fn send(self) -> crate::Result<TransferRecurringCreateResponse> {
         let mut r = self.http_client.client.post("/transfer/recurring/create");
         r = r.json(json!({ "access_token" : self.access_token }));
         r = r.json(json!({ "account_id" : self.account_id }));
@@ -55,7 +53,7 @@ impl<'a> TransferRecurringCreateRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn ach_class(mut self, ach_class: &str) -> Self {
         self.ach_class = Some(ach_class.to_owned());
@@ -92,7 +90,7 @@ pub struct TransferRecurringCreateRequired<'a> {
 }
 impl<'a> TransferRecurringCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for TransferRecurringCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<TransferRecurringCreateResponse>;
+    type Output = crate::Result<TransferRecurringCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

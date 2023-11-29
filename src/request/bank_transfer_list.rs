@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -15,7 +15,7 @@ pub struct BankTransferListRequest<'a> {
     pub start_date: Option<chrono::DateTime<chrono::Utc>>,
 }
 impl<'a> BankTransferListRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<BankTransferListResponse> {
+    pub async fn send(self) -> crate::Result<BankTransferListResponse> {
         let mut r = self.http_client.client.post("/bank_transfer/list");
         if let Some(ref unwrapped) = self.count {
             r = r.json(json!({ "count" : unwrapped }));
@@ -37,7 +37,7 @@ impl<'a> BankTransferListRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn count(mut self, count: i64) -> Self {
         self.count = Some(count);
@@ -65,7 +65,7 @@ impl<'a> BankTransferListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for BankTransferListRequest<'a> {
-    type Output = httpclient::InMemoryResult<BankTransferListResponse>;
+    type Output = crate::Result<BankTransferListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

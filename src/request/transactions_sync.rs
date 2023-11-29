@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -13,7 +13,7 @@ pub struct TransactionsSyncRequest<'a> {
     pub options: Option<TransactionsSyncRequestOptions>,
 }
 impl<'a> TransactionsSyncRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<TransactionsSyncResponse> {
+    pub async fn send(self) -> crate::Result<TransactionsSyncResponse> {
         let mut r = self.http_client.client.post("/transactions/sync");
         r = r.json(json!({ "access_token" : self.access_token }));
         if let Some(ref unwrapped) = self.count {
@@ -27,7 +27,7 @@ impl<'a> TransactionsSyncRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn count(mut self, count: i64) -> Self {
         self.count = Some(count);
@@ -43,7 +43,7 @@ impl<'a> TransactionsSyncRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for TransactionsSyncRequest<'a> {
-    type Output = httpclient::InMemoryResult<TransactionsSyncResponse>;
+    type Output = crate::Result<TransactionsSyncResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

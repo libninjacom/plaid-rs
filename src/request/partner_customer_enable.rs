@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -12,9 +12,7 @@ pub struct PartnerCustomerEnableRequest<'a> {
     pub secret: Option<String>,
 }
 impl<'a> PartnerCustomerEnableRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<PartnerCustomerEnableResponse> {
+    pub async fn send(self) -> crate::Result<PartnerCustomerEnableResponse> {
         let mut r = self.http_client.client.post("/partner/customer/enable");
         if let Some(ref unwrapped) = self.client_id {
             r = r.json(json!({ "client_id" : unwrapped }));
@@ -25,7 +23,7 @@ impl<'a> PartnerCustomerEnableRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn client_id(mut self, client_id: &str) -> Self {
         self.client_id = Some(client_id.to_owned());
@@ -37,7 +35,7 @@ impl<'a> PartnerCustomerEnableRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for PartnerCustomerEnableRequest<'a> {
-    type Output = httpclient::InMemoryResult<PartnerCustomerEnableResponse>;
+    type Output = crate::Result<PartnerCustomerEnableResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

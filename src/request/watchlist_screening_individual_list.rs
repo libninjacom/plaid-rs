@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -14,10 +14,11 @@ pub struct WatchlistScreeningIndividualListRequest<'a> {
     pub watchlist_program_id: String,
 }
 impl<'a> WatchlistScreeningIndividualListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualListResponse> {
-        let mut r = self.http_client.client.post("/watchlist_screening/individual/list");
+    pub async fn send(self) -> crate::Result<WatchlistScreeningIndividualListResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/watchlist_screening/individual/list");
         if let Some(ref unwrapped) = self.assignee {
             r = r.json(json!({ "assignee" : unwrapped }));
         }
@@ -33,7 +34,7 @@ impl<'a> WatchlistScreeningIndividualListRequest<'a> {
         r = r.json(json!({ "watchlist_program_id" : self.watchlist_program_id }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn assignee(mut self, assignee: &str) -> Self {
         self.assignee = Some(assignee.to_owned());
@@ -53,7 +54,7 @@ impl<'a> WatchlistScreeningIndividualListRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningIndividualListRequest<'a> {
-    type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualListResponse>;
+    type Output = crate::Result<WatchlistScreeningIndividualListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

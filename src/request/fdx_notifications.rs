@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -19,7 +19,7 @@ pub struct FdxNotificationsRequest<'a> {
     pub url: Option<FdxHateoasLink>,
 }
 impl<'a> FdxNotificationsRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<()> {
+    pub async fn send(self) -> crate::Result<()> {
         let mut r = self.http_client.client.post("/fdx/notifications");
         r = r.json(json!({ "category" : self.category }));
         r = r.json(json!({ "notificationId" : self.notification_id }));
@@ -41,7 +41,7 @@ impl<'a> FdxNotificationsRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn priority(mut self, priority: &str) -> Self {
         self.priority = Some(priority.to_owned());
@@ -70,7 +70,7 @@ pub struct FdxNotificationsRequired<'a> {
 }
 impl<'a> FdxNotificationsRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for FdxNotificationsRequest<'a> {
-    type Output = httpclient::InMemoryResult<()>;
+    type Output = crate::Result<()>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

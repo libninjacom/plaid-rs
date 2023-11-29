@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -13,9 +13,7 @@ pub struct DepositSwitchAltCreateRequest<'a> {
     pub target_user: DepositSwitchTargetUser,
 }
 impl<'a> DepositSwitchAltCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<DepositSwitchAltCreateResponse> {
+    pub async fn send(self) -> crate::Result<DepositSwitchAltCreateResponse> {
         let mut r = self.http_client.client.post("/deposit_switch/alt/create");
         if let Some(ref unwrapped) = self.country_code {
             r = r.json(json!({ "country_code" : unwrapped }));
@@ -27,7 +25,7 @@ impl<'a> DepositSwitchAltCreateRequest<'a> {
         r = r.json(json!({ "target_user" : self.target_user }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn country_code(mut self, country_code: &str) -> Self {
         self.country_code = Some(country_code.to_owned());
@@ -39,7 +37,7 @@ impl<'a> DepositSwitchAltCreateRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for DepositSwitchAltCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<DepositSwitchAltCreateResponse>;
+    type Output = crate::Result<DepositSwitchAltCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

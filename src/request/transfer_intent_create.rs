@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -21,9 +21,7 @@ pub struct TransferIntentCreateRequest<'a> {
     pub user: TransferUserInRequest,
 }
 impl<'a> TransferIntentCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<TransferIntentCreateResponse> {
+    pub async fn send(self) -> crate::Result<TransferIntentCreateResponse> {
         let mut r = self.http_client.client.post("/transfer/intent/create");
         if let Some(ref unwrapped) = self.account_id {
             r = r.json(json!({ "account_id" : unwrapped }));
@@ -55,7 +53,7 @@ impl<'a> TransferIntentCreateRequest<'a> {
         r = r.json(json!({ "user" : self.user }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn account_id(mut self, account_id: &str) -> Self {
         self.account_id = Some(account_id.to_owned());
@@ -98,7 +96,7 @@ pub struct TransferIntentCreateRequired<'a> {
 }
 impl<'a> TransferIntentCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for TransferIntentCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<TransferIntentCreateResponse>;
+    type Output = crate::Result<TransferIntentCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

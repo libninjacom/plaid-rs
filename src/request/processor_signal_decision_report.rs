@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -16,10 +16,11 @@ pub struct ProcessorSignalDecisionReportRequest<'a> {
     pub processor_token: String,
 }
 impl<'a> ProcessorSignalDecisionReportRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<ProcessorSignalDecisionReportResponse> {
-        let mut r = self.http_client.client.post("/processor/signal/decision/report");
+    pub async fn send(self) -> crate::Result<ProcessorSignalDecisionReportResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/processor/signal/decision/report");
         if let Some(ref unwrapped) = self.amount_instantly_available {
             r = r.json(json!({ "amount_instantly_available" : unwrapped }));
         }
@@ -37,12 +38,9 @@ impl<'a> ProcessorSignalDecisionReportRequest<'a> {
         r = r.json(json!({ "processor_token" : self.processor_token }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
-    pub fn amount_instantly_available(
-        mut self,
-        amount_instantly_available: f64,
-    ) -> Self {
+    pub fn amount_instantly_available(mut self, amount_instantly_available: f64) -> Self {
         self.amount_instantly_available = Some(amount_instantly_available);
         self
     }
@@ -60,7 +58,7 @@ impl<'a> ProcessorSignalDecisionReportRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for ProcessorSignalDecisionReportRequest<'a> {
-    type Output = httpclient::InMemoryResult<ProcessorSignalDecisionReportResponse>;
+    type Output = crate::Result<ProcessorSignalDecisionReportResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

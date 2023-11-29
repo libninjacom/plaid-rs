@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -10,9 +10,7 @@ pub struct WatchlistScreeningIndividualProgramListRequest<'a> {
     pub cursor: Option<String>,
 }
 impl<'a> WatchlistScreeningIndividualProgramListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualProgramListResponse> {
+    pub async fn send(self) -> crate::Result<WatchlistScreeningIndividualProgramListResponse> {
         let mut r = self
             .http_client
             .client
@@ -22,18 +20,15 @@ impl<'a> WatchlistScreeningIndividualProgramListRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn cursor(mut self, cursor: &str) -> Self {
         self.cursor = Some(cursor.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture
-for WatchlistScreeningIndividualProgramListRequest<'a> {
-    type Output = httpclient::InMemoryResult<
-        WatchlistScreeningIndividualProgramListResponse,
-    >;
+impl<'a> ::std::future::IntoFuture for WatchlistScreeningIndividualProgramListRequest<'a> {
+    type Output = crate::Result<WatchlistScreeningIndividualProgramListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

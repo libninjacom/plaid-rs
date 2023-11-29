@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -11,17 +11,18 @@ pub struct WatchlistScreeningEntityCreateRequest<'a> {
     pub search_terms: EntityWatchlistSearchTerms,
 }
 impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningEntityCreateResponse> {
-        let mut r = self.http_client.client.post("/watchlist_screening/entity/create");
+    pub async fn send(self) -> crate::Result<WatchlistScreeningEntityCreateResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/watchlist_screening/entity/create");
         if let Some(ref unwrapped) = self.client_user_id {
             r = r.json(json!({ "client_user_id" : unwrapped }));
         }
         r = r.json(json!({ "search_terms" : self.search_terms }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn client_user_id(mut self, client_user_id: &str) -> Self {
         self.client_user_id = Some(client_user_id.to_owned());
@@ -29,7 +30,7 @@ impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for WatchlistScreeningEntityCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<WatchlistScreeningEntityCreateResponse>;
+    type Output = crate::Result<WatchlistScreeningEntityCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

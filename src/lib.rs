@@ -6,6 +6,7 @@
 pub mod model;
 pub mod request;
 use crate::model::*;
+pub use crate::request::error::*;
 mod serde;
 pub struct PlaidClient {
     pub client: httpclient::Client,

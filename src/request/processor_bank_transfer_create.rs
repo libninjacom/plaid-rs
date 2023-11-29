@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -21,10 +21,11 @@ pub struct ProcessorBankTransferCreateRequest<'a> {
     pub user: BankTransferUser,
 }
 impl<'a> ProcessorBankTransferCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<ProcessorBankTransferCreateResponse> {
-        let mut r = self.http_client.client.post("/processor/bank_transfer/create");
+    pub async fn send(self) -> crate::Result<ProcessorBankTransferCreateResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/processor/bank_transfer/create");
         if let Some(ref unwrapped) = self.ach_class {
             r = r.json(json!({ "ach_class" : unwrapped }));
         }
@@ -47,7 +48,7 @@ impl<'a> ProcessorBankTransferCreateRequest<'a> {
         r = r.json(json!({ "user" : self.user }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn ach_class(mut self, ach_class: &str) -> Self {
         self.ach_class = Some(ach_class.to_owned());
@@ -78,7 +79,7 @@ pub struct ProcessorBankTransferCreateRequired<'a> {
 }
 impl<'a> ProcessorBankTransferCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for ProcessorBankTransferCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<ProcessorBankTransferCreateResponse>;
+    type Output = crate::Result<ProcessorBankTransferCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

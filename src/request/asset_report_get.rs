@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -13,7 +13,7 @@ pub struct AssetReportGetRequest<'a> {
     pub options: Option<AssetReportGetRequestOptions>,
 }
 impl<'a> AssetReportGetRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<AssetReportGetResponse> {
+    pub async fn send(self) -> crate::Result<AssetReportGetResponse> {
         let mut r = self.http_client.client.post("/asset_report/get");
         r = r.json(json!({ "asset_report_token" : self.asset_report_token }));
         if let Some(ref unwrapped) = self.fast_report {
@@ -27,7 +27,7 @@ impl<'a> AssetReportGetRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn fast_report(mut self, fast_report: bool) -> Self {
         self.fast_report = Some(fast_report);
@@ -43,7 +43,7 @@ impl<'a> AssetReportGetRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for AssetReportGetRequest<'a> {
-    type Output = httpclient::InMemoryResult<AssetReportGetResponse>;
+    type Output = crate::Result<AssetReportGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -15,10 +15,11 @@ pub struct IncomeVerificationPrecheckRequest<'a> {
     pub user: Option<IncomeVerificationPrecheckUser>,
 }
 impl<'a> IncomeVerificationPrecheckRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<IncomeVerificationPrecheckResponse> {
-        let mut r = self.http_client.client.post("/income/verification/precheck");
+    pub async fn send(self) -> crate::Result<IncomeVerificationPrecheckResponse> {
+        let mut r = self
+            .http_client
+            .client
+            .post("/income/verification/precheck");
         if let Some(ref unwrapped) = self.employer {
             r = r.json(json!({ "employer" : unwrapped }));
         }
@@ -39,7 +40,7 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         }
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn employer(mut self, employer: IncomeVerificationPrecheckEmployer) -> Self {
         self.employer = Some(employer);
@@ -60,8 +61,7 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
         mut self,
         transactions_access_tokens: impl IntoIterator<Item = impl AsRef<str>>,
     ) -> Self {
-        self
-            .transactions_access_tokens = Some(
+        self.transactions_access_tokens = Some(
             transactions_access_tokens
                 .into_iter()
                 .map(|s| s.as_ref().to_owned())
@@ -82,7 +82,7 @@ impl<'a> IncomeVerificationPrecheckRequest<'a> {
     }
 }
 impl<'a> ::std::future::IntoFuture for IncomeVerificationPrecheckRequest<'a> {
-    type Output = httpclient::InMemoryResult<IncomeVerificationPrecheckResponse>;
+    type Output = crate::Result<IncomeVerificationPrecheckResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())

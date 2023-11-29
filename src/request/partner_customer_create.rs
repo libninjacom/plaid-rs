@@ -1,6 +1,6 @@
-use serde_json::json;
 use crate::model::*;
 use crate::PlaidClient;
+use serde_json::json;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
@@ -26,9 +26,7 @@ pub struct PartnerCustomerCreateRequest<'a> {
     pub website: String,
 }
 impl<'a> PartnerCustomerCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<PartnerCustomerCreateResponse> {
+    pub async fn send(self) -> crate::Result<PartnerCustomerCreateResponse> {
         let mut r = self.http_client.client.post("/partner/customer/create");
         r = r.json(json!({ "address" : self.address }));
         r = r.json(json!({ "application_name" : self.application_name }));
@@ -48,10 +46,7 @@ impl<'a> PartnerCustomerCreateRequest<'a> {
         if let Some(ref unwrapped) = self.customer_support_info {
             r = r.json(json!({ "customer_support_info" : unwrapped }));
         }
-        r = r
-            .json(
-                json!({ "is_bank_addendum_completed" : self.is_bank_addendum_completed }),
-            );
+        r = r.json(json!({ "is_bank_addendum_completed" : self.is_bank_addendum_completed }));
         r = r.json(json!({ "is_diligence_attested" : self.is_diligence_attested }));
         r = r.json(json!({ "legal_entity_name" : self.legal_entity_name }));
         if let Some(ref unwrapped) = self.logo {
@@ -70,7 +65,7 @@ impl<'a> PartnerCustomerCreateRequest<'a> {
         r = r.json(json!({ "website" : self.website }));
         r = self.http_client.authenticate(r);
         let res = r.send_awaiting_body().await?;
-        res.json()
+        Ok(res.json()?)
     }
     pub fn assets_under_management(
         mut self,
@@ -79,10 +74,7 @@ impl<'a> PartnerCustomerCreateRequest<'a> {
         self.assets_under_management = Some(assets_under_management);
         self
     }
-    pub fn billing_contact(
-        mut self,
-        billing_contact: PartnerEndCustomerBillingContact,
-    ) -> Self {
+    pub fn billing_contact(mut self, billing_contact: PartnerEndCustomerBillingContact) -> Self {
         self.billing_contact = Some(billing_contact);
         self
     }
@@ -109,9 +101,11 @@ impl<'a> PartnerCustomerCreateRequest<'a> {
         mut self,
         redirect_uris: impl IntoIterator<Item = impl AsRef<str>>,
     ) -> Self {
-        self
-            .redirect_uris = Some(
-            redirect_uris.into_iter().map(|s| s.as_ref().to_owned()).collect(),
+        self.redirect_uris = Some(
+            redirect_uris
+                .into_iter()
+                .map(|s| s.as_ref().to_owned())
+                .collect(),
         );
         self
     }
@@ -139,7 +133,7 @@ pub struct PartnerCustomerCreateRequired<'a> {
 }
 impl<'a> PartnerCustomerCreateRequired<'a> {}
 impl<'a> ::std::future::IntoFuture for PartnerCustomerCreateRequest<'a> {
-    type Output = httpclient::InMemoryResult<PartnerCustomerCreateResponse>;
+    type Output = crate::Result<PartnerCustomerCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(self.send())
