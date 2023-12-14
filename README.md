@@ -59,7 +59,7 @@ Add this to your Cargo.toml:
 
 ```toml
 [dependencies]
-plaid = "5"
+plaid = ".."
 ```
 
 
