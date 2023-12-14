@@ -33,7 +33,6 @@ async fn main() {
     let response = client
         .item_application_list()
         .access_token("your access token")
-        .send()
         .await
         .unwrap();
     println!("{:#?}", response);
