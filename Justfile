@@ -51,11 +51,9 @@ patch: test
 doc:
     cargo doc --no-deps --open
 
-test-full:
-    #!/usr/bin/env bash -euxo pipefail
-    for file in $(ls examples); do
-        cargo run --example "$(basename "$file" .rs)"
-    done
+ci:
+    cargo test --profile ci --no-run
+    cargo test --profile ci
 
 transform:
     req https://raw.githubusercontent.com/plaid/plaid-openapi/master/2020-09-14.yml > openapi.yaml

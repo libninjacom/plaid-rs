@@ -9,6 +9,11 @@ readme = "README.md"
 license = "MIT"
 repository = "https://github.com/libninjacom/plaid-rs"
 
+[profile.ci]
+debug = 0
+incremental = false
+inherits = "dev"
+
 [dependencies]
 base64 = "0.21.0"
 futures = "0.3.25"
