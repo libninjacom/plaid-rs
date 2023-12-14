@@ -1,15 +1,12 @@
 
 use serde::{Serialize, Deserialize};
-use super::{
-    CreditFreddieMacVerificationOfAssetsVoa24, CreditFreddieVerificationOfEmploymentVoe25,
-};
+use super::CreditFreddieMacVerificationOfAssetsDeal;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditFreddieMacReportsGetResponse {
-    #[serde(rename = "VOA")]
-    pub voa: CreditFreddieMacVerificationOfAssetsVoa24,
-    #[serde(rename = "VOE")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub voe: Option<CreditFreddieVerificationOfEmploymentVoe25>,
+    #[serde(rename = "DEAL")]
+    pub deal: CreditFreddieMacVerificationOfAssetsDeal,
+    #[serde(rename = "SchemaVersion")]
+    pub schema_version: f64,
     pub request_id: String,
 }
 impl std::fmt::Display for CreditFreddieMacReportsGetResponse {

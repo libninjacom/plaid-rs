@@ -1,29 +1,30 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct TransferRecurringCancelRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TransferRecurringCancelRequest {
     pub recurring_transfer_id: String,
 }
-impl<'a> TransferRecurringCancelRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<TransferRecurringCancelResponse> {
-        let mut r = self.http_client.client.post("/transfer/recurring/cancel");
-        r = r.json(json!({ "recurring_transfer_id" : self.recurring_transfer_id }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for TransferRecurringCancelRequest<'a> {
+impl TransferRecurringCancelRequest {}
+impl FluentRequest<'_, TransferRecurringCancelRequest> {}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, TransferRecurringCancelRequest> {
     type Output = httpclient::InMemoryResult<TransferRecurringCancelResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/transfer/recurring/cancel";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

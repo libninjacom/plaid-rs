@@ -4,8 +4,10 @@ use serde::{Serialize, Deserialize};
 pub struct UserAddress {
     pub city: String,
     pub country: String,
-    pub postal_code: String,
-    pub region: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub postal_code: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub region: Option<String>,
     pub street: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub street2: Option<String>,

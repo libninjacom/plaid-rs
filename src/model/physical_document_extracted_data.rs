@@ -1,8 +1,13 @@
 
 use serde::{Serialize, Deserialize};
+use super::IdentityVerificationDocumentAddressResponse;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PhysicalDocumentExtractedData {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub address: Option<IdentityVerificationDocumentAddressResponse>,
     pub category: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub date_of_birth: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_date: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]

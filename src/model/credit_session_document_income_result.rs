@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditSessionDocumentIncomeResult {
+    pub num_bank_statements_uploaded: i64,
     pub num_paystubs_uploaded: i64,
     #[serde(rename = "num_w2s_uploaded")]
     pub num_w2_s_uploaded: i64,

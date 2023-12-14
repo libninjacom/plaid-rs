@@ -11,12 +11,12 @@ async fn main() {
             account_ids: Some(vec!["your account ids".to_owned()]),
         })
         .user(IdentityMatchUser {
-            address: Some(AddressData {
+            address: Some(AddressDataNotRequired {
                 city: Some("your city".to_owned()),
                 country: Some("your country".to_owned()),
                 postal_code: Some("your postal code".to_owned()),
                 region: Some("your region".to_owned()),
-                street: "your street".to_owned(),
+                street: Some("your street".to_owned()),
             }),
             email_address: Some("your email address".to_owned()),
             legal_name: Some("your legal name".to_owned()),

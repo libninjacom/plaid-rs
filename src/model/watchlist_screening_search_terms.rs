@@ -9,7 +9,7 @@ pub struct WatchlistScreeningSearchTerms {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub document_number: Option<String>,
     pub legal_name: String,
-    pub version: f64,
+    pub version: i64,
     pub watchlist_program_id: String,
 }
 impl std::fmt::Display for WatchlistScreeningSearchTerms {

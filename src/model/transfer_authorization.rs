@@ -2,7 +2,7 @@
 use serde::{Serialize, Deserialize};
 use super::{
     TransferAuthorizationDecisionRationale, TransferAuthorizationGuaranteeDecision,
-    TransferAuthorizationGuaranteeDecisionRationale,
+    TransferAuthorizationGuaranteeDecisionRationale, TransferAuthorizationPaymentRisk,
     TransferAuthorizationProposedTransfer,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,6 +18,8 @@ pub struct TransferAuthorization {
         TransferAuthorizationGuaranteeDecisionRationale,
     >,
     pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub payment_risk: Option<TransferAuthorizationPaymentRisk>,
     pub proposed_transfer: TransferAuthorizationProposedTransfer,
 }
 impl std::fmt::Display for TransferAuthorization {

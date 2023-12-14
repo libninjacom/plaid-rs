@@ -6,6 +6,8 @@ use plaid::request::TransferAuthorizationCreateRequired;
 async fn main() {
     let client = PlaidClient::from_env();
     let args = TransferAuthorizationCreateRequired {
+        access_token: "your access token",
+        account_id: "your account id",
         amount: "your amount",
         network: "your network",
         type_: "your type",
@@ -24,10 +26,9 @@ async fn main() {
     };
     let response = client
         .transfer_authorization_create(args)
-        .access_token("your access token")
-        .account_id("your account id")
         .ach_class("your ach class")
         .beacon_session_id("your beacon session id")
+        .credit_funds_source(TransferCreditFundsSource(serde_json::json!({})))
         .device(TransferAuthorizationDevice {
             ip_address: Some("your ip address".to_owned()),
             user_agent: Some("your user agent".to_owned()),
@@ -38,6 +39,7 @@ async fn main() {
         .origination_account_id("your origination account id")
         .originator_client_id("your originator client id")
         .payment_profile_token("your payment profile token")
+        .test_clock_id("your test clock id")
         .user_present(true)
         .with_guarantee(true)
         .await

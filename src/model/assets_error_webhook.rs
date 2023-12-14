@@ -4,8 +4,11 @@ use super::PlaidError;
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetsErrorWebhook {
     pub asset_report_id: String,
+    pub environment: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<PlaidError>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
     pub webhook_code: String,
     pub webhook_type: String,
 }

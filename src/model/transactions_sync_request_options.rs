@@ -3,6 +3,8 @@ use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransactionsSyncRequestOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub days_requested: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub include_logo_and_counterparty_beta: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub include_original_description: Option<bool>,

@@ -9,7 +9,6 @@ pub struct PartnerCustomerCreateRequired {
     pub is_bank_addendum_completed: bool,
     pub is_diligence_attested: bool,
     pub legal_entity_name: String,
-    pub products: Vec<String>,
     pub website: String,
 }
 impl std::fmt::Display for PartnerCustomerCreateRequired {

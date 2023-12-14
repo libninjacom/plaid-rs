@@ -1,39 +1,37 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct IdentityVerificationListRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IdentityVerificationListRequest {
     pub client_user_id: String,
     pub cursor: Option<String>,
     pub template_id: String,
 }
-impl<'a> IdentityVerificationListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<IdentityVerificationListResponse> {
-        let mut r = self.http_client.client.post("/identity_verification/list");
-        r = r.json(json!({ "client_user_id" : self.client_user_id }));
-        if let Some(ref unwrapped) = self.cursor {
-            r = r.json(json!({ "cursor" : unwrapped }));
-        }
-        r = r.json(json!({ "template_id" : self.template_id }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl IdentityVerificationListRequest {}
+impl FluentRequest<'_, IdentityVerificationListRequest> {
     pub fn cursor(mut self, cursor: &str) -> Self {
-        self.cursor = Some(cursor.to_owned());
+        self.params.cursor = Some(cursor.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for IdentityVerificationListRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, IdentityVerificationListRequest> {
     type Output = httpclient::InMemoryResult<IdentityVerificationListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/identity_verification/list";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

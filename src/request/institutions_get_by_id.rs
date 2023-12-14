@@ -1,39 +1,36 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct InstitutionsGetByIdRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct InstitutionsGetByIdRequest {
     pub country_codes: Vec<String>,
     pub institution_id: String,
     pub options: Option<InstitutionsGetByIdRequestOptions>,
 }
-impl<'a> InstitutionsGetByIdRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<InstitutionsGetByIdResponse> {
-        let mut r = self.http_client.client.post("/institutions/get_by_id");
-        r = r.json(json!({ "country_codes" : self.country_codes }));
-        r = r.json(json!({ "institution_id" : self.institution_id }));
-        if let Some(ref unwrapped) = self.options {
-            r = r.json(json!({ "options" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl InstitutionsGetByIdRequest {}
+impl FluentRequest<'_, InstitutionsGetByIdRequest> {
     pub fn options(mut self, options: InstitutionsGetByIdRequestOptions) -> Self {
-        self.options = Some(options);
+        self.params.options = Some(options);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for InstitutionsGetByIdRequest<'a> {
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, InstitutionsGetByIdRequest> {
     type Output = httpclient::InMemoryResult<InstitutionsGetByIdResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/institutions/get_by_id";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

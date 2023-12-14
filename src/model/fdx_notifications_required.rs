@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{FdxNotificationPayload, FdxParty};
+use super::FdxNotificationPayload;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FdxNotificationsRequired {
     pub category: String,
@@ -8,7 +8,6 @@ pub struct FdxNotificationsRequired {
     pub notification_id: String,
     #[serde(rename = "notificationPayload")]
     pub notification_payload: FdxNotificationPayload,
-    pub publisher: FdxParty,
     #[serde(rename = "sentOn")]
     pub sent_on: chrono::DateTime<chrono::Utc>,
     #[serde(rename = "type")]

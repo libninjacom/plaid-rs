@@ -1,33 +1,31 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct ProcessorTokenCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProcessorTokenCreateRequest {
     pub access_token: String,
     pub account_id: String,
     pub processor: String,
 }
-impl<'a> ProcessorTokenCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<ProcessorTokenCreateResponse> {
-        let mut r = self.http_client.client.post("/processor/token/create");
-        r = r.json(json!({ "access_token" : self.access_token }));
-        r = r.json(json!({ "account_id" : self.account_id }));
-        r = r.json(json!({ "processor" : self.processor }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for ProcessorTokenCreateRequest<'a> {
+impl ProcessorTokenCreateRequest {}
+impl FluentRequest<'_, ProcessorTokenCreateRequest> {}
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, ProcessorTokenCreateRequest> {
     type Output = httpclient::InMemoryResult<ProcessorTokenCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/processor/token/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

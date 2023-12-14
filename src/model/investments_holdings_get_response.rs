@@ -5,6 +5,8 @@ use super::{AccountBase, Holding, Item, Security};
 pub struct InvestmentsHoldingsGetResponse {
     pub accounts: Vec<AccountBase>,
     pub holdings: Vec<Holding>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_investments_fallback_item: Option<bool>,
     pub item: Item,
     pub request_id: String,
     pub securities: Vec<Security>,

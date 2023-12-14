@@ -1,65 +1,56 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct SandboxTransferTestClockListRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SandboxTransferTestClockListRequest {
     pub count: Option<i64>,
     pub end_virtual_time: Option<chrono::DateTime<chrono::Utc>>,
     pub offset: Option<i64>,
     pub start_virtual_time: Option<chrono::DateTime<chrono::Utc>>,
 }
-impl<'a> SandboxTransferTestClockListRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<SandboxTransferTestClockListResponse> {
-        let mut r = self.http_client.client.post("/sandbox/transfer/test_clock/list");
-        if let Some(ref unwrapped) = self.count {
-            r = r.json(json!({ "count" : unwrapped }));
-        }
-        if let Some(ref unwrapped) = self.end_virtual_time {
-            r = r.json(json!({ "end_virtual_time" : unwrapped }));
-        }
-        if let Some(ref unwrapped) = self.offset {
-            r = r.json(json!({ "offset" : unwrapped }));
-        }
-        if let Some(ref unwrapped) = self.start_virtual_time {
-            r = r.json(json!({ "start_virtual_time" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl SandboxTransferTestClockListRequest {}
+impl FluentRequest<'_, SandboxTransferTestClockListRequest> {
     pub fn count(mut self, count: i64) -> Self {
-        self.count = Some(count);
+        self.params.count = Some(count);
         self
     }
     pub fn end_virtual_time(
         mut self,
         end_virtual_time: chrono::DateTime<chrono::Utc>,
     ) -> Self {
-        self.end_virtual_time = Some(end_virtual_time);
+        self.params.end_virtual_time = Some(end_virtual_time);
         self
     }
     pub fn offset(mut self, offset: i64) -> Self {
-        self.offset = Some(offset);
+        self.params.offset = Some(offset);
         self
     }
     pub fn start_virtual_time(
         mut self,
         start_virtual_time: chrono::DateTime<chrono::Utc>,
     ) -> Self {
-        self.start_virtual_time = Some(start_virtual_time);
+        self.params.start_virtual_time = Some(start_virtual_time);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for SandboxTransferTestClockListRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, SandboxTransferTestClockListRequest> {
     type Output = httpclient::InMemoryResult<SandboxTransferTestClockListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/sandbox/transfer/test_clock/list";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

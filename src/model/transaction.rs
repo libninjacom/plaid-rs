@@ -11,13 +11,17 @@ pub struct Transaction {
     pub authorized_date: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authorized_datetime: Option<chrono::DateTime<chrono::Utc>>,
-    pub counterparties: Vec<TransactionCounterparty>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub counterparties: Option<Vec<TransactionCounterparty>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub datetime: Option<chrono::DateTime<chrono::Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub merchant_entity_id: Option<String>,
     pub payment_channel: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub personal_finance_category: Option<PersonalFinanceCategory>,
-    pub personal_finance_category_icon_url: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub personal_finance_category_icon_url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub transaction_code: Option<TransactionCode>,
 }

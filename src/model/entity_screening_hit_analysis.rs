@@ -12,7 +12,7 @@ pub struct EntityScreeningHitAnalysis {
     pub names: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phone_numbers: Option<String>,
-    pub search_terms_version: f64,
+    pub search_terms_version: i64,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub urls: Option<String>,
 }

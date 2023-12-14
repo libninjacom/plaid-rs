@@ -1,31 +1,31 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct SandboxOauthSelectAccountsRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SandboxOauthSelectAccountsRequest {
     pub accounts: Vec<String>,
     pub oauth_state_id: String,
 }
-impl<'a> SandboxOauthSelectAccountsRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<SandboxOauthSelectAccountsResponse> {
-        let mut r = self.http_client.client.post("/sandbox/oauth/select_accounts");
-        r = r.json(json!({ "accounts" : self.accounts }));
-        r = r.json(json!({ "oauth_state_id" : self.oauth_state_id }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for SandboxOauthSelectAccountsRequest<'a> {
+impl SandboxOauthSelectAccountsRequest {}
+impl FluentRequest<'_, SandboxOauthSelectAccountsRequest> {}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, SandboxOauthSelectAccountsRequest> {
     type Output = httpclient::InMemoryResult<SandboxOauthSelectAccountsResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/sandbox/oauth/select_accounts";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

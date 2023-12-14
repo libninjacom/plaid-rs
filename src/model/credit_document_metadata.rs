@@ -8,6 +8,8 @@ pub struct CreditDocumentMetadata {
     pub download_url: Option<String>,
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub page_count: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
 }
 impl std::fmt::Display for CreditDocumentMetadata {

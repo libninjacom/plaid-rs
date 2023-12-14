@@ -24,8 +24,6 @@ async fn main() {
             }),
             webhook: Some("your webhook".to_owned()),
         })
-        .report_type("your report type")
-        .user_token("your user token")
         .await
         .unwrap();
     println!("{:#?}", response);

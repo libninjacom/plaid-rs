@@ -1,10 +1,13 @@
 
 use serde::{Serialize, Deserialize};
+use super::TransferAuthorizationDecisionRationaleCode;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecurringTransferSkippedWebhook {
     pub authorization_decision: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub authorization_decision_rationale_code: Option<String>,
+    pub authorization_decision_rationale_code: Option<
+        TransferAuthorizationDecisionRationaleCode,
+    >,
     pub environment: String,
     pub recurring_transfer_id: String,
     pub skipped_origination_date: chrono::NaiveDate,

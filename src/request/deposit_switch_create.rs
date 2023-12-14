@@ -1,47 +1,41 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct DepositSwitchCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DepositSwitchCreateRequest {
     pub country_code: Option<String>,
     pub options: Option<DepositSwitchCreateRequestOptions>,
     pub target_access_token: String,
     pub target_account_id: String,
 }
-impl<'a> DepositSwitchCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<DepositSwitchCreateResponse> {
-        let mut r = self.http_client.client.post("/deposit_switch/create");
-        if let Some(ref unwrapped) = self.country_code {
-            r = r.json(json!({ "country_code" : unwrapped }));
-        }
-        if let Some(ref unwrapped) = self.options {
-            r = r.json(json!({ "options" : unwrapped }));
-        }
-        r = r.json(json!({ "target_access_token" : self.target_access_token }));
-        r = r.json(json!({ "target_account_id" : self.target_account_id }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl DepositSwitchCreateRequest {}
+impl FluentRequest<'_, DepositSwitchCreateRequest> {
     pub fn country_code(mut self, country_code: &str) -> Self {
-        self.country_code = Some(country_code.to_owned());
+        self.params.country_code = Some(country_code.to_owned());
         self
     }
     pub fn options(mut self, options: DepositSwitchCreateRequestOptions) -> Self {
-        self.options = Some(options);
+        self.params.options = Some(options);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for DepositSwitchCreateRequest<'a> {
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, DepositSwitchCreateRequest> {
     type Output = httpclient::InMemoryResult<DepositSwitchCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/deposit_switch/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

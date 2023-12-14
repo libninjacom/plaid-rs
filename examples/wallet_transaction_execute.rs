@@ -11,6 +11,13 @@ async fn main() {
             value: 1.0,
         },
         counterparty: WalletTransactionCounterparty {
+            address: Some(PaymentInitiationAddress {
+                city: "your city".to_owned(),
+                country: "your country".to_owned(),
+                postal_code: "your postal code".to_owned(),
+                street: vec!["your street".to_owned()],
+            }),
+            date_of_birth: Some(chrono::Utc::now().date_naive()),
             name: "your name".to_owned(),
             numbers: WalletTransactionCounterpartyNumbers {
                 bacs: Some(RecipientBacs {

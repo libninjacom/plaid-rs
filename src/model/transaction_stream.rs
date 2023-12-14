@@ -11,8 +11,11 @@ pub struct TransactionStream {
     pub first_date: chrono::NaiveDate,
     pub frequency: String,
     pub is_active: bool,
+    pub is_user_modified: bool,
     pub last_amount: TransactionStreamAmount,
     pub last_date: chrono::NaiveDate,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_user_modified_date: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub merchant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

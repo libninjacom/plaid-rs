@@ -1,11 +1,11 @@
 
 use serde::{Serialize, Deserialize};
 use super::Scopes;
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Activity {
     pub activity: String,
     pub id: String,
-    pub initiated_date: String,
+    pub initiated_date: chrono::NaiveDate,
     pub initiator: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Scopes>,

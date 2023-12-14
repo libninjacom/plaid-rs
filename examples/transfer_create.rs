@@ -1,23 +1,27 @@
 #![allow(unused_imports)]
 use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::request::TransferCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let authorization_id = "your authorization id";
-    let description = "your description";
+    let args = TransferCreateRequired {
+        access_token: "your access token",
+        account_id: "your account id",
+        authorization_id: "your authorization id",
+        description: "your description",
+    };
     let response = client
-        .transfer_create(authorization_id, description)
-        .access_token("your access token")
-        .account_id("your account id")
+        .transfer_create(args)
         .ach_class("your ach class")
         .amount("your amount")
+        .facilitator_fee("your facilitator fee")
         .idempotency_key("your idempotency key")
         .iso_currency_code("your iso currency code")
         .metadata(TransferMetadata {})
         .network("your network")
         .origination_account_id("your origination account id")
-        .payment_profile_token("your payment profile token")
+        .test_clock_id("your test clock id")
         .type_("your type")
         .user(TransferUserInRequestDeprecated {
             address: Some(TransferUserAddressInRequest {

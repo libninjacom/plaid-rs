@@ -1,29 +1,30 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct TransferOriginatorCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TransferOriginatorCreateRequest {
     pub company_name: String,
 }
-impl<'a> TransferOriginatorCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<TransferOriginatorCreateResponse> {
-        let mut r = self.http_client.client.post("/transfer/originator/create");
-        r = r.json(json!({ "company_name" : self.company_name }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for TransferOriginatorCreateRequest<'a> {
+impl TransferOriginatorCreateRequest {}
+impl FluentRequest<'_, TransferOriginatorCreateRequest> {}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, TransferOriginatorCreateRequest> {
     type Output = httpclient::InMemoryResult<TransferOriginatorCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/transfer/originator/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

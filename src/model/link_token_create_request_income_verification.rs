@@ -20,8 +20,6 @@ pub struct LinkTokenCreateRequestIncomeVerification {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payroll_income: Option<LinkTokenCreateRequestIncomeVerificationPayrollIncome>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub precheck_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub stated_income_sources: Option<Vec<LinkTokenCreateRequestUserStatedIncomeSource>>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestIncomeVerification {

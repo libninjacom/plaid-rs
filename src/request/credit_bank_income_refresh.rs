@@ -1,37 +1,36 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct CreditBankIncomeRefreshRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CreditBankIncomeRefreshRequest {
     pub options: Option<CreditBankIncomeRefreshRequestOptions>,
     pub user_token: String,
 }
-impl<'a> CreditBankIncomeRefreshRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<CreditBankIncomeRefreshResponse> {
-        let mut r = self.http_client.client.post("/credit/bank_income/refresh");
-        if let Some(ref unwrapped) = self.options {
-            r = r.json(json!({ "options" : unwrapped }));
-        }
-        r = r.json(json!({ "user_token" : self.user_token }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl CreditBankIncomeRefreshRequest {}
+impl FluentRequest<'_, CreditBankIncomeRefreshRequest> {
     pub fn options(mut self, options: CreditBankIncomeRefreshRequestOptions) -> Self {
-        self.options = Some(options);
+        self.params.options = Some(options);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for CreditBankIncomeRefreshRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, CreditBankIncomeRefreshRequest> {
     type Output = httpclient::InMemoryResult<CreditBankIncomeRefreshResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/credit/bank_income/refresh";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

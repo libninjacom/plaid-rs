@@ -11,6 +11,7 @@ async fn main() {
         .investments_transactions_get(access_token, end_date, start_date)
         .options(InvestmentsTransactionsGetRequestOptions {
             account_ids: Some(vec!["your account ids".to_owned()]),
+            async_update: Some(true),
             count: Some(1),
             offset: Some(1),
         })

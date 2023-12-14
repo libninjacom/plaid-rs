@@ -1,12 +1,14 @@
 
 use serde::{Serialize, Deserialize};
-use super::LinkTokenGetMetadataResponse;
+use super::{LinkTokenGetMetadataResponse, LinkTokenGetSessionsResponse};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkTokenGetResponse {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration: Option<chrono::DateTime<chrono::Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link_sessions: Option<Vec<LinkTokenGetSessionsResponse>>,
     pub link_token: String,
     pub metadata: LinkTokenGetMetadataResponse,
     pub request_id: String,

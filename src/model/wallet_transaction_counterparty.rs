@@ -1,8 +1,12 @@
 
 use serde::{Serialize, Deserialize};
-use super::WalletTransactionCounterpartyNumbers;
+use super::{PaymentInitiationAddress, WalletTransactionCounterpartyNumbers};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransactionCounterparty {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub address: Option<PaymentInitiationAddress>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub date_of_birth: Option<chrono::NaiveDate>,
     pub name: String,
     pub numbers: WalletTransactionCounterpartyNumbers,
 }

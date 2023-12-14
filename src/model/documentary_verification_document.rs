@@ -4,7 +4,7 @@ use super::{DocumentAnalysis, PhysicalDocumentExtractedData, PhysicalDocumentIma
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DocumentaryVerificationDocument {
     pub analysis: DocumentAnalysis,
-    pub attempt: f64,
+    pub attempt: i64,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extracted_data: Option<PhysicalDocumentExtractedData>,
     pub images: PhysicalDocumentImages,

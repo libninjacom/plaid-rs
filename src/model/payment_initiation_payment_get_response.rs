@@ -5,7 +5,8 @@ use super::PaymentInitiationPayment;
 pub struct PaymentInitiationPaymentGetResponse {
     #[serde(flatten)]
     pub payment_initiation_payment: PaymentInitiationPayment,
-    pub request_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_id: Option<String>,
 }
 impl std::fmt::Display for PaymentInitiationPaymentGetResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

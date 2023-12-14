@@ -9,7 +9,6 @@ async fn main() {
         .credit_bank_income_refresh(user_token)
         .options(CreditBankIncomeRefreshRequestOptions {
             days_requested: Some(1),
-            webhook: Some("your webhook".to_owned()),
         })
         .await
         .unwrap();

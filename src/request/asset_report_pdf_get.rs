@@ -1,35 +1,35 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct AssetReportPdfGetRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AssetReportPdfGetRequest {
     pub asset_report_token: String,
     pub options: Option<AssetReportPdfGetRequestOptions>,
 }
-impl<'a> AssetReportPdfGetRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<()> {
-        let mut r = self.http_client.client.post("/asset_report/pdf/get");
-        r = r.json(json!({ "asset_report_token" : self.asset_report_token }));
-        if let Some(ref unwrapped) = self.options {
-            r = r.json(json!({ "options" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl AssetReportPdfGetRequest {}
+impl FluentRequest<'_, AssetReportPdfGetRequest> {
     pub fn options(mut self, options: AssetReportPdfGetRequestOptions) -> Self {
-        self.options = Some(options);
+        self.params.options = Some(options);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for AssetReportPdfGetRequest<'a> {
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, AssetReportPdfGetRequest> {
     type Output = httpclient::InMemoryResult<()>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/asset_report/pdf/get";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

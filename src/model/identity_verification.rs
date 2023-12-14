@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::{
     DocumentaryVerification, IdentityVerificationStepSummary,
     IdentityVerificationTemplateReference, IdentityVerificationUserData, KycCheckDetails,
-    RiskCheckDetails,
+    RiskCheckDetails, SelfieCheck,
 };
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerification {
@@ -22,6 +22,8 @@ pub struct IdentityVerification {
     pub redacted_at: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub risk_check: Option<RiskCheckDetails>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selfie_check: Option<SelfieCheck>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub shareable_url: Option<String>,
     pub status: String,

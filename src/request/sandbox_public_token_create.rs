@@ -1,47 +1,42 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct SandboxPublicTokenCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SandboxPublicTokenCreateRequest {
     pub initial_products: Vec<String>,
     pub institution_id: String,
     pub options: Option<SandboxPublicTokenCreateRequestOptions>,
     pub user_token: Option<String>,
 }
-impl<'a> SandboxPublicTokenCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<SandboxPublicTokenCreateResponse> {
-        let mut r = self.http_client.client.post("/sandbox/public_token/create");
-        r = r.json(json!({ "initial_products" : self.initial_products }));
-        r = r.json(json!({ "institution_id" : self.institution_id }));
-        if let Some(ref unwrapped) = self.options {
-            r = r.json(json!({ "options" : unwrapped }));
-        }
-        if let Some(ref unwrapped) = self.user_token {
-            r = r.json(json!({ "user_token" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl SandboxPublicTokenCreateRequest {}
+impl FluentRequest<'_, SandboxPublicTokenCreateRequest> {
     pub fn options(mut self, options: SandboxPublicTokenCreateRequestOptions) -> Self {
-        self.options = Some(options);
+        self.params.options = Some(options);
         self
     }
     pub fn user_token(mut self, user_token: &str) -> Self {
-        self.user_token = Some(user_token.to_owned());
+        self.params.user_token = Some(user_token.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for SandboxPublicTokenCreateRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, SandboxPublicTokenCreateRequest> {
     type Output = httpclient::InMemoryResult<SandboxPublicTokenCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/sandbox/public_token/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

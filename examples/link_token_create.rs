@@ -10,22 +10,12 @@ async fn main() {
         country_codes: &["your country codes"],
         language: "your language",
         user: LinkTokenCreateRequestUser {
-            address: Some(UserAddress {
-                city: "your city".to_owned(),
-                country: "your country".to_owned(),
-                postal_code: "your postal code".to_owned(),
-                region: "your region".to_owned(),
-                street: "your street".to_owned(),
-                street2: Some("your street 2".to_owned()),
-            }),
+            address: Some(serde_json::json!({})),
             client_user_id: "your client user id".to_owned(),
             date_of_birth: Some(chrono::Utc::now().date_naive()),
             email_address: Some("your email address".to_owned()),
             email_address_verified_time: Some(chrono::Utc::now()),
-            id_number: Some(UserIdNumber {
-                type_: "your type".to_owned(),
-                value: "your value".to_owned(),
-            }),
+            id_number: Some(serde_json::json!({})),
             legal_name: Some("your legal name".to_owned()),
             name: Some(serde_json::json!({})),
             phone_number: Some("your phone number".to_owned()),
@@ -36,6 +26,7 @@ async fn main() {
     let response = client
         .link_token_create(args)
         .access_token("your access token")
+        .access_tokens(&["your access tokens"])
         .account_filters(LinkTokenAccountFilters {
             credit: Some(CreditFilter {
                 account_subtypes: vec!["your account subtypes".to_owned()],
@@ -49,16 +40,30 @@ async fn main() {
             loan: Some(LoanFilter {
                 account_subtypes: vec!["your account subtypes".to_owned()],
             }),
+            other: Some(OtherFilter {
+                account_subtypes: vec!["your account subtypes".to_owned()],
+            }),
         })
         .additional_consented_products(&["your additional consented products"])
         .android_package_name("your android package name")
         .auth(LinkTokenCreateRequestAuth {
             auth_type_select_enabled: Some(true),
             automated_microdeposits_enabled: Some(true),
+            database_match_enabled: Some(true),
             flow_type: Some("your flow type".to_owned()),
             instant_match_enabled: Some(true),
+            instant_microdeposits_enabled: Some(true),
+            reroute_to_credentials: Some("your reroute to credentials".to_owned()),
             same_day_microdeposits_enabled: Some(true),
         })
+        .base_report(LinkTokenCreateRequestBaseReport {
+            days_requested: 1,
+        })
+        .card_switch(LinkTokenCreateCardSwitch {
+            card_bin: "your card bin".to_owned(),
+        })
+        .consumer_report_permissible_purpose("your consumer report permissible purpose")
+        .cra_enabled(true)
         .deposit_switch(LinkTokenCreateRequestDepositSwitch {
             deposit_switch_id: "your deposit switch id".to_owned(),
         })
@@ -72,6 +77,11 @@ async fn main() {
         })
         .eu_config(LinkTokenEuConfig {
             headless: Some(true),
+        })
+        .hosted_link(LinkTokenCreateHostedLink {
+            completion_redirect_uri: Some("your completion redirect uri".to_owned()),
+            delivery_method: Some("your delivery method".to_owned()),
+            url_lifetime_seconds: Some(1),
         })
         .identity_verification(LinkTokenCreateRequestIdentityVerification {
             consent: Some(true),
@@ -91,8 +101,8 @@ async fn main() {
                 flow_types: Some(vec!["your flow types".to_owned()]),
                 is_update_mode: Some(true),
                 item_id_to_update: Some("your item id to update".to_owned()),
+                parsing_config: Some(vec!["your parsing config".to_owned()]),
             }),
-            precheck_id: Some("your precheck id".to_owned()),
             stated_income_sources: Some(
                 vec![
                     LinkTokenCreateRequestUserStatedIncomeSource { category :
@@ -108,15 +118,29 @@ async fn main() {
         })
         .institution_id("your institution id")
         .investments(LinkTokenInvestments {
+            allow_manual_entry: Some(true),
             allow_unverified_crypto_wallets: Some(true),
         })
+        .investments_auth(LinkTokenInvestmentsAuth {
+            manual_entry_enabled: Some(true),
+            masked_number_match_enabled: Some(true),
+        })
         .link_customization_name("your link customization name")
+        .optional_products(&["your optional products"])
         .payment_initiation(LinkTokenCreateRequestPaymentInitiation {
             consent_id: Some("your consent id".to_owned()),
             payment_id: Some("your payment id".to_owned()),
         })
         .products(&["your products"])
         .redirect_uri("your redirect uri")
+        .required_if_supported_products(&["your required if supported products"])
+        .statements(LinkTokenCreateRequestStatements {
+            end_date: Some(chrono::Utc::now().date_naive()),
+            start_date: Some(chrono::Utc::now().date_naive()),
+        })
+        .transactions(LinkTokenTransactions {
+            days_requested: Some(1),
+        })
         .transfer(LinkTokenCreateRequestTransfer {
             intent_id: Some("your intent id".to_owned()),
             payment_profile_token: Some("your payment profile token".to_owned()),

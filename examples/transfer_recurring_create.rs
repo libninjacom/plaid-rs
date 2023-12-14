@@ -10,10 +10,6 @@ async fn main() {
         account_id: "your account id",
         amount: "your amount",
         description: "your description",
-        device: TransferDevice {
-            ip_address: "your ip address".to_owned(),
-            user_agent: "your user agent".to_owned(),
-        },
         idempotency_key: "your idempotency key",
         network: "your network",
         schedule: TransferRecurringSchedule {
@@ -40,6 +36,10 @@ async fn main() {
     let response = client
         .transfer_recurring_create(args)
         .ach_class("your ach class")
+        .device(TransferDevice {
+            ip_address: "your ip address".to_owned(),
+            user_agent: "your user agent".to_owned(),
+        })
         .funding_account_id("your funding account id")
         .iso_currency_code("your iso currency code")
         .test_clock_id("your test clock id")

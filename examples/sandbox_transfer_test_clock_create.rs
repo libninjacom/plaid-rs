@@ -4,9 +4,9 @@ use plaid::model::*;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let virtual_time = chrono::Utc::now();
     let response = client
-        .sandbox_transfer_test_clock_create(virtual_time)
+        .sandbox_transfer_test_clock_create()
+        .virtual_time(chrono::Utc::now())
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -7,8 +7,7 @@ pub struct ItemActivityListResponse {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cursor: Option<String>,
     pub last_data_access_times: Vec<LastDataAccessTimes>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_id: Option<String>,
+    pub request_id: String,
 }
 impl std::fmt::Display for ItemActivityListResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

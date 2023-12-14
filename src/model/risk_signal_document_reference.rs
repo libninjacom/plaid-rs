@@ -6,6 +6,8 @@ pub struct RiskSignalDocumentReference {
     pub document_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub document_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
 }
 impl std::fmt::Display for RiskSignalDocumentReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

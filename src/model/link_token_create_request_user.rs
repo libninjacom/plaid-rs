@@ -1,10 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-use super::{UserAddress, UserIdNumber};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenCreateRequestUser {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub address: Option<UserAddress>,
+    pub address: Option<serde_json::Value>,
     pub client_user_id: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub date_of_birth: Option<chrono::NaiveDate>,
@@ -13,7 +12,7 @@ pub struct LinkTokenCreateRequestUser {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email_address_verified_time: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub id_number: Option<UserIdNumber>,
+    pub id_number: Option<serde_json::Value>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub legal_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

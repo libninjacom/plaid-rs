@@ -12,6 +12,7 @@ async fn main() {
             ach_return_code: Some("your ach return code".to_owned()),
             description: Some("your description".to_owned()),
         })
+        .test_clock_id("your test clock id")
         .await
         .unwrap();
     println!("{:#?}", response);

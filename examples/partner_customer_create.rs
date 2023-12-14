@@ -18,7 +18,6 @@ async fn main() {
         is_bank_addendum_completed: true,
         is_diligence_attested: true,
         legal_entity_name: "your legal entity name",
-        products: &["your products"],
         website: "your website",
     };
     let response = client
@@ -41,6 +40,7 @@ async fn main() {
             phone_number: Some("your phone number".to_owned()),
         })
         .logo("your logo")
+        .products(&["your products"])
         .redirect_uris(&["your redirect uris"])
         .secret("your secret")
         .technical_contact(PartnerEndCustomerTechnicalContact {

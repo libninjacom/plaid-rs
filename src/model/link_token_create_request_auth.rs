@@ -7,9 +7,15 @@ pub struct LinkTokenCreateRequestAuth {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub automated_microdeposits_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub database_match_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub flow_type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub instant_match_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub instant_microdeposits_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reroute_to_credentials: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub same_day_microdeposits_enabled: Option<bool>,
 }

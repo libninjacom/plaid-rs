@@ -1,39 +1,21 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct ItemApplicationScopesUpdateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ItemApplicationScopesUpdateRequest {
     pub access_token: String,
     pub application_id: String,
     pub context: String,
     pub scopes: Scopes,
     pub state: Option<String>,
 }
-impl<'a> ItemApplicationScopesUpdateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<ItemApplicationScopesUpdateResponse> {
-        let mut r = self.http_client.client.post("/item/application/scopes/update");
-        r = r.json(json!({ "access_token" : self.access_token }));
-        r = r.json(json!({ "application_id" : self.application_id }));
-        r = r.json(json!({ "context" : self.context }));
-        r = r.json(json!({ "scopes" : self.scopes }));
-        if let Some(ref unwrapped) = self.state {
-            r = r.json(json!({ "state" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-    pub fn state(mut self, state: &str) -> Self {
-        self.state = Some(state.to_owned());
-        self
-    }
-}
+impl ItemApplicationScopesUpdateRequest {}
 pub struct ItemApplicationScopesUpdateRequired<'a> {
     pub access_token: &'a str,
     pub application_id: &'a str,
@@ -41,10 +23,24 @@ pub struct ItemApplicationScopesUpdateRequired<'a> {
     pub scopes: Scopes,
 }
 impl<'a> ItemApplicationScopesUpdateRequired<'a> {}
-impl<'a> ::std::future::IntoFuture for ItemApplicationScopesUpdateRequest<'a> {
+impl FluentRequest<'_, ItemApplicationScopesUpdateRequest> {
+    pub fn state(mut self, state: &str) -> Self {
+        self.params.state = Some(state.to_owned());
+        self
+    }
+}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, ItemApplicationScopesUpdateRequest> {
     type Output = httpclient::InMemoryResult<ItemApplicationScopesUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/item/application/scopes/update";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

@@ -1,41 +1,43 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct SandboxIncomeFireWebhookRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SandboxIncomeFireWebhookRequest {
     pub item_id: String,
     pub user_id: Option<String>,
-    pub verification_status: String,
+    pub verification_status: Option<String>,
     pub webhook: String,
+    pub webhook_code: String,
 }
-impl<'a> SandboxIncomeFireWebhookRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<SandboxIncomeFireWebhookResponse> {
-        let mut r = self.http_client.client.post("/sandbox/income/fire_webhook");
-        r = r.json(json!({ "item_id" : self.item_id }));
-        if let Some(ref unwrapped) = self.user_id {
-            r = r.json(json!({ "user_id" : unwrapped }));
-        }
-        r = r.json(json!({ "verification_status" : self.verification_status }));
-        r = r.json(json!({ "webhook" : self.webhook }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl SandboxIncomeFireWebhookRequest {}
+impl FluentRequest<'_, SandboxIncomeFireWebhookRequest> {
     pub fn user_id(mut self, user_id: &str) -> Self {
-        self.user_id = Some(user_id.to_owned());
+        self.params.user_id = Some(user_id.to_owned());
+        self
+    }
+    pub fn verification_status(mut self, verification_status: &str) -> Self {
+        self.params.verification_status = Some(verification_status.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for SandboxIncomeFireWebhookRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, SandboxIncomeFireWebhookRequest> {
     type Output = httpclient::InMemoryResult<SandboxIncomeFireWebhookResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/sandbox/income/fire_webhook";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

@@ -1,37 +1,36 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct WatchlistScreeningEntityCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct WatchlistScreeningEntityCreateRequest {
     pub client_user_id: Option<String>,
     pub search_terms: EntityWatchlistSearchTerms,
 }
-impl<'a> WatchlistScreeningEntityCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningEntityCreateResponse> {
-        let mut r = self.http_client.client.post("/watchlist_screening/entity/create");
-        if let Some(ref unwrapped) = self.client_user_id {
-            r = r.json(json!({ "client_user_id" : unwrapped }));
-        }
-        r = r.json(json!({ "search_terms" : self.search_terms }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl WatchlistScreeningEntityCreateRequest {}
+impl FluentRequest<'_, WatchlistScreeningEntityCreateRequest> {
     pub fn client_user_id(mut self, client_user_id: &str) -> Self {
-        self.client_user_id = Some(client_user_id.to_owned());
+        self.params.client_user_id = Some(client_user_id.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for WatchlistScreeningEntityCreateRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, WatchlistScreeningEntityCreateRequest> {
     type Output = httpclient::InMemoryResult<WatchlistScreeningEntityCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/watchlist_screening/entity/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

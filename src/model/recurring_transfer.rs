@@ -12,7 +12,8 @@ pub struct RecurringTransfer {
     pub funding_account_id: String,
     pub iso_currency_code: String,
     pub network: String,
-    pub next_origination_date: chrono::NaiveDate,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_origination_date: Option<chrono::NaiveDate>,
     pub origination_account_id: String,
     pub recurring_transfer_id: String,
     pub schedule: TransferRecurringSchedule,

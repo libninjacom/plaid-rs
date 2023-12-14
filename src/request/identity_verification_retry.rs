@@ -1,41 +1,43 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct IdentityVerificationRetryRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IdentityVerificationRetryRequest {
     pub client_user_id: String,
     pub steps: Option<IdentityVerificationRetryRequestStepsObject>,
     pub strategy: String,
     pub template_id: String,
+    pub user: Option<IdentityVerificationRequestUser>,
 }
-impl<'a> IdentityVerificationRetryRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<IdentityVerificationRetryResponse> {
-        let mut r = self.http_client.client.post("/identity_verification/retry");
-        r = r.json(json!({ "client_user_id" : self.client_user_id }));
-        if let Some(ref unwrapped) = self.steps {
-            r = r.json(json!({ "steps" : unwrapped }));
-        }
-        r = r.json(json!({ "strategy" : self.strategy }));
-        r = r.json(json!({ "template_id" : self.template_id }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl IdentityVerificationRetryRequest {}
+impl FluentRequest<'_, IdentityVerificationRetryRequest> {
     pub fn steps(mut self, steps: IdentityVerificationRetryRequestStepsObject) -> Self {
-        self.steps = Some(steps);
+        self.params.steps = Some(steps);
+        self
+    }
+    pub fn user(mut self, user: IdentityVerificationRequestUser) -> Self {
+        self.params.user = Some(user);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for IdentityVerificationRetryRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, IdentityVerificationRetryRequest> {
     type Output = httpclient::InMemoryResult<IdentityVerificationRetryResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/identity_verification/retry";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

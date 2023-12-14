@@ -5,6 +5,8 @@ pub struct TransferMetricsGetResponse {
     pub daily_credit_transfer_volume: String,
     pub daily_debit_transfer_volume: String,
     pub iso_currency_code: String,
+    pub monthly_credit_transfer_volume: String,
+    pub monthly_debit_transfer_volume: String,
     pub monthly_transfer_volume: String,
     pub request_id: String,
 }

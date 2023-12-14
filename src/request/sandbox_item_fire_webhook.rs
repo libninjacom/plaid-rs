@@ -1,39 +1,36 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct SandboxItemFireWebhookRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SandboxItemFireWebhookRequest {
     pub access_token: String,
     pub webhook_code: String,
     pub webhook_type: Option<String>,
 }
-impl<'a> SandboxItemFireWebhookRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<SandboxItemFireWebhookResponse> {
-        let mut r = self.http_client.client.post("/sandbox/item/fire_webhook");
-        r = r.json(json!({ "access_token" : self.access_token }));
-        r = r.json(json!({ "webhook_code" : self.webhook_code }));
-        if let Some(ref unwrapped) = self.webhook_type {
-            r = r.json(json!({ "webhook_type" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl SandboxItemFireWebhookRequest {}
+impl FluentRequest<'_, SandboxItemFireWebhookRequest> {
     pub fn webhook_type(mut self, webhook_type: &str) -> Self {
-        self.webhook_type = Some(webhook_type.to_owned());
+        self.params.webhook_type = Some(webhook_type.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for SandboxItemFireWebhookRequest<'a> {
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, SandboxItemFireWebhookRequest> {
     type Output = httpclient::InMemoryResult<SandboxItemFireWebhookResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/sandbox/item/fire_webhook";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

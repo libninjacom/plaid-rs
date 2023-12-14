@@ -1,12 +1,14 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct ProcessorBankTransferCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProcessorBankTransferCreateRequest {
     pub ach_class: Option<String>,
     pub amount: String,
     pub custom_tag: Option<String>,
@@ -20,52 +22,7 @@ pub struct ProcessorBankTransferCreateRequest<'a> {
     pub type_: String,
     pub user: BankTransferUser,
 }
-impl<'a> ProcessorBankTransferCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<ProcessorBankTransferCreateResponse> {
-        let mut r = self.http_client.client.post("/processor/bank_transfer/create");
-        if let Some(ref unwrapped) = self.ach_class {
-            r = r.json(json!({ "ach_class" : unwrapped }));
-        }
-        r = r.json(json!({ "amount" : self.amount }));
-        if let Some(ref unwrapped) = self.custom_tag {
-            r = r.json(json!({ "custom_tag" : unwrapped }));
-        }
-        r = r.json(json!({ "description" : self.description }));
-        r = r.json(json!({ "idempotency_key" : self.idempotency_key }));
-        r = r.json(json!({ "iso_currency_code" : self.iso_currency_code }));
-        if let Some(ref unwrapped) = self.metadata {
-            r = r.json(json!({ "metadata" : unwrapped }));
-        }
-        r = r.json(json!({ "network" : self.network }));
-        if let Some(ref unwrapped) = self.origination_account_id {
-            r = r.json(json!({ "origination_account_id" : unwrapped }));
-        }
-        r = r.json(json!({ "processor_token" : self.processor_token }));
-        r = r.json(json!({ "type" : self.type_ }));
-        r = r.json(json!({ "user" : self.user }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-    pub fn ach_class(mut self, ach_class: &str) -> Self {
-        self.ach_class = Some(ach_class.to_owned());
-        self
-    }
-    pub fn custom_tag(mut self, custom_tag: &str) -> Self {
-        self.custom_tag = Some(custom_tag.to_owned());
-        self
-    }
-    pub fn metadata(mut self, metadata: BankTransferMetadata) -> Self {
-        self.metadata = Some(metadata);
-        self
-    }
-    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
-        self.origination_account_id = Some(origination_account_id.to_owned());
-        self
-    }
-}
+impl ProcessorBankTransferCreateRequest {}
 pub struct ProcessorBankTransferCreateRequired<'a> {
     pub amount: &'a str,
     pub description: &'a str,
@@ -77,10 +34,36 @@ pub struct ProcessorBankTransferCreateRequired<'a> {
     pub user: BankTransferUser,
 }
 impl<'a> ProcessorBankTransferCreateRequired<'a> {}
-impl<'a> ::std::future::IntoFuture for ProcessorBankTransferCreateRequest<'a> {
+impl FluentRequest<'_, ProcessorBankTransferCreateRequest> {
+    pub fn ach_class(mut self, ach_class: &str) -> Self {
+        self.params.ach_class = Some(ach_class.to_owned());
+        self
+    }
+    pub fn custom_tag(mut self, custom_tag: &str) -> Self {
+        self.params.custom_tag = Some(custom_tag.to_owned());
+        self
+    }
+    pub fn metadata(mut self, metadata: BankTransferMetadata) -> Self {
+        self.params.metadata = Some(metadata);
+        self
+    }
+    pub fn origination_account_id(mut self, origination_account_id: &str) -> Self {
+        self.params.origination_account_id = Some(origination_account_id.to_owned());
+        self
+    }
+}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, ProcessorBankTransferCreateRequest> {
     type Output = httpclient::InMemoryResult<ProcessorBankTransferCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/processor/bank_transfer/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

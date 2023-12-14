@@ -18,6 +18,7 @@ async fn main() {
             override_password: Some("your override password".to_owned()),
             override_username: Some("your override username".to_owned()),
             transactions: Some(SandboxPublicTokenCreateRequestOptionsTransactions {
+                days_requested: Some(1),
                 end_date: Some(chrono::Utc::now().date_naive()),
                 start_date: Some(chrono::Utc::now().date_naive()),
             }),

@@ -5,7 +5,6 @@ use super::{IdentityVerificationRequestUserName, UserAddress, UserIdNumber};
 pub struct IdentityVerificationRequestUser {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<UserAddress>,
-    pub client_user_id: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub date_of_birth: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]

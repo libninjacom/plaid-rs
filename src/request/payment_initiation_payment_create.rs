@@ -1,49 +1,43 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct PaymentInitiationPaymentCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PaymentInitiationPaymentCreateRequest {
     pub amount: PaymentAmount,
     pub options: Option<ExternalPaymentOptions>,
     pub recipient_id: String,
     pub reference: String,
     pub schedule: Option<ExternalPaymentScheduleRequest>,
 }
-impl<'a> PaymentInitiationPaymentCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<PaymentInitiationPaymentCreateResponse> {
-        let mut r = self.http_client.client.post("/payment_initiation/payment/create");
-        r = r.json(json!({ "amount" : self.amount }));
-        if let Some(ref unwrapped) = self.options {
-            r = r.json(json!({ "options" : unwrapped }));
-        }
-        r = r.json(json!({ "recipient_id" : self.recipient_id }));
-        r = r.json(json!({ "reference" : self.reference }));
-        if let Some(ref unwrapped) = self.schedule {
-            r = r.json(json!({ "schedule" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl PaymentInitiationPaymentCreateRequest {}
+impl FluentRequest<'_, PaymentInitiationPaymentCreateRequest> {
     pub fn options(mut self, options: ExternalPaymentOptions) -> Self {
-        self.options = Some(options);
+        self.params.options = Some(options);
         self
     }
     pub fn schedule(mut self, schedule: ExternalPaymentScheduleRequest) -> Self {
-        self.schedule = Some(schedule);
+        self.params.schedule = Some(schedule);
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for PaymentInitiationPaymentCreateRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, PaymentInitiationPaymentCreateRequest> {
     type Output = httpclient::InMemoryResult<PaymentInitiationPaymentCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/payment_initiation/payment/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

@@ -10,7 +10,7 @@ pub struct ScreeningHitAnalysis {
     pub locations: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub names: Option<String>,
-    pub search_terms_version: f64,
+    pub search_terms_version: i64,
 }
 impl std::fmt::Display for ScreeningHitAnalysis {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,8 +1,9 @@
 
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+use super::TransferAuthorizationDecisionRationaleCode;
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationDecisionRationale {
-    pub code: String,
+    pub code: TransferAuthorizationDecisionRationaleCode,
     pub description: String,
 }
 impl std::fmt::Display for TransferAuthorizationDecisionRationale {

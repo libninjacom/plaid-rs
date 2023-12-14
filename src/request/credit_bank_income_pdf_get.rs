@@ -1,27 +1,29 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct CreditBankIncomePdfGetRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CreditBankIncomePdfGetRequest {
     pub user_token: String,
 }
-impl<'a> CreditBankIncomePdfGetRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<()> {
-        let mut r = self.http_client.client.post("/credit/bank_income/pdf/get");
-        r = r.json(json!({ "user_token" : self.user_token }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for CreditBankIncomePdfGetRequest<'a> {
+impl CreditBankIncomePdfGetRequest {}
+impl FluentRequest<'_, CreditBankIncomePdfGetRequest> {}
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, CreditBankIncomePdfGetRequest> {
     type Output = httpclient::InMemoryResult<()>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/credit/bank_income/pdf/get";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

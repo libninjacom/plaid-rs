@@ -15,6 +15,27 @@ async fn main() {
             selfie_check: true,
             verify_sms: true,
         })
+        .user(IdentityVerificationRequestUser {
+            address: Some(UserAddress {
+                city: "your city".to_owned(),
+                country: "your country".to_owned(),
+                postal_code: Some("your postal code".to_owned()),
+                region: Some("your region".to_owned()),
+                street: "your street".to_owned(),
+                street2: Some("your street 2".to_owned()),
+            }),
+            date_of_birth: Some(chrono::Utc::now().date_naive()),
+            email_address: Some("your email address".to_owned()),
+            id_number: Some(UserIdNumber {
+                type_: "your type".to_owned(),
+                value: "your value".to_owned(),
+            }),
+            name: Some(IdentityVerificationRequestUserName {
+                family_name: "your family name".to_owned(),
+                given_name: "your given name".to_owned(),
+            }),
+            phone_number: Some("your phone number".to_owned()),
+        })
         .await
         .unwrap();
     println!("{:#?}", response);

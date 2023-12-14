@@ -1,6 +1,6 @@
 
 use serde::{Serialize, Deserialize};
-use super::{Counterparty, Location, PersonalFinanceCategory};
+use super::{Counterparty, Location, PersonalFinanceCategory, Recurrence};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Enrichments {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -21,6 +21,8 @@ pub struct Enrichments {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub personal_finance_category: Option<PersonalFinanceCategory>,
     pub personal_finance_category_icon_url: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub recurrence: Option<Recurrence>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub website: Option<String>,
 }

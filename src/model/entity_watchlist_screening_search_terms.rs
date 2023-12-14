@@ -14,7 +14,7 @@ pub struct EntityWatchlistScreeningSearchTerms {
     pub phone_number: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    pub version: f64,
+    pub version: i64,
 }
 impl std::fmt::Display for EntityWatchlistScreeningSearchTerms {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

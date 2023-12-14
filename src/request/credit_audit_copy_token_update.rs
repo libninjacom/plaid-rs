@@ -1,31 +1,31 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct CreditAuditCopyTokenUpdateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CreditAuditCopyTokenUpdateRequest {
     pub audit_copy_token: String,
     pub report_tokens: Vec<String>,
 }
-impl<'a> CreditAuditCopyTokenUpdateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<CreditAuditCopyTokenUpdateResponse> {
-        let mut r = self.http_client.client.post("/credit/audit_copy_token/update");
-        r = r.json(json!({ "audit_copy_token" : self.audit_copy_token }));
-        r = r.json(json!({ "report_tokens" : self.report_tokens }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for CreditAuditCopyTokenUpdateRequest<'a> {
+impl CreditAuditCopyTokenUpdateRequest {}
+impl FluentRequest<'_, CreditAuditCopyTokenUpdateRequest> {}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, CreditAuditCopyTokenUpdateRequest> {
     type Output = httpclient::InMemoryResult<CreditAuditCopyTokenUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/credit/audit_copy_token/update";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

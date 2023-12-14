@@ -1,40 +1,36 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct WatchlistScreeningIndividualCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct WatchlistScreeningIndividualCreateRequest {
     pub client_user_id: Option<String>,
     pub search_terms: WatchlistScreeningRequestSearchTerms,
 }
-impl<'a> WatchlistScreeningIndividualCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<WatchlistScreeningIndividualCreateResponse> {
-        let mut r = self
-            .http_client
-            .client
-            .post("/watchlist_screening/individual/create");
-        if let Some(ref unwrapped) = self.client_user_id {
-            r = r.json(json!({ "client_user_id" : unwrapped }));
-        }
-        r = r.json(json!({ "search_terms" : self.search_terms }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl WatchlistScreeningIndividualCreateRequest {}
+impl FluentRequest<'_, WatchlistScreeningIndividualCreateRequest> {
     pub fn client_user_id(mut self, client_user_id: &str) -> Self {
-        self.client_user_id = Some(client_user_id.to_owned());
+        self.params.client_user_id = Some(client_user_id.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for WatchlistScreeningIndividualCreateRequest<'a> {
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, WatchlistScreeningIndividualCreateRequest> {
     type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/watchlist_screening/individual/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

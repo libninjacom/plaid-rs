@@ -57,6 +57,11 @@ test-full:
         cargo run --example "$(basename "$file" .rs)"
     done
 
-generate:
+transform:
     req https://raw.githubusercontent.com/plaid/plaid-openapi/master/2020-09-14.yml > openapi.yaml
-    libninja gen -lrust --repo libninjacom/plaid-rs -o . Plaid openapi.yaml
+    read
+    cd transform && cargo run -- ../openapi.yaml ../transform.yaml
+
+generate:
+    checkexec transform.yaml -- just transform
+    libninja gen -lrust plaid transform.yaml

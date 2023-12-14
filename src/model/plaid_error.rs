@@ -14,7 +14,7 @@ pub struct PlaidError {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: Option<f64>,
+    pub status: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub suggested_action: Option<String>,
 }

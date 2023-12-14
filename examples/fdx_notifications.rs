@@ -9,21 +9,14 @@ async fn main() {
         category: "your category",
         notification_id: "your notification id",
         notification_payload: FdxNotificationPayload {
-            custom_fields: Some(FdxFiAttribute {
-                name: Some("your name".to_owned()),
-                value: Some("your value".to_owned()),
-            }),
+            custom_fields: Some(
+                vec![
+                    FdxFiAttribute { name : "your name".to_owned(), value : "your value"
+                    .to_owned() }
+                ],
+            ),
             id: Some("your id".to_owned()),
             id_type: Some("your id type".to_owned()),
-        },
-        publisher: FdxParty {
-            home_uri: Some("your home uri".to_owned()),
-            logo_uri: Some("your logo uri".to_owned()),
-            name: "your name".to_owned(),
-            registered_entity_id: Some("your registered entity id".to_owned()),
-            registered_entity_name: Some("your registered entity name".to_owned()),
-            registry: Some("your registry".to_owned()),
-            type_: "your type".to_owned(),
         },
         sent_on: chrono::Utc::now(),
         type_: "your type",
@@ -31,6 +24,15 @@ async fn main() {
     let response = client
         .fdx_notifications(args)
         .priority("your priority")
+        .publisher(FdxParty {
+            home_uri: Some("your home uri".to_owned()),
+            logo_uri: Some("your logo uri".to_owned()),
+            name: "your name".to_owned(),
+            registered_entity_id: Some("your registered entity id".to_owned()),
+            registered_entity_name: Some("your registered entity name".to_owned()),
+            registry: Some("your registry".to_owned()),
+            type_: "your type".to_owned(),
+        })
         .severity("your severity")
         .subscriber(FdxParty {
             home_uri: Some("your home uri".to_owned()),

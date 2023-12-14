@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Originator {
+    pub company_name: String,
     pub transfer_diligence_status: String,
 }
 impl std::fmt::Display for Originator {

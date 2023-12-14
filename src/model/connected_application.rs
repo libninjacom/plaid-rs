@@ -6,7 +6,7 @@ pub struct ConnectedApplication {
     pub application_id: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub application_url: Option<String>,
-    pub created_at: chrono::NaiveDate,
+    pub created_at: chrono::DateTime<chrono::Utc>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

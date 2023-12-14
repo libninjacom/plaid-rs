@@ -2,6 +2,7 @@
 use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct KycCheckPhoneSummary {
+    pub area_code: String,
     pub summary: String,
 }
 impl std::fmt::Display for KycCheckPhoneSummary {

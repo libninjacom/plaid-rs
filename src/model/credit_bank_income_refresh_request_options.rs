@@ -4,8 +4,6 @@ use serde::{Serialize, Deserialize};
 pub struct CreditBankIncomeRefreshRequestOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub days_requested: Option<i64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub webhook: Option<String>,
 }
 impl std::fmt::Display for CreditBankIncomeRefreshRequestOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

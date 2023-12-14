@@ -1,15 +1,19 @@
 
 use serde::{Serialize, Deserialize};
-use super::{WalletTransactionAmount, WalletTransactionCounterparty};
+use super::{WalletPaymentScheme, WalletTransactionAmount, WalletTransactionCounterparty};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransaction {
     pub amount: WalletTransactionAmount,
     pub counterparty: WalletTransactionCounterparty,
     pub created_at: chrono::DateTime<chrono::Utc>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub failure_reason: Option<String>,
     pub last_status_update: chrono::DateTime<chrono::Utc>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payment_id: Option<String>,
     pub reference: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scheme: Option<WalletPaymentScheme>,
     pub status: String,
     pub transaction_id: String,
     #[serde(rename = "type")]

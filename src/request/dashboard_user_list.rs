@@ -1,33 +1,34 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct DashboardUserListRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DashboardUserListRequest {
     pub cursor: Option<String>,
 }
-impl<'a> DashboardUserListRequest<'a> {
-    pub async fn send(self) -> ::httpclient::InMemoryResult<DashboardUserListResponse> {
-        let mut r = self.http_client.client.post("/dashboard_user/list");
-        if let Some(ref unwrapped) = self.cursor {
-            r = r.json(json!({ "cursor" : unwrapped }));
-        }
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
+impl DashboardUserListRequest {}
+impl FluentRequest<'_, DashboardUserListRequest> {
     pub fn cursor(mut self, cursor: &str) -> Self {
-        self.cursor = Some(cursor.to_owned());
+        self.params.cursor = Some(cursor.to_owned());
         self
     }
 }
-impl<'a> ::std::future::IntoFuture for DashboardUserListRequest<'a> {
+impl<'a> ::std::future::IntoFuture for FluentRequest<'a, DashboardUserListRequest> {
     type Output = httpclient::InMemoryResult<DashboardUserListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/dashboard_user/list";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }

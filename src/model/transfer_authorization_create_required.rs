@@ -3,6 +3,8 @@ use serde::{Serialize, Deserialize};
 use super::TransferAuthorizationUserInRequest;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationCreateRequired {
+    pub access_token: String,
+    pub account_id: String,
     pub amount: String,
     pub network: String,
     #[serde(rename = "type")]

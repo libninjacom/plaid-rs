@@ -1,36 +1,32 @@
 use serde_json::json;
 use crate::model::*;
+use crate::FluentRequest;
+use serde::{Serialize, Deserialize};
+use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
 /**Create this with the associated client method.
 
 That method takes required values as arguments. Set optional values using builder methods on this struct.*/
-#[derive(Clone)]
-pub struct TransactionsRulesCreateRequest<'a> {
-    pub(crate) http_client: &'a PlaidClient,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TransactionsRulesCreateRequest {
     pub access_token: String,
     pub personal_finance_category: String,
     pub rule_details: TransactionsRuleDetails,
 }
-impl<'a> TransactionsRulesCreateRequest<'a> {
-    pub async fn send(
-        self,
-    ) -> ::httpclient::InMemoryResult<TransactionsRulesCreateResponse> {
-        let mut r = self.http_client.client.post("/beta/transactions/rules/v1/create");
-        r = r.json(json!({ "access_token" : self.access_token }));
-        r = r
-            .json(
-                json!({ "personal_finance_category" : self.personal_finance_category }),
-            );
-        r = r.json(json!({ "rule_details" : self.rule_details }));
-        r = self.http_client.authenticate(r);
-        let res = r.send_awaiting_body().await?;
-        res.json()
-    }
-}
-impl<'a> ::std::future::IntoFuture for TransactionsRulesCreateRequest<'a> {
+impl TransactionsRulesCreateRequest {}
+impl FluentRequest<'_, TransactionsRulesCreateRequest> {}
+impl<'a> ::std::future::IntoFuture
+for FluentRequest<'a, TransactionsRulesCreateRequest> {
     type Output = httpclient::InMemoryResult<TransactionsRulesCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(self.send())
+        Box::pin(async {
+            let url = "/beta/transactions/rules/v1/create";
+            let mut r = self.client.client.post(url);
+            r = r.set_query(self.params);
+            r = self.client.authenticate(r);
+            let res = r.await?;
+            res.json().map_err(Into::into)
+        })
     }
 }
