@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::institutions_get_by_id`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`InstitutionsGetByIdResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InstitutionsGetByIdRequest {
     pub country_codes: Vec<String>,

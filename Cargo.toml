@@ -1,18 +1,13 @@
 [package]
 name = "plaid"
 edition = "2021"
-version = "7.0.0"
+version = "7.1.0"
 description = "Plaid client, generated from the OpenAPI spec."
 homepage = "https://github.com/libninjacom/plaid-rs"
 documentation = "https://docs.rs/plaid"
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/libninjacom/plaid-rs"
-
-[profile.ci]
-debug = 0
-incremental = false
-inherits = "dev"
 
 [dependencies]
 base64 = "0.21.0"
@@ -45,3 +40,8 @@ doctest = false
 edition = "2021"
 crate-type = ["rlib"]
 required-features = []
+
+[profile.ci]
+debug = false
+incremental = false
+inherits = "dev"

@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::dashboard_user_get`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`DashboardUserGetResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DashboardUserGetRequest {
     pub dashboard_user_id: String,

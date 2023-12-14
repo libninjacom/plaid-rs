@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::processor_signal_decision_report`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`ProcessorSignalDecisionReportResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorSignalDecisionReportRequest {
     pub amount_instantly_available: Option<f64>,

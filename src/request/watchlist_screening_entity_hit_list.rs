@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::watchlist_screening_entity_hit_list`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`WatchlistScreeningEntityHitListResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningEntityHitListRequest {
     pub cursor: Option<String>,

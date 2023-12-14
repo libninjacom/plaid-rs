@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::income_verification_paystubs_get`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`IncomeVerificationPaystubsGetResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IncomeVerificationPaystubsGetRequest {
     pub access_token: Option<String>,

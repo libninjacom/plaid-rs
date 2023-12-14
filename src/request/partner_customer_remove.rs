@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::partner_customer_remove`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`PartnerCustomerRemoveResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartnerCustomerRemoveRequest {
     pub client_id: Option<String>,

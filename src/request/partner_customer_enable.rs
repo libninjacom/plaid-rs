@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::partner_customer_enable`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`PartnerCustomerEnableResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartnerCustomerEnableRequest {
     pub client_id: Option<String>,

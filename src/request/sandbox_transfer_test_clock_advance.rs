@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::sandbox_transfer_test_clock_advance`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`SandboxTransferTestClockAdvanceResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SandboxTransferTestClockAdvanceRequest {
     pub new_virtual_time: chrono::DateTime<chrono::Utc>,

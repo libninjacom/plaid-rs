@@ -4,9 +4,9 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::PlaidClient;
-/**Create this with the associated client method.
+/**You should use this struct via [`PlaidClient::transfer_recurring_cancel`].
 
-That method takes required values as arguments. Set optional values using builder methods on this struct.*/
+On request success, this will return a [`TransferRecurringCancelResponse`].*/
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRecurringCancelRequest {
     pub recurring_transfer_id: String,
