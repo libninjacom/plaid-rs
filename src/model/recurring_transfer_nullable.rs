@@ -1,5 +1,5 @@
-
 use serde::{Serialize, Deserialize};
+///Represents a recurring transfer within the Transfers API.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct RecurringTransferNullable {}
 impl std::fmt::Display for RecurringTransferNullable {

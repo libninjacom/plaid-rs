@@ -20,10 +20,18 @@ for FluentRequest<'a, TransactionsRulesCreateRequest> {
     type Output = httpclient::InMemoryResult<TransactionsRulesCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/beta/transactions/rules/v1/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            r = r
+                .json(
+                    json!(
+                        { "personal_finance_category" : self.params
+                        .personal_finance_category }
+                    ),
+                );
+            r = r.json(json!({ "rule_details" : self.params.rule_details }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

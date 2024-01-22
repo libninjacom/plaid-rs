@@ -1,9 +1,11 @@
-
 use serde::{Serialize, Deserialize};
 use super::{PayStubDeductionsBreakdown, PayStubDeductionsTotal};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///An object with the deduction information found on a pay stub.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditPayStubDeductions {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub breakdown: Vec<PayStubDeductionsBreakdown>,
+    ///An object representing the total deductions for the pay period
     pub total: PayStubDeductionsTotal,
 }
 impl std::fmt::Display for CreditPayStubDeductions {

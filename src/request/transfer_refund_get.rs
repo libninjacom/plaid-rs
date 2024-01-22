@@ -17,10 +17,10 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferRefundGetReques
     type Output = httpclient::InMemoryResult<TransferRefundGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/refund/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "refund_id" : self.params.refund_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -31,10 +31,18 @@ for FluentRequest<'a, IdentityVerificationRetryRequest> {
     type Output = httpclient::InMemoryResult<IdentityVerificationRetryResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/identity_verification/retry";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "client_user_id" : self.params.client_user_id }));
+            if let Some(ref unwrapped) = self.params.steps {
+                r = r.json(json!({ "steps" : unwrapped }));
+            }
+            r = r.json(json!({ "strategy" : self.params.strategy }));
+            r = r.json(json!({ "template_id" : self.params.template_id }));
+            if let Some(ref unwrapped) = self.params.user {
+                r = r.json(json!({ "user" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

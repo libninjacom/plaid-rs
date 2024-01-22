@@ -25,10 +25,14 @@ for FluentRequest<'a, IdentityVerificationListRequest> {
     type Output = httpclient::InMemoryResult<IdentityVerificationListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/identity_verification/list";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "client_user_id" : self.params.client_user_id }));
+            if let Some(ref unwrapped) = self.params.cursor {
+                r = r.json(json!({ "cursor" : unwrapped }));
+            }
+            r = r.json(json!({ "template_id" : self.params.template_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

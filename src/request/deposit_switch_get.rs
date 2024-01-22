@@ -17,10 +17,10 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, DepositSwitchGetRequest
     type Output = httpclient::InMemoryResult<DepositSwitchGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/deposit_switch/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "deposit_switch_id" : self.params.deposit_switch_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

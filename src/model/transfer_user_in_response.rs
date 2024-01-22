@@ -1,14 +1,18 @@
-
 use serde::{Serialize, Deserialize};
 use super::TransferUserAddressInResponse;
+///The legal name and other information for the account holder.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferUserInResponse {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The address associated with the account holder.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub address: Option<TransferUserAddressInResponse>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's email address.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email_address: Option<String>,
+    ///The user's legal name.
     pub legal_name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's phone number.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
 }
 impl std::fmt::Display for TransferUserInResponse {

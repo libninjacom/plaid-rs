@@ -39,10 +39,25 @@ for FluentRequest<'a, WatchlistScreeningIndividualListRequest> {
     type Output = httpclient::InMemoryResult<WatchlistScreeningIndividualListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/watchlist_screening/individual/list";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.assignee {
+                r = r.json(json!({ "assignee" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.client_user_id {
+                r = r.json(json!({ "client_user_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.cursor {
+                r = r.json(json!({ "cursor" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.status {
+                r = r.json(json!({ "status" : unwrapped }));
+            }
+            r = r
+                .json(
+                    json!({ "watchlist_program_id" : self.params.watchlist_program_id }),
+                );
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

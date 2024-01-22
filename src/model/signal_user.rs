@@ -1,15 +1,19 @@
-
 use serde::{Serialize, Deserialize};
 use super::{SignalAddressData, SignalPersonName};
+///Details about the end user initiating the transaction (i.e., the account holder).
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalUser {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Data about the components comprising an address.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub address: Option<SignalAddressData>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's email address.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email_address: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's legal name
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<SignalPersonName>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's phone number, in E.164 format: +{countrycode}{number}. For example: "+14151234567"
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
 }
 impl std::fmt::Display for SignalUser {

@@ -1,14 +1,18 @@
-
 use serde::{Serialize, Deserialize};
+///An object containing data on the overall period of the statement.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankStatementUploadBankAccountPeriod {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The end date of the statement period in ISO 8601 format (YYYY-MM-DD).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The ending balance of the bank account for the period.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ending_balance: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The start date of the statement period in ISO 8601 format (YYYY-MM-DD).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub start_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The starting balance of the bank account for the period.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub starting_balance: Option<f64>,
 }
 impl std::fmt::Display for CreditBankStatementUploadBankAccountPeriod {

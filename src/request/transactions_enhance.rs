@@ -18,10 +18,11 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransactionsEnhanceRequ
     type Output = httpclient::InMemoryResult<TransactionsEnhanceGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/beta/transactions/v1/enhance";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "account_type" : self.params.account_type }));
+            r = r.json(json!({ "transactions" : self.params.transactions }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

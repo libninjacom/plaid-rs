@@ -254,10 +254,110 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, LinkTokenCreateRequest>
     type Output = httpclient::InMemoryResult<LinkTokenCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/link/token/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.access_token {
+                r = r.json(json!({ "access_token" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.access_tokens {
+                r = r.json(json!({ "access_tokens" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.account_filters {
+                r = r.json(json!({ "account_filters" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.additional_consented_products {
+                r = r.json(json!({ "additional_consented_products" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.android_package_name {
+                r = r.json(json!({ "android_package_name" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.auth {
+                r = r.json(json!({ "auth" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.base_report {
+                r = r.json(json!({ "base_report" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.card_switch {
+                r = r.json(json!({ "card_switch" : unwrapped }));
+            }
+            r = r.json(json!({ "client_name" : self.params.client_name }));
+            if let Some(ref unwrapped) = self.params.consumer_report_permissible_purpose
+            {
+                r = r.json(json!({ "consumer_report_permissible_purpose" : unwrapped }));
+            }
+            r = r.json(json!({ "country_codes" : self.params.country_codes }));
+            if let Some(ref unwrapped) = self.params.cra_enabled {
+                r = r.json(json!({ "cra_enabled" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.deposit_switch {
+                r = r.json(json!({ "deposit_switch" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.employment {
+                r = r.json(json!({ "employment" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.eu_config {
+                r = r.json(json!({ "eu_config" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.hosted_link {
+                r = r.json(json!({ "hosted_link" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.identity_verification {
+                r = r.json(json!({ "identity_verification" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.income_verification {
+                r = r.json(json!({ "income_verification" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.institution_data {
+                r = r.json(json!({ "institution_data" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.institution_id {
+                r = r.json(json!({ "institution_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.investments {
+                r = r.json(json!({ "investments" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.investments_auth {
+                r = r.json(json!({ "investments_auth" : unwrapped }));
+            }
+            r = r.json(json!({ "language" : self.params.language }));
+            if let Some(ref unwrapped) = self.params.link_customization_name {
+                r = r.json(json!({ "link_customization_name" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.optional_products {
+                r = r.json(json!({ "optional_products" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.payment_initiation {
+                r = r.json(json!({ "payment_initiation" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.products {
+                r = r.json(json!({ "products" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.redirect_uri {
+                r = r.json(json!({ "redirect_uri" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.required_if_supported_products {
+                r = r.json(json!({ "required_if_supported_products" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.statements {
+                r = r.json(json!({ "statements" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.transactions {
+                r = r.json(json!({ "transactions" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.transfer {
+                r = r.json(json!({ "transfer" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.update {
+                r = r.json(json!({ "update" : unwrapped }));
+            }
+            r = r.json(json!({ "user" : self.params.user }));
+            if let Some(ref unwrapped) = self.params.user_token {
+                r = r.json(json!({ "user_token" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.webhook {
+                r = r.json(json!({ "webhook" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

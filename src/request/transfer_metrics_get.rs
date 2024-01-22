@@ -22,10 +22,12 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferMetricsGetReque
     type Output = httpclient::InMemoryResult<TransferMetricsGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/metrics/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.originator_client_id {
+                r = r.json(json!({ "originator_client_id" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

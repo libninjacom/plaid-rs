@@ -1,10 +1,14 @@
-
 use serde::{Serialize, Deserialize};
 use super::{AccountIdentity, Item};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///IdentityGetResponse defines the response schema for `/identity/get`
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IdentityGetResponse {
+    ///The accounts for which Identity data has been requested
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub accounts: Vec<AccountIdentity>,
+    ///Metadata about the Item.
     pub item: Item,
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
 }
 impl std::fmt::Display for IdentityGetResponse {

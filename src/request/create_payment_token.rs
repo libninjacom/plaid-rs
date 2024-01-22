@@ -19,10 +19,10 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, CreatePaymentTokenReque
     >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_initiation/payment/token/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "payment_id" : self.params.payment_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

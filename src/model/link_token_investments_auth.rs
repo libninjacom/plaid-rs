@@ -1,10 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///Configuration parameters for the Investments Auth Product
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenInvestmentsAuth {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///If `true`, show institutions that use the manual entry fallback flow.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub manual_entry_enabled: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///If `true`, show institutions that use the masked number match fallback flow.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub masked_number_match_enabled: Option<bool>,
 }
 impl std::fmt::Display for LinkTokenInvestmentsAuth {

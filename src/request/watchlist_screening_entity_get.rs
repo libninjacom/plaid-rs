@@ -18,10 +18,16 @@ for FluentRequest<'a, WatchlistScreeningEntityGetRequest> {
     type Output = httpclient::InMemoryResult<WatchlistScreeningEntityGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/watchlist_screening/entity/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r
+                .json(
+                    json!(
+                        { "entity_watchlist_screening_id" : self.params
+                        .entity_watchlist_screening_id }
+                    ),
+                );
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

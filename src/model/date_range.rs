@@ -1,8 +1,10 @@
-
 use serde::{Serialize, Deserialize};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///A date range with a start and end date
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DateRange {
+    ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
     pub beginning: chrono::NaiveDate,
+    ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
     pub ending: chrono::NaiveDate,
 }
 impl std::fmt::Display for DateRange {

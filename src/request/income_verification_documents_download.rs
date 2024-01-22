@@ -33,10 +33,18 @@ for FluentRequest<'a, IncomeVerificationDocumentsDownloadRequest> {
     type Output = httpclient::InMemoryResult<()>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/income/verification/documents/download";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.access_token {
+                r = r.json(json!({ "access_token" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.document_id {
+                r = r.json(json!({ "document_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.income_verification_id {
+                r = r.json(json!({ "income_verification_id" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

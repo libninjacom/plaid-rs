@@ -18,10 +18,16 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, AssetReportFilterReques
     type Output = httpclient::InMemoryResult<AssetReportFilterResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/asset_report/filter";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r
+                .json(
+                    json!(
+                        { "account_ids_to_exclude" : self.params.account_ids_to_exclude }
+                    ),
+                );
+            r = r.json(json!({ "asset_report_token" : self.params.asset_report_token }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

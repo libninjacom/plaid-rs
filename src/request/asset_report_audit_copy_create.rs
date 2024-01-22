@@ -24,10 +24,13 @@ for FluentRequest<'a, AssetReportAuditCopyCreateRequest> {
     type Output = httpclient::InMemoryResult<AssetReportAuditCopyCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/asset_report/audit_copy/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "asset_report_token" : self.params.asset_report_token }));
+            if let Some(ref unwrapped) = self.params.auditor_id {
+                r = r.json(json!({ "auditor_id" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

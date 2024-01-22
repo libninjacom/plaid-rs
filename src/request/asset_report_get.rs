@@ -42,10 +42,24 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, AssetReportGetRequest> 
     type Output = httpclient::InMemoryResult<AssetReportGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/asset_report/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.asset_report_token {
+                r = r.json(json!({ "asset_report_token" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.fast_report {
+                r = r.json(json!({ "fast_report" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.include_insights {
+                r = r.json(json!({ "include_insights" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user_token {
+                r = r.json(json!({ "user_token" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

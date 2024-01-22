@@ -1,16 +1,23 @@
-
 use serde::{Serialize, Deserialize};
+///The address of the employee.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaystubOverrideEmployeeAddress {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The full city name.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub city: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The country of the address.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///5 digit postal code.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub postal_code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    /**The region or state
+Example: `"NC"`*/
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub region: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    /**The full street address
+Example: `"564 Main Street, APT 15"`*/
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
 }
 impl std::fmt::Display for PaystubOverrideEmployeeAddress {

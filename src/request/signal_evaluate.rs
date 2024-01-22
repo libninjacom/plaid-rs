@@ -17,6 +17,7 @@ pub struct SignalEvaluateRequest {
     pub default_payment_method: Option<String>,
     pub device: Option<SignalDevice>,
     pub is_recurring: Option<bool>,
+    pub risk_profile_key: Option<String>,
     pub user: Option<SignalUser>,
     pub user_present: Option<bool>,
 }
@@ -45,6 +46,10 @@ impl FluentRequest<'_, SignalEvaluateRequest> {
         self.params.is_recurring = Some(is_recurring);
         self
     }
+    pub fn risk_profile_key(mut self, risk_profile_key: &str) -> Self {
+        self.params.risk_profile_key = Some(risk_profile_key.to_owned());
+        self
+    }
     pub fn user(mut self, user: SignalUser) -> Self {
         self.params.user = Some(user);
         self
@@ -58,10 +63,39 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, SignalEvaluateRequest> 
     type Output = httpclient::InMemoryResult<SignalEvaluateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/signal/evaluate";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            r = r.json(json!({ "account_id" : self.params.account_id }));
+            r = r.json(json!({ "amount" : self.params.amount }));
+            r = r
+                .json(
+                    json!(
+                        { "client_transaction_id" : self.params.client_transaction_id }
+                    ),
+                );
+            if let Some(ref unwrapped) = self.params.client_user_id {
+                r = r.json(json!({ "client_user_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.default_payment_method {
+                r = r.json(json!({ "default_payment_method" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.device {
+                r = r.json(json!({ "device" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.is_recurring {
+                r = r.json(json!({ "is_recurring" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.risk_profile_key {
+                r = r.json(json!({ "risk_profile_key" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user {
+                r = r.json(json!({ "user" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user_present {
+                r = r.json(json!({ "user_present" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

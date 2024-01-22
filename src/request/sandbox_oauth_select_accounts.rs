@@ -19,10 +19,11 @@ for FluentRequest<'a, SandboxOauthSelectAccountsRequest> {
     type Output = httpclient::InMemoryResult<SandboxOauthSelectAccountsResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/oauth/select_accounts";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "accounts" : self.params.accounts }));
+            r = r.json(json!({ "oauth_state_id" : self.params.oauth_state_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

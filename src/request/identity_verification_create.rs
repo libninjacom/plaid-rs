@@ -36,10 +36,21 @@ for FluentRequest<'a, IdentityVerificationCreateRequest> {
     type Output = httpclient::InMemoryResult<IdentityVerificationCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/identity_verification/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.client_user_id {
+                r = r.json(json!({ "client_user_id" : unwrapped }));
+            }
+            r = r.json(json!({ "gave_consent" : self.params.gave_consent }));
+            if let Some(ref unwrapped) = self.params.is_idempotent {
+                r = r.json(json!({ "is_idempotent" : unwrapped }));
+            }
+            r = r.json(json!({ "is_shareable" : self.params.is_shareable }));
+            r = r.json(json!({ "template_id" : self.params.template_id }));
+            if let Some(ref unwrapped) = self.params.user {
+                r = r.json(json!({ "user" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

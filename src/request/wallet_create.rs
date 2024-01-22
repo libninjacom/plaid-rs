@@ -17,10 +17,10 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, WalletCreateRequest> {
     type Output = httpclient::InMemoryResult<WalletCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/wallet/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "iso_currency_code" : self.params.iso_currency_code }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

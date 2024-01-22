@@ -18,10 +18,10 @@ for FluentRequest<'a, SandboxTransferTestClockGetRequest> {
     type Output = httpclient::InMemoryResult<SandboxTransferTestClockGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/transfer/test_clock/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "test_clock_id" : self.params.test_clock_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

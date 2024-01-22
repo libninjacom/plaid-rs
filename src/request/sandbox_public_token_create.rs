@@ -30,10 +30,17 @@ for FluentRequest<'a, SandboxPublicTokenCreateRequest> {
     type Output = httpclient::InMemoryResult<SandboxPublicTokenCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/public_token/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "initial_products" : self.params.initial_products }));
+            r = r.json(json!({ "institution_id" : self.params.institution_id }));
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user_token {
+                r = r.json(json!({ "user_token" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -23,10 +23,12 @@ for FluentRequest<'a, SandboxTransferSweepSimulateRequest> {
     type Output = httpclient::InMemoryResult<SandboxTransferSweepSimulateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/transfer/sweep/simulate";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.test_clock_id {
+                r = r.json(json!({ "test_clock_id" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

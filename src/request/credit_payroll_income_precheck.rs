@@ -56,10 +56,24 @@ for FluentRequest<'a, CreditPayrollIncomePrecheckRequest> {
     type Output = httpclient::InMemoryResult<CreditPayrollIncomePrecheckResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/credit/payroll_income/precheck";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.access_tokens {
+                r = r.json(json!({ "access_tokens" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.employer {
+                r = r.json(json!({ "employer" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.payroll_institution {
+                r = r.json(json!({ "payroll_institution" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.us_military_info {
+                r = r.json(json!({ "us_military_info" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user_token {
+                r = r.json(json!({ "user_token" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

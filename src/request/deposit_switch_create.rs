@@ -29,10 +29,20 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, DepositSwitchCreateRequ
     type Output = httpclient::InMemoryResult<DepositSwitchCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/deposit_switch/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.country_code {
+                r = r.json(json!({ "country_code" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
+            r = r
+                .json(
+                    json!({ "target_access_token" : self.params.target_access_token }),
+                );
+            r = r.json(json!({ "target_account_id" : self.params.target_account_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

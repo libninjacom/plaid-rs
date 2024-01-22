@@ -1,15 +1,19 @@
-
 use serde::{Serialize, Deserialize};
 use super::SignalAddressData;
+///Information about the user whose eligibility is being evaluated.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct IncomeVerificationPrecheckUser {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's email address
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email_address: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's first name
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub first_name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Data about the components comprising an address.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub home_address: Option<SignalAddressData>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user's last name
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub last_name: Option<String>,
 }
 impl std::fmt::Display for IncomeVerificationPrecheckUser {

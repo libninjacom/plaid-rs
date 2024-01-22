@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::ServiceProductFulfillmentDetail;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///A collection of details related to a fulfillment service or product in terms of request, process and result.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ServiceProductFulfillment {
+    ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "SERVICE_PRODUCT_FULFILLMENT_DETAIL")]
     pub service_product_fulfillment_detail: ServiceProductFulfillmentDetail,
 }

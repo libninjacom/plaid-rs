@@ -22,10 +22,12 @@ for FluentRequest<'a, PaymentInitiationConsentPaymentExecuteRequest> {
     >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_initiation/consent/payment/execute";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "amount" : self.params.amount }));
+            r = r.json(json!({ "consent_id" : self.params.consent_id }));
+            r = r.json(json!({ "idempotency_key" : self.params.idempotency_key }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

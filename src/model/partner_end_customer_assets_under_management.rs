@@ -1,5 +1,5 @@
-
 use serde::{Serialize, Deserialize};
+///Assets under management for the given end customer. Required for end customers with monthly service commitments.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartnerEndCustomerAssetsUnderManagement {
     pub amount: f64,

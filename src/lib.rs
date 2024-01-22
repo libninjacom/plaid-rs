@@ -6,59 +6,76 @@
 pub mod model;
 pub mod request;
 pub use httpclient::{Error, Result, InMemoryResponseExt};
+use std::sync::{Arc, OnceLock};
+use std::borrow::Cow;
 use crate::model::*;
-
+use base64::{Engine, engine::general_purpose::STANDARD_NO_PAD};
 mod serde;
+static SHARED_HTTPCLIENT: OnceLock<httpclient::Client> = OnceLock::new();
+pub fn default_http_client() -> httpclient::Client {
+    let plaid_env = std::env::var("PLAID_ENV")
+        .expect("Missing environment variable PLAID_ENV");
+    let url = format!("https://{plaid_env}.plaid.com");
+    httpclient::Client::new()
+        .base_url(&url)
+}
+/// Use this method if you want to add custom middleware to the httpclient.
+/// It must be called before any requests are made, otherwise it will have no effect.
+/// Example usage:
+///
+/// ```
+/// init_http_client(default_http_client()
+///     .with_middleware(..)
+/// );
+/// ```
+pub fn init_http_client(init: httpclient::Client) {
+    let _ = SHARED_HTTPCLIENT.set(init);
+}
+fn shared_http_client() -> Cow<'static, httpclient::Client> {
+    Cow::Borrowed(SHARED_HTTPCLIENT.get_or_init(default_http_client))
+}
 #[derive(Clone)]
 pub struct FluentRequest<'a, T> {
     pub(crate) client: &'a PlaidClient,
     pub params: T,
 }
 pub struct PlaidClient {
-    pub client: httpclient::Client,
-    authentication: PlaidAuthentication,
+    client: Cow<'static, httpclient::Client>,
+    authentication: PlaidAuth,
 }
 impl PlaidClient {
     pub fn from_env() -> Self {
         Self {
-            client: httpclient::Client::new()
-                .base_url(
-                    std::env::var("PLAID_ENV")
-                        .expect("Missing environment variable PLAID_ENV")
-                        .as_str(),
-                ),
-            authentication: PlaidAuthentication::from_env(),
+            client: shared_http_client(),
+            authentication: PlaidAuth::from_env(),
+        }
+    }
+    pub fn with_auth(authentication: PlaidAuth) -> Self {
+        Self {
+            client: shared_http_client(),
+            authentication,
+        }
+    }
+    pub fn new_with(client: httpclient::Client, authentication: PlaidAuth) -> Self {
+        Self {
+            client: Cow::Owned(client),
+            authentication,
         }
     }
 }
 impl PlaidClient {
-    pub fn new(url: &str, authentication: PlaidAuthentication) -> Self {
-        let client = httpclient::Client::new().base_url(url);
-        Self { client, authentication }
-    }
-    pub fn with_authentication(mut self, authentication: PlaidAuthentication) -> Self {
-        self.authentication = authentication;
-        self
-    }
     pub(crate) fn authenticate<'a>(
         &self,
         mut r: httpclient::RequestBuilder<'a>,
     ) -> httpclient::RequestBuilder<'a> {
         match &self.authentication {
-            PlaidAuthentication::ClientId { client_id, secret, plaid_version } => {
+            PlaidAuth::ClientId { client_id, secret, plaid_version } => {
                 r = r.header("PLAID-CLIENT-ID", client_id);
                 r = r.header("PLAID-SECRET", secret);
                 r = r.header("Plaid-Version", plaid_version);
             }
         }
         r
-    }
-    pub fn with_middleware<M: httpclient::Middleware + 'static>(
-        mut self,
-        middleware: M,
-    ) -> Self {
-        self.client = self.client.with_middleware(middleware);
-        self
     }
     /**Create an Asset Report
 
@@ -323,6 +340,26 @@ See endpoint docs at <https://plaid.com/docs/api/products/statements#statementsd
             },
         }
     }
+    /**Refresh statements data.
+
+`/statements/refresh` initiates an on-demand extraction to fetch the statements for the provided dates.
+
+See endpoint docs at <https://plaid.com/docs/api/products/statements#statementsrefresh>.*/
+    pub fn statements_refresh(
+        &self,
+        access_token: &str,
+        end_date: chrono::NaiveDate,
+        start_date: chrono::NaiveDate,
+    ) -> FluentRequest<'_, request::StatementsRefreshRequest> {
+        FluentRequest {
+            client: self,
+            params: request::StatementsRefreshRequest {
+                access_token: access_token.to_owned(),
+                end_date,
+                start_date,
+            },
+        }
+    }
     ///List a historical log of user consent events
     pub fn item_activity_list(
         &self,
@@ -493,7 +530,7 @@ The `/transactions/recurring/get` endpoint allows developers to receive a summar
 
 This endpoint is offered as an add-on to Transactions. To request access to this endpoint, submit a [product access request](https://dashboard.plaid.com/team/products) or contact your Plaid account manager.
 
-This endpoint can only be called on an Item that has already been initialized with Transactions (either during Link, by specifying it in `/link/token/create`; or after Link, by calling `/transactions/get` or `/transactions/sync`). Once all historical transactions have been fetched, call `/transactions/recurring/get` to receive the Recurring Transactions streams and subscribe to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook. To know when historical transactions have been fetched, if you are using `/transactions/sync` listen for the [`SYNC_UPDATES_AVAILABLE`](https://plaid.com/docs/api/products/transactions/#SyncUpdatesAvailableWebhook-historical-update-complete) webhook and check that the `historical_update_complete` field in the payload is `true`. If using `/transactions/get`, listen for the [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/products/transactions/#historical_update) webhook.
+This endpoint can only be called on an Item that has already been initialized with Transactions (either during Link, by specifying it in `/link/token/create`; or after Link, by calling `/transactions/get` or `/transactions/sync`). For optimal results, we strongly recommend customers using Recurring Transactions to request at least 180 days of history when initializing items with Transactions (using the [`days_requested`](https://plaid.com/docs/api/tokens/#link-token-create-request-transactions-days-requested) option). Once all historical transactions have been fetched, call `/transactions/recurring/get` to receive the Recurring Transactions streams and subscribe to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook. To know when historical transactions have been fetched, if you are using `/transactions/sync` listen for the [`SYNC_UPDATES_AVAILABLE`](https://plaid.com/docs/api/products/transactions/#SyncUpdatesAvailableWebhook-historical-update-complete) webhook and check that the `historical_update_complete` field in the payload is `true`. If using `/transactions/get`, listen for the [`HISTORICAL_UPDATE`](https://plaid.com/docs/api/products/transactions/#historical_update) webhook.
 
 After the initial call, you can call `/transactions/recurring/get` endpoint at any point in the future to retrieve the latest summary of recurring streams. Listen to the [`RECURRING_TRANSACTIONS_UPDATE`](https://plaid.com/docs/api/products/transactions/#recurring_transactions_update) webhook to be notified when new updates are available.
 
@@ -786,6 +823,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/balance/#accountsbalan
             params: request::AccountsBalanceGetRequest {
                 access_token: access_token.to_owned(),
                 options: None,
+                payment_details: None,
             },
         }
     }
@@ -880,7 +918,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/monitor/#dashboard_use
             },
         }
     }
-    /**Create a new identity verification
+    /**Create a new Identity Verification
 
 Create a new Identity Verification for the user specified by the `client_user_id` field. The requirements and behavior of the verification are determined by the `template_id` provided.
 If you don't know whether the associated user already has an active Identity Verification, you can specify `"is_idempotent": true` in the request body. With idempotency enabled, a new Identity Verification will only be created if one does not already exist for the associated `client_user_id` and `template_id`. If an Identity Verification is found, it will be returned unmodified with an `200 OK` HTTP status code.
@@ -909,7 +947,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
     }
     /**Retrieve Identity Verification
 
-Retrieve a previously created identity verification.
+Retrieve a previously created Identity Verification.
 
 See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/#identity_verificationget>.*/
     pub fn identity_verification_get(
@@ -944,7 +982,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/
     }
     /**Retry an Identity Verification
 
-Allow a customer to retry their identity verification
+Allow a customer to retry their Identity Verification
 
 See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/#identity_verificationretry>.*/
     pub fn identity_verification_retry(
@@ -1467,6 +1505,89 @@ See endpoint docs at <https://plaid.com/docs/api/products/beacon/#beaconreportge
             },
         }
     }
+    /**Get a Beacon Report Syndication
+
+Returns a Beacon Report Syndication for a given Beacon Report Syndication id.
+
+See endpoint docs at <https://plaid.com/docs/api/products/beacon/#beaconreportsyndicationget>.*/
+    pub fn beacon_report_syndication_get(
+        &self,
+        beacon_report_syndication_id: &str,
+    ) -> FluentRequest<'_, request::BeaconReportSyndicationGetRequest> {
+        FluentRequest {
+            client: self,
+            params: request::BeaconReportSyndicationGetRequest {
+                beacon_report_syndication_id: beacon_report_syndication_id.to_owned(),
+            },
+        }
+    }
+    /**Update the identity data of a Beacon User
+
+Update the identity data for a Beacon User in your Beacon Program.
+
+Similar to `/beacon/user/create`, several checks are performed immediately when you submit a change to `/beacon/user/update`:
+
+  - The user's updated PII is searched against all other users within the Beacon Program you specified. If a match is found that violates your program's "Duplicate Information Filtering" settings, the user will be returned with a status of `pending_review`.
+
+  - The user's updated PII is also searched against all fraud reports created by your organization across all of your Beacon Programs. If the user's data matches a fraud report that your team created, the user will be returned with a status of `rejected`.
+
+  - Finally, the user's PII is searched against all fraud report shared with the Beacon Network by other companies. If a matching fraud report is found, the user will be returned with a `pending_review` status if your program has enabled automatic flagging based on network fraud.
+
+Plaid maintains a version history for each Beacon User, so the Beacon User's identity data before and after the update is retained as separate versions.
+
+See endpoint docs at <https://plaid.com/docs/api/products/beacon/#beaconuserupdate>.*/
+    pub fn beacon_user_update(
+        &self,
+        beacon_user_id: &str,
+        user: BeaconUserUpdateRequestData,
+    ) -> FluentRequest<'_, request::BeaconUserUpdateRequest> {
+        FluentRequest {
+            client: self,
+            params: request::BeaconUserUpdateRequest {
+                beacon_user_id: beacon_user_id.to_owned(),
+                user,
+            },
+        }
+    }
+    /**Get a Beacon Duplicate
+
+Returns a Beacon Duplicate for a given Beacon Duplicate id.
+
+A Beacon Duplicate represents a pair of similar Beacon Users within your organization.
+
+Two Beacon User revisions are returned for each Duplicate record in either the `beacon_user1` or `beacon_user2` response fields.
+
+The `analysis` field in the response indicates which fields matched between `beacon_user1` and `beacon_user2`.
+
+
+See endpoint docs at <https://plaid.com/docs/api/products/beacon/#beaconduplicateget>.*/
+    pub fn beacon_duplicate_get(
+        &self,
+        beacon_duplicate_id: &str,
+    ) -> FluentRequest<'_, request::BeaconDuplicateGetRequest> {
+        FluentRequest {
+            client: self,
+            params: request::BeaconDuplicateGetRequest {
+                beacon_duplicate_id: beacon_duplicate_id.to_owned(),
+            },
+        }
+    }
+    /**Create autofill for an Identity Verification
+
+Try to autofill an Identity Verification based of the provided phone number, date of birth and country of residence.
+
+See endpoint docs at <https://plaid.com/docs/api/products/identity-verification/#identity_verificationautofillcreate>.*/
+    pub fn identity_verification_autofill_create(
+        &self,
+        identity_verification_id: &str,
+    ) -> FluentRequest<'_, request::IdentityVerificationAutofillCreateRequest> {
+        FluentRequest {
+            client: self,
+            params: request::IdentityVerificationAutofillCreateRequest {
+                identity_verification_id: identity_verification_id.to_owned(),
+            },
+        }
+    }
     /**Retrieve Auth data
 
 The `/processor/auth/get` endpoint returns the bank account and bank identification number (such as the routing number, for US accounts), for a checking or savings account that''s associated with a given `processor_token`. The endpoint also returns high-level account data and balances when available.
@@ -1733,6 +1854,26 @@ See endpoint docs at <https://plaid.com/docs/api/processors/#bank_transfercreate
                 processor_token: args.processor_token.to_owned(),
                 type_: args.type_.to_owned(),
                 user: args.user,
+            },
+        }
+    }
+    /**Retrieve Liabilities data
+
+The `/processor/liabilities/get` endpoint returns various details about a loan or credit account. Liabilities data is available primarily for US financial institutions, with some limited coverage of Canadian institutions. Currently supported account types are account type `credit` with account subtype `credit card` or `paypal`, and account type `loan` with account subtype `student` or `mortgage`.
+
+The types of information returned by Liabilities can include balances and due dates, loan terms, and account details such as original loan amount and guarantor. Data is refreshed approximately once per day; the latest data can be retrieved by calling `/processor/liabilities/get`.
+
+Note: This request may take some time to complete if `liabilities` was not specified as an initial product when creating the processor token. This is because Plaid must communicate directly with the institution to retrieve the additional data.
+
+See endpoint docs at <https://plaid.com/docs/api/processors/#processorliabilitiesget>.*/
+    pub fn processor_liabilities_get(
+        &self,
+        processor_token: &str,
+    ) -> FluentRequest<'_, request::ProcessorLiabilitiesGetRequest> {
+        FluentRequest {
+            client: self,
+            params: request::ProcessorLiabilitiesGetRequest {
+                processor_token: processor_token.to_owned(),
             },
         }
     }
@@ -2090,8 +2231,6 @@ See endpoint docs at <https://plaid.com/docs/api/sandbox/#sandboxitemreset_login
     /**Set verification status for Sandbox account
 
 The `/sandbox/item/set_verification_status` endpoint can be used to change the verification status of an Item in in the Sandbox in order to simulate the Automated Micro-deposit flow.
-
-Note that not all Plaid developer accounts are enabled for micro-deposit based verification by default. Your account must be enabled for this feature in order to test it in Sandbox. To enable this features or check your status, contact your account manager or [submit a product access Support ticket](https://dashboard.plaid.com/support/new/product-and-development/product-troubleshooting/request-product-access).
 
 For more information on testing Automated Micro-deposits in Sandbox, see [Auth full coverage testing](https://plaid.com/docs/auth/coverage/testing#).
 
@@ -4401,6 +4540,7 @@ See endpoint docs at <https://plaid.com/docs/api/products/signal#signalevaluate>
                 default_payment_method: None,
                 device: None,
                 is_recurring: None,
+                risk_profile_key: None,
                 user: None,
                 user_present: None,
             },
@@ -4735,6 +4875,7 @@ See endpoint docs at <https://plaid.com/docs/api/partner/#partnercustomercreate>
                 logo: None,
                 products: None,
                 redirect_uris: None,
+                registration_number: None,
                 secret: None,
                 technical_contact: None,
                 website: args.website.to_owned(),
@@ -4872,16 +5013,16 @@ See endpoint docs at <https://plaid.com/docs/api/fdx/notifications/#post>.*/
         }
     }
 }
-pub enum PlaidAuthentication {
+pub enum PlaidAuth {
     ClientId { client_id: String, secret: String, plaid_version: String },
 }
-impl PlaidAuthentication {
+impl PlaidAuth {
     pub fn from_env() -> Self {
         Self::ClientId {
             client_id: std::env::var("PLAID_CLIENT_ID")
-                .expect("Environment variable CLIENT_ID is not set."),
+                .expect("Environment variable PLAID_CLIENT_ID is not set."),
             secret: std::env::var("PLAID_SECRET")
-                .expect("Environment variable SECRET is not set."),
+                .expect("Environment variable PLAID_SECRET is not set."),
             plaid_version: std::env::var("PLAID_VERSION")
                 .expect("Environment variable PLAID_VERSION is not set."),
         }

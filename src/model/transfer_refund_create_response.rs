@@ -1,9 +1,11 @@
-
 use serde::{Serialize, Deserialize};
 use super::TransferRefund;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Defines the response schema for `/transfer/refund/create`
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferRefundCreateResponse {
+    ///Represents a refund within the Transfers API.
     pub refund: TransferRefund,
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
 }
 impl std::fmt::Display for TransferRefundCreateResponse {

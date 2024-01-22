@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::TaxpayerIdentifier;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///The collection of TAXPAYER_IDENTIFICATION elements
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TaxpayerIdentifiers {
+    ///Information about the Taxpayer identification values assigned to the individual or legal entity.Information about the Taxpayer identification values assigned to the individual or legal entity.
     #[serde(rename = "TAXPAYER_IDENTIFIER")]
     pub taxpayer_identifier: TaxpayerIdentifier,
 }

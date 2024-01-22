@@ -1,5 +1,5 @@
-
 use serde::{Serialize, Deserialize};
+///Base Report information about an account's balances
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BaseReportAccountBalances {}
 impl std::fmt::Display for BaseReportAccountBalances {

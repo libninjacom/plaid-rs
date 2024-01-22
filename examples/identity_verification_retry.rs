@@ -17,11 +17,11 @@ async fn main() {
         })
         .user(IdentityVerificationRequestUser {
             address: Some(UserAddress {
-                city: "your city".to_owned(),
+                city: Some("your city".to_owned()),
                 country: "your country".to_owned(),
                 postal_code: Some("your postal code".to_owned()),
                 region: Some("your region".to_owned()),
-                street: "your street".to_owned(),
+                street: Some("your street".to_owned()),
                 street2: Some("your street 2".to_owned()),
             }),
             date_of_birth: Some(chrono::Utc::now().date_naive()),

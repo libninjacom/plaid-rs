@@ -1,10 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///Information about the device being used to initiate the authorization. These fields are not currently incorporated into the risk check.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferAuthorizationDevice {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The IP address of the device being used to initiate the authorization.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ip_address: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user agent of the device being used to initiate the authorization.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub user_agent: Option<String>,
 }
 impl std::fmt::Display for TransferAuthorizationDevice {

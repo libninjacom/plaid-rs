@@ -1,7 +1,8 @@
-
 use serde::{Serialize, Deserialize};
+///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetTransactionDescription {
+    ///Asset Transaction Description String up to 3 occurances 1 required.
     #[serde(rename = "AssetTransactionDescription")]
     pub asset_transaction_description: String,
 }

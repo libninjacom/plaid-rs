@@ -1,8 +1,10 @@
-
 use serde::{Serialize, Deserialize};
+///Financial Institution provider-specific attribute
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct FdxFiAttribute {
+    ///Name of attribute
     pub name: String,
+    ///Value of attribute
     pub value: String,
 }
 impl std::fmt::Display for FdxFiAttribute {

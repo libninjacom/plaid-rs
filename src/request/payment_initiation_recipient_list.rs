@@ -16,7 +16,7 @@ for FluentRequest<'a, PaymentInitiationRecipientListRequest> {
     type Output = httpclient::InMemoryResult<PaymentInitiationRecipientListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_initiation/recipient/list";
             let mut r = self.client.client.post(url);
             r = r.set_query(self.params);

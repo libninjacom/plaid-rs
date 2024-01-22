@@ -101,10 +101,54 @@ for FluentRequest<'a, TransferAuthorizationCreateRequest> {
     type Output = httpclient::InMemoryResult<TransferAuthorizationCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/authorization/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            r = r.json(json!({ "account_id" : self.params.account_id }));
+            if let Some(ref unwrapped) = self.params.ach_class {
+                r = r.json(json!({ "ach_class" : unwrapped }));
+            }
+            r = r.json(json!({ "amount" : self.params.amount }));
+            if let Some(ref unwrapped) = self.params.beacon_session_id {
+                r = r.json(json!({ "beacon_session_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.credit_funds_source {
+                r = r.json(json!({ "credit_funds_source" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.device {
+                r = r.json(json!({ "device" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.funding_account_id {
+                r = r.json(json!({ "funding_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.idempotency_key {
+                r = r.json(json!({ "idempotency_key" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.iso_currency_code {
+                r = r.json(json!({ "iso_currency_code" : unwrapped }));
+            }
+            r = r.json(json!({ "network" : self.params.network }));
+            if let Some(ref unwrapped) = self.params.origination_account_id {
+                r = r.json(json!({ "origination_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.originator_client_id {
+                r = r.json(json!({ "originator_client_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.payment_profile_token {
+                r = r.json(json!({ "payment_profile_token" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.test_clock_id {
+                r = r.json(json!({ "test_clock_id" : unwrapped }));
+            }
+            r = r.json(json!({ "type" : self.params.type_ }));
+            r = r.json(json!({ "user" : self.params.user }));
+            if let Some(ref unwrapped) = self.params.user_present {
+                r = r.json(json!({ "user_present" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.with_guarantee {
+                r = r.json(json!({ "with_guarantee" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

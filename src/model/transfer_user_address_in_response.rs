@@ -1,16 +1,21 @@
-
 use serde::{Serialize, Deserialize};
+///The address associated with the account holder.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferUserAddressInResponse {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Ex. "San Francisco"
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub city: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///A two-letter country code (e.g., "US").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The postal code (e.g., "94103").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub postal_code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The state or province (e.g., "CA").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub region: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The street number and name (i.e., "100 Market St.").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
 }
 impl std::fmt::Display for TransferUserAddressInResponse {

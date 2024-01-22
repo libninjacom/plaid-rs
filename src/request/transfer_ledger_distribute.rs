@@ -34,10 +34,16 @@ for FluentRequest<'a, TransferLedgerDistributeRequest> {
     type Output = httpclient::InMemoryResult<TransferLedgerDistributeResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/ledger/distribute";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "amount" : self.params.amount }));
+            if let Some(ref unwrapped) = self.params.description {
+                r = r.json(json!({ "description" : unwrapped }));
+            }
+            r = r.json(json!({ "from_client_id" : self.params.from_client_id }));
+            r = r.json(json!({ "idempotency_key" : self.params.idempotency_key }));
+            r = r.json(json!({ "to_client_id" : self.params.to_client_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

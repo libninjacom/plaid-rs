@@ -16,7 +16,7 @@ for FluentRequest<'a, SandboxTransferRepaymentSimulateRequest> {
     type Output = httpclient::InMemoryResult<SandboxTransferRepaymentSimulateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/transfer/repayment/simulate";
             let mut r = self.client.client.post(url);
             r = r.set_query(self.params);

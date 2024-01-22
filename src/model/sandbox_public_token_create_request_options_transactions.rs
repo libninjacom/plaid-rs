@@ -1,12 +1,15 @@
-
 use serde::{Serialize, Deserialize};
+///An optional set of parameters corresponding to transactions options.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SandboxPublicTokenCreateRequestOptionsTransactions {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The maximum number of days of transaction history to request for the Transactions product.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub days_requested: Option<i64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The most recent date for which to fetch transaction history. Dates should be formatted as YYYY-MM-DD.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The earliest date for which to fetch transaction history. Dates should be formatted as YYYY-MM-DD.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub start_date: Option<chrono::NaiveDate>,
 }
 impl std::fmt::Display for SandboxPublicTokenCreateRequestOptionsTransactions {

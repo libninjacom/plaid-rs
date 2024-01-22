@@ -37,10 +37,21 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, BankTransferSweepListRe
     type Output = httpclient::InMemoryResult<BankTransferSweepListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/bank_transfer/sweep/list";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.count {
+                r = r.json(json!({ "count" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.end_time {
+                r = r.json(json!({ "end_time" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.origination_account_id {
+                r = r.json(json!({ "origination_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.start_time {
+                r = r.json(json!({ "start_time" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

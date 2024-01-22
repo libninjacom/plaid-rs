@@ -1,7 +1,8 @@
-
 use serde::{Serialize, Deserialize};
+///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AssetHolderName {
+    ///The unparsed name of either an individual or a legal entity.
     #[serde(rename = "FullName")]
     pub full_name: String,
 }

@@ -31,10 +31,18 @@ for FluentRequest<'a, SandboxIncomeFireWebhookRequest> {
     type Output = httpclient::InMemoryResult<SandboxIncomeFireWebhookResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/income/fire_webhook";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "item_id" : self.params.item_id }));
+            if let Some(ref unwrapped) = self.params.user_id {
+                r = r.json(json!({ "user_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.verification_status {
+                r = r.json(json!({ "verification_status" : unwrapped }));
+            }
+            r = r.json(json!({ "webhook" : self.params.webhook }));
+            r = r.json(json!({ "webhook_code" : self.params.webhook_code }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

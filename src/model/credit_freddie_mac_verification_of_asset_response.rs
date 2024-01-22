@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::CreditFreddieMacAssets;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditFreddieMacVerificationOfAssetResponse {
+    ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ASSETS")]
     pub assets: CreditFreddieMacAssets,
 }

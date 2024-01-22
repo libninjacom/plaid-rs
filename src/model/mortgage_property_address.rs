@@ -1,16 +1,21 @@
-
 use serde::{Serialize, Deserialize};
+///Object containing fields describing property address.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct MortgagePropertyAddress {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The city name.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub city: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The ISO 3166-1 alpha-2 country code.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The five or nine digit postal code.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub postal_code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The region or state (example "NC").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub region: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The full street address (example "564 Main Street, Apt 15").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
 }
 impl std::fmt::Display for MortgagePropertyAddress {

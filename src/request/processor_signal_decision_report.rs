@@ -44,10 +44,29 @@ for FluentRequest<'a, ProcessorSignalDecisionReportRequest> {
     type Output = httpclient::InMemoryResult<ProcessorSignalDecisionReportResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/processor/signal/decision/report";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.amount_instantly_available {
+                r = r.json(json!({ "amount_instantly_available" : unwrapped }));
+            }
+            r = r
+                .json(
+                    json!(
+                        { "client_transaction_id" : self.params.client_transaction_id }
+                    ),
+                );
+            if let Some(ref unwrapped) = self.params.days_funds_on_hold {
+                r = r.json(json!({ "days_funds_on_hold" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.decision_outcome {
+                r = r.json(json!({ "decision_outcome" : unwrapped }));
+            }
+            r = r.json(json!({ "initiated" : self.params.initiated }));
+            if let Some(ref unwrapped) = self.params.payment_method {
+                r = r.json(json!({ "payment_method" : unwrapped }));
+            }
+            r = r.json(json!({ "processor_token" : self.params.processor_token }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

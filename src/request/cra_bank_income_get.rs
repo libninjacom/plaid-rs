@@ -22,10 +22,12 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, CraBankIncomeGetRequest
     type Output = httpclient::InMemoryResult<CraBankIncomeGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/cra/bank_income/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.user_token {
+                r = r.json(json!({ "user_token" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

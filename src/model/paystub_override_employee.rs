@@ -1,11 +1,13 @@
-
 use serde::{Serialize, Deserialize};
 use super::PaystubOverrideEmployeeAddress;
+///The employee on the paystub.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaystubOverrideEmployee {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The address of the employee.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub address: Option<PaystubOverrideEmployeeAddress>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The name of the employee.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 impl std::fmt::Display for PaystubOverrideEmployee {

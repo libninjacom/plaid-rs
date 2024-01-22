@@ -1,9 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///An object representing an email address
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Email {
+    ///The email address.
     pub data: String,
+    ///When `true`, identifies the email address as the primary email on an account.
     pub primary: bool,
+    ///The type of email account as described by the financial institution.
     #[serde(rename = "type")]
     pub type_: String,
 }

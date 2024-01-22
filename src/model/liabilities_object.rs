@@ -1,13 +1,16 @@
-
 use serde::{Serialize, Deserialize};
 use super::{CreditCardLiability, MortgageLiability, StudentLoan};
+///An object containing liability accounts
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LiabilitiesObject {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The credit accounts returned.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub credit: Option<Vec<CreditCardLiability>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The mortgage accounts returned.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub mortgage: Option<Vec<MortgageLiability>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The student loan accounts returned.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub student: Option<Vec<StudentLoan>>,
 }
 impl std::fmt::Display for LiabilitiesObject {

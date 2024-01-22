@@ -1,10 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///Details about the end user's device
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalDevice {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The IP address of the device that initiated the transaction
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ip_address: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The user agent of the device that initiated the transaction (e.g. "Mozilla/5.0")
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub user_agent: Option<String>,
 }
 impl std::fmt::Display for SignalDevice {

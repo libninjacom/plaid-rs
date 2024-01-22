@@ -55,10 +55,32 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, FdxNotificationsRequest
     type Output = httpclient::InMemoryResult<()>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/fdx/notifications";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "category" : self.params.category }));
+            r = r.json(json!({ "notificationId" : self.params.notification_id }));
+            r = r
+                .json(
+                    json!({ "notificationPayload" : self.params.notification_payload }),
+                );
+            if let Some(ref unwrapped) = self.params.priority {
+                r = r.json(json!({ "priority" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.publisher {
+                r = r.json(json!({ "publisher" : unwrapped }));
+            }
+            r = r.json(json!({ "sentOn" : self.params.sent_on }));
+            if let Some(ref unwrapped) = self.params.severity {
+                r = r.json(json!({ "severity" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.subscriber {
+                r = r.json(json!({ "subscriber" : unwrapped }));
+            }
+            r = r.json(json!({ "type" : self.params.type_ }));
+            if let Some(ref unwrapped) = self.params.url {
+                r = r.json(json!({ "url" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

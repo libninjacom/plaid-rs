@@ -25,10 +25,14 @@ for FluentRequest<'a, SandboxBankTransferSimulateRequest> {
     type Output = httpclient::InMemoryResult<SandboxBankTransferSimulateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/sandbox/bank_transfer/simulate";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "bank_transfer_id" : self.params.bank_transfer_id }));
+            r = r.json(json!({ "event_type" : self.params.event_type }));
+            if let Some(ref unwrapped) = self.params.failure_reason {
+                r = r.json(json!({ "failure_reason" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -18,10 +18,11 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, BeaconUserReviewRequest
     type Output = httpclient::InMemoryResult<BeaconUserGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/beacon/user/review";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "beacon_user_id" : self.params.beacon_user_id }));
+            r = r.json(json!({ "status" : self.params.status }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

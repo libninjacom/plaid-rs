@@ -33,10 +33,19 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransactionsSyncRequest
     type Output = httpclient::InMemoryResult<TransactionsSyncResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transactions/sync";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            if let Some(ref unwrapped) = self.params.count {
+                r = r.json(json!({ "count" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.cursor {
+                r = r.json(json!({ "cursor" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

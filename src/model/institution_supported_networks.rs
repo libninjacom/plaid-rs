@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::TransferCapabilitiesGetRtp;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Contains the RTP network and types supported by the linked Item's institution.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InstitutionSupportedNetworks {
+    ///Contains the supported service types in RTP
     pub rtp: TransferCapabilitiesGetRtp,
 }
 impl std::fmt::Display for InstitutionSupportedNetworks {

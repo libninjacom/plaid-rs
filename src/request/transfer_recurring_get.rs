@@ -17,10 +17,15 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferRecurringGetReq
     type Output = httpclient::InMemoryResult<TransferRecurringGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/recurring/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r
+                .json(
+                    json!(
+                        { "recurring_transfer_id" : self.params.recurring_transfer_id }
+                    ),
+                );
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

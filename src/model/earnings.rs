@@ -1,15 +1,16 @@
-
 use serde::{Serialize, Deserialize};
 use super::{EarningsBreakdown, EarningsTotal};
+///An object representing both a breakdown of earnings on a paystub and the total earnings.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Earnings {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub breakdown: Option<Vec<EarningsBreakdown>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub subtotals: Option<Vec<EarningsTotal>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///An object representing both the current pay period and year to date amount for an earning category.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total: Option<EarningsTotal>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub totals: Option<Vec<EarningsTotal>>,
 }
 impl std::fmt::Display for Earnings {

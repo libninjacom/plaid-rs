@@ -27,10 +27,15 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferBalanceGetReque
     type Output = httpclient::InMemoryResult<TransferBalanceGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/balance/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.originator_client_id {
+                r = r.json(json!({ "originator_client_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.type_ {
+                r = r.json(json!({ "type" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

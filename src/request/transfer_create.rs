@@ -83,10 +83,46 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferCreateRequest> 
     type Output = httpclient::InMemoryResult<TransferCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            r = r.json(json!({ "account_id" : self.params.account_id }));
+            if let Some(ref unwrapped) = self.params.ach_class {
+                r = r.json(json!({ "ach_class" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.amount {
+                r = r.json(json!({ "amount" : unwrapped }));
+            }
+            r = r.json(json!({ "authorization_id" : self.params.authorization_id }));
+            r = r.json(json!({ "description" : self.params.description }));
+            if let Some(ref unwrapped) = self.params.facilitator_fee {
+                r = r.json(json!({ "facilitator_fee" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.idempotency_key {
+                r = r.json(json!({ "idempotency_key" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.iso_currency_code {
+                r = r.json(json!({ "iso_currency_code" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.metadata {
+                r = r.json(json!({ "metadata" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.network {
+                r = r.json(json!({ "network" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.origination_account_id {
+                r = r.json(json!({ "origination_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.test_clock_id {
+                r = r.json(json!({ "test_clock_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.type_ {
+                r = r.json(json!({ "type" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user {
+                r = r.json(json!({ "user" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

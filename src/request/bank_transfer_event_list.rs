@@ -77,10 +77,39 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, BankTransferEventListRe
     type Output = httpclient::InMemoryResult<BankTransferEventListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/bank_transfer/event/list";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.account_id {
+                r = r.json(json!({ "account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.bank_transfer_id {
+                r = r.json(json!({ "bank_transfer_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.bank_transfer_type {
+                r = r.json(json!({ "bank_transfer_type" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.count {
+                r = r.json(json!({ "count" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.direction {
+                r = r.json(json!({ "direction" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.end_date {
+                r = r.json(json!({ "end_date" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.event_types {
+                r = r.json(json!({ "event_types" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.offset {
+                r = r.json(json!({ "offset" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.origination_account_id {
+                r = r.json(json!({ "origination_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.start_date {
+                r = r.json(json!({ "start_date" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

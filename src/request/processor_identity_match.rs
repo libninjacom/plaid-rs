@@ -23,10 +23,13 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, ProcessorIdentityMatchR
     type Output = httpclient::InMemoryResult<ProcessorIdentityMatchResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/processor/identity/match";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "processor_token" : self.params.processor_token }));
+            if let Some(ref unwrapped) = self.params.user {
+                r = r.json(json!({ "user" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

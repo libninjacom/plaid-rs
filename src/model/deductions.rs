@@ -1,13 +1,15 @@
-
 use serde::{Serialize, Deserialize};
 use super::{DeductionsBreakdown, DeductionsTotal, Total};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///An object with the deduction information found on a paystub.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Deductions {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub breakdown: Vec<DeductionsBreakdown>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub subtotals: Option<Vec<Total>>,
+    ///An object representing the total deductions for the pay period
     pub total: DeductionsTotal,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub totals: Option<Vec<Total>>,
 }
 impl std::fmt::Display for Deductions {

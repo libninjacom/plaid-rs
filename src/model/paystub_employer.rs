@@ -1,11 +1,13 @@
-
 use serde::{Serialize, Deserialize};
 use super::PaystubAddress;
+///Information about the employer on the paystub
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaystubEmployer {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Address on the paystub
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub address: Option<PaystubAddress>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The name of the employer on the paystub.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 impl std::fmt::Display for PaystubEmployer {

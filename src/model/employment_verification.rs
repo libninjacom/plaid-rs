@@ -1,19 +1,25 @@
-
 use serde::{Serialize, Deserialize};
 use super::{EmployerVerification, EmploymentVerificationStatus, PlatformIds};
+///An object containing proof of employment data for an individual
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EmploymentVerification {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///An object containing employer data.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub employer: Option<EmployerVerification>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///End of employment, if applicable. Provided in ISO 8601 format (YYY-MM-DD).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///An object containing a set of ids related to an employee
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub platform_ids: Option<PlatformIds>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Start of employment in ISO 8601 format (YYYY-MM-DD).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub start_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Current employment status.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<EmploymentVerificationStatus>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Current title of employee.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
 }
 impl std::fmt::Display for EmploymentVerification {

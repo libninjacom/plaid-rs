@@ -1,20 +1,27 @@
-
 use serde::{Serialize, Deserialize};
+///W2 state and local wages
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct W2StateAndLocalWages {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///State identification number of the employer.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub employer_state_id_number: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Income tax from the locality.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub local_income_tax: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Wages and tips from the locality.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub local_wages_tips: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Name of the locality.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub locality_name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///State associated with the wage.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Income tax from the specified state.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state_income_tax: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Wages and tips from the specified state.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state_wages_tips: Option<String>,
 }
 impl std::fmt::Display for W2StateAndLocalWages {

@@ -1,22 +1,30 @@
-
 use serde::{Serialize, Deserialize};
+///A representation of where a transaction took place
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Location {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The street address where the transaction occurred.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The city where the transaction occurred.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub city: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The ISO 3166-1 alpha-2 country code where the transaction occurred.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The latitude where the transaction occurred.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub lat: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The longitude where the transaction occurred.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub lon: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The postal code where the transaction occurred. In API versions 2018-05-22 and earlier, this field is called `zip`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub postal_code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The region or state where the transaction occurred. In API versions 2018-05-22 and earlier, this field is called `state`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub region: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The merchant defined store number where the transaction occurred.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub store_number: Option<String>,
 }
 impl std::fmt::Display for Location {

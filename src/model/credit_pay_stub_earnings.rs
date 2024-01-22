@@ -1,9 +1,11 @@
-
 use serde::{Serialize, Deserialize};
 use super::{PayStubEarningsBreakdown, PayStubEarningsTotal};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///An object representing both a breakdown of earnings on a pay stub and the total earnings.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditPayStubEarnings {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub breakdown: Vec<PayStubEarningsBreakdown>,
+    ///An object representing both the current pay period and year to date amount for an earning category.
     pub total: PayStubEarningsTotal,
 }
 impl std::fmt::Display for CreditPayStubEarnings {

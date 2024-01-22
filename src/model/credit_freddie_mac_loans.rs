@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::CreditFreddieMacLoan;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///A collection of loans that are part of a single deal.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditFreddieMacLoans {
+    ///Information specific to a mortgage loan agreement between one or more borrowers and a mortgage lender.
     #[serde(rename = "LOAN")]
     pub loan: CreditFreddieMacLoan,
 }

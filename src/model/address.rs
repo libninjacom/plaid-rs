@@ -1,10 +1,12 @@
-
 use serde::{Serialize, Deserialize};
 use super::AddressData;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///A physical mailing address.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Address {
+    ///Data about the components comprising an address.
     pub data: AddressData,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///When `true`, identifies the address as the primary address on an account.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub primary: Option<bool>,
 }
 impl std::fmt::Display for Address {

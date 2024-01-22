@@ -34,10 +34,16 @@ for FluentRequest<'a, PaymentInitiationConsentCreateRequest> {
     type Output = httpclient::InMemoryResult<PaymentInitiationConsentCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_initiation/consent/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "constraints" : self.params.constraints }));
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
+            r = r.json(json!({ "recipient_id" : self.params.recipient_id }));
+            r = r.json(json!({ "reference" : self.params.reference }));
+            r = r.json(json!({ "scopes" : self.params.scopes }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -27,10 +27,14 @@ for FluentRequest<'a, CreditPayrollIncomeParsingConfigUpdateRequest> {
     >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/credit/payroll_income/parsing_config/update";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.item_id {
+                r = r.json(json!({ "item_id" : unwrapped }));
+            }
+            r = r.json(json!({ "parsing_config" : self.params.parsing_config }));
+            r = r.json(json!({ "user_token" : self.params.user_token }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

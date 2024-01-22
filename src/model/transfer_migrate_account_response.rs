@@ -1,9 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///Defines the response schema for `/transfer/migrate_account`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferMigrateAccountResponse {
+    ///The Plaid `access_token` for the newly created Item.
     pub access_token: String,
+    ///The Plaid `account_id` for the newly created Item.
     pub account_id: String,
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
 }
 impl std::fmt::Display for TransferMigrateAccountResponse {

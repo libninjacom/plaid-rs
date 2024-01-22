@@ -1,14 +1,18 @@
-
 use serde::{Serialize, Deserialize};
 use super::{PaystubAddress, TaxpayerId};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Data about the employee.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Employee {
+    ///Address on the paystub
     pub address: PaystubAddress,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Marital status of the employee - either `single` or `married`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub marital_status: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The name of the employee.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Taxpayer ID of the individual receiving the paystub.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub taxpayer_id: Option<TaxpayerId>,
 }
 impl std::fmt::Display for Employee {

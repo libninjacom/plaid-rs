@@ -1,11 +1,13 @@
-
 use serde::{Serialize, Deserialize};
 use super::PaymentInitiationRecipient;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///PaymentInitiationRecipientGetResponse defines the response schema for `/payment_initiation/recipient/get`
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationRecipientGetResponse {
+    ///PaymentInitiationRecipient defines a payment initiation recipient
     #[serde(flatten)]
     pub payment_initiation_recipient: PaymentInitiationRecipient,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub request_id: Option<String>,
 }
 impl std::fmt::Display for PaymentInitiationRecipientGetResponse {

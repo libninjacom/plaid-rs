@@ -26,10 +26,15 @@ for FluentRequest<'a, PaymentInitiationPaymentReverseRequest> {
     type Output = httpclient::InMemoryResult<PaymentInitiationPaymentReverseResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_initiation/payment/reverse";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.amount {
+                r = r.json(json!({ "amount" : unwrapped }));
+            }
+            r = r.json(json!({ "idempotency_key" : self.params.idempotency_key }));
+            r = r.json(json!({ "payment_id" : self.params.payment_id }));
+            r = r.json(json!({ "reference" : self.params.reference }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

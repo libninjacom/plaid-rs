@@ -1,21 +1,31 @@
-
 use serde::{Serialize, Deserialize};
 use super::{AccountFiltersResponse, LinkTokenCreateInstitutionData};
+///An object specifying the arguments originally provided to the `/link/token/create` call.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenGetMetadataResponse {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The `account_filters` specified in the original call to `/link/token/create`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_filters: Option<AccountFiltersResponse>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The `client_name` specified in the `/link/token/create` call.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub client_name: Option<String>,
+    ///The `country_codes` specified in the `/link/token/create` call.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub country_codes: Vec<String>,
+    ///The `products` specified in the `/link/token/create` call.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub initial_products: Vec<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///A map containing data used to highlight institutions in Link.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution_data: Option<LinkTokenCreateInstitutionData>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The `language` specified in the `/link/token/create` call.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The `redirect_uri` specified in the `/link/token/create` call.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub redirect_uri: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The `webhook` specified in the `/link/token/create` call.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub webhook: Option<String>,
 }
 impl std::fmt::Display for LinkTokenGetMetadataResponse {

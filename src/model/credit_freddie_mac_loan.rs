@@ -1,10 +1,12 @@
-
 use serde::{Serialize, Deserialize};
 use super::CreditFreddieMacLoanIdentifiers;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Information specific to a mortgage loan agreement between one or more borrowers and a mortgage lender.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditFreddieMacLoan {
+    ///Collection of current and previous identifiers for this loan.
     #[serde(rename = "LOAN_IDENTIFIERS")]
     pub loan_identifiers: CreditFreddieMacLoanIdentifiers,
+    ///Type of loan. The value can only be "SubjectLoan"
     #[serde(rename = "LoanRoleType")]
     pub loan_role_type: String,
 }

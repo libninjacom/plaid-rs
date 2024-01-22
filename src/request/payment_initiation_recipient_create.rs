@@ -34,10 +34,19 @@ for FluentRequest<'a, PaymentInitiationRecipientCreateRequest> {
     type Output = httpclient::InMemoryResult<PaymentInitiationRecipientCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_initiation/recipient/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.address {
+                r = r.json(json!({ "address" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.bacs {
+                r = r.json(json!({ "bacs" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.iban {
+                r = r.json(json!({ "iban" : unwrapped }));
+            }
+            r = r.json(json!({ "name" : self.params.name }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

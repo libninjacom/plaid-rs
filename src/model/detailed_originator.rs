@@ -1,8 +1,10 @@
-
 use serde::{Serialize, Deserialize};
+///Originator and their status.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DetailedOriginator {
+    ///The company name of the end customer.
     pub company_name: String,
+    ///Originator’s diligence status.
     pub transfer_diligence_status: String,
 }
 impl std::fmt::Display for DetailedOriginator {

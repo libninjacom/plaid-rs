@@ -13,11 +13,11 @@ async fn main() {
         .is_idempotent(true)
         .user(IdentityVerificationCreateRequestUser {
             address: Some(UserAddress {
-                city: "your city".to_owned(),
+                city: Some("your city".to_owned()),
                 country: "your country".to_owned(),
                 postal_code: Some("your postal code".to_owned()),
                 region: Some("your region".to_owned()),
-                street: "your street".to_owned(),
+                street: Some("your street".to_owned()),
                 street2: Some("your street 2".to_owned()),
             }),
             client_user_id: Some("your client user id".to_owned()),

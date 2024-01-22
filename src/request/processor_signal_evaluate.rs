@@ -51,10 +51,35 @@ for FluentRequest<'a, ProcessorSignalEvaluateRequest> {
     type Output = httpclient::InMemoryResult<ProcessorSignalEvaluateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/processor/signal/evaluate";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "amount" : self.params.amount }));
+            r = r
+                .json(
+                    json!(
+                        { "client_transaction_id" : self.params.client_transaction_id }
+                    ),
+                );
+            if let Some(ref unwrapped) = self.params.client_user_id {
+                r = r.json(json!({ "client_user_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.default_payment_method {
+                r = r.json(json!({ "default_payment_method" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.device {
+                r = r.json(json!({ "device" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.is_recurring {
+                r = r.json(json!({ "is_recurring" : unwrapped }));
+            }
+            r = r.json(json!({ "processor_token" : self.params.processor_token }));
+            if let Some(ref unwrapped) = self.params.user {
+                r = r.json(json!({ "user" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.user_present {
+                r = r.json(json!({ "user_present" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

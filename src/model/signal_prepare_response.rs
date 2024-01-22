@@ -1,7 +1,8 @@
-
 use serde::{Serialize, Deserialize};
+///SignalPrepareResponse defines the response schema for `/signal/prepare`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalPrepareResponse {
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
 }
 impl std::fmt::Display for SignalPrepareResponse {

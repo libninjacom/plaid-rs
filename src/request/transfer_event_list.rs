@@ -87,10 +87,45 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferEventListReques
     type Output = httpclient::InMemoryResult<TransferEventListResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/event/list";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.account_id {
+                r = r.json(json!({ "account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.count {
+                r = r.json(json!({ "count" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.end_date {
+                r = r.json(json!({ "end_date" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.event_types {
+                r = r.json(json!({ "event_types" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.funding_account_id {
+                r = r.json(json!({ "funding_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.offset {
+                r = r.json(json!({ "offset" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.origination_account_id {
+                r = r.json(json!({ "origination_account_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.originator_client_id {
+                r = r.json(json!({ "originator_client_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.start_date {
+                r = r.json(json!({ "start_date" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.sweep_id {
+                r = r.json(json!({ "sweep_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.transfer_id {
+                r = r.json(json!({ "transfer_id" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.transfer_type {
+                r = r.json(json!({ "transfer_type" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

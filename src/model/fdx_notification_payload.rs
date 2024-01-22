@@ -1,15 +1,17 @@
-
 use serde::{Serialize, Deserialize};
 use super::FdxFiAttribute;
+///Custom key-value pairs payload for a notification
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct FdxNotificationPayload {
     #[serde(rename = "customFields")]
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<Vec<FdxFiAttribute>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///ID for the origination entity related to the notification
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    ///Type of entity causing origination of a notification
     #[serde(rename = "idType")]
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id_type: Option<String>,
 }
 impl std::fmt::Display for FdxNotificationPayload {

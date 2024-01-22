@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::Service;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///A collection of objects that describe requests and responses for services.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Services {
+    ///A collection of details related to a fulfillment service or product in terms of request, process and result.
     #[serde(rename = "SERVICE")]
     pub service: Service,
 }

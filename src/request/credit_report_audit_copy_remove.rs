@@ -18,10 +18,10 @@ for FluentRequest<'a, CreditReportAuditCopyRemoveRequest> {
     type Output = httpclient::InMemoryResult<CreditAuditCopyTokenRemoveResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/credit/audit_copy_token/remove";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "audit_copy_token" : self.params.audit_copy_token }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

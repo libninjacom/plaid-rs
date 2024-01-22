@@ -1,8 +1,10 @@
-
 use serde::{Serialize, Deserialize};
+///SandboxItemResetLoginResponse defines the response schema for `/sandbox/item/reset_login`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SandboxItemResetLoginResponse {
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
+    ///`true` if the call succeeded
     pub reset_login: bool,
 }
 impl std::fmt::Display for SandboxItemResetLoginResponse {

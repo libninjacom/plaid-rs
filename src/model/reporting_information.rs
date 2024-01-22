@@ -1,7 +1,8 @@
-
 use serde::{Serialize, Deserialize};
+///Information about an report identifier and a report name.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ReportingInformation {
+    ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ReportingInformationIdentifier")]
     pub reporting_information_identifier: String,
 }

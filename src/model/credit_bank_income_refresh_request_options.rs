@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
+///An optional object for `/credit/bank_income/refresh` request options.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankIncomeRefreshRequestOptions {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///How many days of data to include in the refresh. If not specified, this will default to the days requested in the most recently generated bank income report for the user.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub days_requested: Option<i64>,
 }
 impl std::fmt::Display for CreditBankIncomeRefreshRequestOptions {

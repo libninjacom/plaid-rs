@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::IndividualName;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PartyIndividual {
+    ///Parent container for name that allows for choice group between parsed and unparsed containers.Parent container for name that allows for choice group between parsed and unparsed containers.
     #[serde(rename = "NAME")]
     pub name: IndividualName,
 }

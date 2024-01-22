@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::LoanIdentifier;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///Collection of current and previous identifiers for this loan.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LoanIdentifiers {
+    ///The information used to identify this loan by various parties to the transaction or other organizations.
     #[serde(rename = "LOAN_IDENTIFIER")]
     pub loan_identifier: LoanIdentifier,
 }

@@ -35,10 +35,21 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransferLedgerDepositRe
     type Output = httpclient::InMemoryResult<TransferLedgerDepositResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transfer/ledger/deposit";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "amount" : self.params.amount }));
+            if let Some(ref unwrapped) = self.params.description {
+                r = r.json(json!({ "description" : unwrapped }));
+            }
+            if let Some(ref unwrapped) = self.params.funding_account_id {
+                r = r.json(json!({ "funding_account_id" : unwrapped }));
+            }
+            r = r.json(json!({ "idempotency_key" : self.params.idempotency_key }));
+            r = r.json(json!({ "network" : self.params.network }));
+            if let Some(ref unwrapped) = self.params.originator_client_id {
+                r = r.json(json!({ "originator_client_id" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

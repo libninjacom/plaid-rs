@@ -20,10 +20,13 @@ for FluentRequest<'a, WatchlistScreeningIndividualProgramGetRequest> {
     >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/watchlist_screening/individual/program/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r
+                .json(
+                    json!({ "watchlist_program_id" : self.params.watchlist_program_id }),
+                );
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

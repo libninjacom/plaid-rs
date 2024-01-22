@@ -1,16 +1,23 @@
-
 use serde::{Serialize, Deserialize};
+///An object representing both the current pay period and year to date amount for an earning category.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayStubEarningsTotal {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Total amount of the earnings for this pay period.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub current_amount: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Total number of hours worked for this pay period.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub hours: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The ISO-4217 currency code of the line item. Always `null` if `unofficial_currency_code` is non-null.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub iso_currency_code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    /**The unofficial currency code associated with the security. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
+
+See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub unofficial_currency_code: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The total year-to-date amount of the earnings.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ytd_amount: Option<f64>,
 }
 impl std::fmt::Display for PayStubEarningsTotal {

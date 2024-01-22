@@ -34,10 +34,16 @@ for FluentRequest<'a, ItemApplicationScopesUpdateRequest> {
     type Output = httpclient::InMemoryResult<ItemApplicationScopesUpdateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/item/application/scopes/update";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            r = r.json(json!({ "application_id" : self.params.application_id }));
+            r = r.json(json!({ "context" : self.params.context }));
+            r = r.json(json!({ "scopes" : self.params.scopes }));
+            if let Some(ref unwrapped) = self.params.state {
+                r = r.json(json!({ "state" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

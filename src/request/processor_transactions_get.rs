@@ -26,10 +26,15 @@ for FluentRequest<'a, ProcessorTransactionsGetRequest> {
     type Output = httpclient::InMemoryResult<ProcessorTransactionsGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/processor/transactions/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "end_date" : self.params.end_date }));
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
+            r = r.json(json!({ "processor_token" : self.params.processor_token }));
+            r = r.json(json!({ "start_date" : self.params.start_date }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -24,10 +24,14 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, TransactionsEnrichReque
     type Output = httpclient::InMemoryResult<TransactionsEnrichResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/transactions/enrich";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "account_type" : self.params.account_type }));
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
+            r = r.json(json!({ "transactions" : self.params.transactions }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

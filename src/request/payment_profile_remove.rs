@@ -17,10 +17,15 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, PaymentProfileRemoveReq
     type Output = httpclient::InMemoryResult<PaymentProfileRemoveResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/payment_profile/remove";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r
+                .json(
+                    json!(
+                        { "payment_profile_token" : self.params.payment_profile_token }
+                    ),
+                );
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
+///The employer on the paystub.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaystubOverrideEmployer {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The name of the employer.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 impl std::fmt::Display for PaystubOverrideEmployer {

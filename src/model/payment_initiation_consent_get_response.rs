@@ -1,5 +1,5 @@
-
 use serde::{Serialize, Deserialize};
+///PaymentInitiationConsentGetResponse defines the response schema for `/payment_initation/consent/get`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationConsentGetResponse {}
 impl std::fmt::Display for PaymentInitiationConsentGetResponse {

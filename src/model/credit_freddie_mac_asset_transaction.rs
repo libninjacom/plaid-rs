@@ -1,10 +1,13 @@
-
 use serde::{Serialize, Deserialize};
 use super::{AssetTransactionDescription, AssetTransactionDetail};
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///An object representing...
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditFreddieMacAssetTransaction {
+    ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ASSET_TRANSACTION_DESCRIPTION")]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub asset_transaction_description: Vec<AssetTransactionDescription>,
+    ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ASSET_TRANSACTION_DETAIL")]
     pub asset_transaction_detail: AssetTransactionDetail,
 }

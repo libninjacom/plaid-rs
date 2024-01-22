@@ -1,9 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///A phone number
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PhoneNumber {
+    ///The phone number.
     pub data: String,
+    ///When `true`, identifies the phone number as the primary number on an account.
     pub primary: bool,
+    ///The type of phone number.
     #[serde(rename = "type")]
     pub type_: String,
 }

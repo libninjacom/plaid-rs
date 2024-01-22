@@ -1,15 +1,19 @@
-
 use serde::{Serialize, Deserialize};
+///The details of a digital payroll income verification in Link
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditSessionPayrollIncomeResult {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The Plaid Institution ID associated with the Item.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The Institution Name associated with the Item.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution_name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The number of paystubs retrieved from a payroll provider.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub num_paystubs_retrieved: Option<i64>,
+    ///The number of w2s retrieved from a payroll provider.
     #[serde(rename = "num_w2s_retrieved")]
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub num_w2_s_retrieved: Option<i64>,
 }
 impl std::fmt::Display for CreditSessionPayrollIncomeResult {

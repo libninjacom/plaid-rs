@@ -28,10 +28,21 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, PartnerCustomerGetReque
     type Output = httpclient::InMemoryResult<PartnerCustomerGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/partner/customer/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.client_id {
+                r = r.json(json!({ "client_id" : unwrapped }));
+            }
+            r = r
+                .json(
+                    json!(
+                        { "end_customer_client_id" : self.params.end_customer_client_id }
+                    ),
+                );
+            if let Some(ref unwrapped) = self.params.secret {
+                r = r.json(json!({ "secret" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

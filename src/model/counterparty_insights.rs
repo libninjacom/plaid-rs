@@ -1,11 +1,13 @@
-
 use serde::{Serialize, Deserialize};
 use super::{FinancialInstitutionInsights, MerchantInsights};
+///Insights around a user's counterparties
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CounterpartyInsights {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Insights related to a user’s transactions with other financial institutions, including detected account types.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub financial_institution_insights: Option<Vec<FinancialInstitutionInsights>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Insights about a user’s top merchants, ranked by spend.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub merchant_insights: Option<Vec<MerchantInsights>>,
 }
 impl std::fmt::Display for CounterpartyInsights {

@@ -1,23 +1,30 @@
-
 use serde::{Serialize, Deserialize};
-use super::DistributionBreakdown;
+use super::{DistributionBreakdown, PayPeriodDetailsPayFrequency};
+///Details about the pay period.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PayPeriodDetails {
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The amount of the paycheck.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub check_amount: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub distribution_breakdown: Option<Vec<DistributionBreakdown>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The pay period end date, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format: "yyyy-mm-dd".
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///Total earnings before tax/deductions.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub gross_earnings: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The date on which the paystub was issued, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ("yyyy-mm-dd").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pay_date: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The date on which the paystub was issued, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ("yyyy-mm-dd").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pay_day: Option<chrono::NaiveDate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub pay_frequency: Option<serde_json::Value>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The frequency at which an individual is paid.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pay_frequency: Option<PayPeriodDetailsPayFrequency>,
+    ///The pay period start date, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format: "yyyy-mm-dd".
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub start_date: Option<chrono::NaiveDate>,
 }
 impl std::fmt::Display for PayPeriodDetails {

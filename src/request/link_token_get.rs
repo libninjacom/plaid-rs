@@ -17,10 +17,10 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, LinkTokenGetRequest> {
     type Output = httpclient::InMemoryResult<LinkTokenGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/link/token/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "link_token" : self.params.link_token }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

@@ -1,10 +1,13 @@
-
 use serde::{Serialize, Deserialize};
 use super::Cause;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///It is possible for an Base Report to be returned with missing account owner information. In such cases, the Base Report will contain warning data in the response, indicating why obtaining the owner information failed.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BaseReportWarning {
+    ///An error object and associated `item_id` used to identify a specific Item and error when a batch operation operating on multiple Items has encountered an error in one of the Items.
     pub cause: Cause,
+    ///The warning code identifies a specific kind of warning. `OWNERS_UNAVAILABLE` indicates that account-owner information is not available. `TRANSACTIONS_UNAVAILABLE` indicates that transactions information associated with Credit and Depository accounts are unavailable.
     pub warning_code: String,
+    ///The warning type, which will always be `BASE_REPORT_WARNING`
     pub warning_type: String,
 }
 impl std::fmt::Display for BaseReportWarning {

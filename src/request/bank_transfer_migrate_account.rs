@@ -26,10 +26,15 @@ for FluentRequest<'a, BankTransferMigrateAccountRequest> {
     type Output = httpclient::InMemoryResult<BankTransferMigrateAccountResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/bank_transfer/migrate_account";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "account_number" : self.params.account_number }));
+            r = r.json(json!({ "account_type" : self.params.account_type }));
+            r = r.json(json!({ "routing_number" : self.params.routing_number }));
+            if let Some(ref unwrapped) = self.params.wire_routing_number {
+                r = r.json(json!({ "wire_routing_number" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

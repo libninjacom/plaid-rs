@@ -25,10 +25,15 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, InstitutionsGetRequest>
     type Output = httpclient::InMemoryResult<InstitutionsGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/institutions/get";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "count" : self.params.count }));
+            r = r.json(json!({ "country_codes" : self.params.country_codes }));
+            r = r.json(json!({ "offset" : self.params.offset }));
+            if let Some(ref unwrapped) = self.params.options {
+                r = r.json(json!({ "options" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

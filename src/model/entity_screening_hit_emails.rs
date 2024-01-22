@@ -1,7 +1,8 @@
-
 use serde::{Serialize, Deserialize};
+///Email address information for the associated entity watchlist hit
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct EntityScreeningHitEmails {
+    ///A valid email address.
     pub email_address: String,
 }
 impl std::fmt::Display for EntityScreeningHitEmails {

@@ -18,10 +18,11 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, StatementsDownloadReque
     type Output = httpclient::InMemoryResult<String>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/statements/download";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "access_token" : self.params.access_token }));
+            r = r.json(json!({ "statement_id" : self.params.statement_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

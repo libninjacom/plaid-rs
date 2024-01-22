@@ -20,6 +20,7 @@ async fn main() {
             user_agent: Some("your user agent".to_owned()),
         })
         .is_recurring(true)
+        .risk_profile_key("your risk profile key")
         .user(SignalUser {
             address: Some(SignalAddressData {
                 city: Some("your city".to_owned()),

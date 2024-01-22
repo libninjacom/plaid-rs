@@ -57,10 +57,29 @@ for FluentRequest<'a, ProcessorBankTransferCreateRequest> {
     type Output = httpclient::InMemoryResult<ProcessorBankTransferCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/processor/bank_transfer/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            if let Some(ref unwrapped) = self.params.ach_class {
+                r = r.json(json!({ "ach_class" : unwrapped }));
+            }
+            r = r.json(json!({ "amount" : self.params.amount }));
+            if let Some(ref unwrapped) = self.params.custom_tag {
+                r = r.json(json!({ "custom_tag" : unwrapped }));
+            }
+            r = r.json(json!({ "description" : self.params.description }));
+            r = r.json(json!({ "idempotency_key" : self.params.idempotency_key }));
+            r = r.json(json!({ "iso_currency_code" : self.params.iso_currency_code }));
+            if let Some(ref unwrapped) = self.params.metadata {
+                r = r.json(json!({ "metadata" : unwrapped }));
+            }
+            r = r.json(json!({ "network" : self.params.network }));
+            if let Some(ref unwrapped) = self.params.origination_account_id {
+                r = r.json(json!({ "origination_account_id" : unwrapped }));
+            }
+            r = r.json(json!({ "processor_token" : self.params.processor_token }));
+            r = r.json(json!({ "type" : self.params.type_ }));
+            r = r.json(json!({ "user" : self.params.user }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

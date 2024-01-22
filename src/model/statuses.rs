@@ -1,8 +1,9 @@
-
 use serde::{Serialize, Deserialize};
 use super::Status;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///A collection of STATUS containers.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Statuses {
+    ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "STATUS")]
     pub status: Status,
 }

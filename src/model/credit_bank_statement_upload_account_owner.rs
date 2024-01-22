@@ -1,10 +1,12 @@
-
 use serde::{Serialize, Deserialize};
 use super::CreditBankStatementUploadAccountOwnerAddress;
-#[derive(Debug, Clone, Serialize, Deserialize)]
+///An object containing data about the owner of the bank account for the uploaded bank statement.
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditBankStatementUploadAccountOwner {
+    ///Address on the uploaded bank statement
     pub address: CreditBankStatementUploadAccountOwnerAddress,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    ///The name of the account owner
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 impl std::fmt::Display for CreditBankStatementUploadAccountOwner {

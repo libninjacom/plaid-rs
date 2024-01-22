@@ -24,10 +24,19 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, SignalReturnReportReque
     type Output = httpclient::InMemoryResult<SignalReturnReportResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/signal/return/report";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r
+                .json(
+                    json!(
+                        { "client_transaction_id" : self.params.client_transaction_id }
+                    ),
+                );
+            r = r.json(json!({ "return_code" : self.params.return_code }));
+            if let Some(ref unwrapped) = self.params.returned_at {
+                r = r.json(json!({ "returned_at" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

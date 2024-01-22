@@ -1,9 +1,12 @@
-
 use serde::{Serialize, Deserialize};
+///ItemPublicTokenExchangeResponse defines the response schema for `/item/public_token/exchange`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemPublicTokenExchangeResponse {
+    ///The access token associated with the Item data is being requested for.
     pub access_token: String,
+    ///The `item_id` value of the Item associated with the returned `access_token`
     pub item_id: String,
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
 }
 impl std::fmt::Display for ItemPublicTokenExchangeResponse {

@@ -30,10 +30,14 @@ for FluentRequest<'a, WalletTransactionExecuteRequest> {
     type Output = httpclient::InMemoryResult<WalletTransactionExecuteResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/wallet/transaction/execute";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "amount" : self.params.amount }));
+            r = r.json(json!({ "counterparty" : self.params.counterparty }));
+            r = r.json(json!({ "idempotency_key" : self.params.idempotency_key }));
+            r = r.json(json!({ "reference" : self.params.reference }));
+            r = r.json(json!({ "wallet_id" : self.params.wallet_id }));
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

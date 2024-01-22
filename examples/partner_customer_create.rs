@@ -42,6 +42,7 @@ async fn main() {
         .logo("your logo")
         .products(&["your products"])
         .redirect_uris(&["your redirect uris"])
+        .registration_number("your registration number")
         .secret("your secret")
         .technical_contact(PartnerEndCustomerTechnicalContact {
             email: Some("your email".to_owned()),

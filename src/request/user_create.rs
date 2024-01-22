@@ -26,10 +26,13 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, UserCreateRequest> {
     type Output = httpclient::InMemoryResult<UserCreateResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/user/create";
             let mut r = self.client.client.post(url);
-            r = r.set_query(self.params);
+            r = r.json(json!({ "client_user_id" : self.params.client_user_id }));
+            if let Some(ref unwrapped) = self.params.consumer_report_user_identity {
+                r = r.json(json!({ "consumer_report_user_identity" : unwrapped }));
+            }
             r = self.client.authenticate(r);
             let res = r.await?;
             res.json().map_err(Into::into)

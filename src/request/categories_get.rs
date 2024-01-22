@@ -15,7 +15,7 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, CategoriesGetRequest> {
     type Output = httpclient::InMemoryResult<CategoriesGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
-        Box::pin(async {
+        Box::pin(async move {
             let url = "/categories/get";
             let mut r = self.client.client.post(url);
             r = r.set_query(self.params);
