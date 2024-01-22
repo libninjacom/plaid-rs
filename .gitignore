@@ -4,3 +4,4 @@ Cargo.lock
 !.env.example
 openapi.yaml
 transform.yaml
+.cargo
