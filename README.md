@@ -42,7 +42,7 @@ async fn main() {
 
 This example loads configuration from environment variables, specifically:
 
-* `PLAID_ENV` (Note: this env var should contain the base uri for the plaid service, e.g. https://sandbox.plaid.com, rather than just the env name sandbox/development/production)
+* `PLAID_ENV`: **Changed**: Previously, this was a full URL, but now it works similarly to other Plaid libraries, where it takes an env value, specifically, `sandbox`, `development`, or `production`.
 
 * `PLAID_CLIENT_ID`
 
